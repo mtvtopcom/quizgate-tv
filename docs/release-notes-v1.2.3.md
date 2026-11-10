@@ -8,7 +8,7 @@
 
 ```
 quizgate-1.2.3.apk   73 KB
-SHA-256: f8f9279bcca24227e9f5079ea5f8010441a538f75704430afa1be71442ea4470
+SHA-256: 2f32a1e63a7539bf4ce5cbf01da13b986a4c8f0da4d585d22c32ee94d861b030
 ```
 
 签名指纹（升级必须一致）：
