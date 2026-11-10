@@ -76,6 +76,16 @@ adb shell settings get secure enabled_notification_listeners # 应包含 app.qui
 4. 60 秒后应出现读秒和遮罩，按 1–4 作答
 5. 想结束：遮罩上按**菜单键** → 输口令
 
+> **口令是你自己设的，安装包里没有任何默认口令。**
+>
+> | 场景 | 会看到什么 |
+> | --- | --- |
+> | 第一次装、或卸载后重装 | 直接是「设置 6 位家长口令」，输两遍，随即弹出新的恢复码 |
+> | 覆盖升级到新版 | 口令、恢复码、时长、年级全部沿用，只需输入原来的口令 |
+>
+> 口令和恢复码只以 PBKDF2 哈希存在这台电视的 `SharedPreferences` 里，不打包进 APK、
+> 不上传、也没有「出厂口令」。`allowBackup="false"`，卸载重装不会从系统备份里捞回旧口令。
+
 ---
 
 ## 安装路径 A：U 盘（不需要电脑装 adb）
@@ -111,6 +121,10 @@ adb shell settings get secure enabled_notification_listeners # 应包含 app.qui
 | 家长忘了口令 | — | 用恢复码重置（设置页「忘记口令？」）。见 [恢复路径](docs/recovery.md) |
 | `INSTALL_FAILED_UPDATE_INCOMPATIBLE` | 签名不一致 | 先 `adb uninstall app.quizgate.tv` 再装 |
 | 开机后应用不见了 | 小米重启会清空第三方应用状态 | 正常现象；通知监听会在开机时把进程拉回来 |
+| 提示「守护已停止（安全模式）」 | 连续 3 次启动崩溃触发了熔断 | 设置页 →「守护状态」→ 恢复守护。这不是故障，是故意不让电视反复闪屏 |
+| 升级页显示「下载失败」 | 电视没网 / 升级源不可用 | 不影响使用（检查失败会静默跳过）；确认升级源地址后再进应用 |
+| 点「立即安装」提示要去授权 | 没给「安装未知应用」权限（重装应用会重置） | 设置 → 应用 → 安全 → 安装未知应用 → 允许；回来再点「立即安装」，包已经下好了 |
+| 点「立即安装」没反应 | 电视固件改过安装器入口 | 包就在 `Download/quizgate-x.y.z.apk`，用「媒体中心 / 文件管理」打开它 |
 
 ---
 
@@ -119,7 +133,13 @@ adb shell settings get secure enabled_notification_listeners # 应包含 app.qui
 1. **不做每日总时长上限**。只做「这一次」。
 2. **不防卸载**。只有 Device Owner 能限制卸载，那要求恢复出厂，家庭场景不可接受。
 3. **不看内容**。不监听播放了什么，不读通知内容，不读屏幕文字。
-4. **不联网**。`AndroidManifest.xml` 里没有 `INTERNET` 权限——这不是承诺，是可以用 `apkanalyzer` 验证的结构性事实。
+4. **不收集数据，只在升级时联网**。v1.2.0 为在线升级引入了 `INTERNET`，所以「没有网络权限」这句
+   在 1.1 及之前成立、现在不再成立，别拿旧说法当依据。可以验证的部分是：全部出网点在
+   `Updater.java` 里只有两处（GET 一个 `version.json`、GET 那个 APK），
+   请求不带参数、不带 cookie、不带设备信息（UA 固定写死成 `QuizGate`，不上报系统版本和机型）。
+   升级源默认就是生产目录 `https://shitang.mianmiangou.cn/static/quizgate-tv/`；
+   用 `QUIZGATE_UPGRADE_BASE=` 空值构建时，一次请求都不发。
+   出网之外的行为没有变：不采集、不上报、不读屏幕内容。
 5. **不做多孩子档案**、不做远程控制、不做手机 App。
 6. **不是儿童锁**。它提高「白看」的成本，不提供不可绕过的保证。
 7. **不接管桌面**。卸载后电视完全恢复原样。
@@ -141,7 +161,8 @@ adb shell settings get secure enabled_notification_listeners # 应包含 app.qui
 
 - **忘口令**：用恢复码重置（设置页「忘记口令？」，或遮罩上按菜单键后的口令面板里）。恢复码照片也丢了才需要卸载重装，设置与题库状态会丢失（`allowBackup=false`）。
 - **遮罩卡死**：长按 OK 10 秒 → 仍无响应 → 电源键熄屏 10 秒再唤醒 → 仍无响应 → 拔电源重启。
-- **开机循环**：v1.0.0 尚未实现崩溃熔断（SAFE 模式），若遇到请提 issue 并附 `adb logcat -s QuizGate`。
+- **开机循环**：v1.2.0 起有崩溃熔断——连续 3 次启动崩溃后自动停止挂遮罩，不会再循环闪屏。
+  到设置页「守护状态」可手动恢复，那里的崩溃信息请一并反馈。
 
 详见 [docs/recovery.md](docs/recovery.md)。
 
@@ -178,6 +199,10 @@ export ANDROID_HOME=/path/to/android-sdk
 ```
 证书 SHA-256: 06:12:E6:31:8D:4C:AB:A8:70:A1:16:B5:64:40:2E:15:12:D3:2C:FB:14:60:73:08:1B:07:BD:F2:8F:8E:3C:B8
 ```
+
+> 早期调试包用的是 `keystore/debug.keystore`（另一把钥匙，指纹 `BD:46:13:…`）。
+> 两者不能互相覆盖：装过调试包的电视要换正式包，必须先卸载一次（会丢口令和设置）。
+> v1.2.3 起客户端会在安装前比对签名，不一致直接拦下并说明原因。
 
 每个 Release 附 `SHA256SUMS.txt`，可自行比对：
 

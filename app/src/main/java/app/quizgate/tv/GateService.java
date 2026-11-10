@@ -39,6 +39,14 @@ public class GateService extends Service implements MaskView.Host {
     private static final int NOTIF_ID = 1001;
     private static final long TICK_MS = 200L;
     private static final long MINI_THRESHOLD_MS = 30_000L;
+    /**
+     * 服务活过这么久才算「稳定」，崩溃计数归零。
+     * <p>取 60s 的理由：崩溃循环的典型特征是「起来就炸」（毫秒级到几秒级），而正常的一次
+     * 短会话至少也有几十秒。**不能启动即清零**，否则崩了又清、永远累计不到 3 次。
+     * <p>代价：如果某个崩溃恰好发生在启动后 70 秒，它会被当成稳定而漏检。这种慢速偶发崩溃
+     * 本身不构成「电视不能用」，熔断与否都不影响可用性，所以接受。
+     */
+    private static final long STABLE_MS = 60_000L;
 
     private Prefs prefs;
     private QuizBank bank;
@@ -52,6 +60,10 @@ public class GateService extends Service implements MaskView.Host {
     private long lastTick;
     private int tickCount;
     private boolean running;
+    /** 熔断时置位：本进程已被判死，onStartCommand 不得再干任何事。 */
+    private boolean aborted;
+    private long bootAt;
+    private boolean stableMarked;
     private BroadcastReceiver screenRx;
     private long offU = 0, offE = 0;
     private boolean pendingMask = false;
@@ -61,12 +73,28 @@ public class GateService extends Service implements MaskView.Host {
     @Override
     public void onCreate() {
         super.onCreate();
+        // 第一行就置位：之后本进程内任何崩溃都会被判为「守护崩了」
+        App.gateAlive = true;
         prefs = new Prefs(this);
+
+        // 必须无条件先 startForeground：前台服务 5 秒内没 startForeground 会被系统判
+        // ForegroundServiceDidNotStartInTimeException，而熔断路径同样要进 onCreate，
+        // 不能在这条路上省这一步、也不能先做耗时检查。
+        startAsForeground();
+
+        // 熔断检查必须早于一切窗口/计时逻辑。光「不挂遮罩」不够 —— 崩溃循环时
+        // 系统按 START_STICKY 无限重启，重启本身就在闪屏耗电，必须让它别再拉我们起来。
+        if (!admitBoot()) {
+            aborted = true;
+            stopForeground(true);
+            stopSelf();
+            return;
+        }
+
         bank = new QuizBank(this);
         wm = (WindowManager) getSystemService(Context.WINDOW_SERVICE);
         pm = (PowerManager) getSystemService(Context.POWER_SERVICE);
 
-        startAsForeground();
         registerScreenReceiver();
 
         remaining = prefs.remainingMs();
@@ -84,10 +112,32 @@ public class GateService extends Service implements MaskView.Host {
         Log.i(TAG, "service_create " + prefs.debugLine());
     }
 
+    /**
+     * 熔断闸门。返回 false 表示本次启动不允许挂任何窗口。
+     * <p>被系统强杀（小米 killAllThirdApp / LMK）不会留 pendingCrash，所以不会被误判成崩溃。
+     */
+    private boolean admitBoot() {
+        prefs.consumeCrash();
+        if (prefs.safeMode()) {
+            Log.e(TAG, "safe_mode 连续 " + Prefs.MAX_CRASH + " 次崩溃（最后一次 " + prefs.crashInfo()
+                    + "）-> 停止守护，不再重启");
+            notify("守护已停止（安全模式）：连续崩溃，请到设置页处理");
+            return false;
+        }
+        bootAt = SystemClock.uptimeMillis();
+        return true;
+    }
+
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
         String action = intent == null ? null : intent.getAction();
         Log.i(TAG, "onStartCommand action=" + action);
+
+        // 熔断/已放弃：绝不返回 START_STICKY，否则系统会一直把我们拉起来
+        if (aborted || prefs == null || prefs.safeMode()) {
+            stopSelf();
+            return START_NOT_STICKY;
+        }
 
         if (ACTION_EXIT.equals(action)) {
             exitSession();
@@ -128,6 +178,13 @@ public class GateService extends Service implements MaskView.Host {
             long delta = now - lastTick;
             lastTick = now;
             if (delta < 0) delta = 0;
+
+            // 稳定存活确认：只有活够了才清零，见 STABLE_MS 的注释
+            if (!stableMarked && now - bootAt >= STABLE_MS) {
+                stableMarked = true;
+                prefs.markStable();
+                Log.i(TAG, "stable " + (STABLE_MS / 1000) + "s -> 崩溃计数归零");
+            }
 
             // 熄屏期间被挂起的遮罩：一旦判定「屏幕真的亮了」再挂，避免遮罩把电视唤醒
             if (prefs.phase() == Prefs.LOCKED && pendingMask && screenOn()) {
@@ -233,6 +290,8 @@ public class GateService extends Service implements MaskView.Host {
         h.removeCallbacks(ticker);
         removeMask();
         removeMini();
+        // 家长主动结束 = 这次服务是健康的，不能因为「短会话反复起停」被算成异常启动
+        prefs.markStable();
         prefs.resetSession();
         notify("会话已结束");
         stopForeground(true);
@@ -427,6 +486,7 @@ public class GateService extends Service implements MaskView.Host {
     @Override
     public void onDestroy() {
         running = false;
+        App.gateAlive = false;
         h.removeCallbacks(ticker);
         removeMask();
         removeMini();

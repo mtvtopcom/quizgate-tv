@@ -10,6 +10,8 @@ public class BootReceiver extends BroadcastReceiver {
     @Override
     public void onReceive(Context c, Intent intent) {
         Prefs p = new Prefs(c);
+        // 熔断期间绝不拉起服务：否则「开机 → 崩 → 重启 → 崩」这个循环会一直在后台闪
+        if (p.safeMode()) return;
         if (p.phase() == Prefs.IDLE) return;
         Intent s = new Intent(c, GateService.class).setAction(GateService.ACTION_RESTORE);
         try {

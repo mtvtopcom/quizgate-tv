@@ -26,6 +26,11 @@ public class NotifProbe extends NotificationListenerService {
         Prefs p = new Prefs(this);
         int phase = p.phase();
         Log.i(TAG, "notif_connected phase=" + phase + " remaining=" + Core.fmt(p.remainingMs()));
+        // 熔断期间不复活：系统重新绑定通知监听是最高频的拉起路径，这里必须挡住
+        if (p.safeMode()) {
+            Log.e(TAG, "safe_mode -> 不再复活服务");
+            return;
+        }
         if (phase == Prefs.IDLE) return;
 
         PowerManager pm = (PowerManager) getSystemService(Context.POWER_SERVICE);

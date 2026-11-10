@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="app.quizgate.tv"
-    android:versionCode="10100"
-    android:versionName="1.1.0">
+    android:versionCode="10203"
+    android:versionName="1.2.3">
 
     <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
@@ -10,10 +10,17 @@
     <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
 
+    <!-- 只用于检查更新与下载新版 APK。请求就是一个裸 GET，不带参数、不传设备信息、不上报任何东西。
+         代码里唯一的出网点在 Updater.java，可用 grep -rn "openConnection" 验证只有一处。 -->
+    <uses-permission android:name="android.permission.INTERNET" />
+    <!-- 把下载好的 APK 交给系统安装器。仍然需要用户在系统弹窗上按「安装」，无法静默安装。 -->
+    <uses-permission android:name="android.permission.REQUEST_INSTALL_PACKAGES" />
+
     <uses-feature android:name="android.software.leanback" android:required="false" />
     <uses-feature android:name="android.hardware.touchscreen" android:required="false" />
 
     <application
+        android:name=".App"
         android:label="答对再看"
         android:icon="@drawable/ic_launcher"
         android:banner="@drawable/banner"
@@ -48,6 +55,10 @@
                 <action android:name="android.intent.action.MY_PACKAGE_REPLACED" />
             </intent-filter>
         </receiver>
+
+        <!-- PackageInstaller 的 commit 结果回调。系统作为 PendingIntent 的发送方投递，
+             所以 exported="false" 也能收到；不声明的话，「签名不一致」这类失败会静默无提示。 -->
+        <receiver android:name=".InstallResultReceiver" android:exported="false" />
 
         <!-- 存活锚点：系统会把已授权的通知监听重新绑定，从而在强停/开机后把进程拉回来。
              不读通知内容；只作为「复活信号」。这是本机唯一可靠的存活机制。 -->

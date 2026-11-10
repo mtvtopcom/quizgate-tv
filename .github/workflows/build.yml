@@ -26,14 +26,35 @@ jobs:
           chmod +x build.sh
           ./build.sh
 
-      - name: 断言不含 INTERNET 权限
+      # v1.2.0 起为了在线升级引入了 INTERNET，所以不再断言「没有 INTERNET」。
+      # 改成断言「权限最小化」：除了升级必需的两个，任何网络/定位/设备标识/存储类权限都不许出现。
+      - name: 断言权限最小化
         run: |
           APK=$(ls build/*.apk | head -1)
-          if "$ANDROID_HOME/build-tools/35.0.0/aapt2" dump permissions "$APK" | grep -q "android.permission.INTERNET"; then
-            echo "::error::APK 声明了 INTERNET 权限，与本项目的隐私承诺冲突"
+          PERMS=$("$ANDROID_HOME/build-tools/35.0.0/aapt2" dump permissions "$APK")
+          echo "$PERMS"
+          ALLOWED="INTERNET REQUEST_INSTALL_PACKAGES"
+          fail=0
+          for p in $(echo "$PERMS" | sed -n "s/uses-permission: name='android.permission\.\([^']*\)'/\1/p"); do
+            case " $ALLOWED " in
+              *" $p "*) echo "  allowed: $p" ;;
+              *) echo "::error::多出声明的权限：$p"; fail=1 ;;
+            esac
+          done
+          if [ $fail -ne 0 ]; then exit 1; fi
+          echo "OK: 只声明了升级所需的 INTERNET / REQUEST_INSTALL_PACKAGES"
+
+      # 出网点是隐私承诺的核心。数量一旦变化，docs/upgrade.md 里的审计说明就失效了。
+      - name: 断言出网点只有两处
+        run: |
+          # 只数真实调用（".openConnection()"）；文档注释里会出现这个词，不能算进去
+          n=$(grep -rn "\.openConnection()" app/src/main/java/ | wc -l | tr -d ' ')
+          grep -rn "\.openConnection()" app/src/main/java/ || true
+          if [ "$n" -ne 2 ]; then
+            echo "::error::出网点数量变了（期望 2，实际 $n）。确认是否为升级以外的网络请求，并同步 docs/upgrade.md"
             exit 1
           fi
-          echo "OK: 无 INTERNET 权限"
+          echo "OK: 两处，全部在 Updater.java"
 
       - uses: actions/upload-artifact@v4
         with:

@@ -230,12 +230,71 @@ public final class Prefs {
 
     private static String b64(byte[] v) { return Base64.encodeToString(v, Base64.NO_WRAP); }
 
+    // ---------- 崩溃熔断（SAFE 模式） ----------
+
+    /**
+     * 连续崩几次就熔断。
+     * <p>判据是「真的崩过」而不是「启动过几次」：小米电视待机会强杀第三方应用
+     * （系统日志 killAllThirdApp），按启动次数算的话家长按三次电源键就把守护熔断了。
+     * 所以只有 {@code UncaughtExceptionHandler} 真触发时才记一笔。
+     */
+    public static final int MAX_CRASH = 3;
+
+    /** 由 handler 同步写入；下次启动时消费。被系统强杀不会留下这个标记。 */
+    public void noteCrash(String thread, Throwable e) {
+        // 取最内层 cause：真机实测「服务启动崩溃」会被包成
+        // "Unable to start service ... : java.lang.RuntimeException"，直接取外层等于没说根因
+        Throwable root = e;
+        while (root != null && root.getCause() != null && root.getCause() != root) root = root.getCause();
+        String msg = thread + ": "
+                + (root == null ? "?" : root.getClass().getSimpleName() + ": " + root.getMessage());
+        if (msg.length() > 200) msg = msg.substring(0, 200);
+        sp.edit()
+                .putBoolean("pendingCrash", true)
+                .putString("crashInfo", msg)
+                .putLong("crashAt", System.currentTimeMillis())
+                .commit();
+    }
+
+    /** 启动时调用：消费上一次的崩溃标记，累计到 {@link #MAX_CRASH} 即熔断。 */
+    public boolean consumeCrash() {
+        if (!sp.getBoolean("pendingCrash", false)) return false;
+        int n = sp.getInt("crashCount", 0) + 1;
+        SharedPreferences.Editor ed = sp.edit().putBoolean("pendingCrash", false).putInt("crashCount", n);
+        if (n >= MAX_CRASH) {
+            ed.putBoolean("safeMode", true).putLong("safeAt", System.currentTimeMillis());
+        }
+        ed.commit();
+        return true;
+    }
+
+    public boolean safeMode() { return sp.getBoolean("safeMode", false); }
+    public int crashCount() { return sp.getInt("crashCount", 0); }
+    public long safeAt() { return sp.getLong("safeAt", 0L); }
+    public String crashInfo() { return sp.getString("crashInfo", ""); }
+
+    /**
+     * 稳定运行确认：清零崩溃计数。
+     * <p>必须等服务真的活过一段时间再调（见 GateService.STABLE_MS）。启动即清零等于永远抓不到循环崩溃。
+     */
+    public void markStable() {
+        if (sp.getInt("crashCount", 0) == 0 && !sp.getBoolean("pendingCrash", false)) return;
+        sp.edit().putInt("crashCount", 0).putBoolean("pendingCrash", false).commit();
+    }
+
+    /** 家长手动解除熔断（设置页「守护状态」→ 口令）。 */
+    public void clearSafeMode() {
+        sp.edit().putBoolean("safeMode", false).putInt("crashCount", 0)
+                .putBoolean("pendingCrash", false).putLong("safeAt", 0L).commit();
+    }
+
     public String debugLine() {
         return String.format(Locale.US,
-                "phase=%s remaining=%s gap=%ds pin=%s rc=%s",
+                "phase=%s remaining=%s gap=%ds pin=%s rc=%s safe=%s",
                 phaseName(phase()), Core.fmt(remainingMs()), serviceGapMs() / 1000,
                 hasPin() ? "set" : "none",
-                hasRecoveryCode() ? (recoverySaved() ? "saved" : "unsaved") : "none");
+                hasRecoveryCode() ? (recoverySaved() ? "saved" : "unsaved") : "none",
+                safeMode() ? ("on/" + crashCount()) : "off");
     }
 
     public static String phaseName(int p) {

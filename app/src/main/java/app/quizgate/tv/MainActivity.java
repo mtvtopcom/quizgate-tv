@@ -27,8 +27,9 @@ public class MainActivity extends Activity {
     private ScrollView contentScroll;
     private LinearLayout content;
 
-    private TextView valueDuration, valueExtend, valueGrade, valuePin, valueRecovery, status, diag, btnPerm;
+    private TextView valueDuration, valueExtend, valueGrade, valuePin, valueRecovery, valueGuard, status, diag, btnPerm;
     private TextView btnStart;
+    private TextView banner;
     private final Handler h = new Handler(Looper.getMainLooper());
 
     private PinPadView gate;
@@ -36,6 +37,11 @@ public class MainActivity extends Activity {
     private boolean gateRequired = true;
     private RecoveryFlow recovery;
     private FrameLayout codeOverlay;
+    /** 在线升级弹层。null = 没在显示。 */
+    private UpgradeView upgrade;
+    /** 检查到的新版本。null = 没有更新（或检查失败，两者处理一样）。 */
+    private Updater.Result pendingUpdate;
+    private boolean focusInited;
     private boolean settingPin = false;
     private String firstPin = null;
 
@@ -49,6 +55,7 @@ public class MainActivity extends Activity {
         buildContent();
         setContentView(root);
         gate();
+        checkUpdate();
     }
 
     // ---------- UI ----------
@@ -69,6 +76,18 @@ public class MainActivity extends Activity {
         slp.topMargin = Ui.dp(this, 8);
         content.addView(sub, slp);
 
+        // 熔断横幅：安全模式下遮罩不会出来，这行必须比什么都显眼，否则家长以为还在守护
+        banner = Ui.label(this, "", 20, Ui.BG);
+        banner.setBackgroundColor(Ui.BAD);
+        banner.setPadding(Ui.dp(this, 22), Ui.dp(this, 14), Ui.dp(this, 22), Ui.dp(this, 14));
+        banner.setFocusable(true);
+        banner.setClickable(true);
+        banner.setOnClickListener(v -> promptClearSafeMode());
+        banner.setVisibility(View.GONE);
+        LinearLayout.LayoutParams blp0 = new LinearLayout.LayoutParams(-1, -2);
+        blp0.topMargin = Ui.dp(this, 20);
+        content.addView(banner, blp0);
+
         status = Ui.label(this, "", 22, Ui.ACCENT);
         LinearLayout.LayoutParams stlp = new LinearLayout.LayoutParams(-2, -2);
         stlp.topMargin = Ui.dp(this, 26);
@@ -79,6 +98,7 @@ public class MainActivity extends Activity {
         valueGrade = addRow("题目年级", v -> prefs.setGrade(v), this::refresh);
         valuePin = addRow("家长口令", v -> promptSetPin(), this::refresh);
         valueRecovery = addRow("恢复码", v -> onRecoveryRow(), this::refresh);
+        valueGuard = addRow("守护状态", v -> promptClearSafeMode(), this::refresh);
 
         LinearLayout btns = Ui.row(this);
         LinearLayout.LayoutParams blp = new LinearLayout.LayoutParams(-1, -2);
@@ -92,7 +112,6 @@ public class MainActivity extends Activity {
         start.setMinHeight(Ui.dp(this, 66));
         start.setOnClickListener(v -> startSession());
         btns.addView(start);
-        start.post(start::requestFocus);
 
         TextView exit = Ui.key(this, "结束本次会话", 24);
         exit.setBackgroundResource(R.drawable.opt_bg);
@@ -102,6 +121,7 @@ public class MainActivity extends Activity {
         LinearLayout.LayoutParams elp = new LinearLayout.LayoutParams(-2, -2);
         elp.leftMargin = Ui.dp(this, 20);
         btns.addView(exit, elp);
+        // 不在这里 requestFocus：安全模式时 banner 才是该先看到的东西，refresh() 里统一决定
 
         TextView perm = Ui.key(this, "授权：显示在其他应用上层", 18);
         btnPerm = perm;
@@ -183,6 +203,11 @@ public class MainActivity extends Activity {
     // ---------- 会话 ----------
 
     private void startSession() {
+        if (prefs.safeMode()) {
+            toast("守护处于安全模式，先在「守护状态」里恢复");
+            promptClearSafeMode();
+            return;
+        }
         if (!Settings.canDrawOverlays(this)) {
             toast("遮罩需要「显示在其他应用上层」权限，否则到点出不来题");
             requestOverlay();
@@ -381,8 +406,11 @@ public class MainActivity extends Activity {
         if (gate != null && gate.getParent() != null) root.removeView(gate);
         blockFocusBelow();
         refresh();
-        // 解锁后的下一步几乎总是「开始计时」，别让家长再去摸焦点
-        if (btnStart != null) btnStart.post(btnStart::requestFocus);
+        // 解锁后的下一步几乎总是「开始计时」，别让家长再去摸焦点。
+        // 但安全模式下该先看到的是横幅 —— 否则家长看到「开始计时」会以为守护在正常工作。
+        View t = prefs.safeMode() ? banner : btnStart;
+        if (t != null) t.post(t::requestFocus);
+        maybeShowUpdate();
     }
 
     /**
@@ -392,7 +420,8 @@ public class MainActivity extends Activity {
      */
     private void blockFocusBelow() {
         View top = null;
-        if (codeOverlay != null) top = codeOverlay;
+        if (upgrade != null) top = upgrade;
+        else if (codeOverlay != null) top = codeOverlay;
         else if (recovery != null) top = recovery;
         else if (gate != null && gate.getParent() != null) top = gate;
         for (int i = 0; i < root.getChildCount(); i++) {
@@ -404,7 +433,9 @@ public class MainActivity extends Activity {
         }
         if (top == null && contentScroll != null) {
             contentScroll.setFocusable(true);
-            contentScroll.setDescendantFocusability(ViewGroup.FOCUS_BEFORE_DESCENDANTS);
+            // AFTER 而不是 BEFORE：banner（熔断提示）在 ScrollView 里，
+            // 用 BEFORE 的话焦点会先落在 ScrollView 自己身上，家长按半天方向键才能看到熔断提示
+            contentScroll.setDescendantFocusability(ViewGroup.FOCUS_AFTER_DESCENDANTS);
         }
     }
 
@@ -419,7 +450,96 @@ public class MainActivity extends Activity {
         // 只存哈希：应用里看不到已生成的码，想再看只能重新生成（旧码立即作废）
         valueRecovery.setText(!prefs.hasRecoveryCode() ? "未生成"
                 : (prefs.recoverySaved() ? "已保存" : "待拍照"));
+        refreshGuard();
         tickUi();
+        maybeInitFocus();
+    }
+
+    /** 熔断状态的展示：横幅 + 设置页那一行。安全模式下要让家长知道「现在没在防」。 */
+    private void refreshGuard() {
+        boolean safe = prefs.safeMode();
+        if (banner != null) {
+            banner.setVisibility(safe ? View.VISIBLE : View.GONE);
+            if (safe) {
+                banner.setText("⚠ 守护已停止（安全模式）：连续崩溃 " + Prefs.MAX_CRASH
+                        + " 次后不再挂遮罩。点这里恢复");
+            }
+        }
+        if (valueGuard != null) {
+            valueGuard.setText(safe ? "已停止（安全模式）" : "正常");
+            valueGuard.setTextColor(safe ? Ui.BAD : Ui.OK);
+        }
+    }
+
+    /** 首次把焦点放到该看的东西上（安全模式下是横幅，不是「开始计时」）。 */
+    private void maybeInitFocus() {
+        if (focusInited) return;
+        if (gate != null && gate.getParent() != null) return;
+        if (recovery != null || codeOverlay != null || upgrade != null) return;
+        View t = prefs.safeMode() ? banner : btnStart;
+        if (t == null) return;
+        focusInited = true;
+        t.post(t::requestFocus);
+    }
+
+    /**
+     * 解除熔断。设置页本身已在口令门禁之后，所以这里只做后果说明，不再多问一次口令。
+     */
+    private void promptClearSafeMode() {
+        if (!prefs.safeMode()) {
+            toast("守护运行正常");
+            return;
+        }
+        Dialog d = new Dialog(this);
+        LinearLayout box = new LinearLayout(this);
+        box.setOrientation(LinearLayout.VERTICAL);
+        box.setBackgroundResource(R.drawable.panel_bg);
+        box.setPadding(Ui.dp(this, 48), Ui.dp(this, 36), Ui.dp(this, 48), Ui.dp(this, 36));
+
+        box.addView(Ui.title(this, "守护已停止（安全模式）", 26));
+        TextView body = Ui.label(this,
+                "应用连续启动崩溃 " + Math.max(Prefs.MAX_CRASH, prefs.crashCount()) + " 次后，会自动停止挂遮罩。"
+                        + "这不是故障，是故意做的熔断 —— 保证最坏情况是「没守护」，而不是「电视反复闪屏开不了机」。\n\n"
+                        + "最后一次崩溃：" + (prefs.crashInfo().isEmpty() ? "（无记录）" : prefs.crashInfo()) + "\n\n"
+                        + "恢复后重新开始计时拦截。如果再次连续崩溃，会重新进入安全模式。\n"
+                        + "要彻底避开这个崩溃，请把上面这行崩溃信息反馈出来。",
+                18, Ui.TEXT);
+        LinearLayout.LayoutParams blp = new LinearLayout.LayoutParams(-1, -2);
+        blp.topMargin = Ui.dp(this, 16);
+        box.addView(body, blp);
+
+        LinearLayout btns = Ui.row(this);
+        LinearLayout.LayoutParams btnlp = new LinearLayout.LayoutParams(-1, -2);
+        btnlp.topMargin = Ui.dp(this, 24);
+        box.addView(btns, btnlp);
+
+        TextView heal = Ui.key(this, "恢复守护", 22);
+        heal.setBackgroundResource(R.drawable.opt_bg);
+        heal.setMinWidth(Ui.dp(this, 200));
+        heal.setOnClickListener(v -> {
+            prefs.clearSafeMode();
+            d.dismiss();
+            refresh();
+            toast("守护已恢复，请重新开始计时");
+        });
+        btns.addView(heal);
+
+        TextView keep = Ui.key(this, "继续停用", 22);
+        keep.setBackgroundResource(R.drawable.opt_bg);
+        keep.setMinWidth(Ui.dp(this, 200));
+        keep.setOnClickListener(v -> d.dismiss());
+        LinearLayout.LayoutParams klp = new LinearLayout.LayoutParams(-2, -2);
+        klp.leftMargin = Ui.dp(this, 20);
+        btns.addView(keep, klp);
+
+        d.setContentView(box);
+        if (d.getWindow() != null) {
+            d.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
+            android.util.DisplayMetrics dm = getResources().getDisplayMetrics();
+            d.getWindow().setLayout((int) (dm.widthPixels * 0.78f), ViewGroup.LayoutParams.WRAP_CONTENT);
+        }
+        d.show();
+        heal.requestFocus();
     }
 
     private final Runnable uiTick = new Runnable() {
@@ -451,6 +571,16 @@ public class MainActivity extends Activity {
     /** 遥控器数字键 / USB 小键盘直接输入（很多电视遥控器带数字键，别浪费）。 */
     @Override
     public boolean dispatchKeyEvent(android.view.KeyEvent e) {
+        if (upgrade != null) {
+            // 返回 = 「以后再说」。不直接 finish()：家长可能只是想先看看设置页。
+            if (e.getAction() == android.view.KeyEvent.ACTION_DOWN
+                    && e.getKeyCode() == android.view.KeyEvent.KEYCODE_BACK) {
+                pendingUpdate = null;
+                hideUpgrade();
+                return true;
+            }
+            return super.dispatchKeyEvent(e);
+        }
         if (recovery != null) {
             if (recovery.consumeKey(e)) return true;
             if (e.getAction() == android.view.KeyEvent.ACTION_DOWN
@@ -529,6 +659,54 @@ public class MainActivity extends Activity {
         blockFocusBelow();
     }
 
+    // ---------- 在线升级 ----------
+
+    /**
+     * 每次进入应用检查一次。三个原则：
+     * <ul>
+     *   <li>没配置升级源 → 直接返回，一个字节都不发</li>
+     *   <li>检查失败（没网 / DNS 挂了 / 服务器 500）→ 当成「没有更新」，静默放弃</li>
+     *   <li>只有真的拿到更高 versionCode 才弹</li>
+     * </ul>
+     * 第二条是刻意的：电视没网是常态，绝不能让升级检查变成每次开机的扰民弹窗。
+     */
+    private void checkUpdate() {
+        if (!Updater.enabled()) return;
+        Updater.check(r -> {
+            if (!r.ok()) {
+                android.util.Log.i("QuizGate", "update_check_fail: " + r.error);
+                return;
+            }
+            int self = Updater.selfVersionCode(this);
+            android.util.Log.i("QuizGate", "update_check self=" + self
+                    + " remote=" + r.versionCode + " (" + r.versionName + ")");
+            if (r.versionCode <= self) return;
+            pendingUpdate = r;
+            maybeShowUpdate();
+        });
+    }
+
+    /** 门禁没过之前不能弹：家长正在输口令，盖上去就把键盘挡住了。 */
+    private void maybeShowUpdate() {
+        if (pendingUpdate == null || upgrade != null) return;
+        if (gate != null && gate.getParent() != null) return;
+        if (recovery != null || codeOverlay != null) return;
+        upgrade = new UpgradeView(this, pendingUpdate, () -> {
+            // 本次不再弹（避免反复打断）；下次冷启动 onCreate 会重新检查、重新弹
+            pendingUpdate = null;
+            hideUpgrade();
+        });
+        root.addView(upgrade, new FrameLayout.LayoutParams(-1, -1));
+        blockFocusBelow();
+    }
+
+    private void hideUpgrade() {
+        if (upgrade != null && upgrade.getParent() != null) root.removeView(upgrade);
+        upgrade = null;
+        blockFocusBelow();
+        refresh();
+    }
+
     /** 首页一次性提示：上次守护被系统终止过（小米待机时会强停第三方应用）。 */
     private void maybeShowInterruptNotice() {
         long gap = prefs.interruptedGapMs();
@@ -577,8 +755,11 @@ public class MainActivity extends Activity {
         refresh();
         h.removeCallbacks(uiTick);
         h.post(uiTick);
+        maybeShowUpdate();
         h.postDelayed(this::maybeShowInterruptNotice, 600);
-    }    @Override protected void onPause() {
+    }
+
+    @Override protected void onPause() {
         super.onPause();
         h.removeCallbacks(uiTick);
     }

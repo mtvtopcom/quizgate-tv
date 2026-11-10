@@ -114,6 +114,113 @@ Android 10+ 后台启动限制且会先闪一下桌面。
 
 ---
 
+## ADR-8 崩溃熔断：只有「真的崩过」才计数
+
+**问题**：服务在 `onCreate` 里崩，`START_STICKY` 会把它反复拉起来，结果是「开机 → 闪一下 → 崩 → 再拉」
+的无限循环。这比「没守护」严重得多——电视基本没法用。
+
+**决策**：连续 **3 次**「崩溃后重启」就进安全模式，停止挂遮罩，且 `onStartCommand` 返回
+`START_NOT_STICKY`。
+
+**为什么判据是 `UncaughtExceptionHandler` 而不是「启动次数」**：小米电视待机会
+`killAllThirdApp` 强杀第三方应用（`docs/compatibility.md` 已记录）。如果按启动次数算，
+家长按三次电源键、通知监听三次把服务拉回来，就会被判成「崩溃 3 次」而熔断——
+**把好好的守护熔掉**，比不熔断更糟。所以只有 `App` 里装的 handler 真触发时才写
+`pendingCrash`；被强杀、native crash、ANR、LMK 都不会留这个标记，因此不计入。
+
+**为什么界面崩溃不计入**：`App.gateAlive` 只在 `GateService.onCreate` 里置 true。
+设置页崩溃不会自行循环（要人手动点），计入的话家长点开设置页崩一次就把守护熔断了。
+
+**为什么是 60 秒**：崩溃循环的特征是「起来就炸」（毫秒到几秒）。启动即清零等于永远累计不到 3 次；
+等太久又会误判正常重启。60 秒能覆盖一次正常的短会话。已知代价：恰好崩在 70 秒的慢速偶发崩溃
+会漏检——但那种崩溃不构成「电视不能用」，熔不熔断都不影响可用性。
+
+**出口**：首页红色横幅（比什么都显眼，否则家长以为还在守护）+ 设置页「守护状态」行。
+点开显示最后一次崩溃的**根因**（取最内层 cause：真机上服务启动崩溃会被包成
+`Unable to start service ... : RuntimeException`，直接取外层等于没说根因）。
+
+**实测（MiTV-MFTR0）**：4 轮触发后 `crashCount` 1→2→3、`safeMode=true`；12 秒内没有新的
+`safe_mode` 日志（说明不再重启），`dumpsys` 里只剩 NotifProbe；手动「恢复守护」后
+`crashCount=0`，再启动会话 `service_create ... safe=off` 正常。 [实测]
+
+## ADR-9 在线升级：可取消、失败静默、只连一个地址
+
+**决策**：每次进入应用检查一次 `version.json`；有新版本才弹；弹窗可取消；
+检查失败一律当「没有更新」。
+
+**为什么不做强制升级**（原计划是强制的，改了）：强制意味着「服务器挂了 / 电视没网 = 应用完全不能用」。
+在一个本来就一年用一次的流程上，把可用性押在外部服务器的存活上，不划算。
+现在点「以后再说」只是本次不打扰，下次启动照旧提示。
+
+**为什么检查失败要静默**：电视没网是常态。如果检查失败也弹「检查更新失败」，
+等于每次开机都给家长一个无意义的弹窗。日志里留 `update_check_fail` 就够排查了。
+
+**为什么 sha256 只是半个防护**：`sha256` 和 `apkUrl` 在同一份 json 里，能改 json 的人能同时改这两个字段。
+它能防的是「传输截断/下错文件」，**不防篡改**。真正的防篡改是 APK 签名：系统安装时校验签名
+必须与已装版本一致，不一致直接 `INSTALL_FAILED_UPDATE_INCOMPATIBLE`。所以「换了 json 也装不进去」
+是系统保证的。升级包必须用同一个 keystore 签。
+
+**交付方式：先落盘，再让用户点「立即安装」**。两个阶段都是必要的：
+
+| 阶段 | 做什么 | 为什么 |
+| --- | --- | --- |
+| ① 下载落盘 | `MediaStore.Downloads` 写 `/sdcard/Download/quizgate-x.y.z.apk` | 不需要任何存储权限（Android 10+）；包在公共目录里可审计；被待机/换应用打断也不丢 |
+| ② 用户点安装 | `ACTION_INSTALL_PACKAGE` + `content://` + `FLAG_GRANT_READ_URI_PERMISSION` | 静默安装做不到，最后一下必须人点；既然要点，就让用户决定什么时候点 |
+
+**为什么不用 `PackageInstaller.Session` 当主路径**：它拿到的
+`STATUS_PENDING_USER_ACTION` 只是个 Intent，而且这个确认界面在本机是**缺失**的 ——
+只有 `InstallStart`（处理 `ACTION_INSTALL_PACKAGE` + `content/file` scheme + mimeType 的那个）
+能起来。所以主路径改成 `ACTION_INSTALL_PACKAGE`，Session 只作为"安装页拉不起来"时的退路保留。
+`STATUS_PENDING_USER_ACTION` 那个坑仍然写在代码注释里：它**不会自动弹**，必须自己
+`startActivity(EXTRA_INTENT)`。
+
+**「小米电视没有安装器」这个结论是错的，已更正**（2026-11-10）：
+
+| 早期尝试 | 结果 | 真相 |
+| --- | --- | --- |
+| `resolve-activity -a VIEW -t application/vnd.android.package-archive` | No activity found | 没给 data scheme，匹配不到 `InstallStart` 的 filter，**查不到 ≠ 没有** |
+| `resolve-activity -a CONFIRM_INSTALL` | No activity found | 本机确实没有这个确认 Activity，但不能由此推出"没有安装器" |
+| `pm list packages` 搜 installer | 只有 `com.android.certinstaller` | 当时漏看了同一行旁边的 `com.android.packageinstaller` |
+| `ACTION_INSTALL_PACKAGE` + `content://`（实测） | **拉起 `PackageInstallerActivity`** | 屏幕上就是系统安装页，按「继续更新」后版本真的变了 |
+
+教训写在这里：**探测失败只能推翻"我的探测方法"，不能推翻"设备能力"**。
+当年据此写下的"只能落盘、手动装"被当成唯一方案写进了 README 和 ADR，
+多花了半天才发现是探针漏了参数。
+
+**几个真踩过的坑**：
+- `canRequestPackageInstalls()` 返回 true 不代表能装（它是"有没有被禁用"），返回 false 一定装不了；
+  **重装应用会重置这个授权**，所以每次都要先判一次再引导
+- 必须 `content://`：`file://` 从 Android 7 起抛 `FileUriExposedException`
+- MediaStore 遇到重名会自动改成 `xxx (1).apk`，所以落盘前要删同名旧文件
+- 装完系统会删掉 `Download` 里那个包（安装器的 `DeleteStagedFileOnResult`），这是正常的
+
+**为什么下载后要校验包名和 versionCode**：只校验 sha256 挡不住"发布方把 json 指向上一个版本"。
+`version.json` 写 10201、包里其实是 10200 的话，装上等于什么都没发生、下次启动又提示更新，
+用户会陷进循环。所以用 `getPackageArchiveInfo` 读包里的真实 `versionCode`，与 json 不一致直接拒装。
+
+**`INTERNET` 权限的代价**：README 第 4 条「没有 INTERNET 权限」不再成立，已改写。
+可审计的替代承诺：全项目只有 `Updater.java` 两处 `openConnection`，裸 GET、无参数、无 cookie，
+UA 固定为 `QuizGate`（默认 UA 会带 `Dalvik/x.x (Linux; U; Android 11; ...)`，把系统版本和机型报出去）。
+`build.sh` 支持不配升级源构建，此时一次请求都不发。
+
+**实测（MiTV-MFTR0，2026-11-10）**：两轮完整跑通，含"下载完进程被回收"的场景。
+
+```
+update_check self=10203 remote=10204 (1.2.4)
+update_downloaded bytes=71088 sha=7b7c9b6d5877
+update_inspect ok pkg=app.quizgate.tv vc=10204
+update_saved Download/quizgate-1.2.4.apk uri=content://media/external/downloads/14145
+（am force-stop 杀掉进程 → 重进 → 页面直接是「已下载，点安装」）
+installer_opened → install_open_ok path=Download/quizgate-1.2.4.apk
+mCurrentFocus=com.android.packageinstaller/.PackageInstallerActivity
+→ dumpsys package: versionName=1.2.4
+```
+
+[实测]
+
+
+---
+
 ## 一句话总结
 
 **前台服务 + 剩余时间快照 + 悬浮层 + 通知监听锚点**：不接管桌面，不做离开账本，

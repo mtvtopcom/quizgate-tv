@@ -1,0 +1,59 @@
+# 安装器能力探针（MiTV-MFTR0 / Android 11）— 修正版
+
+> 2026-11-10 19:31 修订：**上一版结论是错的**，错在探测方法，不在设备。
+> 保留原始命令输出，把错误结论划掉并写明为什么错、正确做法是什么。
+
+## 原始探测（结论已被推翻）
+
+```
+$ adb shell cmd package resolve-activity -a android.intent.action.VIEW -t application/vnd.android.package-archive
+No activity found
+
+$ adb shell cmd package resolve-activity -a android.content.pm.action.CONFIRM_INSTALL
+No activity found
+
+$ adb shell pm list packages | grep -i installer
+package:com.android.certinstaller
+package:com.android.packageinstaller
+```
+
+第一版据此写成「系统里没有任何 Activity 能处理 APK 安装，只能落盘交给用户手动打开」。
+**这是错的。**
+
+## 为什么错
+
+1. `resolve-activity` 只给 action + mimeType、**不给 data scheme**，匹配不到
+   `InstallStart` 那种同时要求 `content/file` scheme 的 filter，返回 "No activity found" 是正常的。
+   命令查不到 ≠ 系统没有。
+2. `pm list packages` 明明列出了 `com.android.packageinstaller`，且它处于启用状态——
+   一个「没有安装器」的结论和这条输出自相矛盾，当时没深究。
+
+## 实测有效的做法（2026-11-10 19:31 复测）
+
+应用内用 MediaStore 的 `content://` URI + `FLAG_GRANT_READ_URI_PERMISSION` 发
+`ACTION_INSTALL_PACKAGE`：
+
+```
+adb shell dumpsys window | grep mCurrentFocus
+  mCurrentFocus=Window{... com.android.packageinstaller/com.android.packageinstaller.PackageInstallerActivity}
+
+adb shell logcat | grep MediaProvider
+  I/MediaProvider(3643): Using lower FS for /storage/emulated/0/Download/quizgate-1.2.2.apk
+```
+
+屏幕上出现的就是系统安装页（「您要安装此应用的新版本吗？」+「取消更新」/「继续更新」），
+按「继续更新」后 `dumpsys package app.quizgate.tv` 的 versionName 从 1.2.1 变成 1.2.2，
+再复测一次从 1.2.3 变成 1.2.4。
+
+## 另外两个坑（都在这台电视上踩到了）
+
+- **`file://` 走不通**：Android 7 起 `FileUriExposedException`，必须 `content://`。
+- **`canRequestPackageInstalls()` 不能当「有没有安装器」的判据**：它返回 true 也可能弹不出来；
+  但它返回 **false 时确实装不了** —— 重新安装应用会重置这个授权，
+  所以 App 里必须先引导用户去授权，再发安装 Intent。
+
+## 结论
+
+- 系统安装器**存在且可用**，拉起方式 = `ACTION_INSTALL_PACKAGE` + `content://` + 读权限。
+- 「落盘到 Download 目录」不是唯一方案，而是**第一步 + 保底**：
+  包先落盘，再让用户点「立即安装」；拉不起来也还能自己用文件管理器装。
