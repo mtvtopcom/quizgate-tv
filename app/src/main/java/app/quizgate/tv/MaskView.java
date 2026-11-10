@@ -1,6 +1,7 @@
 package app.quizgate.tv;
 
 import android.content.Context;
+import android.graphics.drawable.GradientDrawable;
 import android.view.Gravity;
 import android.view.KeyEvent;
 import android.view.View;
@@ -35,6 +36,8 @@ public class MaskView extends FrameLayout {
     private RecoveryFlow recovery;
     private boolean pinVisible = false;
     private boolean answering = false;
+    /** 当前选中的选项。遮罩在悬浮窗里，不能靠焦点树，只能自己记。 */
+    private int sel = 0;
 
     public MaskView(Context c, Prefs prefs, QuizBank bank, Host host) {
         super(c);
@@ -70,7 +73,9 @@ public class MaskView extends FrameLayout {
                 TextView b = Ui.label(c, "", 24, Ui.TEXT);
                 b.setGravity(Gravity.CENTER);
                 b.setBackgroundResource(R.drawable.opt_bg);
-                b.setFocusable(true);
+                // 不参与焦点树：悬浮窗上的 requestFocus 在 Android 14 实测「假成功」，
+                // 按键照样判 Unhandled。选中态一律由 MaskView 自己维护（见 paintSelection）。
+                b.setFocusable(false);
                 b.setClickable(true);
                 b.setPadding(Ui.dp(c, 16), Ui.dp(c, 8), Ui.dp(c, 16), Ui.dp(c, 8));
                 LinearLayout.LayoutParams blp = new LinearLayout.LayoutParams(0, -1, 1f);
@@ -101,26 +106,59 @@ public class MaskView extends FrameLayout {
     @Override
     protected void onAttachedToWindow() {
         super.onAttachedToWindow();
-        // 悬浮窗的焦点不会自动落到子 View 上，必须自己抢
         requestFocus();
-        post(() -> opts[0].requestFocus());
+        // 选项不再参与焦点树，选中态自己画
+        post(this::paintSelection);
     }
 
     public void nextQuestion() {
         q = bank.next(grade, rnd);
         answering = false;
-        restoreBackgrounds();
         stemView.setText(q.stem);
         for (int i = 0; i < 4; i++) opts[i].setText(q.options[i]);
         feedback.setText("");
-        post(() -> opts[0].requestFocus());
+        sel = 0;
+        paintSelection();
     }
 
-    private void restoreBackgrounds() {
-        for (TextView t : opts) {
-            t.setBackgroundResource(R.drawable.opt_bg);
-            t.setTextColor(Ui.TEXT);
+    /** 画出选中态。遮罩里所有按键都由 {@link #dispatchKeyEvent} 路由，不靠系统焦点。 */
+    private void paintSelection() {
+        for (int i = 0; i < 4; i++) {
+            TextView t = opts[i];
+            boolean on = (i == sel) && !answering;
+            t.setBackground(on ? selectedBg() : normalBg());
+            t.setTextColor(on ? Ui.ACCENT : Ui.TEXT);
         }
+    }
+
+    private GradientDrawable normalBg() {
+        GradientDrawable d = new GradientDrawable();
+        d.setColor(0x1AFFFFFF);
+        d.setStroke(Ui.dp(getContext(), 1), 0x33FFFFFF);
+        d.setCornerRadius(Ui.dp(getContext(), 14));
+        return d;
+    }
+
+    private GradientDrawable selectedBg() {
+        GradientDrawable d = new GradientDrawable();
+        d.setColor(0x33FFC24A);
+        d.setStroke(Ui.dp(getContext(), 3), Ui.ACCENT);
+        d.setCornerRadius(Ui.dp(getContext(), 14));
+        return d;
+    }
+
+    private void select(int i) {
+        sel = Math.max(0, Math.min(3, i));
+        paintSelection();
+    }
+
+    /** 2×2 布局：左右在行内切换，上下在列内切换（到头就绕回，遥控器上少按键更省事）。 */
+    private void moveSel(int dx, int dy) {
+        if (answering) return;
+        int col = sel % 2, row = sel / 2;
+        col = (col + dx + 2) % 2;
+        row = (row + dy + 2) % 2;
+        select(row * 2 + col);
     }
 
     private void answer(int i) {
@@ -145,8 +183,6 @@ public class MaskView extends FrameLayout {
     private void showPin() {
         if (pinVisible) return;
         pinVisible = true;
-        box.setDescendantFocusability(FOCUS_BEFORE_DESCENDANTS);
-        for (TextView t : opts) t.setFocusable(false);
         if (pin == null) {
             pin = new PinPadView(getContext(), "家长口令（6 位）", new PinPadView.Listener() {
                 @Override public void onPinSubmit(String s) {
@@ -165,6 +201,8 @@ public class MaskView extends FrameLayout {
             pin.setFooter("忘记口令？用恢复码重置", this::openRecovery);
         }
         if (pin.getParent() != null) removeView(pin);
+        // 悬浮窗里焦点树不可靠：面板自己画选中态，方向键由 dispatchKeyEvent 转进来
+        pin.setSelfPaint(true);
         addView(pin, new FrameLayout.LayoutParams(-1, -1));
         // 只让面板吃焦点：实测焦点会从面板最底一行掉到背后的选项卡上
         box.setDescendantFocusability(FOCUS_BLOCK_DESCENDANTS);
@@ -176,8 +214,8 @@ public class MaskView extends FrameLayout {
         if (!pinVisible) return;
         pinVisible = false;
         if (pin != null && pin.getParent() != null) removeView(pin);
-        for (TextView t : opts) t.setFocusable(true);
-        opts[0].requestFocus();
+        sel = 0;
+        paintSelection();
     }
 
     /** 忘口令的家长在遮罩上也能自助：不需要等会话结束，也不需要卸载。 */
@@ -196,6 +234,7 @@ public class MaskView extends FrameLayout {
                 showPin();
             }
         });
+        recovery.setSelfPaint(true);   // 遮罩里同样不靠焦点树
         addView(recovery, new FrameLayout.LayoutParams(-1, -1));
     }
 
@@ -204,11 +243,16 @@ public class MaskView extends FrameLayout {
         int k = e.getKeyCode();
         if (recovery != null) {
             if (recovery.consumeKey(e)) return true;
-            return super.dispatchKeyEvent(e);   // 方向键交给焦点树，否则遥控器在键盘上会失灵
+            // 遮罩里的恢复流程不用焦点树（Android 14 实测 requestFocus 假成功），
+            // 剩余按键一律吞掉，别漏给下层正在播放的应用
+            return true;
         }
         if (pinVisible) {
             if (e.getAction() == KeyEvent.ACTION_DOWN) {
                 if (k == KeyEvent.KEYCODE_BACK) { hidePin(); return true; }
+                // 方向键 / OK 直接转给面板自己路由：悬浮窗上的焦点树不可靠（Android 14 实测
+                // requestFocus「成功」但按键仍判 Unhandled）。数字键本来就直连，不受影响。
+                if (pin.consumeNav(e)) return true;
                 int d = PinPadView.digitOf(e);
                 if (d >= 0) {
                     pin.append((char) ('0' + d));
@@ -216,13 +260,23 @@ public class MaskView extends FrameLayout {
                 }
                 if (k == KeyEvent.KEYCODE_DEL) { pin.backspace(); return true; }
             }
-            return super.dispatchKeyEvent(e);
+            return true;   // 面板开着时其余键一律吞掉，别漏给下层应用
         }
         if (e.getAction() == KeyEvent.ACTION_DOWN) {
             if (k == KeyEvent.KEYCODE_BACK) return true;                 // 吞掉返回
             if (k == KeyEvent.KEYCODE_MENU) { showPin(); return true; }  // 家长入口
+            if (k == KeyEvent.KEYCODE_DPAD_LEFT) { moveSel(-1, 0); return true; }
+            if (k == KeyEvent.KEYCODE_DPAD_RIGHT) { moveSel(1, 0); return true; }
+            if (k == KeyEvent.KEYCODE_DPAD_UP) { moveSel(0, -1); return true; }
+            if (k == KeyEvent.KEYCODE_DPAD_DOWN) { moveSel(0, 1); return true; }
+            if (k == KeyEvent.KEYCODE_DPAD_CENTER || k == KeyEvent.KEYCODE_ENTER
+                    || k == KeyEvent.KEYCODE_NUMPAD_ENTER) {
+                answer(sel);
+                return true;
+            }
             if (k >= KeyEvent.KEYCODE_1 && k <= KeyEvent.KEYCODE_4) {
-                answer(k - KeyEvent.KEYCODE_1);
+                select(k - KeyEvent.KEYCODE_1);
+                answer(sel);
                 return true;
             }
             if (swallow(k)) return true;

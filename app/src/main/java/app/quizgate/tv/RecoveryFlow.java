@@ -32,6 +32,9 @@ public class RecoveryFlow extends FrameLayout {
     private int step = STEP_CODE;
     private PinPadView pad;
     private String firstPin;
+    /** 悬浮窗（遮罩）里焦点树不可靠：键盘走自绘选中 + 自己路由方向键。Activity 里保持 false。 */
+    private boolean selfPaint = false;
+    private Runnable showConfirm;
 
     public RecoveryFlow(Context c, Prefs prefs, Done done) {
         super(c);
@@ -40,6 +43,15 @@ public class RecoveryFlow extends FrameLayout {
         setBackgroundColor(Ui.BG);
         setClickable(true);
         stepCode();
+    }
+
+    /** 遮罩内必须调用；Activity 里的恢复流程沿用系统焦点树。 */
+    public void setSelfPaint(boolean v) {
+        selfPaint = v;
+        if (pad != null) {
+            pad.setSelfPaint(v);
+            pad.focusFirst();
+        }
     }
 
     // ---------- 第一步：输入恢复码 ----------
@@ -103,9 +115,8 @@ public class RecoveryFlow extends FrameLayout {
 
     private void stepShow(String code) {
         step = STEP_SHOW;
-        View p = codePanel(getContext(), code,
-                () -> { prefs.markRecoverySaved(); finish(true); },
-                null);
+        showConfirm = () -> { prefs.markRecoverySaved(); finish(true); };
+        View p = codePanel(getContext(), code, showConfirm, null);
         removeAllViews();
         addView(p, new FrameLayout.LayoutParams(-1, -1));
     }
@@ -119,7 +130,11 @@ public class RecoveryFlow extends FrameLayout {
     private void mount(View v) {
         removeAllViews();
         addView(v, new FrameLayout.LayoutParams(-1, -1));
-        if (v instanceof PinPadView) ((PinPadView) v).focusFirst();
+        if (v instanceof PinPadView) {
+            PinPadView p = (PinPadView) v;
+            p.setSelfPaint(selfPaint);
+            p.focusFirst();
+        }
     }
 
     /**
@@ -127,13 +142,33 @@ public class RecoveryFlow extends FrameLayout {
      * 否则遥控器在键盘上会完全失灵。
      */
     public boolean consumeKey(KeyEvent e) {
-        if (e.getAction() != KeyEvent.ACTION_DOWN) return false;
         int k = e.getKeyCode();
+        boolean down = e.getAction() == KeyEvent.ACTION_DOWN;
+        if (selfPaint && !down) return true;      // 悬浮窗里抬键也吞掉，别漏给下层应用
+        if (!down) return false;
         if (k == KeyEvent.KEYCODE_BACK) {
             if (step == STEP_PIN) { stepCode(); return true; }   // 码还没作废，可以退回去重输
             finish(step == STEP_SHOW);                           // 码已落库，退出等于「稍后再拍」
             return true;
         }
+        if (selfPaint) {
+            // 悬浮窗里不靠焦点树：方向键 / OK 交给键盘自己路由
+            if (step == STEP_SHOW) {
+                if ((k == KeyEvent.KEYCODE_DPAD_CENTER || k == KeyEvent.KEYCODE_ENTER
+                        || k == KeyEvent.KEYCODE_NUMPAD_ENTER) && showConfirm != null) {
+                    showConfirm.run();
+                }
+                return true;
+            }
+            if (pad != null) {
+                if (pad.consumeNav(e)) return true;
+                int d = PinPadView.digitOf(e);
+                if (d >= 0) { pad.append((char) ('0' + d)); return true; }
+                if (k == KeyEvent.KEYCODE_DEL) { pad.backspace(); return true; }
+            }
+            return true;
+        }
+        // Activity：方向键必须放行给焦点树，否则遥控器在键盘上会完全失灵
         if (step == STEP_SHOW || pad == null) return false;
         int d = PinPadView.digitOf(e);
         if (d >= 0) { pad.append((char) ('0' + d)); return true; }

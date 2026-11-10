@@ -3,6 +3,55 @@
 本项目遵循 [Semantic Versioning](https://semver.org/lang/zh-CN/)。
 `versionCode = MAJOR*10000 + MINOR*100 + PATCH`，单调递增。
 
+## [1.2.4] - 2026-11-10
+
+**修 Android 14 电视上「界面出来了、遥控器却按不动」——这是第二台电视报「启动没反应」的真正原因。**
+
+### 根因
+
+同一型号 MiTV-MFTR0，D1 是 Android 11（API 30），D2 是 Android 14（API 34，固件
+`OS3.0.103.0.UFTMATV`）。两处系统行为都变了：
+
+| | Android 11 | Android 14 |
+| --- | --- | --- |
+| 悬浮窗内子 View `requestFocus()` | 真生效 | **假成功**：焦点标记设上了，按键仍被 WindowManager 判 `Unhandled key` |
+| 回桌面后的后台策略 | 通知监听即可复活 | 缺电池白名单 / 通知使用权时直接 `Force stopping app.quizgate.tv` |
+
+用户看到的是「应用能打开、界面也在，但按遥控器毫无反应」，以及「回桌面后再也不出题」。
+不是启动失败：`am start -W` 返回 `Status: ok`，MainActivity 正常前台，无崩溃、无 ANR。
+
+### 修复
+
+- 遮罩与遮罩内的口令 / 恢复码面板**不再依赖焦点树**：方向键、OK 全部由根 View 自己路由，
+  选中态自己画（`MaskView` / `PinPadView` / `RecoveryFlow` 的 `selfPaint` 开关）
+- 修掉「**同时出现两个黄色高亮**」：`key_bg.xml` 的 `state_focused` 也是黄色，系统焦点残留时
+  会和自绘选中态撞车。悬浮窗里现在所有键统一换成固定色 drawable，后代一律不可聚焦
+- 遮罩口令面板底部的「忘记口令？用恢复码重置」原先不在导航网格里，遥控器永远到不了；
+  现在从最后一行再按一下「下」即可选中，恢复码键盘同样可用遥控器操作
+- Activity 内的口令页保持原来的焦点树行为，未改动（真机已验证焦点移动正常）
+
+### 设备侧：装新电视必做的第三条命令
+
+```bash
+adb shell dumpsys deviceidle whitelist +app.quizgate.tv
+```
+
+README「10 分钟装好」已补成三条命令，兼容性矩阵新增 D2（Android 14）。
+
+### 真机验证（MiTV-MFTR0 / Android 14）
+
+从桌面启动 → 口令页焦点可见 → 开始计时 → 回桌面 64 秒遮罩正常弹出 → 方向键移动选项
+（高亮唯一）→ OK 判题「答对了，延长 1 分钟」→ 菜单键进家长面板 → 方向键到底部入口 →
+进入恢复码键盘 → 方向键可用 → 返回 → 输口令结束会话。`Unhandled key` 计数 0，
+日志出现 `resurrect_restore ok`（通知监听断开后自动复活）。证据见 `evidence/D4-2026-11-10/`。
+
+### 回归：Android 11 老设备
+
+焦点路由改动影响所有设备，不能只凭「Android 11 原本就正常」推断。同日在 D1（Android 11）
+覆盖安装 1.2.4 重跑一遍：冷启动口令页焦点可见 → 设 1 分钟 → 回桌面 64 秒遮罩弹出 →
+方向键移动选中（高亮唯一）→ OK 判题 `solved +5min -> 5:01` → `Unhandled key` 计数 0。
+验证后 `pm clear` 清空测试口令与恢复码、补回两条 appops，设备回到「设置 6 位家长口令」交付态。
+
 ## [1.2.3] - 2026-11-10
 
 **升级改成分两步：先把包装到电视硬盘上，再由用户点「安装」；顺手把「误装导致丢口令」这个坑堵上。**
@@ -22,7 +71,7 @@
   `resolve-activity` 只给 action+mimeType、不给 data scheme，匹配不到 `InstallStart` 的 filter
 - 实测 `com.android.packageinstaller` 存在且启用，`ACTION_INSTALL_PACKAGE` + MediaStore 的
   `content://` URI + `FLAG_GRANT_READ_URI_PERMISSION` 能正常拉起 `PackageInstallerActivity`
-- 真机两次跑通：1.2.1 → 1.2.2、1.2.3 → 1.2.4（含「下载完进程被回收」的场景）
+- 真机两次跑通升级链路：1.2.1 → 1.2.2、1.2.3 → 更高版本号的临时测试包（含「下载完进程被回收」的场景）
 
 ### 新增：安装前比对签名
 

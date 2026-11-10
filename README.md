@@ -29,8 +29,8 @@
 
 ## 三条硬事实（装之前请先读）
 
-1. **必须用电脑执行两条 adb 命令**，否则守护不生效。小米电视固件把「显示在其他应用上层」和「通知使用权」的 UI 入口藏了，只能用 adb 开。
-2. **只在小尺寸范围内验证过**：1 台机型、7 类证据。见 [兼容性矩阵](docs/compatibility.md)，未测的机型一律标「未验证」。
+1. **必须用电脑执行三条 adb 命令**，否则守护不生效。小米电视固件把「显示在其他应用上层」「通知使用权」「电池优化白名单」的 UI 入口藏了，只能用 adb 开。Android 14 固件尤其严格：少第三条，回桌面就会把守护强停，到点不出题。
+2. **只在小尺寸范围内验证过**：同一机型 MiTV-MFTR0 的 Android 11 / 14 两套固件。见 [兼容性矩阵](docs/compatibility.md)，未测的机型一律标「未验证」。
 3. **它防不住卸载**。这是 Android 的设计，任何第三方应用都防不住。
 
 ---
@@ -49,7 +49,7 @@
 
 ```bash
 adb connect <电视IP>:5555
-adb install -r quizgate-1.2.3.apk
+adb install -r quizgate-1.2.4.apk
 ```
 
 也可以用 U 盘装（见下方「安装路径 A」）。
@@ -63,9 +63,13 @@ adb shell appops set app.quizgate.tv SYSTEM_ALERT_WINDOW allow
 # ② 通知使用权：强停/重启后靠它把应用拉回来
 adb shell cmd notification allow_listener app.quizgate.tv/app.quizgate.tv.NotifProbe
 
+# ③ 电池优化白名单：Android 14 不加这条，回桌面就会被系统强停
+adb shell dumpsys deviceidle whitelist +app.quizgate.tv
+
 # 验证
 adb shell appops get app.quizgate.tv SYSTEM_ALERT_WINDOW     # 应输出 allow
 adb shell settings get secure enabled_notification_listeners # 应包含 app.quizgate.tv/...
+adb shell dumpsys deviceidle whitelist | grep quizgate       # 应输出 user,app.quizgate.tv,...
 ```
 
 ### 3. 设口令、开始
@@ -146,12 +150,13 @@ adb shell settings get secure enabled_notification_listeners # 应包含 app.qui
 
 ---
 
-## 为什么需要这两条权限
+## 为什么需要这三条授权
 
-| 权限 | 用途 | 不授予的后果 |
+| 授权 | 用途 | 不授予的后果 |
 | --- | --- | --- |
 | `SYSTEM_ALERT_WINDOW`（显示在其他应用上层） | 全屏遮罩与右下角读秒 | 到点不会出题，计时等于没开 |
 | 通知使用权（`NotificationListenerService`） | **只作为存活锚点**：系统重新绑定它时会把进程拉回来 | 按电源键/被强停后守护消失，孩子可以随便看 |
+| 电池优化白名单 | 允许守护在后台继续跑 | Android 14 回桌面后直接 `Force stopping app.quizgate.tv`，不再出题 |
 
 通知监听**不读取通知标题或正文**，代码里只用包名做存活判断（`NotifProbe.java`）。
 
@@ -163,6 +168,9 @@ adb shell settings get secure enabled_notification_listeners # 应包含 app.qui
 - **遮罩卡死**：长按 OK 10 秒 → 仍无响应 → 电源键熄屏 10 秒再唤醒 → 仍无响应 → 拔电源重启。
 - **开机循环**：v1.2.0 起有崩溃熔断——连续 3 次启动崩溃后自动停止挂遮罩，不会再循环闪屏。
   到设置页「守护状态」可手动恢复，那里的崩溃信息请一并反馈。
+- **新电视装完「启动没反应」**：先补齐上面第 2 步的三条授权（Android 14 缺电池白名单会被强停）。
+  若界面在、遥控器却按不动，确认装的是 **v1.2.4 及以上**：Android 14 的悬浮窗焦点树会「假成功」，
+  1.2.4 起遮罩改为自己路由按键，不再依赖焦点树。
 
 详见 [docs/recovery.md](docs/recovery.md)。
 
