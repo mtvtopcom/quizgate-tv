@@ -6,7 +6,7 @@
   <img src="docs/img/logo.png" width="18%" alt="答对再看">
 </p>
 
-> **当前版本 [v1.2.5](https://github.com/mtvtopcom/quizgate-tv/releases)** · `versionCode 10205` · 2026-11-11 发布
+> **当前版本 [v1.2.5](https://github.com/mtvtopcom/quizgate-tv/releases/tag/v1.2.5)** · `versionCode 10205` · 2026-11-11 发布
 > `quizgate-1.2.5.apk` · SHA-256 `bcbbbcbe504df265f3ddc17012b019d0cd77ede569d2f20c95d721c2d5ac6f5e`
 > · [更新日志](CHANGELOG.md) · [全部 Release](https://github.com/mtvtopcom/quizgate-tv/releases)
 >
@@ -68,7 +68,7 @@
 
 ### 1. 装 APK
 
-从 [Releases](https://github.com/mtvtopcom/quizgate-tv/releases) 下载 `quizgate-1.2.5.apk`，
+从 [v1.2.5 Release](https://github.com/mtvtopcom/quizgate-tv/releases/tag/v1.2.5) 下载 `quizgate-1.2.5.apk`，
 按上方 SHA-256（或 Release 附的 `SHA256SUMS.txt`）校验后安装：
 
 ```bash
