@@ -86,6 +86,10 @@ curl -fsSL https://raw.githubusercontent.com/mtvtopcom/quizgate-tv/main/README.m
 shasum -a 256 README.md
 ```
 
+> `main` 别名的 raw 有 CDN 缓存，push 后短时间内可能仍返回**旧副本**，别据此判断「没同步」。
+> 复核用 `raw.githubusercontent.com/<owner>/<repo>/<本次commitSHA>/README.md`，
+> 或直接看仓库的 README 页面；`git ls-remote origin main` 也能立刻确认远端 HEAD。
+
 完整顺序：
 
 ```text
