@@ -6,8 +6,8 @@ set -euo pipefail
 cd "$(dirname "$0")"
 
 MODE="${1:-debug}"
-VERSION_NAME="1.0.0"
-VERSION_CODE="10000"
+VERSION_NAME="1.1.0"
+VERSION_CODE="10100"
 
 SDK="${ANDROID_HOME:-$HOME/android-dev/sdk}"
 JAVA_HOME="${JAVA_HOME:-$HOME/android-dev/jdk17/Contents/Home}"

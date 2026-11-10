@@ -1,0 +1,12 @@
+11-10 18:17:25.735 17888 17888 I QuizGate: notif_connected phase=0 remaining=60:00
+11-10 18:17:35.616 17888 17888 I QuizGate: notif_connected phase=0 remaining=60:00
+11-10 18:18:25.498 17888 17888 I QuizGate: onStartCommand action=app.quizgate.tv.START
+11-10 18:19:25.608 17888 17888 I QuizGate: mask_add ok
+11-10 18:19:46.226 18468 18468 I QuizGate: onStartCommand action=app.quizgate.tv.RESTORE
+11-10 18:19:46.316 18468 18468 I QuizGate: mask_add ok
+11-10 18:19:46.331 18468 18468 I QuizGate: onStartCommand action=app.quizgate.tv.RESTORE
+11-10 18:21:08.383 18468 18468 I QuizGate: pin ok -> exit session
+11-10 18:21:08.419 18468 18468 I QuizGate: service_destroy phase=未开始 remaining=1:00 gap=18328s pin=set rc=saved
+11-10 18:23:03.016 19978 19978 I QuizGate: notif_connected phase=0 remaining=1:00
+11-10 18:23:19.157 20304 20304 I QuizGate: notif_connected phase=0 remaining=1:00
+11-10 18:26:57.346 21083 21083 I QuizGate: notif_connected phase=0 remaining=1:00

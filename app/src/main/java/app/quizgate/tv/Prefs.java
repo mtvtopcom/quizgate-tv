@@ -22,6 +22,9 @@ public final class Prefs {
     private static final int PBKDF2_ITER = 60000;
     private static final int MAX_FAIL = 5;
     private static final long LOCKOUT_MS = 30_000L;
+    /** 恢复码是比口令更强的凭据，试错代价也更高：5 次 → 锁 30 分钟。 */
+    private static final int MAX_RC_FAIL = 5;
+    private static final long RC_LOCKOUT_MS = 30 * 60_000L;
 
     private final SharedPreferences sp;
 
@@ -125,10 +128,114 @@ public final class Prefs {
         }
     }
 
+    // ---------- 恢复码 ----------
+
+    public boolean hasRecoveryCode() { return sp.getString("rcHash", null) != null; }
+
+    /** 家长是否在展示页点过「我已拍照保存」。false = 码在库里，但家长手上未必有。 */
+    public boolean recoverySaved() { return sp.getBoolean("rcSaved", false); }
+
+    public void markRecoverySaved() { sp.edit().putBoolean("rcSaved", true).commit(); }
+
+    public long recoverySetAt() { return sp.getLong("rcSetAt", 0L); }
+
+    /** 生成本机专属恢复码并落库；旧码在同一时刻失效。返回明文，由调用方展示给家长拍照。 */
+    public String newRecoveryCode() {
+        String code = Recovery.generate();
+        setRecoveryCode(code);
+        return code;
+    }
+
+    public boolean setRecoveryCode(String code) {
+        String c = Recovery.normalize(code);
+        if (!Recovery.valid(c)) return false;
+        byte[] salt = new byte[16];
+        new SecureRandom().nextBytes(salt);
+        byte[] hash = pbkdf2(c, salt);
+        if (hash == null) return false;
+        sp.edit()
+                .putString("rcSalt", b64(salt))
+                .putString("rcHash", b64(hash))
+                .putLong("rcSetAt", System.currentTimeMillis())
+                .putBoolean("rcSaved", false)
+                .putInt("rcFail", 0)
+                .putLong("rcLockUntil", 0L)
+                .commit();
+        return true;
+    }
+
+    /**
+     * 返回 0 = 通过；>0 = 还需等待的毫秒；-1 = 码错；-2 = 格式错。
+     * -2 不计入失败次数：校验位都过不了的串只可能是抄错/按错，不是猜。
+     * 失败计数与口令完全独立，否则孩子乱输恢复码会把家长的日常口令一起锁死。
+     */
+    public long verifyRecoveryCode(String code) {
+        String c = Recovery.normalize(code);
+        if (!Recovery.valid(c)) return -2;
+
+        long lockUntil = sp.getLong("rcLockUntil", 0L);
+        long now = System.currentTimeMillis();
+        if (lockUntil > now) return lockUntil - now;
+
+        String saltB64 = sp.getString("rcSalt", null);
+        String hashB64 = sp.getString("rcHash", null);
+        if (saltB64 == null || hashB64 == null) return -1;
+        byte[] salt = Base64.decode(saltB64, Base64.NO_WRAP);
+        byte[] expect = Base64.decode(hashB64, Base64.NO_WRAP);
+        byte[] actual = pbkdf2(c, salt);
+        if (actual != null && MessageDigest.isEqual(expect, actual)) {
+            sp.edit().putInt("rcFail", 0).putLong("rcLockUntil", 0L).commit();
+            return 0;
+        }
+        int fail = sp.getInt("rcFail", 0) + 1;
+        if (fail >= MAX_RC_FAIL) {
+            sp.edit().putInt("rcFail", 0).putLong("rcLockUntil", now + RC_LOCKOUT_MS).commit();
+            return RC_LOCKOUT_MS;
+        }
+        sp.edit().putInt("rcFail", fail).commit();
+        return -1;
+    }
+
+    /**
+     * 恢复流程的收尾：新口令 + 新恢复码在**同一个 commit** 里落盘。
+     * 顺序不能反——先设口令、后烧旧码。否则中途断电/退出就是「码废了、口令也没设上」的死锁，
+     * 那比原来「忘口令只能卸载」更糟。
+     */
+    public boolean resetPinAndRecovery(String newPin, String newRecoveryCode) {
+        if (newPin == null || newPin.length() < 4) return false;
+        String rc = Recovery.normalize(newRecoveryCode);
+        if (!Recovery.valid(rc)) return false;
+
+        byte[] pinSalt = new byte[16], rcSalt = new byte[16];
+        SecureRandom rnd = new SecureRandom();
+        rnd.nextBytes(pinSalt);
+        rnd.nextBytes(rcSalt);
+        byte[] pinHash = pbkdf2(newPin, pinSalt);
+        byte[] rcHash = pbkdf2(rc, rcSalt);
+        if (pinHash == null || rcHash == null) return false;
+
+        return sp.edit()
+                .putString("pinSalt", b64(pinSalt))
+                .putString("pinHash", b64(pinHash))
+                .putString("rcSalt", b64(rcSalt))
+                .putString("rcHash", b64(rcHash))
+                .putLong("rcSetAt", System.currentTimeMillis())
+                .putBoolean("rcSaved", false)
+                .putInt("failCount", 0)
+                .putLong("lockUntil", 0L)
+                .putInt("rcFail", 0)
+                .putLong("rcLockUntil", 0L)
+                .commit();
+    }
+
+    private static String b64(byte[] v) { return Base64.encodeToString(v, Base64.NO_WRAP); }
+
     public String debugLine() {
         return String.format(Locale.US,
-                "phase=%s remaining=%s gap=%ds pin=%s",
-                phaseName(phase()), Core.fmt(remainingMs()), serviceGapMs() / 1000, hasPin() ? "set" : "none");
+                "phase=%s remaining=%s gap=%ds pin=%s rc=%s",
+                phaseName(phase()), Core.fmt(remainingMs()), serviceGapMs() / 1000,
+                hasPin() ? "set" : "none",
+                hasRecoveryCode() ? (recoverySaved() ? "saved" : "unsaved") : "none");
     }
 
     public static String phaseName(int p) {

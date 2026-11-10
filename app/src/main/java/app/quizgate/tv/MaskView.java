@@ -32,6 +32,7 @@ public class MaskView extends FrameLayout {
 
     private QuizBank.Q q;
     private PinPadView pin;
+    private RecoveryFlow recovery;
     private boolean pinVisible = false;
     private boolean answering = false;
 
@@ -144,6 +145,7 @@ public class MaskView extends FrameLayout {
     private void showPin() {
         if (pinVisible) return;
         pinVisible = true;
+        box.setDescendantFocusability(FOCUS_BEFORE_DESCENDANTS);
         for (TextView t : opts) t.setFocusable(false);
         if (pin == null) {
             pin = new PinPadView(getContext(), "家长口令（6 位）", new PinPadView.Listener() {
@@ -160,9 +162,12 @@ public class MaskView extends FrameLayout {
                 }
                 @Override public void onPinCancel() { hidePin(); }
             });
+            pin.setFooter("忘记口令？用恢复码重置", this::openRecovery);
         }
         if (pin.getParent() != null) removeView(pin);
         addView(pin, new FrameLayout.LayoutParams(-1, -1));
+        // 只让面板吃焦点：实测焦点会从面板最底一行掉到背后的选项卡上
+        box.setDescendantFocusability(FOCUS_BLOCK_DESCENDANTS);
         pin.reset();
         pin.focusFirst();
     }
@@ -175,14 +180,38 @@ public class MaskView extends FrameLayout {
         opts[0].requestFocus();
     }
 
+    /** 忘口令的家长在遮罩上也能自助：不需要等会话结束，也不需要卸载。 */
+    private void openRecovery() {
+        if (recovery != null) return;
+        if (pin != null && pin.getParent() != null) removeView(pin);
+        pinVisible = false;
+        box.setDescendantFocusability(FOCUS_BLOCK_DESCENDANTS);
+        recovery = new RecoveryFlow(getContext(), prefs, ok -> {
+            if (recovery != null && recovery.getParent() != null) removeView(recovery);
+            recovery = null;
+            if (ok) {
+                // 口令已重设、恢复码已换新 = 家长接管，按「结束本次会话」处理
+                host.onPinOk();
+            } else {
+                showPin();
+            }
+        });
+        addView(recovery, new FrameLayout.LayoutParams(-1, -1));
+    }
+
     @Override
     public boolean dispatchKeyEvent(KeyEvent e) {
         int k = e.getKeyCode();
+        if (recovery != null) {
+            if (recovery.consumeKey(e)) return true;
+            return super.dispatchKeyEvent(e);   // 方向键交给焦点树，否则遥控器在键盘上会失灵
+        }
         if (pinVisible) {
             if (e.getAction() == KeyEvent.ACTION_DOWN) {
                 if (k == KeyEvent.KEYCODE_BACK) { hidePin(); return true; }
-                if (k >= KeyEvent.KEYCODE_0 && k <= KeyEvent.KEYCODE_9) {
-                    pin.append((char) ('0' + (k - KeyEvent.KEYCODE_0)));
+                int d = PinPadView.digitOf(e);
+                if (d >= 0) {
+                    pin.append((char) ('0' + d));
                     return true;
                 }
                 if (k == KeyEvent.KEYCODE_DEL) { pin.backspace(); return true; }

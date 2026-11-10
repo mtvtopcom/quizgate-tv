@@ -24,12 +24,18 @@ public class MainActivity extends Activity {
 
     private Prefs prefs;
     private FrameLayout root;
+    private ScrollView contentScroll;
     private LinearLayout content;
 
-    private TextView valueDuration, valueExtend, valueGrade, valuePin, status, diag, btnPerm;
+    private TextView valueDuration, valueExtend, valueGrade, valuePin, valueRecovery, status, diag, btnPerm;
+    private TextView btnStart;
     private final Handler h = new Handler(Looper.getMainLooper());
 
     private PinPadView gate;
+    /** true = 首次必须设口令（返回=退出应用）；false = 从设置页改口令（返回=回设置页）。 */
+    private boolean gateRequired = true;
+    private RecoveryFlow recovery;
+    private FrameLayout codeOverlay;
     private boolean settingPin = false;
     private String firstPin = null;
 
@@ -49,6 +55,7 @@ public class MainActivity extends Activity {
 
     private void buildContent() {
         ScrollView sv = new ScrollView(this);
+        contentScroll = sv;
         sv.setFillViewport(true);
         content = new LinearLayout(this);
         content.setOrientation(LinearLayout.VERTICAL);
@@ -71,6 +78,7 @@ public class MainActivity extends Activity {
         valueExtend = addRow("答对延长", v -> prefs.setExtendMin(v), this::refresh);
         valueGrade = addRow("题目年级", v -> prefs.setGrade(v), this::refresh);
         valuePin = addRow("家长口令", v -> promptSetPin(), this::refresh);
+        valueRecovery = addRow("恢复码", v -> onRecoveryRow(), this::refresh);
 
         LinearLayout btns = Ui.row(this);
         LinearLayout.LayoutParams blp = new LinearLayout.LayoutParams(-1, -2);
@@ -78,6 +86,7 @@ public class MainActivity extends Activity {
         content.addView(btns, blp);
 
         TextView start = Ui.key(this, "开始计时", 24);
+        btnStart = start;
         start.setBackgroundResource(R.drawable.opt_bg);
         start.setMinWidth(Ui.dp(this, 220));
         start.setMinHeight(Ui.dp(this, 66));
@@ -308,12 +317,14 @@ public class MainActivity extends Activity {
     }
 
     private void promptSetPin() {
+        gateRequired = !prefs.hasPin();
         settingPin = true;
         firstPin = null;
-        showPinOverlay("设置 6 位家长口令", "请牢记，忘记只能用恢复路径或卸载");
+        showPinOverlay("设置 6 位家长口令", "请牢记，忘记只能用恢复码重置");
     }
 
     private void showUnlockPin() {
+        gateRequired = true;
         settingPin = false;
         showPinOverlay("家长口令", "输入 6 位数字进入设置");
     }
@@ -331,6 +342,8 @@ public class MainActivity extends Activity {
                             settingPin = false;
                             hidePinOverlay();
                             toast("口令已设置");
+                            // 设完口令立刻出码：这是全流程里最容易「码丢了都不知道」的一刻
+                            showRecoveryCode(prefs.newRecoveryCode());
                             refresh();
                         } else {
                             firstPin = null;
@@ -352,18 +365,47 @@ public class MainActivity extends Activity {
                 }
             }
             @Override public void onPinCancel() {
-                if (!prefs.hasPin()) toast("必须先设置家长口令");
-                else finish();
+                if (!prefs.hasPin()) { toast("必须先设置家长口令"); return; }
+                // 从设置页进来改口令时，返回应该回设置页；首次门禁才该退出应用
+                if (gateRequired) finish(); else hidePinOverlay();
             }
         });
         gate.setBackgroundColor(Ui.BG);
+        if (!settingPin) gate.setFooter("忘记口令？用恢复码重置", this::startRecovery);
         root.addView(gate, new FrameLayout.LayoutParams(-1, -1));
+        blockFocusBelow();
         gate.focusFirst();
     }
 
     private void hidePinOverlay() {
         if (gate != null && gate.getParent() != null) root.removeView(gate);
+        blockFocusBelow();
         refresh();
+        // 解锁后的下一步几乎总是「开始计时」，别让家长再去摸焦点
+        if (btnStart != null) btnStart.post(btnStart::requestFocus);
+    }
+
+    /**
+     * 只让最上面那层能吃焦点，下面的全部封锁。
+     * 实测（MiTV-MFTR0）：口令面板在焦点走到最底一行后再按 DOWN，焦点会「掉」到面板背后
+     * 的设置页，接着按 OK 就会误触「开始计时」——面板看着盖住了，键却打在背后。
+     */
+    private void blockFocusBelow() {
+        View top = null;
+        if (codeOverlay != null) top = codeOverlay;
+        else if (recovery != null) top = recovery;
+        else if (gate != null && gate.getParent() != null) top = gate;
+        for (int i = 0; i < root.getChildCount(); i++) {
+            View c = root.getChildAt(i);
+            int mode = (c == top) ? ViewGroup.FOCUS_AFTER_DESCENDANTS
+                    : ViewGroup.FOCUS_BLOCK_DESCENDANTS;
+            c.setFocusable(c == top);
+            if (c instanceof ViewGroup) ((ViewGroup) c).setDescendantFocusability(mode);
+        }
+        if (top == null && contentScroll != null) {
+            contentScroll.setFocusable(true);
+            contentScroll.setDescendantFocusability(ViewGroup.FOCUS_BEFORE_DESCENDANTS);
+        }
     }
 
     // ---------- 刷新 ----------
@@ -374,6 +416,9 @@ public class MainActivity extends Activity {
         valueExtend.setText("+ " + prefs.extendMin() + " 分钟");
         valueGrade.setText(prefs.grade() + " 年级");
         valuePin.setText(prefs.hasPin() ? "已设置" : "未设置");
+        // 只存哈希：应用里看不到已生成的码，想再看只能重新生成（旧码立即作废）
+        valueRecovery.setText(!prefs.hasRecoveryCode() ? "未生成"
+                : (prefs.recoverySaved() ? "已保存" : "待拍照"));
         tickUi();
     }
 
@@ -403,21 +448,85 @@ public class MainActivity extends Activity {
                 + "\n日志：adb logcat -s QuizGate");
     }
 
-    /** 遥控器数字键直接输入口令（很多电视遥控器带数字键，别浪费）。 */
+    /** 遥控器数字键 / USB 小键盘直接输入（很多电视遥控器带数字键，别浪费）。 */
     @Override
     public boolean dispatchKeyEvent(android.view.KeyEvent e) {
-        if (gate != null && gate.getParent() != null && e.getAction() == android.view.KeyEvent.ACTION_DOWN) {
-            int k = e.getKeyCode();
-            if (k >= android.view.KeyEvent.KEYCODE_0 && k <= android.view.KeyEvent.KEYCODE_9) {
-                gate.append((char) ('0' + (k - android.view.KeyEvent.KEYCODE_0)));
+        if (recovery != null) {
+            if (recovery.consumeKey(e)) return true;
+            if (e.getAction() == android.view.KeyEvent.ACTION_DOWN
+                    && e.getKeyCode() == android.view.KeyEvent.KEYCODE_BACK) return true;
+            return super.dispatchKeyEvent(e);
+        }
+        if (codeOverlay != null) {
+            // 展示页只有两个按钮，交给焦点树；BACK 只是收起（码已落库，设置页会标「待拍照」催家长再拍）
+            if (e.getAction() == android.view.KeyEvent.ACTION_DOWN
+                    && e.getKeyCode() == android.view.KeyEvent.KEYCODE_BACK) {
+                hideRecoveryCode();
+                refresh();
                 return true;
             }
-            if (k == android.view.KeyEvent.KEYCODE_DEL) {
+            return super.dispatchKeyEvent(e);
+        }
+        if (gate != null && gate.getParent() != null && e.getAction() == android.view.KeyEvent.ACTION_DOWN) {
+            int d = PinPadView.digitOf(e);
+            if (d >= 0) {
+                gate.append((char) ('0' + d));
+                return true;
+            }
+            if (e.getKeyCode() == android.view.KeyEvent.KEYCODE_DEL) {
                 gate.backspace();
                 return true;
             }
         }
         return super.dispatchKeyEvent(e);
+    }
+
+    // ---------- 恢复码 ----------
+
+    private void onRecoveryRow() {
+        showRecoveryCode(prefs.newRecoveryCode());
+    }
+
+    private void showRecoveryCode(String code) {
+        hideRecoveryCode();
+        codeOverlay = RecoveryFlow.codePanel(this, code,
+                () -> {
+                    prefs.markRecoverySaved();
+                    hideRecoveryCode();
+                    refresh();
+                    toast("恢复码已确认保存");
+                },
+                () -> showRecoveryCode(prefs.newRecoveryCode()));
+        root.addView(codeOverlay, new FrameLayout.LayoutParams(-1, -1));
+        blockFocusBelow();
+    }
+
+    private void hideRecoveryCode() {
+        if (codeOverlay != null && codeOverlay.getParent() != null) root.removeView(codeOverlay);
+        codeOverlay = null;
+        blockFocusBelow();
+    }
+
+    /** 从口令门禁进入：忘口令的家长只能走到这里，所以这里必须能重置。 */
+    private void startRecovery() {
+        if (recovery != null) return;
+        recovery = new RecoveryFlow(this, prefs, ok -> {
+            if (recovery != null && recovery.getParent() != null) root.removeView(recovery);
+            recovery = null;
+            blockFocusBelow();
+            if (ok) {
+                // 恢复 = 家长接管：当前会话按「已被家长结束」处理，不保留剩余时间
+                if (prefs.phase() != Prefs.IDLE) {
+                    startService(new Intent(this, GateService.class).setAction(GateService.ACTION_EXIT));
+                    prefs.resetSession();
+                }
+                hidePinOverlay();
+                toast("口令已重设，恢复码已换新，请重新拍照");
+            }
+            refresh();
+        });
+        root.addView(recovery, new FrameLayout.LayoutParams(-1, -1));
+        blockFocusBelow();
     }
 
     /** 首页一次性提示：上次守护被系统终止过（小米待机时会强停第三方应用）。 */

@@ -108,7 +108,7 @@ adb shell settings get secure enabled_notification_listeners # 应包含 app.qui
 | 按电源键关了电视，再开没有守护 | 「通知使用权」没给 | 执行授权命令② |
 | 关屏时电视自己亮了 | 旧版本问题（v1.0.0 已修） | 升级到 1.0.0+ |
 | 读秒小窗压在提示文字上 | v0.1.3 之前的 bug | 升级 |
-| 家长忘了口令 | 无恢复码（未实现） | 卸载重装，数据全丢。见 [恢复路径](docs/recovery.md) |
+| 家长忘了口令 | — | 用恢复码重置（设置页「忘记口令？」）。见 [恢复路径](docs/recovery.md) |
 | `INSTALL_FAILED_UPDATE_INCOMPATIBLE` | 签名不一致 | 先 `adb uninstall app.quizgate.tv` 再装 |
 | 开机后应用不见了 | 小米重启会清空第三方应用状态 | 正常现象；通知监听会在开机时把进程拉回来 |
 
@@ -139,7 +139,7 @@ adb shell settings get secure enabled_notification_listeners # 应包含 app.qui
 
 ## 恢复路径
 
-- **忘口令**：目前无恢复码。卸载重装即可恢复电视原状，设置与题库状态会丢失（`allowBackup=false`）。
+- **忘口令**：用恢复码重置（设置页「忘记口令？」，或遮罩上按菜单键后的口令面板里）。恢复码照片也丢了才需要卸载重装，设置与题库状态会丢失（`allowBackup=false`）。
 - **遮罩卡死**：长按 OK 10 秒 → 仍无响应 → 电源键熄屏 10 秒再唤醒 → 仍无响应 → 拔电源重启。
 - **开机循环**：v1.0.0 尚未实现崩溃熔断（SAFE 模式），若遇到请提 issue 并附 `adb logcat -s QuizGate`。
 
