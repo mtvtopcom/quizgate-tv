@@ -9,6 +9,7 @@ import android.widget.TextView;
 /** 右下角读秒：最后 30 秒出现，绝不抢焦点。 */
 public class MiniView extends FrameLayout {
     private final TextView num;
+    private final TextView cap;
 
     public MiniView(Context c) {
         super(c);
@@ -23,6 +24,7 @@ public class MiniView extends FrameLayout {
 
         TextView t = Ui.label(c, "剩余", 12, Ui.DIM);
         t.setGravity(Gravity.CENTER);
+        cap = t;
         card.addView(t);
 
         addView(card, new FrameLayout.LayoutParams(-2, -2));
@@ -31,5 +33,10 @@ public class MiniView extends FrameLayout {
 
     public void setRemaining(long ms) {
         num.setText(Core.fmt(ms));
+    }
+
+    /** 开局 5 秒提示复用同一个小窗，换个标题区分「本次时长」和「最后 30 秒读秒」。 */
+    public void setCaption(String s) {
+        cap.setText(s);
     }
 }

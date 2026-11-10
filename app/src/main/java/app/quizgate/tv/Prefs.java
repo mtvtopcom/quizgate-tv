@@ -74,6 +74,37 @@ public final class Prefs {
 
     public void resetSession() {
         saveSnapshot(IDLE, durationMin() * 60_000L);
+        clearStartHint();
+    }
+
+    // ---------- 开局 5 秒提示（必须跨进程存活） ----------
+    /**
+     * 小米电视在「应用带着系统悬浮窗回桌面」时会 Force stop 整个进程
+     * （系统日志：MitvWindowManager: app.xxx has system window, so kill it），
+     * 随后由通知监听在新进程里 RESTORE。所以提示截止时间不能只放服务实例字段，
+     * 必须和会话快照一样落盘，否则「点开始 → 界面关闭」这一下就把提示弄丢了。
+     * <p>用墙上时钟而不是 elapsedRealtime：后者重启后归零，会把开机前留下的
+     * 截止时间误判成「还没到」，导致重启后一直挂着提示。
+     */
+    public void markStartHint(long ms) {
+        sp.edit().putLong("startHintUntil", System.currentTimeMillis() + ms).commit();
+    }
+
+    public long startHintLeftMs() {
+        return Math.max(0L, sp.getLong("startHintUntil", 0L) - System.currentTimeMillis());
+    }
+
+    public boolean startHintOn() {
+        return phase() == RUNNING && startHintLeftMs() > 0L;
+    }
+
+    public void clearStartHint() {
+        sp.edit().remove("startHintUntil").commit();
+    }
+
+    /** 服务启动时清掉过期值；进程被杀来不及清也没关系，startHintOn() 自己会过期。 */
+    public void sweepStartHint() {
+        if (!startHintOn()) clearStartHint();
     }
 
     // ---------- 家长口令 ----------

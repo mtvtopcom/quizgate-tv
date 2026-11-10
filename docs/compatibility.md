@@ -70,6 +70,24 @@
 `Unhandled key` 计数 0。验证后 `pm clear` 清空测试口令与恢复码、补回两条 appops，
 设备回到「设置 6 位家长口令」的交付态。
 
+#### 1.2.5 双机回归（同日）
+
+1.2.5 改了首页布局、按键路由入口、开局提示与守护自愈，**两台都重新取证**，没有互相套结论：
+
+| 项 | D1 / Android 11 | D2 / Android 14 |
+| --- | --- | --- |
+| 新首页方向键 / OK | 通过（RIGHT→结束会话、LEFT→开始计时） | 通过 |
+| 开局「本次时长」5 秒提示 | 1s「5:00」→ 6s 消失，`start_hint dismissed` 5.013s | 1s「1:00」→ 3.5s「0:57」→ 6s 消失，`start_hint dismissed` 5.018s |
+| 最后 30 秒「剩余」读秒 | 沿用原逻辑 | 通过（0:29 截图） |
+| 进程被换后提示是否续上 | 通过：`RESTORE` 后按剩余时间重排 | 通过：`RESTORE` 后按剩余时间重排 |
+| 会话中 `am force-stop` 后重进 | 通过：`auto_restore phase=1` | 通过：`auto_restore phase=1`，倒计时 30:00 → 29:41 |
+| 设置页授权自检 / 当前版本 | 同版本代码 | 全绿 `✓`、`1.2.5 (10205)`；撤销两项后红字 + adb 命令 |
+
+**新增系统行为记录（D2）**：应用带着系统悬浮窗回桌面时，小米固件会
+`MitvWindowManager: app.quizgate.tv has system window,so kill it.` → `Force stopping app.quizgate.tv`，
+进程 pid 在 0.4 秒内换掉；守护靠 `NotifProbe` RESTORE 复活。任何只存在服务实例内存里的
+短时 UI 状态都必须落盘，否则活不过这一下。截图与日志见 `evidence/D6-2026-11-10/`。
+
 ## 未验证
 
 以下机型/系统组合**没有任何实测数据**，不构成支持声明：

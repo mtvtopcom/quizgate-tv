@@ -2,16 +2,20 @@ package app.quizgate.tv;
 
 import android.app.Activity;
 import android.app.Dialog;
+import android.content.Context;
 import android.content.Intent;
+import android.graphics.Typeface;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
+import android.os.PowerManager;
 import android.provider.Settings;
 import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
@@ -28,8 +32,16 @@ public class MainActivity extends Activity {
     private LinearLayout content;
 
     private TextView valueDuration, valueExtend, valueGrade, valuePin, valueRecovery, valueGuard, status, diag, btnPerm;
+    private TextView valueVersion;
     private TextView btnStart;
     private TextView banner;
+    /** 首页（只看运行状态）；设置页是原来的 contentScroll，两者在同一个 Activity 里切换。 */
+    private View homeRoot;
+    private TextView homePhase, homeTime, homeGuard, homeAuth, homeBanner, homeBtnStart;
+    private LinearLayout authBox;
+    private boolean showingSettings = false;
+    private boolean settingsUnlocked = false;
+    private long lastRestoreAt = 0L;
     private final Handler h = new Handler(Looper.getMainLooper());
 
     private PinPadView gate;
@@ -52,9 +64,14 @@ public class MainActivity extends Activity {
 
         root = new FrameLayout(this);
         root.setBackgroundColor(Ui.BG);
-        buildContent();
+        buildContent();   // 设置页：参数、授权自检、版本号
+        buildHome();      // 首页：只放运行状态
         setContentView(root);
-        gate();
+        showHome();
+        // 会话没结束但守护服务不在（系统强杀 / 重装后缺授权）→ 立刻按快照恢复，不让倒计时冻结
+        autoRestore();
+        // 首次安装（含卸载重装）：直接进设置页让家长自己设 6 位口令
+        if (!prefs.hasPin()) showSettings();
         checkUpdate();
     }
 
@@ -99,6 +116,7 @@ public class MainActivity extends Activity {
         valuePin = addRow("家长口令", v -> promptSetPin(), this::refresh);
         valueRecovery = addRow("恢复码", v -> onRecoveryRow(), this::refresh);
         valueGuard = addRow("守护状态", v -> promptClearSafeMode(), this::refresh);
+        valueVersion = addRow("当前版本", v -> toast(versionText()), this::refresh);
 
         LinearLayout btns = Ui.row(this);
         LinearLayout.LayoutParams blp = new LinearLayout.LayoutParams(-1, -2);
@@ -131,10 +149,229 @@ public class MainActivity extends Activity {
         content.addView(perm, plp);
         perm.setOnClickListener(v -> requestOverlay());
 
+        // 授权自检：缺哪项就红字给出可照抄的 adb 命令
+        authBox = new LinearLayout(this);
+        authBox.setOrientation(LinearLayout.VERTICAL);
+        authBox.setPadding(Ui.dp(this, 8), Ui.dp(this, 26), Ui.dp(this, 8), Ui.dp(this, 6));
+        content.addView(authBox, new LinearLayout.LayoutParams(-1, -2));
+
         diag = Ui.label(this, "", 14, Ui.DIM);
         LinearLayout.LayoutParams dlp = new LinearLayout.LayoutParams(-2, -2);
         dlp.topMargin = Ui.dp(this, 28);
         content.addView(diag, dlp);
+    }
+
+    // ---------- 首页：电视风格，只放运行状态 ----------
+
+    private void buildHome() {
+        LinearLayout home = new LinearLayout(this);
+        home.setOrientation(LinearLayout.VERTICAL);
+        home.setBackgroundColor(Ui.BG);
+        home.setPadding(Ui.dp(this, 72), Ui.dp(this, 32), Ui.dp(this, 72), Ui.dp(this, 24));
+
+        LinearLayout brand = Ui.row(this);
+        brand.setGravity(Gravity.CENTER_VERTICAL);
+        brand.setPadding(0, 0, 0, Ui.dp(this, 24));
+        ImageView logo = new ImageView(this);
+        logo.setImageResource(R.drawable.home_logo);
+        logo.setScaleType(ImageView.ScaleType.FIT_CENTER);
+        brand.addView(logo, new LinearLayout.LayoutParams(Ui.dp(this, 88), Ui.dp(this, 88)));
+        LinearLayout titles = Ui.col(this);
+        titles.setGravity(Gravity.START);
+        titles.setPadding(Ui.dp(this, 22), 0, 0, 0);
+        titles.addView(Ui.title(this, "答对再看", 34));
+        titles.addView(Ui.label(this, "到点一题 · 答对续时", 18, Ui.DIM));
+        brand.addView(titles, new LinearLayout.LayoutParams(-2, -2));
+        home.addView(brand, new LinearLayout.LayoutParams(-1, -2));
+
+        LinearLayout card = new LinearLayout(this);
+        card.setOrientation(LinearLayout.VERTICAL);
+        card.setGravity(Gravity.CENTER);
+        card.setBackground(Ui.box(this, Ui.CARD, Ui.ACCENT, Ui.dp(this, 2), 20));
+        card.setPadding(Ui.dp(this, 40), Ui.dp(this, 22), Ui.dp(this, 40), Ui.dp(this, 22));
+
+        homePhase = Ui.label(this, "未开始 · 待机", 22, Ui.DIM);
+        homePhase.setGravity(Gravity.CENTER);
+        card.addView(homePhase);
+
+        homeTime = Ui.label(this, "—", 88, Ui.ACCENT);
+        homeTime.setTypeface(Typeface.DEFAULT_BOLD);
+        homeTime.setGravity(Gravity.CENTER);
+        LinearLayout.LayoutParams tlp = new LinearLayout.LayoutParams(-2, -2);
+        tlp.topMargin = Ui.dp(this, 4);
+        card.addView(homeTime, tlp);
+
+        homeGuard = Ui.label(this, "", 20, Ui.ACCENT);
+        homeGuard.setGravity(Gravity.CENTER);
+        LinearLayout.LayoutParams glp = new LinearLayout.LayoutParams(-2, -2);
+        glp.topMargin = Ui.dp(this, 10);
+        card.addView(homeGuard, glp);
+
+        homeAuth = Ui.label(this, "", 17, Ui.BAD);
+        homeAuth.setGravity(Gravity.CENTER);
+        LinearLayout.LayoutParams alp = new LinearLayout.LayoutParams(-2, -2);
+        alp.topMargin = Ui.dp(this, 10);
+        card.addView(homeAuth, alp);
+        homeAuth.setVisibility(View.GONE);
+
+        homeBanner = Ui.label(this, "", 19, Ui.BLACK);
+        homeBanner.setBackgroundColor(Ui.BAD);
+        homeBanner.setPadding(Ui.dp(this, 20), Ui.dp(this, 12), Ui.dp(this, 20), Ui.dp(this, 12));
+        homeBanner.setFocusable(true);
+        homeBanner.setClickable(true);
+        homeBanner.setOnClickListener(v -> promptClearSafeMode());
+        homeBanner.setVisibility(View.GONE);
+        LinearLayout.LayoutParams hblp = new LinearLayout.LayoutParams(-1, -2);
+        hblp.topMargin = Ui.dp(this, 16);
+        card.addView(homeBanner, hblp);
+
+        home.addView(card, new LinearLayout.LayoutParams(-1, 0, 1f));
+
+        LinearLayout btns = Ui.row(this);
+        btns.setGravity(Gravity.CENTER);
+        homeBtnStart = Ui.homeKey(this, "开始计时", true);
+        homeBtnStart.setOnClickListener(v -> startSession());
+        btns.addView(homeBtnStart);
+
+        TextView end = Ui.homeKey(this, "结束本次会话", false);
+        end.setOnClickListener(v -> exitSession());
+        LinearLayout.LayoutParams elp = new LinearLayout.LayoutParams(-2, -2);
+        elp.leftMargin = Ui.dp(this, 20);
+        btns.addView(end, elp);
+
+        TextView settings = Ui.homeKey(this, "设置", false);
+        settings.setOnClickListener(v -> showSettings());
+        LinearLayout.LayoutParams slp = new LinearLayout.LayoutParams(-2, -2);
+        slp.leftMargin = Ui.dp(this, 20);
+        btns.addView(settings, slp);
+        LinearLayout.LayoutParams blp = new LinearLayout.LayoutParams(-1, -2);
+        blp.topMargin = Ui.dp(this, 24);
+        home.addView(btns, blp);
+
+        TextView hint = Ui.label(this, "方向键选择 · OK 确认 · 时长、口令、恢复码都在「设置」里", 16, Ui.DIM);
+        hint.setGravity(Gravity.CENTER);
+        LinearLayout.LayoutParams hlp = new LinearLayout.LayoutParams(-1, -2);
+        hlp.topMargin = Ui.dp(this, 16);
+        home.addView(hint, hlp);
+
+        homeRoot = home;
+        root.addView(home, new FrameLayout.LayoutParams(-1, -1));
+    }
+
+    private void showHome() {
+        showingSettings = false;
+        contentScroll.setVisibility(View.GONE);
+        homeRoot.setVisibility(View.VISIBLE);
+        focusInited = false;
+        refresh();
+        blockFocusBelow();
+        maybeInitFocus();
+    }
+
+    /** 设置页受口令保护；本次 Activity 里解锁过一次就不再反复问。 */
+    private void showSettings() {
+        showingSettings = true;
+        homeRoot.setVisibility(View.GONE);
+        contentScroll.setVisibility(View.VISIBLE);
+        focusInited = false;
+        refresh();
+        if (!settingsUnlocked) gate();
+        blockFocusBelow();
+        if (settingsUnlocked) maybeInitFocus();
+    }
+
+    // ---------- 授权自检与自愈 ----------
+
+    private boolean notifOn() {
+        try {
+            String s = Settings.Secure.getString(getContentResolver(), "enabled_notification_listeners");
+            return s != null && s.contains(getPackageName());
+        } catch (Throwable t) {
+            return false;
+        }
+    }
+
+    private boolean batteryOk() {
+        try {
+            PowerManager pm = (PowerManager) getSystemService(Context.POWER_SERVICE);
+            return pm != null && pm.isIgnoringBatteryOptimizations(getPackageName());
+        } catch (Throwable t) {
+            return false;
+        }
+    }
+
+    private String versionText() {
+        try {
+            android.content.pm.PackageInfo pi = getPackageManager().getPackageInfo(getPackageName(), 0);
+            return pi.versionName + " (" + pi.versionCode + ")";
+        } catch (Throwable t) {
+            return "未知";
+        }
+    }
+
+    /** 会话还在、守护却不在：按磁盘快照恢复计时，别让设置页停在一个不动的数字上。 */
+    private void autoRestore() {
+        if (prefs.safeMode() || prefs.phase() == Prefs.IDLE) return;
+        if (!Settings.canDrawOverlays(this)) return;
+        if (App.gateAlive) return;
+        long now = android.os.SystemClock.elapsedRealtime();
+        if (now - lastRestoreAt < 3000L) return;
+        lastRestoreAt = now;
+        try {
+            startForegroundService(new Intent(this, GateService.class).setAction(GateService.ACTION_RESTORE));
+            android.util.Log.i("QuizGate", "auto_restore phase=" + prefs.phase());
+        } catch (Throwable t) {
+            android.util.Log.w("QuizGate", "auto_restore failed: " + t);
+        }
+    }
+
+    private void refreshAuth() {
+        if (authBox == null) return;
+        authBox.removeAllViews();
+        boolean notif = notifOn(), battery = batteryOk();
+        boolean needGuard = prefs.phase() != Prefs.IDLE;
+        boolean alive = App.gateAlive;
+        authBox.addView(Ui.title(this, "授权自检", 24));
+        authBox.addView(authLine("悬浮窗权限", Settings.canDrawOverlays(this),
+                Settings.canDrawOverlays(this) ? null
+                        : "adb shell appops set " + getPackageName() + " SYSTEM_ALERT_WINDOW allow"));
+        authBox.addView(authLine("通知使用权", notif, notif ? null
+                : "adb shell cmd notification allow_listener " + getPackageName() + "/" + getPackageName() + ".NotifProbe"));
+        authBox.addView(authLine("电池优化白名单", battery, battery ? null
+                : "adb shell dumpsys deviceidle whitelist +" + getPackageName()));
+        authBox.addView(authLine("守护服务", needGuard ? alive : true, null));
+        if (!notif || !battery || (needGuard && !alive)) {
+            TextView tip = Ui.label(this,
+                    "卸载重装或系统回收后，通知使用权 / 电池白名单可能被清掉；按上面命令补齐，再重进应用即可。",
+                    16, Ui.BAD);
+            LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(-1, -2);
+            lp.topMargin = Ui.dp(this, 12);
+            authBox.addView(tip, lp);
+        }
+    }
+
+    private View authLine(String name, boolean ok, String adb) {
+        LinearLayout box = Ui.col(this);
+        box.setGravity(Gravity.START);
+        TextView t = Ui.label(this, (ok ? "✓ " : "✗ ") + name + "：" + (ok ? "正常" : "缺失"),
+                19, ok ? Ui.ACCENT : Ui.BAD);
+        box.addView(t);
+        if (adb != null) box.addView(mono(adb));
+        return box;
+    }
+
+    private void refreshHomeAuth() {
+        if (homeAuth == null) return;
+        StringBuilder miss = new StringBuilder();
+        if (!Settings.canDrawOverlays(this)) miss.append("悬浮窗 ");
+        if (!notifOn()) miss.append("通知使用权 ");
+        if (!batteryOk()) miss.append("电池白名单 ");
+        if (miss.length() == 0) {
+            homeAuth.setVisibility(View.GONE);
+        } else {
+            homeAuth.setText("授权缺失：" + miss.toString().trim() + " → 进「设置」查看修复命令");
+            homeAuth.setVisibility(View.VISIBLE);
+        }
     }
 
     private TextView addRow(String label, IntPick onPick, Runnable after) {
@@ -227,6 +464,8 @@ public class MainActivity extends Activity {
         startForegroundService(i);
         toast("已开始：" + prefs.durationMin() + " 分钟后出题");
         refresh();
+        // 回到电视桌面；右下角由守护服务亮 5 秒「本次时长」提示，5 秒后自动收起
+        finish();
     }
 
     private void exitSession() {
@@ -365,6 +604,7 @@ public class MainActivity extends Activity {
                     } else if (firstPin.equals(s)) {
                         if (prefs.setPin(s)) {
                             settingPin = false;
+                            settingsUnlocked = true;
                             hidePinOverlay();
                             toast("口令已设置");
                             // 设完口令立刻出码：这是全流程里最容易「码丢了都不知道」的一刻
@@ -381,6 +621,7 @@ public class MainActivity extends Activity {
                 } else {
                     long r = prefs.verifyPin(s);
                     if (r == 0) {
+                        settingsUnlocked = true;
                         hidePinOverlay();
                     } else if (r > 0) {
                         gate.fail("尝试次数过多，请 " + (r / 1000) + " 秒后再试");
@@ -391,8 +632,9 @@ public class MainActivity extends Activity {
             }
             @Override public void onPinCancel() {
                 if (!prefs.hasPin()) { toast("必须先设置家长口令"); return; }
-                // 从设置页进来改口令时，返回应该回设置页；首次门禁才该退出应用
-                if (gateRequired) finish(); else hidePinOverlay();
+                // 取消进设置的门禁 = 回首页；从设置页改口令的返回 = 留在设置页
+                if (gateRequired) { hidePinOverlay(); showHome(); }
+                else hidePinOverlay();
             }
         });
         gate.setBackgroundColor(Ui.BG);
@@ -408,7 +650,9 @@ public class MainActivity extends Activity {
         refresh();
         // 解锁后的下一步几乎总是「开始计时」，别让家长再去摸焦点。
         // 但安全模式下该先看到的是横幅 —— 否则家长看到「开始计时」会以为守护在正常工作。
-        View t = prefs.safeMode() ? banner : btnStart;
+        View t = showingSettings
+                ? (prefs.safeMode() ? banner : btnStart)
+                : (prefs.safeMode() ? homeBanner : homeBtnStart);
         if (t != null) t.post(t::requestFocus);
         maybeShowUpdate();
     }
@@ -424,18 +668,24 @@ public class MainActivity extends Activity {
         else if (codeOverlay != null) top = codeOverlay;
         else if (recovery != null) top = recovery;
         else if (gate != null && gate.getParent() != null) top = gate;
+        // 首页和设置页是两个并列的子 View，只让当前显示的那一个吃焦点
+        View active = showingSettings ? contentScroll : homeRoot;
         for (int i = 0; i < root.getChildCount(); i++) {
             View c = root.getChildAt(i);
-            int mode = (c == top) ? ViewGroup.FOCUS_AFTER_DESCENDANTS
+            boolean isTop = (c == top);
+            boolean isActive = (top == null && c == active);
+            int mode = (isTop || isActive) ? ViewGroup.FOCUS_AFTER_DESCENDANTS
                     : ViewGroup.FOCUS_BLOCK_DESCENDANTS;
-            c.setFocusable(c == top);
+            c.setFocusable(isTop);
             if (c instanceof ViewGroup) ((ViewGroup) c).setDescendantFocusability(mode);
         }
-        if (top == null && contentScroll != null) {
-            contentScroll.setFocusable(true);
-            // AFTER 而不是 BEFORE：banner（熔断提示）在 ScrollView 里，
-            // 用 BEFORE 的话焦点会先落在 ScrollView 自己身上，家长按半天方向键才能看到熔断提示
-            contentScroll.setDescendantFocusability(ViewGroup.FOCUS_AFTER_DESCENDANTS);
+        if (top == null && active != null) {
+            // AFTER 而不是 BEFORE：熔断横幅在 ScrollView 里，
+            // 用 BEFORE 的话焦点会先落在容器自己身上，家长按半天方向键才能看到提示
+            if (active == contentScroll) active.setFocusable(true);
+            if (active instanceof ViewGroup) {
+                ((ViewGroup) active).setDescendantFocusability(ViewGroup.FOCUS_AFTER_DESCENDANTS);
+            }
         }
     }
 
@@ -450,6 +700,9 @@ public class MainActivity extends Activity {
         // 只存哈希：应用里看不到已生成的码，想再看只能重新生成（旧码立即作废）
         valueRecovery.setText(!prefs.hasRecoveryCode() ? "未生成"
                 : (prefs.recoverySaved() ? "已保存" : "待拍照"));
+        valueVersion.setText(versionText());
+        refreshAuth();
+        refreshHomeAuth();
         refreshGuard();
         tickUi();
         maybeInitFocus();
@@ -458,16 +711,34 @@ public class MainActivity extends Activity {
     /** 熔断状态的展示：横幅 + 设置页那一行。安全模式下要让家长知道「现在没在防」。 */
     private void refreshGuard() {
         boolean safe = prefs.safeMode();
+        boolean needGuard = prefs.phase() != Prefs.IDLE;
+        boolean alive = App.gateAlive;
+        boolean authMissing = !Settings.canDrawOverlays(this) || !notifOn() || !batteryOk();
+        String txt;
+        int color;
+        if (safe) { txt = "已停止（安全模式）"; color = Ui.BAD; }
+        else if (needGuard && !alive) { txt = "守护已停止 · 正在恢复"; color = Ui.BAD; }
+        else if (authMissing) { txt = "授权不完整 · 见设置自检"; color = Ui.BAD; }
+        else if (needGuard) { txt = "守护中"; color = Ui.ACCENT; }
+        else { txt = "待机 · 授权齐全"; color = Ui.ACCENT; }
+
+        String bannerTxt = "⚠ 守护已停止（安全模式）：连续崩溃 " + Prefs.MAX_CRASH
+                + " 次后不再挂遮罩。点这里恢复";
         if (banner != null) {
             banner.setVisibility(safe ? View.VISIBLE : View.GONE);
-            if (safe) {
-                banner.setText("⚠ 守护已停止（安全模式）：连续崩溃 " + Prefs.MAX_CRASH
-                        + " 次后不再挂遮罩。点这里恢复");
-            }
+            if (safe) banner.setText(bannerTxt);
+        }
+        if (homeBanner != null) {
+            homeBanner.setVisibility(safe ? View.VISIBLE : View.GONE);
+            if (safe) homeBanner.setText(bannerTxt);
         }
         if (valueGuard != null) {
-            valueGuard.setText(safe ? "已停止（安全模式）" : "正常");
-            valueGuard.setTextColor(safe ? Ui.BAD : Ui.OK);
+            valueGuard.setText(txt);
+            valueGuard.setTextColor(color);
+        }
+        if (homeGuard != null) {
+            homeGuard.setText("守护状态：" + txt);
+            homeGuard.setTextColor(color);
         }
     }
 
@@ -476,7 +747,9 @@ public class MainActivity extends Activity {
         if (focusInited) return;
         if (gate != null && gate.getParent() != null) return;
         if (recovery != null || codeOverlay != null || upgrade != null) return;
-        View t = prefs.safeMode() ? banner : btnStart;
+        View t = showingSettings
+                ? (prefs.safeMode() ? banner : btnStart)
+                : (prefs.safeMode() ? homeBanner : homeBtnStart);
         if (t == null) return;
         focusInited = true;
         t.post(t::requestFocus);
@@ -545,19 +818,39 @@ public class MainActivity extends Activity {
     private final Runnable uiTick = new Runnable() {
         @Override public void run() {
             tickUi();
+            // 守护状态每秒重判：服务被系统强杀后立刻变红并自动 RESTORE，
+            // 不能等家长点一下按钮才发现「正常」是假的
+            refreshGuard();
+            refreshHomeAuth();
+            autoRestore();
             h.postDelayed(this, 1000);
         }
     };
 
     private void tickUi() {
         int p = prefs.phase();
+        boolean alive = App.gateAlive;
+        String phase, big;
         if (p == Prefs.IDLE) {
-            status.setText("未开始 · 待机");
+            phase = "未开始 · 待机";
+            big = "—";
+        } else if (!alive) {
+            // 服务不在时 prefs.remainingMs() 是冻结的旧快照，绝不拿来冒充当前剩余时间
+            phase = "守护恢复中…";
+            big = "—";
         } else if (p == Prefs.LOCKED) {
-            status.setText("已锁定 · 等待答题");
+            phase = "已锁定 · 等待答题";
+            big = "0:00";
         } else {
-            status.setText("计时中 · 剩余 " + Core.fmt(prefs.remainingMs()));
+            phase = "计时中";
+            big = Core.fmt(prefs.remainingMs());
         }
+        status.setText(p == Prefs.IDLE ? "未开始 · 待机"
+                : (p == Prefs.LOCKED ? "已锁定 · 等待答题"
+                : (!alive ? "守护恢复中…（不显示冻结时间）"
+                : "计时中 · 剩余 " + Core.fmt(prefs.remainingMs()))));
+        if (homePhase != null) homePhase.setText(phase);
+        if (homeTime != null) homeTime.setText(big);
         boolean ov = Settings.canDrawOverlays(this);
         if (btnPerm != null) {
             btnPerm.setText(ov ? "显示权限：已授予（点击重新检测）" : "显示权限：未授予（点击查看开启方法）");
@@ -596,6 +889,18 @@ public class MainActivity extends Activity {
                 return true;
             }
             return super.dispatchKeyEvent(e);
+        }
+        // 返回键：设置页 → 首页。口令门禁盖在上面时也要能退回首页，
+        // 否则系统默认 BACK 会直接 finish 掉应用（首装还没设口令时禁止退出）。
+        if (showingSettings
+                && e.getAction() == android.view.KeyEvent.ACTION_DOWN
+                && e.getKeyCode() == android.view.KeyEvent.KEYCODE_BACK) {
+            if (gate != null && gate.getParent() != null) {
+                if (!prefs.hasPin()) { toast("必须先设置家长口令"); return true; }
+                hidePinOverlay();
+            }
+            showHome();
+            return true;
         }
         if (gate != null && gate.getParent() != null && e.getAction() == android.view.KeyEvent.ACTION_DOWN) {
             int d = PinPadView.digitOf(e);
@@ -650,6 +955,7 @@ public class MainActivity extends Activity {
                     startService(new Intent(this, GateService.class).setAction(GateService.ACTION_EXIT));
                     prefs.resetSession();
                 }
+                settingsUnlocked = true;
                 hidePinOverlay();
                 toast("口令已重设，恢复码已换新，请重新拍照");
             }
@@ -752,6 +1058,7 @@ public class MainActivity extends Activity {
 
     @Override protected void onResume() {
         super.onResume();
+        autoRestore();
         refresh();
         h.removeCallbacks(uiTick);
         h.post(uiTick);

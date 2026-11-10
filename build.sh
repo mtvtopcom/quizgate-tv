@@ -12,8 +12,8 @@ cd "$(dirname "$0")"
 MODE="${1:-debug}"
 # 版本号默认值随发布走；做真机升级验证时用环境变量临时覆盖，
 # 免得为了「造一个更新包」去改仓库里的版本号。
-VERSION_NAME="${QUIZGATE_VERSION_NAME:-1.2.4}"
-VERSION_CODE="${QUIZGATE_VERSION_CODE:-10204}"
+VERSION_NAME="${QUIZGATE_VERSION_NAME:-1.2.5}"
+VERSION_CODE="${QUIZGATE_VERSION_CODE:-10205}"
 
 # 升级源：默认就是生产目录（发版后用户能自动收到更新）。
 # 想完全离线：QUIZGATE_UPGRADE_BASE= ./build.sh ...

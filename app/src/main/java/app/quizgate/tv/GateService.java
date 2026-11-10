@@ -39,6 +39,8 @@ public class GateService extends Service implements MaskView.Host {
     private static final int NOTIF_ID = 1001;
     private static final long TICK_MS = 200L;
     private static final long MINI_THRESHOLD_MS = 30_000L;
+    /** 点「开始计时」后右下角亮 5 秒，告诉家长这次设了多久；之后仍按原逻辑只在最后 30 秒出现。 */
+    private static final long START_HINT_MS = 5_000L;
     /**
      * 服务活过这么久才算「稳定」，崩溃计数归零。
      * <p>取 60s 的理由：崩溃循环的典型特征是「起来就炸」（毫秒级到几秒级），而正常的一次
@@ -67,6 +69,16 @@ public class GateService extends Service implements MaskView.Host {
     private BroadcastReceiver screenRx;
     private long offU = 0, offE = 0;
     private boolean pendingMask = false;
+    /**
+     * 开局提示的收尾。截止时间存在 Prefs 里而不是本实例字段：小米电视回桌面时会因
+     * 「应用还挂着系统悬浮窗」直接 Force stop 进程，守护是在**新进程**里由 NotifProbe
+     * RESTORE 复活的，实例字段活不过这一下。
+     */
+    private final Runnable hintDismiss = () -> {
+        prefs.clearStartHint();
+        if (running && prefs.phase() == Prefs.RUNNING && remaining > MINI_THRESHOLD_MS) removeMini();
+        Log.i(TAG, "start_hint dismissed");
+    };
     /** 设备适配期的诊断开关：每 5 秒输出一行 inter/disp，用来观察厂商电源键到底改了什么。 */
     private static final boolean DIAG = true;
 
@@ -76,6 +88,7 @@ public class GateService extends Service implements MaskView.Host {
         // 第一行就置位：之后本进程内任何崩溃都会被判为「守护崩了」
         App.gateAlive = true;
         prefs = new Prefs(this);
+        prefs.sweepStartHint();
 
         // 必须无条件先 startForeground：前台服务 5 秒内没 startForeground 会被系统判
         // ForegroundServiceDidNotStartInTimeException，而熔断路径同样要进 onCreate，
@@ -150,6 +163,8 @@ public class GateService extends Service implements MaskView.Host {
             if (ovMin > 0) prefs.setDurationMin(ovMin);
             remaining = ovMs > 0 ? ovMs : prefs.durationMin() * 60_000L;
             prefs.saveSnapshot(Prefs.RUNNING, remaining);
+            prefs.markStartHint(START_HINT_MS);
+            Log.i(TAG, "start_hint show " + START_HINT_MS + "ms remaining=" + Core.fmt(remaining));
         } else {
             remaining = prefs.remainingMs();
         }
@@ -164,6 +179,7 @@ public class GateService extends Service implements MaskView.Host {
 
         lastTick = SystemClock.uptimeMillis();
         running = true;
+        scheduleHintDismiss();   // START 或 RESTORE 都要重排：新进程只负责剩下的那几秒
         reconcile();
         h.removeCallbacks(ticker);
         h.post(ticker);
@@ -288,6 +304,7 @@ public class GateService extends Service implements MaskView.Host {
     private void exitSession() {
         running = false;
         h.removeCallbacks(ticker);
+        h.removeCallbacks(hintDismiss);
         removeMask();
         removeMini();
         // 家长主动结束 = 这次服务是健康的，不能因为「短会话反复起停」被算成异常启动
@@ -305,7 +322,7 @@ public class GateService extends Service implements MaskView.Host {
             showMask();
         } else if (p == Prefs.RUNNING) {
             removeMask();
-            if (remaining <= MINI_THRESHOLD_MS) showMini(); else removeMini();
+            if (remaining <= MINI_THRESHOLD_MS || prefs.startHintOn()) showMini(); else removeMini();
         } else {
             removeMask();
             removeMini();
@@ -375,6 +392,9 @@ public class GateService extends Service implements MaskView.Host {
         try {
             wm.addView(mini, lp);
             mini.setRemaining(remaining);
+            mini.setCaption(prefs.startHintOn() ? "本次时长" : "剩余");
+            Log.i(TAG, "mini_show remaining=" + Core.fmt(remaining)
+                    + " caption=" + (prefs.startHintOn() ? "本次时长" : "剩余"));
         } catch (Throwable t) {
             Log.e(TAG, "mini_add failed: " + t);
             mini = null;
@@ -387,14 +407,28 @@ public class GateService extends Service implements MaskView.Host {
         mini = null;
     }
 
+    /** 按 Prefs 里剩下的时间重排收尾；进程被杀后 RESTORE 的新实例也能接着倒数。 */
+    private void scheduleHintDismiss() {
+        h.removeCallbacks(hintDismiss);
+        long left = prefs.startHintLeftMs();
+        if (prefs.startHintOn()) {
+            h.postDelayed(hintDismiss, left);
+            Log.i(TAG, "start_hint reschedule left=" + left + "ms");
+        }
+    }
+
     private void updateMini() {
         if (prefs.phase() != Prefs.RUNNING) {   // 双重保险：非计时态绝不允许读秒窗存在
             removeMini();
             return;
         }
-        if (remaining <= MINI_THRESHOLD_MS) {
+        boolean hint = prefs.startHintOn();
+        if (hint || remaining <= MINI_THRESHOLD_MS) {
             if (mini == null) showMini();
-            if (mini != null) mini.setRemaining(remaining);
+            if (mini != null) {
+                mini.setRemaining(remaining);
+                mini.setCaption(hint ? "本次时长" : "剩余");
+            }
         } else if (mini != null) {
             removeMini();
         }

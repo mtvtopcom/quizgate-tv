@@ -2,7 +2,7 @@
 <selector xmlns:android="http://schemas.android.com/apk/res/android">
     <item android:state_focused="true">
         <shape android:shape="rectangle">
-            <solid android:color="#FFFFC24A" />
+            <solid android:color="#FFFDC90C" />
             <corners android:radius="10dp" />
         </shape>
     </item>

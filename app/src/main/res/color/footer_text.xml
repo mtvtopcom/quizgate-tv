@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!-- 口令面板底部门口（忘记口令？）：未聚焦=琥珀字，聚焦=深字压在高亮块上 -->
 <selector xmlns:android="http://schemas.android.com/apk/res/android">
-    <item android:state_focused="true" android:color="#FF0B0F14" />
-    <item android:color="#FFFFC24A" />
+    <item android:state_focused="true" android:color="#FF000000" />
+    <item android:color="#FFFDC90C" />
 </selector>

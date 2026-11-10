@@ -3,6 +3,52 @@
 本项目遵循 [Semantic Versioning](https://semver.org/lang/zh-CN/)。
 `versionCode = MAJOR*10000 + MINOR*100 + PATCH`，单调递增。
 
+## [1.2.5] - 2026-11-10
+
+**新 logo + 电视风格首页；把上次 D2 报障暴露的授权问题做成应用自己能查、能提示、能自愈。**
+
+### 界面
+
+- 应用图标 / TV 启动横幅 / 首页角标 / 文档插图换成新 logo；主题色统一为
+  黄 `#FDC90C`、黑 `#000000`、白 `#FFFFFF`
+- 首页重做：只放运行状态（阶段、大号剩余时间、守护状态、授权警示），
+  三个焦点态按钮「开始计时 / 结束本次会话 / 设置」，返回键从设置页/口令门禁回首页而不是退出应用
+- **所有参数搬进设置页**（口令保护）：本次时长、答对延长、题目年级、家长口令、恢复码、
+  守护状态、升级检查。首页不再堆参数
+- 设置页新增「当前版本」(`1.2.5 (10205)`) 与「授权自检」
+
+### 加固（对应 D5 报障）
+
+- 授权自检逐项检查悬浮窗权限 / 通知使用权 / 电池优化白名单 / 守护服务存活；
+  缺项显示红字 `✗` 与可照抄的 adb 命令；首页也会红字提示
+- `refreshGuard()` 不再无条件显示「正常」：安全模式、服务不在、授权不全都如实报
+- `tickUi()` 在守护服务不在时显示「守护恢复中…」和大号 `—`，不再渲染冻结的 `prefs.remainingMs()`
+- 会话 `phase != IDLE` 且 `App.gateAlive == false` 时，`autoRestore()` 自动发
+  `ACTION_RESTORE` 按磁盘快照续上计时（3 秒去抖）
+
+### 开局 5 秒提示
+
+- 点「开始计时」后 `finish()` 关闭界面，右下角（原最后 30 秒读秒位）显示「本次时长」，
+  5 秒后自动收起；最后 30 秒仍显示「剩余」。`MiniView.setCaption()` 区分两种标题
+- **必须跨进程存活**：真机日志显示小米电视回桌面时会因「应用还挂着系统悬浮窗」直接
+  `Force stopping app.quizgate.tv`（`MitvWindowManager: … has system window,so kill it`），
+  守护随后在新进程由 `NotifProbe` RESTORE。原先只放在服务实例字段里的 `startHint` 活不过这一下，
+  所以 1 秒截图能看到、日志里却没有 `start_hint dismissed`。
+  修法是把提示截止时间写进 `Prefs`（墙上时钟，`startHintUntil` / `startHintLeftMs()` /
+  `startHintOn()` / `sweepStartHint()`），`onStartCommand` 无论 START 还是 RESTORE 都按
+  `prefs.startHintLeftMs()` 重排 `hintDismiss`。用墙上时钟而非 `elapsedRealtime`：后者重启归零，
+  会把开机前留下的截止时间误判成「还没到」
+
+### 真机验证
+
+- **D2 / Android 14**：1s「1:00 本次时长」→ 3.5s「0:57 本次时长」→ `start_hint dismissed`
+  精确 5.018s → 6s 后消失 → 最后 30s「0:29 剩余」；设置页全绿与版本号；撤销两项授权后
+  红字 + adb 命令；`am force-stop` 后重进应用 `auto_restore phase=1`，倒计时 30:00 → 29:41
+- **D1 / Android 11**：新首页方向键 / OK 正常；1s「5:00 本次时长」、6s 后消失；
+  同样出现进程被换 + RESTORE 续上提示（5.013s 收起）
+- 两台验证后 `pm clear` 清测试口令/恢复码、补齐三条授权，回到「设置 6 位家长口令」交付态
+- 证据 `evidence/D6-2026-11-10/`；权限白名单（7 项）与出网点（2 处）断言用真实产物本地跑过
+
 ## [1.2.4] - 2026-11-10
 
 **修 Android 14 电视上「界面出来了、遥控器却按不动」——这是第二台电视报「启动没反应」的真正原因。**
