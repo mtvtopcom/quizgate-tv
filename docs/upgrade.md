@@ -53,7 +53,7 @@ https://shitang.mianmiangou.cn/static/quizgate-tv/
 
 ```bash
 # 一条命令：构建 release 包 + 生成要上传的两个文件（在 dist/）
-./tools/publish.sh 1.2.3 "这次改了什么"
+./tools/publish.sh 1.2.4 "这次改了什么"
 ```
 
 脚本做的事：按版本号算 `versionCode` → 注入清单和 `BuildCfg.UPGRADE_BASE` →
@@ -63,7 +63,7 @@ https://shitang.mianmiangou.cn/static/quizgate-tv/
 然后把**这两个文件**传到 `quizgate-tv/` 目录：
 
 ```
-dist/quizgate-1.2.3.apk
+dist/quizgate-1.2.4.apk
 dist/version.json
 ```
 
