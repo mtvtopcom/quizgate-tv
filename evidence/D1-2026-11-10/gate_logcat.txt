@@ -1,0 +1,10 @@
+--------- beginning of main
+--------- beginning of system
+11-10 12:44:04.019 26500 26500 I QuizGate: service_gap=211s（进程被杀但未重启，这段时间不扣时）
+11-10 12:44:04.021 26500 26500 I QuizGate: service_create phase=未开始 remaining=1:00 gap=211s pin=set
+11-10 12:44:04.022 26500 26500 I QuizGate: onStartCommand action=app.quizgate.tv.START
+11-10 12:44:04.040 26500 26500 I QuizGate: onStartCommand action=app.quizgate.tv.RESTORE
+11-10 12:44:13.145 26500 26500 I QuizGate: screen_off u=79699284 e=79699284
+11-10 12:45:41.843 26500 26500 I QuizGate: screen_on du=88697 de=88697
+11-10 12:46:06.544 26500 26500 I QuizGate: onStartCommand action=app.quizgate.tv.EXIT
+11-10 12:46:06.557 26500 26500 I QuizGate: service_destroy phase=未开始 remaining=1:00 gap=211s pin=set

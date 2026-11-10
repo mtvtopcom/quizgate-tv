@@ -1,0 +1,110 @@
+{
+ "version": 1,
+ "grade": 5,
+ "items": [
+  {
+   "id": "g5-001",
+   "subject": "综合",
+   "stem": "1/2 + 1/4 = ?",
+   "options": [
+    "1/6",
+    "2/6",
+    "3/4",
+    "1/8"
+   ],
+   "answerIndex": 2,
+   "explanation": "通分后 2/4 + 1/4 = 3/4"
+  },
+  {
+   "id": "g5-002",
+   "subject": "综合",
+   "stem": "正方体棱长 3，体积是多少？",
+   "options": [
+    "9",
+    "18",
+    "27",
+    "36"
+   ],
+   "answerIndex": 2,
+   "explanation": "3 × 3 × 3 = 27"
+  },
+  {
+   "id": "g5-003",
+   "subject": "综合",
+   "stem": "3/5 化成小数是多少？",
+   "options": [
+    "0.35",
+    "0.53",
+    "0.6",
+    "0.65"
+   ],
+   "answerIndex": 2,
+   "explanation": "3 ÷ 5 = 0.6"
+  },
+  {
+   "id": "g5-004",
+   "subject": "综合",
+   "stem": "一节课 40 分钟，6 节课共多少分钟？",
+   "options": [
+    "200",
+    "220",
+    "240",
+    "260"
+   ],
+   "answerIndex": 2,
+   "explanation": "40 × 6 = 240"
+  },
+  {
+   "id": "g5-005",
+   "subject": "综合",
+   "stem": "圆的周长公式是？",
+   "options": [
+    "πr²",
+    "2πr",
+    "πd²",
+    "2r"
+   ],
+   "answerIndex": 1,
+   "explanation": "周长 = 2πr"
+  },
+  {
+   "id": "g5-006",
+   "subject": "综合",
+   "stem": "标准大气压下水的沸点是多少？",
+   "options": [
+    "90 ℃",
+    "100 ℃",
+    "110 ℃",
+    "120 ℃"
+   ],
+   "answerIndex": 1,
+   "explanation": "标准大气压下水 100 ℃ 沸腾"
+  },
+  {
+   "id": "g5-007",
+   "subject": "综合",
+   "stem": "12 和 18 的最大公因数是多少？",
+   "options": [
+    "2",
+    "3",
+    "6",
+    "9"
+   ],
+   "answerIndex": 2,
+   "explanation": "公因数中最大的是 6"
+  },
+  {
+   "id": "g5-008",
+   "subject": "综合",
+   "stem": "“光合作用”的英文是？",
+   "options": [
+    "respiration",
+    "photosynthesis",
+    "transpiration",
+    "digestion"
+   ],
+   "answerIndex": 1,
+   "explanation": "photosynthesis 是光合作用"
+  }
+ ]
+}

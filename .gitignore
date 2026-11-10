@@ -1,0 +1,21 @@
+# 构建产物
+build/
+dist/
+*.apk
+*.idsig
+
+# 签名（永不入库）
+keystore/
+*.jks
+*.keystore
+release.pass
+
+# 编辑器
+.DS_Store
+*.iml
+.idea/
+local.properties
+
+# 临时
+*.log
+*.tar

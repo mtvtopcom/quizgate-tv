@@ -1,0 +1,110 @@
+{
+ "version": 1,
+ "grade": 1,
+ "items": [
+  {
+   "id": "g1-001",
+   "subject": "综合",
+   "stem": "3 + 4 = ?",
+   "options": [
+    "5",
+    "6",
+    "7",
+    "8"
+   ],
+   "answerIndex": 2,
+   "explanation": "3 加 4 等于 7"
+  },
+  {
+   "id": "g1-002",
+   "subject": "综合",
+   "stem": "9 - 5 = ?",
+   "options": [
+    "3",
+    "4",
+    "5",
+    "6"
+   ],
+   "answerIndex": 1,
+   "explanation": "9 减 5 等于 4"
+  },
+  {
+   "id": "g1-003",
+   "subject": "综合",
+   "stem": "“日”字有几笔？",
+   "options": [
+    "3 笔",
+    "4 笔",
+    "5 笔",
+    "6 笔"
+   ],
+   "answerIndex": 1,
+   "explanation": "“日”是 4 笔"
+  },
+  {
+   "id": "g1-004",
+   "subject": "综合",
+   "stem": "一个星期有几天？",
+   "options": [
+    "5 天",
+    "6 天",
+    "7 天",
+    "8 天"
+   ],
+   "answerIndex": 2,
+   "explanation": "一周 7 天"
+  },
+  {
+   "id": "g1-005",
+   "subject": "综合",
+   "stem": "下面哪个是水果？",
+   "options": [
+    "白菜",
+    "苹果",
+    "土豆",
+    "萝卜"
+   ],
+   "answerIndex": 1,
+   "explanation": "苹果是水果"
+  },
+  {
+   "id": "g1-006",
+   "subject": "综合",
+   "stem": "2 + 2 + 2 = ?",
+   "options": [
+    "4",
+    "5",
+    "6",
+    "7"
+   ],
+   "answerIndex": 2,
+   "explanation": "三个 2 是 6"
+  },
+  {
+   "id": "g1-007",
+   "subject": "综合",
+   "stem": "太阳从哪边升起？",
+   "options": [
+    "东边",
+    "南边",
+    "西边",
+    "北边"
+   ],
+   "answerIndex": 0,
+   "explanation": "太阳东升西落"
+  },
+  {
+   "id": "g1-008",
+   "subject": "综合",
+   "stem": "一双手有几根手指？",
+   "options": [
+    "5 根",
+    "8 根",
+    "10 根",
+    "12 根"
+   ],
+   "answerIndex": 2,
+   "explanation": "每只手 5 根，共 10 根"
+  }
+ ]
+}

@@ -1,0 +1,110 @@
+{
+ "version": 1,
+ "grade": 9,
+ "items": [
+  {
+   "id": "g9-001",
+   "subject": "综合",
+   "stem": "sin30° 等于多少？",
+   "options": [
+    "1/2",
+    "√2/2",
+    "√3/2",
+    "1"
+   ],
+   "answerIndex": 0,
+   "explanation": "30° 的正弦是 1/2"
+  },
+  {
+   "id": "g9-002",
+   "subject": "综合",
+   "stem": "抛物线 y = x² - 4x + 3 的顶点横坐标是？",
+   "options": [
+    "1",
+    "2",
+    "3",
+    "4"
+   ],
+   "answerIndex": 1,
+   "explanation": "顶点 x = -b/2a = 2"
+  },
+  {
+   "id": "g9-003",
+   "subject": "综合",
+   "stem": "掷一枚骰子，得到偶数的概率是？",
+   "options": [
+    "1/6",
+    "1/3",
+    "1/2",
+    "2/3"
+   ],
+   "answerIndex": 2,
+   "explanation": "2、4、6 共三种"
+  },
+  {
+   "id": "g9-004",
+   "subject": "综合",
+   "stem": "一元二次方程的判别式是？",
+   "options": [
+    "b² - 4ac",
+    "b² + 4ac",
+    "4ac - b²",
+    "2a"
+   ],
+   "answerIndex": 0,
+   "explanation": "Δ = b² - 4ac"
+  },
+  {
+   "id": "g9-005",
+   "subject": "综合",
+   "stem": "cos60° 等于多少？",
+   "options": [
+    "1/2",
+    "√3/2",
+    "√2/2",
+    "0"
+   ],
+   "answerIndex": 0,
+   "explanation": "60° 的余弦是 1/2"
+  },
+  {
+   "id": "g9-006",
+   "subject": "综合",
+   "stem": "y 与 x 成反比，x = 2 时 y = 6，x = 3 时 y 等于多少？",
+   "options": [
+    "3",
+    "4",
+    "6",
+    "9"
+   ],
+   "answerIndex": 1,
+   "explanation": "xy = 12，故 y = 4"
+  },
+  {
+   "id": "g9-007",
+   "subject": "综合",
+   "stem": "数据 2、4、4、6、9 的中位数是？",
+   "options": [
+    "4",
+    "4.5",
+    "5",
+    "6"
+   ],
+   "answerIndex": 0,
+   "explanation": "排序后中间那个是 4"
+  },
+  {
+   "id": "g9-008",
+   "subject": "综合",
+   "stem": "圆的面积是 25π，半径是多少？",
+   "options": [
+    "5",
+    "10",
+    "25",
+    "12.5"
+   ],
+   "answerIndex": 0,
+   "explanation": "πr² = 25π，r = 5"
+  }
+ ]
+}

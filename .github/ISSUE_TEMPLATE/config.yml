@@ -1,0 +1,5 @@
+blank_issues_enabled: false
+contact_links:
+  - name: 安装与授权问题
+    url: https://github.com/mtvtopcom/quizgate-tv#常见故障
+    about: 先看 README 的「10 分钟装好」与「常见故障」，大多数问题在那里

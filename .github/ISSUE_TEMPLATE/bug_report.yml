@@ -1,0 +1,88 @@
+name: Bug 报告
+description: 装了不生效、遮罩不出来、按键没反应、守护消失等
+title: "[bug] "
+labels: ["bug"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        请先看 README 的「常见故障」和 `docs/compatibility.md`。
+        **没填机型和系统版本的 issue 会被直接关闭**——没有这两项无法判断是不是固件行为。
+
+  - type: input
+    id: model
+    attributes:
+      label: 电视型号
+      description: 设置 → 关于 里能看到，例如 L55M5-AD / MiTV-MFTR0
+      placeholder: MiTV-MFTR0
+    validations:
+      required: true
+
+  - type: input
+    id: os
+    attributes:
+      label: 系统版本与固件号
+      description: 执行 `adb shell getprop ro.build.version.release` 和 `adb shell getprop ro.build.display.id`
+      placeholder: "11 / OS2.0.5.0.RFTMATV"
+    validations:
+      required: true
+
+  - type: input
+    id: launcher
+    attributes:
+      label: 桌面包名
+      description: 执行 `adb shell cmd package resolve-activity -c android.intent.category.HOME`
+      placeholder: com.mitv.tvhome
+    validations:
+      required: true
+
+  - type: input
+    id: appver
+    attributes:
+      label: 应用版本
+      description: 执行 `adb shell dumpsys package app.quizgate.tv | grep versionName`
+      placeholder: 1.0.0
+    validations:
+      required: true
+
+  - type: checkboxes
+    id: perms
+    attributes:
+      label: 两条授权是否都已执行
+      options:
+        - label: 已执行 `adb shell appops set app.quizgate.tv SYSTEM_ALERT_WINDOW allow`
+        - label: 已执行 `adb shell cmd notification allow_listener app.quizgate.tv/app.quizgate.tv.NotifProbe`
+
+  - type: textarea
+    id: steps
+    attributes:
+      label: 复现步骤
+      description: 一步步写，从「打开应用」开始。能复现是修的前提。
+      placeholder: |
+        1. 打开应用，输入口令
+        2. 时长设 1 分钟，点开始
+        3. 回桌面播放视频
+        4. 60 秒后没有出现遮罩
+    validations:
+      required: true
+
+  - type: textarea
+    id: expected
+    attributes:
+      label: 期望 vs 实际
+      placeholder: 期望出现全屏题目；实际什么都没发生
+    validations:
+      required: true
+
+  - type: textarea
+    id: logs
+    attributes:
+      label: 日志
+      description: |
+        请贴这三条的输出（不要截图，要文字）：
+        `adb logcat -v monotonic -s QuizGate:I`
+        `adb logcat -d -s AndroidRuntime:E`
+        `adb shell dumpsys window windows | grep -A14 QuizGate`
+      render: text
+    validations:
+      required: true

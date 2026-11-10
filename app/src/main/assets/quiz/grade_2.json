@@ -1,0 +1,110 @@
+{
+ "version": 1,
+ "grade": 2,
+ "items": [
+  {
+   "id": "g2-001",
+   "subject": "综合",
+   "stem": "7 × 8 = ?",
+   "options": [
+    "54",
+    "56",
+    "58",
+    "64"
+   ],
+   "answerIndex": 1,
+   "explanation": "七八五十六"
+  },
+  {
+   "id": "g2-002",
+   "subject": "综合",
+   "stem": "45 + 27 = ?",
+   "options": [
+    "62",
+    "70",
+    "72",
+    "82"
+   ],
+   "answerIndex": 2,
+   "explanation": "45 + 27 = 72"
+  },
+  {
+   "id": "g2-003",
+   "subject": "综合",
+   "stem": "63 - 28 = ?",
+   "options": [
+    "35",
+    "38",
+    "41",
+    "45"
+   ],
+   "answerIndex": 0,
+   "explanation": "63 - 28 = 35"
+  },
+  {
+   "id": "g2-004",
+   "subject": "综合",
+   "stem": "“森”字由几个“木”组成？",
+   "options": [
+    "2 个",
+    "3 个",
+    "4 个",
+    "5 个"
+   ],
+   "answerIndex": 1,
+   "explanation": "三木为森"
+  },
+  {
+   "id": "g2-005",
+   "subject": "综合",
+   "stem": "一年有几个月？",
+   "options": [
+    "10 个",
+    "11 个",
+    "12 个",
+    "13 个"
+   ],
+   "answerIndex": 2,
+   "explanation": "一年 12 个月"
+  },
+  {
+   "id": "g2-006",
+   "subject": "综合",
+   "stem": "6 × 9 = ?",
+   "options": [
+    "45",
+    "54",
+    "56",
+    "63"
+   ],
+   "answerIndex": 1,
+   "explanation": "六九五十四"
+  },
+  {
+   "id": "g2-007",
+   "subject": "综合",
+   "stem": "100 里面有几个十？",
+   "options": [
+    "5 个",
+    "10 个",
+    "20 个",
+    "100 个"
+   ],
+   "answerIndex": 1,
+   "explanation": "100 是 10 个十"
+  },
+  {
+   "id": "g2-008",
+   "subject": "综合",
+   "stem": "三角形有几条边？",
+   "options": [
+    "2 条",
+    "3 条",
+    "4 条",
+    "5 条"
+   ],
+   "answerIndex": 1,
+   "explanation": "三角形三条边"
+  }
+ ]
+}

@@ -1,0 +1,110 @@
+{
+ "version": 1,
+ "grade": 8,
+ "items": [
+  {
+   "id": "g8-001",
+   "subject": "综合",
+   "stem": "x² = 9，x 等于多少？",
+   "options": [
+    "3",
+    "-3",
+    "±3",
+    "9"
+   ],
+   "answerIndex": 2,
+   "explanation": "平方根有两个"
+  },
+  {
+   "id": "g8-002",
+   "subject": "综合",
+   "stem": "一次函数 y = 2x + 1，x = 3 时 y 等于多少？",
+   "options": [
+    "5",
+    "6",
+    "7",
+    "8"
+   ],
+   "answerIndex": 2,
+   "explanation": "2×3 + 1 = 7"
+  },
+  {
+   "id": "g8-003",
+   "subject": "综合",
+   "stem": "(a + b)² 展开后是？",
+   "options": [
+    "a² + b²",
+    "a² + 2ab + b²",
+    "a² - 2ab + b²",
+    "2ab"
+   ],
+   "answerIndex": 1,
+   "explanation": "完全平方公式"
+  },
+  {
+   "id": "g8-004",
+   "subject": "综合",
+   "stem": "直角三角形两直角边为 3、4，斜边是多少？",
+   "options": [
+    "5",
+    "6",
+    "7",
+    "25"
+   ],
+   "answerIndex": 0,
+   "explanation": "勾股定理 3² + 4² = 5²"
+  },
+  {
+   "id": "g8-005",
+   "subject": "综合",
+   "stem": "x² - 5x + 6 = 0 的两个根是？",
+   "options": [
+    "2 和 3",
+    "-2 和 -3",
+    "1 和 6",
+    "-1 和 -6"
+   ],
+   "answerIndex": 0,
+   "explanation": "十字相乘 (x-2)(x-3)"
+  },
+  {
+   "id": "g8-006",
+   "subject": "综合",
+   "stem": "平行四边形的对边有什么关系？",
+   "options": [
+    "相等",
+    "垂直",
+    "不相等",
+    "没有关系"
+   ],
+   "answerIndex": 0,
+   "explanation": "对边平行且相等"
+  },
+  {
+   "id": "g8-007",
+   "subject": "综合",
+   "stem": "0.000001 用科学计数法表示是？",
+   "options": [
+    "1×10⁻⁵",
+    "1×10⁻⁶",
+    "1×10⁶",
+    "1×10⁵"
+   ],
+   "answerIndex": 1,
+   "explanation": "六位小数即 10 的 -6 次方"
+  },
+  {
+   "id": "g8-008",
+   "subject": "综合",
+   "stem": "圆的直径是 10，半径是多少？",
+   "options": [
+    "5",
+    "10",
+    "20",
+    "2.5"
+   ],
+   "answerIndex": 0,
+   "explanation": "半径是直径的一半"
+  }
+ ]
+}

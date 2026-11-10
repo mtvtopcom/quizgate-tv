@@ -1,0 +1,110 @@
+{
+ "version": 1,
+ "grade": 4,
+ "items": [
+  {
+   "id": "g4-001",
+   "subject": "综合",
+   "stem": "25 × 4 = ?",
+   "options": [
+    "90",
+    "100",
+    "110",
+    "125"
+   ],
+   "answerIndex": 1,
+   "explanation": "25 × 4 = 100"
+  },
+  {
+   "id": "g4-002",
+   "subject": "综合",
+   "stem": "长方形长 8、宽 5，面积是多少？",
+   "options": [
+    "13",
+    "26",
+    "40",
+    "80"
+   ],
+   "answerIndex": 2,
+   "explanation": "8 × 5 = 40"
+  },
+  {
+   "id": "g4-003",
+   "subject": "综合",
+   "stem": "360 ÷ 12 = ?",
+   "options": [
+    "20",
+    "30",
+    "36",
+    "40"
+   ],
+   "answerIndex": 1,
+   "explanation": "12 × 30 = 360"
+  },
+  {
+   "id": "g4-004",
+   "subject": "综合",
+   "stem": "1 千米等于多少米？",
+   "options": [
+    "100 米",
+    "500 米",
+    "1000 米",
+    "10000 米"
+   ],
+   "answerIndex": 2,
+   "explanation": "1 千米 = 1000 米"
+  },
+  {
+   "id": "g4-005",
+   "subject": "综合",
+   "stem": "0.5 等于几分之几？",
+   "options": [
+    "1/2",
+    "1/3",
+    "1/4",
+    "1/5"
+   ],
+   "answerIndex": 0,
+   "explanation": "0.5 就是一半"
+  },
+  {
+   "id": "g4-006",
+   "subject": "综合",
+   "stem": "闰年的二月有几天？",
+   "options": [
+    "28 天",
+    "29 天",
+    "30 天",
+    "31 天"
+   ],
+   "answerIndex": 1,
+   "explanation": "闰年二月 29 天"
+  },
+  {
+   "id": "g4-007",
+   "subject": "综合",
+   "stem": "25 × 8 + 25 × 2 = ?",
+   "options": [
+    "200",
+    "250",
+    "275",
+    "300"
+   ],
+   "answerIndex": 1,
+   "explanation": "25 × (8 + 2) = 250"
+  },
+  {
+   "id": "g4-008",
+   "subject": "综合",
+   "stem": "一个角是 90 度，它是什么角？",
+   "options": [
+    "锐角",
+    "直角",
+    "钝角",
+    "平角"
+   ],
+   "answerIndex": 1,
+   "explanation": "90 度是直角"
+  }
+ ]
+}

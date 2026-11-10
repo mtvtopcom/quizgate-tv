@@ -1,0 +1,12 @@
+--------- beginning of kernel
+--------- beginning of system
+--------- beginning of main
+11-10 14:31:39.719  2165  2165 I QuizGate: lock at 0 (screen=true)
+11-10 14:31:39.783  2165  2165 I QuizGate: mask_add ok
+11-10 14:32:53.823  2165  2165 I QuizGate: mask_remove
+11-10 14:32:53.832  2165  2165 I QuizGate: solved +1min -> 1:01
+11-10 14:33:53.866  2165  2165 I QuizGate: lock at 0 (screen=true)
+11-10 14:33:53.921  2165  2165 I QuizGate: mask_add ok
+11-10 14:34:06.076  2165  2165 I QuizGate: pin ok -> exit session
+11-10 14:34:06.098  2165  2165 I QuizGate: mask_remove
+11-10 14:34:06.115  2165  2165 I QuizGate: service_destroy phase=未开始 remaining=1:00 gap=5285s pin=set

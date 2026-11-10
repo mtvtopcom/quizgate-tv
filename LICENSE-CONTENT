@@ -1,0 +1,33 @@
+# 内容许可 · Content License
+
+本仓库中的**代码**采用 [Apache-2.0](LICENSE)。
+
+以下**内容**（content）不适用 Apache-2.0，单独采用
+[Creative Commons Attribution-ShareAlike 4.0 International (CC BY-SA 4.0)](https://creativecommons.org/licenses/by-sa/4.0/legalcode.zh-Hans)：
+
+- `app/src/main/assets/quiz/**` —— 题库（题干、选项、解析）
+- `docs/img/**` —— 实机截图
+- `docs/**` 下的图表与示意图
+
+## 你可以
+
+- 自由复制、分发、修改这些内容，包括商业用途
+- 但必须**署名**（注明来源为本项目）并**以相同许可**分发修改后的版本
+
+## 你不可以
+
+- 把题库单独抽出放进闭源或付费产品而不开放相同许可
+- 移除或伪造署名
+
+## 关于「聚合」
+
+代码与题库是**独立作品**，在本仓库中仅作为聚合（mere aggregation）一起分发。
+因此 CC BY-SA 4.0 的「相同方式共享」条款**不会**传染到 Apache-2.0 的代码部分；
+反之亦然。
+
+## 题库来源
+
+题库为本项目原创撰写，不含教材原文、教辅扫描或来源不明的网络题目。
+逐项来源与录入日期见 [provenance.md](docs/provenance.md)。
+
+如你认为某道题侵犯了你的权利，请提 issue，我们会在核实后删除。

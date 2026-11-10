@@ -1,0 +1,8 @@
+11-10 13:08:02.977  1115 23871 D MitvActivityManagerService: PowerManagerService killAllThirdApp forcestop packageName:com.xiaodianshi.tv.yst
+11-10 13:08:02.983  1115 23871 I ActivityManager: Killing 29419:app.quizgate.tv/u0a56 (adj 200): stop app.quizgate.tv due to from pid 29820
+11-10 13:08:02.997  1115 23871 D MitvActivityManagerService: PowerManagerService killAllThirdApp forcestop packageName:app.quizgate.tv
+11-10 13:08:03.012  1115 23871 D MitvActivityManagerService: PowerManagerService killAllThirdApp forcestop packageName:com.xiaomi.mitv.smartpanel
+11-10 13:08:03.021  1115 23871 D MitvActivityManagerService: PowerManagerService killAllThirdApp forcestop packageName:com.quark.yun.tv
+11-10 13:10:22.230  1115 17037 I ActivityManager: Killing 30096:app.quizgate.tv/u0a56 (adj 200): stop app.quizgate.tv due to from pid 29820
+11-10 13:10:22.244  1115 17037 D MitvActivityManagerService: PowerManagerService killAllThirdApp forcestop packageName:app.quizgate.tv
+11-10 13:10:22.250  1115 17037 D MitvActivityManagerService: PowerManagerService killAllThirdApp forcestop packageName:com.xiaomi.mitv.smartpanel
