@@ -49,7 +49,7 @@
 
 ```bash
 adb connect <电视IP>:5555
-adb install -r quizgate-1.0.0.apk
+adb install -r quizgate-1.2.3.apk
 ```
 
 也可以用 U 盘装（见下方「安装路径 A」）。
