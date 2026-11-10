@@ -27,22 +27,28 @@ jobs:
           ./build.sh
 
       # v1.2.0 起为了在线升级引入了 INTERNET，所以不再断言「没有 INTERNET」。
-      # 改成断言「权限最小化」：除了升级必需的两个，任何网络/定位/设备标识/存储类权限都不许出现。
+      # 改成白名单断言：清单里的权限必须逐条列在这里，多一条就红。
+      # 白名单之外的一切（定位、电话状态、通讯录、短信、相机、麦克风、存储、
+      # QUERY_ALL_PACKAGES、ACCESS_NETWORK_STATE 之类）都不许出现。
       - name: 断言权限最小化
         run: |
           APK=$(ls build/*.apk | head -1)
           PERMS=$("$ANDROID_HOME/build-tools/35.0.0/aapt2" dump permissions "$APK")
           echo "$PERMS"
-          ALLOWED="INTERNET REQUEST_INSTALL_PACKAGES"
+          # 基础：守护与遮罩必需
+          BASE="SYSTEM_ALERT_WINDOW FOREGROUND_SERVICE FOREGROUND_SERVICE_SPECIAL_USE POST_NOTIFICATIONS RECEIVE_BOOT_COMPLETED"
+          # v1.2.0 起为在线升级新增的两个
+          UPDATE="INTERNET REQUEST_INSTALL_PACKAGES"
+          ALLOWED="$BASE $UPDATE"
           fail=0
           for p in $(echo "$PERMS" | sed -n "s/uses-permission: name='android.permission\.\([^']*\)'/\1/p"); do
             case " $ALLOWED " in
               *" $p "*) echo "  allowed: $p" ;;
-              *) echo "::error::多出声明的权限：$p"; fail=1 ;;
+              *) echo "::error::白名单外的权限：$p（若确为必需，请连同理由一起加进本文件）"; fail=1 ;;
             esac
           done
           if [ $fail -ne 0 ]; then exit 1; fi
-          echo "OK: 只声明了升级所需的 INTERNET / REQUEST_INSTALL_PACKAGES"
+          echo "OK: 权限清单与白名单一致（基础 5 + 升级 2）"
 
       # 出网点是隐私承诺的核心。数量一旦变化，docs/upgrade.md 里的审计说明就失效了。
       - name: 断言出网点只有两处
