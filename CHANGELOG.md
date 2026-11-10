@@ -3,7 +3,7 @@
 本项目遵循 [Semantic Versioning](https://semver.org/lang/zh-CN/)。
 `versionCode = MAJOR*10000 + MINOR*100 + PATCH`，单调递增。
 
-## [1.2.5] - 2026-11-10
+## [1.2.5] - 2026-11-11
 
 **新 logo + 电视风格首页；把上次 D2 报障暴露的授权问题做成应用自己能查、能提示、能自愈。**
 

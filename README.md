@@ -6,6 +6,13 @@
   <img src="docs/img/logo.png" width="18%" alt="答对再看">
 </p>
 
+> **当前版本 [v1.2.5](https://github.com/mtvtopcom/quizgate-tv/releases)** · `versionCode 10205` · 2026-11-11 发布
+> `quizgate-1.2.5.apk` · SHA-256 `bcbbbcbe504df265f3ddc17012b019d0cd77ede569d2f20c95d721c2d5ac6f5e`
+> · [更新日志](CHANGELOG.md) · [全部 Release](https://github.com/mtvtopcom/quizgate-tv/releases)
+>
+> 已装 1.2.x 的电视不用手动下载：**升级源已更新**，进应用会提示新版本（可点「以后再说」跳过）。
+> 升级不改口令、恢复码、时长与年级；卸载重装仍需自己设 6 位口令。
+
 **v1.2.5 首页**（只放运行状态）与**设置页**（参数、授权自检、当前版本）：
 
 <p align="center">
@@ -13,7 +20,7 @@
   <img src="docs/img/05-settings.png" width="45%" alt="v1.2.5 设置页">
 </p>
 
-到点出题的遮罩（旧版样式仍可用，1.2.5 只换了主题色）：
+到点出题的遮罩（1.2.5 沿用同一套交互，只换了主题色）：
 
 <p align="center">
   <img src="docs/img/01-pin.png" width="30%" alt="家长口令">
@@ -61,7 +68,8 @@
 
 ### 1. 装 APK
 
-从 [Releases](https://github.com/mtvtopcom/quizgate-tv/releases) 下载最新的 `quizgate-x.y.z.apk`，校验 SHA-256 后安装：
+从 [Releases](https://github.com/mtvtopcom/quizgate-tv/releases) 下载 `quizgate-1.2.5.apk`，
+按上方 SHA-256（或 Release 附的 `SHA256SUMS.txt`）校验后安装：
 
 ```bash
 adb connect <电视IP>:5555
@@ -114,7 +122,7 @@ adb shell dumpsys deviceidle whitelist | grep quizgate       # 应输出 user,ap
 1. 把 APK 拷到 U 盘根目录（FAT32）
 2. U 盘插电视 → 电视管家 / 文件管理 → 找到 APK → 安装
 3. 若提示「禁止安装未知来源」：设置 → 账号与安全 → 允许安装未知来源应用
-4. 装完后**仍然需要执行上面第 2 步的两条 adb 命令**，否则遮罩出不来
+4. 装完后**仍然需要执行上面第 2 步的三条 adb 授权**，否则遮罩出不来
 
 ---
 
@@ -236,5 +244,7 @@ export ANDROID_HOME=/path/to/android-sdk
 每个 Release 附 `SHA256SUMS.txt`，可自行比对：
 
 ```bash
-shasum -a 256 quizgate-1.0.0.apk
+shasum -a 256 -c SHA256SUMS.txt
+# 或单独看指纹：
+shasum -a 256 quizgate-1.2.5.apk
 ```

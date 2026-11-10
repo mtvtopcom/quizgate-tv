@@ -62,3 +62,10 @@ echo "sha256 = $SHA"
 echo
 echo "上传顺序：先 apk，最后 version.json —— 反了会出现「清单说有新版、包还没传完」"
 echo "目标目录：$BASE"
+echo
+echo "== 正式发布别忘了同步 GitHub 上的 README.md（仓库首页展示的就是它）"
+if grep -Fq "v${VER}" README.md; then
+  echo "README.md 已含 v${VER}，仍请核对：当前版本区块 / apk 文件名 / sha256 / 授权与故障表"
+else
+  echo "!! README.md 里还没有 v${VER}：更新顶部「当前版本」区块后再 push main"
+fi

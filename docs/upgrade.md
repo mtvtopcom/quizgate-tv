@@ -69,6 +69,33 @@ dist/version.json
 
 **先传 apk，最后传 version.json** —— 顺序反了会出现「清单说有新版，包还没传完」。
 
+### 发版同步清单：GitHub 上的 README
+
+**每次正式发布都要同步 `README.md` 并 push 到 `main`**（GitHub 仓库首页展示的就是它，
+只改本地不改远端等于没发版）。至少检查这四处：
+
+1. 顶部「当前版本」区块：版本号 / `versionCode` / 发布日 / apk 文件名 / sha256 / 更新日志链接；
+2. 「10 分钟装好」「安装路径 A」里的 apk 文件名、授权条数、操作步骤；
+3. 有新截图或新兼容性结论时，换图、补矩阵；
+4. 「常见故障」表补上这一版新修的现象，`shasum` 示例别停在老版本文件名上。
+
+推完 `main` 后比对远端与本地，两个指纹相同才算同步完成：
+
+```bash
+curl -fsSL https://raw.githubusercontent.com/mtvtopcom/quizgate-tv/main/README.md | shasum -a 256
+shasum -a 256 README.md
+```
+
+完整顺序：
+
+```text
+./tools/publish.sh X.Y.Z "改了什么"          # 产物（每次重跑都会重签、sha 会变）
+改 README / CHANGELOG / docs → git commit
+git push origin main && git push origin vX.Y.Z
+上传 apk → 上传 version.json → 本地/CDN/Release 三方验 sha
+建 GitHub Release → 把 README 的下载链换成 /releases/tag/vX.Y.Z
+```
+
 **签名必须一致，而且换钥匙的代价很大。** 升级包和已装版本用不同 keystore 签，
 系统直接 `INSTALL_FAILED_UPDATE_INCOMPATIBLE`；而唯一的解法是卸载重装 ——
 口令、恢复码、计时设置全丢。客户端现在会在下载后、安装前先比对签名，
