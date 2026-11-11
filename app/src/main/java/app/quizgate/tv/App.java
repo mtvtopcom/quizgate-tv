@@ -30,6 +30,16 @@ public class App extends Application {
      */
     static volatile boolean gateAlive;
 
+    /**
+     * 进程内的解锁快速路径。真正的准绳是 {@link Prefs#parentUnlocked()}（落盘）：
+     * 电视随时会强停进程，只靠静态变量活不过一次回收。
+     *
+     * <p>1.3.0 起：在锁屏遮罩上输对口令后不再直接「退出到桌面」，而是结束会话并把应用首页打开；
+     * 从这一刻起，只要没开始新的计时，进「设置」就不再重复要口令。
+     * 开始计时（{@code doStart()}）会把两处一起清回 false —— 新一局仍然要上锁。
+     */
+    static volatile boolean parentUnlocked;
+
     @Override public void onCreate() {
         super.onCreate();
         final Context ctx = getApplicationContext();

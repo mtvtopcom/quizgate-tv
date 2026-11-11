@@ -1,0 +1,111 @@
+{
+ "version": 2,
+ "subject": "英语",
+ "grade": 3,
+ "items": [
+  {
+   "id": "e3-001",
+   "subject": "英语",
+   "stem": "She ___ my sister.",
+   "options": [
+    "am",
+    "is",
+    "are",
+    "be"
+   ],
+   "answerIndex": 1,
+   "explanation": "第三人称单数用 is"
+  },
+  {
+   "id": "e3-002",
+   "subject": "英语",
+   "stem": "This is ___ apple.",
+   "options": [
+    "a",
+    "an",
+    "the",
+    "/"
+   ],
+   "answerIndex": 1,
+   "explanation": "元音开头用 an"
+  },
+  {
+   "id": "e3-003",
+   "subject": "英语",
+   "stem": "“Sunday”是星期几？",
+   "options": [
+    "星期六",
+    "星期日",
+    "星期一",
+    "星期五"
+   ],
+   "answerIndex": 1,
+   "explanation": "Sunday 是星期日"
+  },
+  {
+   "id": "e3-004",
+   "subject": "英语",
+   "stem": "“blue”是什么颜色？",
+   "options": [
+    "红色",
+    "蓝色",
+    "绿色",
+    "黄色"
+   ],
+   "answerIndex": 1,
+   "explanation": "blue 是蓝色"
+  },
+  {
+   "id": "e3-005",
+   "subject": "英语",
+   "stem": "“teacher”是什么意思？",
+   "options": [
+    "学生",
+    "老师",
+    "医生",
+    "司机"
+   ],
+   "answerIndex": 1,
+   "explanation": "teacher 是老师"
+  },
+  {
+   "id": "e3-006",
+   "subject": "英语",
+   "stem": "Where are you from? 问的是什么？",
+   "options": [
+    "你来自哪里",
+    "你几岁",
+    "你叫什么",
+    "你好吗"
+   ],
+   "answerIndex": 0,
+   "explanation": "be from 问来自哪里"
+  },
+  {
+   "id": "e3-007",
+   "subject": "英语",
+   "stem": "“bird”是什么意思？",
+   "options": [
+    "鸟",
+    "鱼",
+    "虫",
+    "猫"
+   ],
+   "answerIndex": 0,
+   "explanation": "bird 是鸟"
+  },
+  {
+   "id": "e3-008",
+   "subject": "英语",
+   "stem": "I ___ like apples. 表示“我不喜欢苹果”，应该填？",
+   "options": [
+    "don't",
+    "doesn't",
+    "isn't",
+    "not"
+   ],
+   "answerIndex": 0,
+   "explanation": "I 的否定用 don't"
+  }
+ ]
+}

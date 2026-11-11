@@ -27,18 +27,17 @@ import java.util.List;
 /** 设置页：遥控器可完成全部操作，不依赖输入法。 */
 public class MainActivity extends Activity {
 
-    /** 开始计时前检查的三项授权。卸载留痕是可选功能，刻意不在这一层提示。 */
+    /** 开始计时前检查的授权项。电池白名单 1.3.0 起已移除（实测不需要）。 */
     private static final String AUTH_OVERLAY = "overlay";
     private static final String AUTH_NOTIF = "notif";
-    private static final String AUTH_BATTERY = "battery";
 
     private Prefs prefs;
     private FrameLayout root;
     private ScrollView contentScroll;
     private LinearLayout content;
 
-    private TextView valueDuration, valueExtend, valueGrade, valuePin, valueRecovery, valueGuard, btnPerm;
-    private TextView valueVersion, valueAnchor, valueLog;
+    private TextView valueDuration, valueExtend, valueGrade, valuePin, valueRecovery, valueGuard;
+    private TextView valueVersion, valueLog;
     private TextView anchorWarn;
     /** 设置页的第一项（本次时长）。顶部返回按钮在 1.2.9 删掉后，焦点默认落在这里。 */
     private View firstRow;
@@ -50,10 +49,12 @@ public class MainActivity extends Activity {
     private TextView homePhase, homeTime, homeGuard, homeAuth, homeAnchor, homeBanner, homeBtnStart;
     /** 首页状态读数左侧的色条：待机灰、计时黄、锁定红。 */
     private View homeBar;
-    private LinearLayout authBox;
     /** 设置页里的「运行日志」子页；null = 没打开。 */
     private FrameLayout logPanel;
     private TextView logBody;
+    /** 设置页里的「守护状态」子页（含授权自检）；null = 没打开。 */
+    private FrameLayout guardPanel;
+    private LinearLayout guardBody;
     /** 选时长 / 选年级的自绘面板。null = 没打开。 */
     private OptionPanel optionPanel;
     /** 开始计时前的授权检查面板。null = 没打开。 */
@@ -142,27 +143,13 @@ public class MainActivity extends Activity {
         valueGrade = addRow("题目年级", this::openStagePanel);
         valuePin = addRow("家长口令", this::promptSetPin);
         valueRecovery = addRow("恢复码", this::onRecoveryRow);
-        valueGuard = addRow("守护状态", this::promptClearSafeMode);
+        // 1.3.0：授权自检、显示权限按钮、卸载留痕全部收进「守护状态」子页，
+        // 设置页只留这一个入口。家长按进去能看到每一项的状态与修复命令。
+        valueGuard = addRow("守护状态", this::showGuardPanel);
         valueVersion = addRow("当前版本", () -> toast(versionText()));
-        valueAnchor = addRow("卸载留痕",
-                () -> toast(anchorReport == null ? "未检测" : anchorReport.detail()));
 
         // 顶部返回按钮删掉后，进设置页的默认焦点落在这里
         firstRow = (View) valueDuration.getParent();
-
-        TextView perm = Ui.key(this, "授权：显示在其他应用上层", 18);
-        btnPerm = perm;
-        perm.setBackgroundResource(R.drawable.opt_bg);
-        LinearLayout.LayoutParams plp = new LinearLayout.LayoutParams(-2, -2);
-        plp.topMargin = Ui.dp(this, 22);
-        content.addView(perm, plp);
-        perm.setOnClickListener(v -> requestOverlay());
-
-        // 授权自检：缺哪项就红字给出可照抄的 adb 命令
-        authBox = new LinearLayout(this);
-        authBox.setOrientation(LinearLayout.VERTICAL);
-        authBox.setPadding(Ui.dp(this, 8), Ui.dp(this, 26), Ui.dp(this, 8), Ui.dp(this, 6));
-        content.addView(authBox, new LinearLayout.LayoutParams(-1, -2));
 
         // 授权自检后面原本是一大段日志文字，直接铺在设置页上又长又像报错。
         // 现在只在自检下面留一个入口，点进去是独立子页。
@@ -348,15 +335,6 @@ public class MainActivity extends Activity {
         }
     }
 
-    private boolean batteryOk() {
-        try {
-            PowerManager pm = (PowerManager) getSystemService(Context.POWER_SERVICE);
-            return pm != null && pm.isIgnoringBatteryOptimizations(getPackageName());
-        } catch (Throwable t) {
-            return false;
-        }
-    }
-
     private String versionText() {
         try {
             android.content.pm.PackageInfo pi = getPackageManager().getPackageInfo(getPackageName(), 0);
@@ -382,41 +360,147 @@ public class MainActivity extends Activity {
         }
     }
 
-    private void refreshAuth() {
-        if (authBox == null) return;
-        authBox.removeAllViews();
-        boolean notif = notifOn(), battery = batteryOk();
+    // ---------- 守护状态子页（授权自检都收在这里） ----------
+
+    /**
+     * 设置页的「守护状态」入口。1.3.0 起，授权自检、显示权限按钮、卸载痕迹全部搬进这一页：
+     * 设置页只留一个入口，家长按进去能一眼看到「到底哪一项缺、缺了怎么补」。
+     */
+    private void showGuardPanel() {
+        hideGuardPanel();
+        guardPanel = new FrameLayout(this);
+        guardPanel.setBackgroundColor(Ui.BG);
+        guardPanel.setClickable(true);
+
+        ScrollView sv = new ScrollView(this);
+        LinearLayout box = new LinearLayout(this);
+        box.setOrientation(LinearLayout.VERTICAL);
+        box.setPadding(Ui.dp(this, 88), Ui.dp(this, 44), Ui.dp(this, 88), Ui.dp(this, 44));
+
+        TextView back = Ui.key(this, "← 返回设置", 22);
+        back.setBackgroundResource(R.drawable.opt_bg);
+        back.setMinWidth(Ui.dp(this, 190));
+        box.addView(back, new LinearLayout.LayoutParams(-2, Ui.dp(this, 56)));
+        back.setOnClickListener(v -> hideGuardPanel());
+
+        TextView title = Ui.title(this, "守护状态", 30);
+        LinearLayout.LayoutParams tlp = new LinearLayout.LayoutParams(-2, -2);
+        tlp.topMargin = Ui.dp(this, 16);
+        box.addView(title, tlp);
+
+        guardBody = new LinearLayout(this);
+        guardBody.setOrientation(LinearLayout.VERTICAL);
+        box.addView(guardBody, new LinearLayout.LayoutParams(-1, -2));
+
+        TextView backBottom = Ui.key(this, "← 返回设置", 22);
+        backBottom.setBackgroundResource(R.drawable.opt_bg);
+        LinearLayout.LayoutParams bblp = new LinearLayout.LayoutParams(-1, Ui.dp(this, 58));
+        bblp.topMargin = Ui.dp(this, 18);
+        box.addView(backBottom, bblp);
+        backBottom.setOnClickListener(v -> hideGuardPanel());
+
+        sv.addView(box, new FrameLayout.LayoutParams(-1, -2));
+        guardPanel.addView(sv, new FrameLayout.LayoutParams(-1, -1));
+        root.addView(guardPanel, new FrameLayout.LayoutParams(-1, -1));
+
+        blockFocusBelow();
+        refreshGuardPanel();
+        back.post(back::requestFocus);
+    }
+
+    private void hideGuardPanel() {
+        if (guardPanel != null && guardPanel.getParent() != null) root.removeView(guardPanel);
+        guardPanel = null;
+        guardBody = null;
+        blockFocusBelow();
+        View t = focusTarget();
+        if (t != null) t.post(t::requestFocus);
+    }
+
+    /** 重建守护状态页的内容（点「重新检测」或从系统页回来时调用）。 */
+    private void refreshGuardPanel() {
+        if (guardBody == null) return;
+        guardBody.removeAllViews();
+
+        boolean ov = Settings.canDrawOverlays(this);
+        boolean notif = notifOn();
         boolean needGuard = prefs.phase() != Prefs.IDLE;
         boolean alive = App.gateAlive;
-        authBox.addView(Ui.title(this, "授权自检", 24));
-        authBox.addView(authLine("悬浮窗权限", Settings.canDrawOverlays(this),
-                Settings.canDrawOverlays(this) ? null
-                        : "adb shell appops set " + getPackageName() + " SYSTEM_ALERT_WINDOW allow"));
-        authBox.addView(authLine("通知使用权", notif, notif ? null
+        boolean safe = prefs.safeMode();
+
+        String status;
+        int color;
+        if (safe) { status = "已停止（安全模式）"; color = Ui.BAD; }
+        else if (needGuard && !alive) { status = "守护已停止 · 正在恢复"; color = Ui.BAD; }
+        else if (!ov || !notif) { status = "授权不完整"; color = Ui.BAD; }
+        else if (needGuard) { status = "守护中"; color = Ui.ACCENT; }
+        else { status = "待机 · 授权齐全"; color = Ui.ACCENT; }
+
+        TextView st = Ui.title(this, status, 28);
+        st.setTextColor(color);
+        guardBody.addView(st);
+
+        TextView sub = Ui.label(this,
+                safe ? "连续崩溃后已停止挂遮罩，下面可以解除。"
+                     : (needGuard ? "本次会话正在守着，退出应用后由通知监听负责复活。"
+                                  : "还没开始计时。下面任一项缺了，到点都可能出不来题或停表。"),
+                17, Ui.DIM);
+        LinearLayout.LayoutParams slp = new LinearLayout.LayoutParams(-1, -2);
+        slp.topMargin = Ui.dp(this, 6);
+        guardBody.addView(sub, slp);
+
+        TextView sec = Ui.label(this, "授权自检", 22, Ui.TEXT);
+        sec.setTypeface(android.graphics.Typeface.DEFAULT_BOLD);
+        LinearLayout.LayoutParams seclp = new LinearLayout.LayoutParams(-1, -2);
+        seclp.topMargin = Ui.dp(this, 20);
+        guardBody.addView(sec, seclp);
+
+        guardBody.addView(authLine("悬浮窗权限", ov, ov ? null
+                : "adb shell appops set " + getPackageName() + " SYSTEM_ALERT_WINDOW allow"));
+        guardBody.addView(authLine("通知使用权", notif, notif ? null
                 : "adb shell cmd notification allow_listener " + getPackageName() + "/" + getPackageName() + ".NotifProbe"));
-        authBox.addView(authLine("电池优化白名单", battery, battery ? null
-                : "adb shell dumpsys deviceidle whitelist +" + getPackageName()));
-        authBox.addView(authLine("守护服务", needGuard ? alive : true, null));
-        boolean anchorOk = anchorReport != null && anchorReport.enabled;
-        // pm grant 放第一条：D1(Android 11)/D2(Android 14) 实测都靠它写进 Secure；
-        // Settings.System 自定义键在这两套固件上都会被拒，appops 那条只留给别的固件兜底。
-        authBox.addView(authLine("卸载留痕", anchorOk,
-                anchorOk ? null : Anchor.adbSecure(getPackageName())));
-        if (!anchorOk) {
-            authBox.addView(mono(Anchor.adbSystem(getPackageName())));
-            TextView alt = Ui.label(this,
-                    "首选 pm grant（双机实测生效）；个别固件若拒绝，再补 appops 那条。"
-                            + "补完重进本页会自动变 ✓。记录只含时间戳与次数，不含口令。",
-                    16, Ui.DIM);
-            authBox.addView(alt);
+        guardBody.addView(authLine("守护服务", needGuard ? alive : true, null));
+
+        // 卸载留痕：只有真的卸过才摆出来。没痕迹 = 什么都不显示，
+        // 「未启用」这种需要 adb 才能处理的提示不再打扰家长（可选功能，装机时配）。
+        Anchor.Report ar = anchorReport;
+        if (ar != null && ar.uninstalls > 0) {
+            TextView warn = Ui.label(this, "⚠ 检测到曾被卸载 " + ar.uninstalls + " 次\n" + ar.detail(),
+                    17, Ui.BAD);
+            warn.setLineSpacing(Ui.dp(this, 3), 1f);
+            LinearLayout.LayoutParams wlp = new LinearLayout.LayoutParams(-1, -2);
+            wlp.topMargin = Ui.dp(this, 16);
+            guardBody.addView(warn, wlp);
         }
-        if (!notif || !battery || (needGuard && !alive)) {
-            TextView tip = Ui.label(this,
-                    "卸载重装或系统回收后，通知使用权 / 电池白名单可能被清掉；按上面命令补齐，再重进应用即可。",
-                    16, Ui.BAD);
-            LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(-1, -2);
-            lp.topMargin = Ui.dp(this, 12);
-            authBox.addView(tip, lp);
+
+        // 显示权限按钮也搬进来了：缺悬浮窗时它是最常用的入口
+        TextView perm = Ui.key(this,
+                ov ? "显示权限：已授予（点击重新检测）" : "显示权限：未授予（点此开启）", 19);
+        perm.setBackgroundResource(R.drawable.opt_bg);
+        LinearLayout.LayoutParams plp = new LinearLayout.LayoutParams(-1, Ui.dp(this, 56));
+        plp.topMargin = Ui.dp(this, 20);
+        guardBody.addView(perm, plp);
+        perm.setOnClickListener(v -> requestOverlay());
+
+        TextView recheck = Ui.key(this, "重新检测", 19);
+        recheck.setBackgroundResource(R.drawable.opt_bg);
+        LinearLayout.LayoutParams rlp = new LinearLayout.LayoutParams(-1, Ui.dp(this, 56));
+        rlp.topMargin = Ui.dp(this, 10);
+        guardBody.addView(recheck, rlp);
+        recheck.setOnClickListener(v -> {
+            anchorReport = Anchor.sync(this, prefs);
+            refresh();
+            refreshGuardPanel();
+            toast("已重新检测");
+        });
+
+        if (safe) {
+            TextView fix = Ui.key(this, "解除安全模式（需要家长口令）", 19);
+            fix.setBackgroundResource(R.drawable.opt_bg);
+            LinearLayout.LayoutParams flp = new LinearLayout.LayoutParams(-1, Ui.dp(this, 56));
+            flp.topMargin = Ui.dp(this, 10);
+            guardBody.addView(fix, flp);
+            fix.setOnClickListener(v -> promptClearSafeMode());
         }
     }
 
@@ -450,11 +534,10 @@ public class MainActivity extends Activity {
         StringBuilder miss = new StringBuilder();
         if (!Settings.canDrawOverlays(this)) miss.append("悬浮窗 ");
         if (!notifOn()) miss.append("通知使用权 ");
-        if (!batteryOk()) miss.append("电池白名单 ");
         if (miss.length() == 0) {
             homeAuth.setVisibility(View.GONE);
         } else {
-            homeAuth.setText("授权缺失：" + miss.toString().trim() + " → 进「设置」查看修复命令");
+            homeAuth.setText("授权缺失：" + miss.toString().trim() + " → 进「设置 → 守护状态」");
             homeAuth.setVisibility(View.VISIBLE);
         }
     }
@@ -528,7 +611,7 @@ public class MainActivity extends Activity {
                 }, this::hideOptionPanel));
     }
 
-    /** 年级两级：先选小学 / 初中，再选具体年级。 */
+    /** 年级三步：学段 → 年级 → 科目（语文 / 数学 / 英语）。 */
     private void openStagePanel() {
         String[] labels = {"小学", "初中"};
         int[] vals = {Prefs.STAGE_PRIMARY, Prefs.STAGE_JUNIOR};
@@ -548,23 +631,36 @@ public class MainActivity extends Activity {
         if (!junior && cur > 6) cur = 3;
         mountOption(new OptionPanel(this, "题目年级 · " + (junior ? "初中" : "小学"),
                 labels, vals, cur, "", 0, 0,
-                g -> {
+                g -> openSubjectPanel(stage, g),
+                this::openStagePanel));   // BACK 退回上一步选学段
+    }
+
+    private void openSubjectPanel(int stage, int grade) {
+        String[] labels = Prefs.SUBJECT_NAMES;
+        int[] vals = {Prefs.SUBJECT_CHINESE, Prefs.SUBJECT_MATH, Prefs.SUBJECT_ENGLISH};
+        mountOption(new OptionPanel(this, "题目科目", labels, vals, prefs.subject(),
+                "", 0, 0,
+                s -> {
                     prefs.setStage(stage);
-                    prefs.setGrade(g);
+                    prefs.setGrade(grade);
+                    prefs.setSubject(s);
                     hideOptionPanel();
                     refresh();
-                    toast("题目年级：" + gradeText());
+                    toast("出题：" + gradeText());
                 },
-                this::openStagePanel));   // BACK 退回上一步选学段
+                () -> openGradePanel(stage)));   // BACK 退回上一步选年级
     }
 
     private String gradeText() {
         int g = prefs.grade();
+        String base;
         if (prefs.stage() == Prefs.STAGE_JUNIOR) {
             String[] cn = {"初一", "初二", "初三"};
-            return "初中 · " + cn[Math.max(0, Math.min(2, g - 7))];
+            base = "初中 · " + cn[Math.max(0, Math.min(2, g - 7))];
+        } else {
+            base = "小学 · " + Math.max(1, Math.min(6, g)) + " 年级";
         }
-        return "小学 · " + Math.max(1, Math.min(6, g)) + " 年级";
+        return base + " · " + prefs.subjectName();
     }
 
     // ---------- 会话 ----------
@@ -594,12 +690,16 @@ public class MainActivity extends Activity {
         doStart();
     }
 
-    /** 三项都齐才直接开始；缺任一项都先摆出来让家长选。 */
+    /** 两项都齐才直接开始；缺任一项都先摆出来让家长选。 */
     private boolean authComplete() {
-        return Settings.canDrawOverlays(this) && notifOn() && batteryOk();
+        return Settings.canDrawOverlays(this) && notifOn();
     }
 
     private void doStart() {
+        // 新一局开始 = 重新上锁：下次锁屏/进设置还要口令，别让这次解锁一直生效
+        App.parentUnlocked = false;
+        prefs.setParentUnlocked(false);
+        settingsUnlocked = false;
         Intent i = new Intent(this, GateService.class).setAction(GateService.ACTION_START);
         startForegroundService(i);
         toast("已开始：" + prefs.durationMin() + " 分钟后出题");
@@ -611,8 +711,12 @@ public class MainActivity extends Activity {
     // ---------- 开始前的授权检查 ----------
 
     /**
-     * 三项必需授权。卸载留痕（WRITE_SECURE_SETTINGS）明确不列：它只影响「能不能看出被卸载过」，
-     * 不影响计时出题，按用户要求「不需要就不要提示」。
+     * 开始前要查的两项授权。
+     *
+     * <p>1.3.0 起不再查电池优化白名单：D2（Android 14）移出白名单后实测
+     * 回桌面、到点出题、锁屏按 HOME 都正常，没有出现 Force stop；
+     * 而「让家长去电脑上执行 adb」本身不现实，所以这一项直接去掉。
+     * 卸载留痕同样是可选功能，也不在这一层提示。
      */
     private List<AuthView.Item> authItems() {
         List<AuthView.Item> out = new ArrayList<>();
@@ -629,12 +733,6 @@ public class MainActivity extends Activity {
                 "退出应用后靠它把被系统杀掉的守护拉回来，不开就会停表。\n"
                         + "用电脑执行：\n"
                         + "adb shell cmd notification allow_listener " + pkg + "/" + pkg + ".NotifProbe"));
-
-        boolean battery = batteryOk();
-        out.add(new AuthView.Item(AUTH_BATTERY, "电池优化白名单", battery, battery ? "" :
-                "Android 14 的电视回桌面会强停没进白名单的应用，\n"
-                        + "表现就是「时间不走了」。用电脑执行：\n"
-                        + "adb shell dumpsys deviceidle whitelist +" + pkg));
         return out;
     }
 
@@ -653,7 +751,7 @@ public class MainActivity extends Activity {
                 }
                 // 留一行日志：以后家长反馈「时间不走」时，能立刻看出他是点了「仍然开始」
                 android.util.Log.i("QuizGate", "start_anyway notif=" + notifOn()
-                        + " battery=" + batteryOk() + " " + prefs.debugLine());
+                        + " " + prefs.debugLine());
                 hideAuthGate();
                 doStart();
             }
@@ -682,15 +780,6 @@ public class MainActivity extends Activity {
             if (jump(new Intent(Settings.ACTION_NOTIFICATION_LISTENER_SETTINGS))) return;
             if (jump(new Intent(Settings.ACTION_SETTINGS))) return;
             toast("这台电视没有通知使用权页面，请按面板上的 adb 命令开启");
-            return;
-        }
-        if (AUTH_BATTERY.equals(id)) {
-            if (jump(new Intent(Settings.ACTION_REQUEST_IGNORE_BATTERY_OPTIMIZATIONS,
-                    Uri.parse("package:" + pkg)))) return;
-            if (jump(new Intent(Settings.ACTION_IGNORE_BATTERY_OPTIMIZATION_SETTINGS))) return;
-            if (jump(new Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS,
-                    Uri.parse("package:" + pkg)))) return;
-            toast("这台电视没有电池优化页面，请按面板上的 adb 命令开启");
         }
     }
 
@@ -898,8 +987,11 @@ public class MainActivity extends Activity {
     // ---------- 口令门禁 ----------
 
     private void gate() {
-        if (prefs.hasPin()) showUnlockPin();
-        else promptSetPin();
+        if (!prefs.hasPin()) { promptSetPin(); return; }
+        // 1.3.0：解锁过一次（比如在锁屏遮罩上输过口令）后，到开始计时为止进设置不再要口令。
+        // 落盘的标记优先，进程被系统回收后重进应用仍然免密；开始计时会重新上锁，见 doStart()。
+        if (App.parentUnlocked || prefs.parentUnlocked()) { settingsUnlocked = true; return; }
+        showUnlockPin();
     }
 
     private void promptSetPin() {
@@ -935,6 +1027,8 @@ public class MainActivity extends Activity {
                         if (prefs.setPin(s)) {
                             pinMode = PIN_UNLOCK;
                             settingsUnlocked = true;
+                            App.parentUnlocked = true;
+                            prefs.setParentUnlocked(true);
                             hidePinOverlay();
                             toast("口令已设置");
                             // 设完口令立刻出码：这是全流程里最容易「码丢了都不知道」的一刻
@@ -968,6 +1062,8 @@ public class MainActivity extends Activity {
                     if (act != null) act.run();
                 } else {
                     settingsUnlocked = true;
+                    App.parentUnlocked = true;
+                    prefs.setParentUnlocked(true);
                 }
             }
             @Override public void onPinCancel() {
@@ -1017,7 +1113,7 @@ public class MainActivity extends Activity {
         for (int i = root.getChildCount() - 1; i >= 0; i--) {
             View c = root.getChildAt(i);
             if (c == upgrade || c == codeOverlay || c == recovery || c == gate
-                    || c == logPanel || c == optionPanel || c == authPanel) return c;
+                    || c == logPanel || c == guardPanel || c == optionPanel || c == authPanel) return c;
         }
         return null;
     }
@@ -1061,15 +1157,8 @@ public class MainActivity extends Activity {
             valueLog.setText("查看 ›");
             valueLog.setTextColor(Ui.ACCENT);
         }
-        if (valueAnchor != null) {
-            boolean bad = anchorReport == null || anchorReport.uninstalls > 0 || !anchorReport.enabled;
-            valueAnchor.setText(anchorReport == null ? "未知"
-                    : (anchorReport.uninstalls > 0 ? "⚠ " + anchorReport.uninstalls + " 次"
-                    : (anchorReport.enabled ? "已启用 · 无记录" : "未启用")));
-            valueAnchor.setTextColor(bad ? Ui.BAD : Ui.ACCENT);
-        }
         refreshAnchorWarn();
-        refreshAuth();
+        if (guardPanel != null) refreshGuardPanel();
         refreshHomeAuth();
         refreshGuard();
         tickUi();
@@ -1081,7 +1170,7 @@ public class MainActivity extends Activity {
         boolean safe = prefs.safeMode();
         boolean needGuard = prefs.phase() != Prefs.IDLE;
         boolean alive = App.gateAlive;
-        boolean authMissing = !Settings.canDrawOverlays(this) || !notifOn() || !batteryOk();
+        boolean authMissing = !Settings.canDrawOverlays(this) || !notifOn();
         String txt;
         int color;
         if (safe) { txt = "已停止（安全模式）"; color = Ui.BAD; }
@@ -1124,7 +1213,7 @@ public class MainActivity extends Activity {
         if (focusInited) return;
         if (gate != null && gate.getParent() != null) return;
         if (recovery != null || codeOverlay != null || upgrade != null || logPanel != null) return;
-        if (optionPanel != null || authPanel != null) return;
+        if (guardPanel != null || optionPanel != null || authPanel != null) return;
         View t = focusTarget();
         if (t == null) return;
         focusInited = true;
@@ -1224,11 +1313,6 @@ public class MainActivity extends Activity {
         if (homePhase != null) homePhase.setText(phase);
         if (homeTime != null) homeTime.setText(big);
         styleHomeReadout(p, alive);
-        boolean ov = Settings.canDrawOverlays(this);
-        if (btnPerm != null) {
-            btnPerm.setText(ov ? "显示权限：已授予（点击重新检测）" : "显示权限：未授予（点击查看开启方法）");
-            btnPerm.setTextColor(ov ? Ui.OK : Ui.BAD);
-        }
         if (logBody != null && logPanel != null && logPanel.getVisibility() == View.VISIBLE) {
             logBody.setText(logText());
         }
@@ -1327,6 +1411,15 @@ public class MainActivity extends Activity {
             }
             return super.dispatchKeyEvent(e);
         }
+        if (top != null && top == guardPanel) {
+            // 守护状态子页：BACK 只收起它。其余键交给焦点树（页内有「显示权限 / 重新检测 / 返回」）
+            if (e.getAction() == android.view.KeyEvent.ACTION_DOWN
+                    && e.getKeyCode() == android.view.KeyEvent.KEYCODE_BACK) {
+                hideGuardPanel();
+                return true;
+            }
+            return super.dispatchKeyEvent(e);
+        }
         if (top != null && top == optionPanel) {
             // 选值 / 数字键盘：整个面板自路由，按键一个都不许漏给背后的设置页
             if (optionPanel.consumeKey(e)) return true;
@@ -1402,6 +1495,8 @@ public class MainActivity extends Activity {
                     prefs.resetSession();
                 }
                 settingsUnlocked = true;
+                App.parentUnlocked = true;
+                prefs.setParentUnlocked(true);
                 hidePinOverlay();
                 toast("口令已重设，恢复码已换新，请重新拍照");
             }

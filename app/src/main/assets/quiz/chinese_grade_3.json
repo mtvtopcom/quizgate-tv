@@ -1,0 +1,111 @@
+{
+ "version": 2,
+ "subject": "语文",
+ "grade": 3,
+ "items": [
+  {
+   "id": "c3-001",
+   "subject": "语文",
+   "stem": "成语「守株待（ ）」空缺的是？",
+   "options": [
+    "兔",
+    "鹿",
+    "虎",
+    "鱼"
+   ],
+   "answerIndex": 0,
+   "explanation": "守株待兔"
+  },
+  {
+   "id": "c3-002",
+   "subject": "语文",
+   "stem": "成语「画蛇添（ ）」空缺的是？",
+   "options": [
+    "脚",
+    "足",
+    "手",
+    "翼"
+   ],
+   "answerIndex": 1,
+   "explanation": "画蛇添足"
+  },
+  {
+   "id": "c3-003",
+   "subject": "语文",
+   "stem": "“弯弯的月亮像小船”用了什么修辞？",
+   "options": [
+    "比喻",
+    "拟人",
+    "夸张",
+    "排比"
+   ],
+   "answerIndex": 0,
+   "explanation": "把月亮比作小船"
+  },
+  {
+   "id": "c3-004",
+   "subject": "语文",
+   "stem": "《静夜思》的作者是？",
+   "options": [
+    "李白",
+    "杜甫",
+    "白居易",
+    "王维"
+   ],
+   "answerIndex": 0,
+   "explanation": "李白《静夜思》"
+  },
+  {
+   "id": "c3-005",
+   "subject": "语文",
+   "stem": "成语「亡羊补（ ）」空缺的是？",
+   "options": [
+    "门",
+    "牢",
+    "圈",
+    "墙"
+   ],
+   "answerIndex": 1,
+   "explanation": "亡羊补牢"
+  },
+  {
+   "id": "c3-006",
+   "subject": "语文",
+   "stem": "“蜜蜂在花丛中唱歌”用了什么修辞？",
+   "options": [
+    "比喻",
+    "拟人",
+    "夸张",
+    "反问"
+   ],
+   "answerIndex": 1,
+   "explanation": "把蜜蜂当作人来写"
+  },
+  {
+   "id": "c3-007",
+   "subject": "语文",
+   "stem": "成语「拔苗助（ ）」空缺的是？",
+   "options": [
+    "长",
+    "高",
+    "大",
+    "快"
+   ],
+   "answerIndex": 0,
+   "explanation": "拔苗助长"
+  },
+  {
+   "id": "c3-008",
+   "subject": "语文",
+   "stem": "“千里之行，始于（ ）”空缺的是？",
+   "options": [
+    "足下",
+    "脚下",
+    "今天",
+    "一步"
+   ],
+   "answerIndex": 0,
+   "explanation": "千里之行，始于足下"
+  }
+ ]
+}

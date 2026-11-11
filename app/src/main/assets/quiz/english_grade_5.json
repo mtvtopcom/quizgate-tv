@@ -1,0 +1,111 @@
+{
+ "version": 2,
+ "subject": "英语",
+ "grade": 5,
+ "items": [
+  {
+   "id": "e5-001",
+   "subject": "英语",
+   "stem": "Look! She ___ reading.",
+   "options": [
+    "is",
+    "are",
+    "am",
+    "be"
+   ],
+   "answerIndex": 0,
+   "explanation": "现在进行时用 is + doing"
+  },
+  {
+   "id": "e5-002",
+   "subject": "英语",
+   "stem": "I can ___ English.",
+   "options": [
+    "speak",
+    "speaks",
+    "speaking",
+    "spoke"
+   ],
+   "answerIndex": 0,
+   "explanation": "can 后面用动词原形"
+  },
+  {
+   "id": "e5-003",
+   "subject": "英语",
+   "stem": "“January”是几月？",
+   "options": [
+    "一月",
+    "二月",
+    "三月",
+    "十二月"
+   ],
+   "answerIndex": 0,
+   "explanation": "January 是一月"
+  },
+  {
+   "id": "e5-004",
+   "subject": "英语",
+   "stem": "taller 是 tall 的什么形式？",
+   "options": [
+    "比较级",
+    "最高级",
+    "复数",
+    "过去式"
+   ],
+   "answerIndex": 0,
+   "explanation": "加 er 构成比较级"
+  },
+  {
+   "id": "e5-005",
+   "subject": "英语",
+   "stem": "How much is it? 问的是什么？",
+   "options": [
+    "价格",
+    "数量",
+    "时间",
+    "地点"
+   ],
+   "answerIndex": 0,
+   "explanation": "how much 问价钱"
+  },
+  {
+   "id": "e5-006",
+   "subject": "英语",
+   "stem": "“play football”是什么意思？",
+   "options": [
+    "踢足球",
+    "打篮球",
+    "打乒乓球",
+    "跑步"
+   ],
+   "answerIndex": 0,
+   "explanation": "play + 球类"
+  },
+  {
+   "id": "e5-007",
+   "subject": "英语",
+   "stem": "“usually”是什么意思？",
+   "options": [
+    "通常",
+    "从不",
+    "已经",
+    "有时"
+   ],
+   "answerIndex": 0,
+   "explanation": "usually 表示通常"
+  },
+  {
+   "id": "e5-008",
+   "subject": "英语",
+   "stem": "went 是哪个动词的过去式？",
+   "options": [
+    "go",
+    "come",
+    "do",
+    "see"
+   ],
+   "answerIndex": 0,
+   "explanation": "go-went-gone"
+  }
+ ]
+}

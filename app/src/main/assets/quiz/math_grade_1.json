@@ -1,0 +1,111 @@
+{
+ "version": 2,
+ "subject": "数学",
+ "grade": 1,
+ "items": [
+  {
+   "id": "m1-001",
+   "subject": "数学",
+   "stem": "3 + 4 = ?",
+   "options": [
+    "5",
+    "6",
+    "7",
+    "8"
+   ],
+   "answerIndex": 2,
+   "explanation": "3 加 4 等于 7"
+  },
+  {
+   "id": "m1-002",
+   "subject": "数学",
+   "stem": "9 - 5 = ?",
+   "options": [
+    "3",
+    "4",
+    "5",
+    "6"
+   ],
+   "answerIndex": 1,
+   "explanation": "9 减 5 等于 4"
+  },
+  {
+   "id": "m1-003",
+   "subject": "数学",
+   "stem": "2 + 2 + 2 = ?",
+   "options": [
+    "4",
+    "5",
+    "6",
+    "7"
+   ],
+   "answerIndex": 2,
+   "explanation": "三个 2 是 6"
+  },
+  {
+   "id": "m1-004",
+   "subject": "数学",
+   "stem": "6 + 3 = ?",
+   "options": [
+    "8",
+    "9",
+    "10",
+    "11"
+   ],
+   "answerIndex": 1,
+   "explanation": "6 加 3 等于 9"
+  },
+  {
+   "id": "m1-005",
+   "subject": "数学",
+   "stem": "10 - 4 = ?",
+   "options": [
+    "5",
+    "6",
+    "7",
+    "8"
+   ],
+   "answerIndex": 1,
+   "explanation": "10 减 4 等于 6"
+  },
+  {
+   "id": "m1-006",
+   "subject": "数学",
+   "stem": "5 + 5 = ?",
+   "options": [
+    "9",
+    "10",
+    "11",
+    "12"
+   ],
+   "answerIndex": 1,
+   "explanation": "5 加 5 等于 10"
+  },
+  {
+   "id": "m1-007",
+   "subject": "数学",
+   "stem": "8 - 3 = ?",
+   "options": [
+    "4",
+    "5",
+    "6",
+    "7"
+   ],
+   "answerIndex": 1,
+   "explanation": "8 减 3 等于 5"
+  },
+  {
+   "id": "m1-008",
+   "subject": "数学",
+   "stem": "1 + 2 + 3 = ?",
+   "options": [
+    "5",
+    "6",
+    "7",
+    "8"
+   ],
+   "answerIndex": 1,
+   "explanation": "1+2=3，再加 3 等于 6"
+  }
+ ]
+}

@@ -1,0 +1,111 @@
+{
+ "version": 2,
+ "subject": "英语",
+ "grade": 6,
+ "items": [
+  {
+   "id": "e6-001",
+   "subject": "英语",
+   "stem": "I ___ my homework yesterday.",
+   "options": [
+    "do",
+    "did",
+    "does",
+    "doing"
+   ],
+   "answerIndex": 1,
+   "explanation": "yesterday 用过去式"
+  },
+  {
+   "id": "e6-002",
+   "subject": "英语",
+   "stem": "He is ___ than me.",
+   "options": [
+    "tall",
+    "taller",
+    "tallest",
+    "the tall"
+   ],
+   "answerIndex": 1,
+   "explanation": "than 前用比较级"
+  },
+  {
+   "id": "e6-003",
+   "subject": "英语",
+   "stem": "“February”是几月？",
+   "options": [
+    "一月",
+    "二月",
+    "三月",
+    "四月"
+   ],
+   "answerIndex": 1,
+   "explanation": "February 是二月"
+  },
+  {
+   "id": "e6-004",
+   "subject": "英语",
+   "stem": "“library”是什么意思？",
+   "options": [
+    "图书馆",
+    "医院",
+    "学校",
+    "超市"
+   ],
+   "answerIndex": 0,
+   "explanation": "library 是图书馆"
+  },
+  {
+   "id": "e6-005",
+   "subject": "英语",
+   "stem": "How do you go to school? 问的是什么？",
+   "options": [
+    "交通方式",
+    "时间",
+    "原因",
+    "地点"
+   ],
+   "answerIndex": 0,
+   "explanation": "how 问方式"
+  },
+  {
+   "id": "e6-006",
+   "subject": "英语",
+   "stem": "“next week”是什么意思？",
+   "options": [
+    "上周",
+    "下周",
+    "这周",
+    "每天"
+   ],
+   "answerIndex": 1,
+   "explanation": "next 表示下一个"
+  },
+  {
+   "id": "e6-007",
+   "subject": "英语",
+   "stem": "“interesting”是什么意思？",
+   "options": [
+    "有趣的",
+    "无聊的",
+    "困难的",
+    "简单的"
+   ],
+   "answerIndex": 0,
+   "explanation": "interest + ing"
+  },
+  {
+   "id": "e6-008",
+   "subject": "英语",
+   "stem": "don't 是哪两个词的缩写？",
+   "options": [
+    "do not",
+    "does not",
+    "did not",
+    "is not"
+   ],
+   "answerIndex": 0,
+   "explanation": "do not = don't"
+  }
+ ]
+}

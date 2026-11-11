@@ -1,0 +1,111 @@
+{
+ "version": 2,
+ "subject": "语文",
+ "grade": 4,
+ "items": [
+  {
+   "id": "c4-001",
+   "subject": "语文",
+   "stem": "成语「胸有成（ ）」空缺的是？",
+   "options": [
+    "竹",
+    "菊",
+    "梅",
+    "兰"
+   ],
+   "answerIndex": 0,
+   "explanation": "胸有成竹"
+  },
+  {
+   "id": "c4-002",
+   "subject": "语文",
+   "stem": "成语「对牛弹（ ）」空缺的是？",
+   "options": [
+    "琴",
+    "琵琶",
+    "曲",
+    "歌"
+   ],
+   "answerIndex": 0,
+   "explanation": "对牛弹琴"
+  },
+  {
+   "id": "c4-003",
+   "subject": "语文",
+   "stem": "《西游记》的作者是？",
+   "options": [
+    "吴承恩",
+    "罗贯中",
+    "施耐庵",
+    "曹雪芹"
+   ],
+   "answerIndex": 0,
+   "explanation": "吴承恩写《西游记》"
+  },
+  {
+   "id": "c4-004",
+   "subject": "语文",
+   "stem": "“通过这次活动，使我明白了团结的重要。”这句有语病吗？",
+   "options": [
+    "有，缺主语",
+    "有，缺宾语",
+    "没有语病",
+    "有，用词不当"
+   ],
+   "answerIndex": 0,
+   "explanation": "“通过”和“使”同时用，主语被吃掉"
+  },
+  {
+   "id": "c4-005",
+   "subject": "语文",
+   "stem": "成语「一叶知（ ）」空缺的是？",
+   "options": [
+    "秋",
+    "春",
+    "冬",
+    "夏"
+   ],
+   "answerIndex": 0,
+   "explanation": "一叶知秋"
+  },
+  {
+   "id": "c4-006",
+   "subject": "语文",
+   "stem": "反问句“难道不对吗？”表达的意思是？",
+   "options": [
+    "对",
+    "不对",
+    "不确定",
+    "在提问"
+   ],
+   "answerIndex": 0,
+   "explanation": "反问表示肯定"
+  },
+  {
+   "id": "c4-007",
+   "subject": "语文",
+   "stem": "“春风又绿江南岸”中的“绿”是什么意思？",
+   "options": [
+    "绿色的",
+    "吹绿",
+    "绿色植物",
+    "变黄"
+   ],
+   "answerIndex": 1,
+   "explanation": "形容词作动词，吹绿了"
+  },
+  {
+   "id": "c4-008",
+   "subject": "语文",
+   "stem": "成语「守口如（ ）」空缺的是？",
+   "options": [
+    "瓶",
+    "瓶口",
+    "瓶盖",
+    "罐"
+   ],
+   "answerIndex": 0,
+   "explanation": "守口如瓶"
+  }
+ ]
+}

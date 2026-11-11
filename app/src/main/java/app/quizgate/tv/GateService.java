@@ -341,9 +341,29 @@ public class GateService extends Service implements MaskView.Host {
     }
 
     @Override public void onPinOk() {
-        Log.i(TAG, "pin ok -> exit session");
+        Log.i(TAG, "pin ok -> 结束会话并回到应用首页");
+        // 1.3.0：口令对了不再只是退出到桌面，而是把应用首页打开，
+        // 由家长在首页决定「开始计时 / 结束本次会话」。本次运行标记为已解锁，
+        // 之后进设置不再重复要口令（开始计时时会重新上锁）。
+        App.parentUnlocked = true;
+        prefs.setParentUnlocked(true);   // 进程被系统回收后仍免密，doStart() 会清掉
         // 正在按键分发过程中移除窗口会出问题，抛到下一帧再做
-        h.post(this::exitSession);
+        h.post(() -> {
+            exitSession();
+            openApp();
+        });
+    }
+
+    /** 口令通过后把家长带回应用首页。 */
+    private void openApp() {
+        try {
+            Intent i = new Intent(this, MainActivity.class)
+                    .addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            startActivity(i);
+            Log.i(TAG, "open_app ok");
+        } catch (Throwable t) {
+            Log.w(TAG, "open_app failed: " + t);
+        }
     }
 
     private void exitSession() {

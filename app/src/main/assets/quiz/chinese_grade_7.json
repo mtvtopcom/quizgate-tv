@@ -1,0 +1,111 @@
+{
+ "version": 2,
+ "subject": "语文",
+ "grade": 7,
+ "items": [
+  {
+   "id": "c7-001",
+   "subject": "语文",
+   "stem": "“学而时习之”中的“时”是什么意思？",
+   "options": [
+    "时间",
+    "按时",
+    "时常",
+    "当时"
+   ],
+   "answerIndex": 1,
+   "explanation": "时习即按时温习"
+  },
+  {
+   "id": "c7-002",
+   "subject": "语文",
+   "stem": "《观沧海》的作者是？",
+   "options": [
+    "曹操",
+    "曹植",
+    "陶渊明",
+    "李白"
+   ],
+   "answerIndex": 0,
+   "explanation": "曹操《观沧海》"
+  },
+  {
+   "id": "c7-003",
+   "subject": "语文",
+   "stem": "“海日生残夜”的下一句是？",
+   "options": [
+    "江春入旧年",
+    "风正一帆悬",
+    "潮平两岸阔",
+    "归雁洛阳边"
+   ],
+   "answerIndex": 0,
+   "explanation": "王湾《次北固山下》"
+  },
+  {
+   "id": "c7-004",
+   "subject": "语文",
+   "stem": "成语「温故而知（ ）」空缺的是？",
+   "options": [
+    "新",
+    "旧",
+    "深",
+    "广"
+   ],
+   "answerIndex": 0,
+   "explanation": "温故而知新"
+  },
+  {
+   "id": "c7-005",
+   "subject": "语文",
+   "stem": "“苔痕上阶绿”中的“上”是什么意思？",
+   "options": [
+    "上面",
+    "长上",
+    "上山",
+    "向上看"
+   ],
+   "answerIndex": 1,
+   "explanation": "名词作动词，长上台阶"
+  },
+  {
+   "id": "c7-006",
+   "subject": "语文",
+   "stem": "“物极必反”的意思是？",
+   "options": [
+    "事物发展到极端会转向反面",
+    "东西太多会坏掉",
+    "做事要适可而止",
+    "物理变化会反复"
+   ],
+   "answerIndex": 0,
+   "explanation": "极则变"
+  },
+  {
+   "id": "c7-007",
+   "subject": "语文",
+   "stem": "《朝花夕拾》的作者是？",
+   "options": [
+    "鲁迅",
+    "朱自清",
+    "老舍",
+    "冰心"
+   ],
+   "answerIndex": 0,
+   "explanation": "鲁迅的散文集"
+  },
+  {
+   "id": "c7-008",
+   "subject": "语文",
+   "stem": "“三军可夺帅也，匹夫不可夺（ ）也”空缺的是？",
+   "options": [
+    "志",
+    "心",
+    "命",
+    "气"
+   ],
+   "answerIndex": 0,
+   "explanation": "匹夫不可夺志"
+  }
+ ]
+}

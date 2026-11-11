@@ -1,0 +1,111 @@
+{
+ "version": 2,
+ "subject": "英语",
+ "grade": 4,
+ "items": [
+  {
+   "id": "e4-001",
+   "subject": "英语",
+   "stem": "He ___ to school every day.",
+   "options": [
+    "go",
+    "goes",
+    "going",
+    "went"
+   ],
+   "answerIndex": 1,
+   "explanation": "第三人称单数加 es"
+  },
+  {
+   "id": "e4-002",
+   "subject": "英语",
+   "stem": "There ___ two books on the desk.",
+   "options": [
+    "is",
+    "are",
+    "am",
+    "be"
+   ],
+   "answerIndex": 1,
+   "explanation": "复数主语用 are"
+  },
+  {
+   "id": "e4-003",
+   "subject": "英语",
+   "stem": "“Monday”是星期几？",
+   "options": [
+    "星期一",
+    "星期二",
+    "星期日",
+    "星期五"
+   ],
+   "answerIndex": 0,
+   "explanation": "Monday 是星期一"
+  },
+  {
+   "id": "e4-004",
+   "subject": "英语",
+   "stem": "英文数字 12 是？",
+   "options": [
+    "twelve",
+    "twenty",
+    "eleven",
+    "two"
+   ],
+   "answerIndex": 0,
+   "explanation": "twelve = 12"
+  },
+  {
+   "id": "e4-005",
+   "subject": "英语",
+   "stem": "“in front of”是什么意思？",
+   "options": [
+    "在……前面",
+    "在……后面",
+    "在……上面",
+    "在……里面"
+   ],
+   "answerIndex": 0,
+   "explanation": "front 是前面"
+  },
+  {
+   "id": "e4-006",
+   "subject": "英语",
+   "stem": "“swim”的现在分词是？",
+   "options": [
+    "swiming",
+    "swimming",
+    "swimed",
+    "swims"
+   ],
+   "answerIndex": 1,
+   "explanation": "双写 m 再加 ing"
+  },
+  {
+   "id": "e4-007",
+   "subject": "英语",
+   "stem": "Which season do you like? 问的是什么？",
+   "options": [
+    "季节",
+    "天气",
+    "颜色",
+    "学科"
+   ],
+   "answerIndex": 0,
+   "explanation": "season 是季节"
+  },
+  {
+   "id": "e4-008",
+   "subject": "英语",
+   "stem": "“windy”是什么意思？",
+   "options": [
+    "有风的",
+    "下雨的",
+    "下雪的",
+    "晴朗的"
+   ],
+   "answerIndex": 0,
+   "explanation": "wind + y 表示有风"
+  }
+ ]
+}

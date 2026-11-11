@@ -41,9 +41,9 @@ jobs:
           UPDATE="INTERNET REQUEST_INSTALL_PACKAGES"
           # v1.2.6 起为卸载留痕新增的两个：只写一个自定义系统设置键，不改系统配置
           ANCHOR="WRITE_SETTINGS WRITE_SECURE_SETTINGS"
-          # v1.2.9 起为「开始前电池白名单检查」新增：普通权限，只为能弹系统的忽略电池优化对话框
-          POWER="REQUEST_IGNORE_BATTERY_OPTIMIZATIONS"
-          ALLOWED="$BASE $UPDATE $ANCHOR $POWER"
+          # v1.3.0 起不再需要 REQUEST_IGNORE_BATTERY_OPTIMIZATIONS：
+          # 电池白名单实测非必需，授权检查里也已删除
+          ALLOWED="$BASE $UPDATE $ANCHOR"
           fail=0
           for p in $(echo "$PERMS" | sed -n "s/uses-permission: name='android.permission\.\([^']*\)'/\1/p"); do
             case " $ALLOWED " in
@@ -52,7 +52,7 @@ jobs:
             esac
           done
           if [ $fail -ne 0 ]; then exit 1; fi
-          echo "OK: 权限清单与白名单一致（基础 5 + 升级 2 + 卸载留痕 2 + 电源 1）"
+          echo "OK: 权限清单与白名单一致（基础 5 + 升级 2 + 卸载留痕 2）"
 
       # 出网点是隐私承诺的核心。数量一旦变化，docs/upgrade.md 里的审计说明就失效了。
       - name: 断言出网点只有两处

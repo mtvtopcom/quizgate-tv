@@ -1,0 +1,111 @@
+{
+ "version": 2,
+ "subject": "语文",
+ "grade": 2,
+ "items": [
+  {
+   "id": "c2-001",
+   "subject": "语文",
+   "stem": "“森”字由几个“木”组成？",
+   "options": [
+    "2 个",
+    "3 个",
+    "4 个",
+    "5 个"
+   ],
+   "answerIndex": 1,
+   "explanation": "三木为森"
+  },
+  {
+   "id": "c2-002",
+   "subject": "语文",
+   "stem": "“明”字由哪两个字组成？",
+   "options": [
+    "日 + 月",
+    "日 + 目",
+    "月 + 目",
+    "口 + 月"
+   ],
+   "answerIndex": 0,
+   "explanation": "日月同辉为明"
+  },
+  {
+   "id": "c2-003",
+   "subject": "语文",
+   "stem": "“春”的拼音是？",
+   "options": [
+    "chūn",
+    "cūn",
+    "chuēn",
+    "chōng"
+   ],
+   "answerIndex": 0,
+   "explanation": "春读 chūn"
+  },
+  {
+   "id": "c2-004",
+   "subject": "语文",
+   "stem": "一（ ）马，括号里用什么量词？",
+   "options": [
+    "条",
+    "匹",
+    "只",
+    "头"
+   ],
+   "answerIndex": 1,
+   "explanation": "马用“匹”"
+  },
+  {
+   "id": "c2-005",
+   "subject": "语文",
+   "stem": "“快乐”的近义词是？",
+   "options": [
+    "高兴",
+    "难过",
+    "安静",
+    "着急"
+   ],
+   "answerIndex": 0,
+   "explanation": "快乐与高兴意思相近"
+  },
+  {
+   "id": "c2-006",
+   "subject": "语文",
+   "stem": "“黑”的反义词是？",
+   "options": [
+    "白",
+    "红",
+    "暗",
+    "灰"
+   ],
+   "answerIndex": 0,
+   "explanation": "黑与白相对"
+  },
+  {
+   "id": "c2-007",
+   "subject": "语文",
+   "stem": "“休”字表示什么意思？",
+   "options": [
+    "人靠着树休息",
+    "水在流动",
+    "火在燃烧",
+    "手在劳动"
+   ],
+   "answerIndex": 0,
+   "explanation": "左边是人，右边是木"
+  },
+  {
+   "id": "c2-008",
+   "subject": "语文",
+   "stem": "下面哪个词表示颜色？",
+   "options": [
+    "跑步",
+    "红色",
+    "桌子",
+    "唱歌"
+   ],
+   "answerIndex": 1,
+   "explanation": "“红色”是颜色词"
+  }
+ ]
+}

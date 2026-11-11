@@ -108,16 +108,7 @@ public final class Updater {
 
     /** 是否配置了升级源。空配置 = 纯离线，一次网络请求都不发。 */
     public static boolean enabled() {
-        for (String b : bases()) if (b.startsWith("http")) return true;
-        return false;
-    }
-
-    /** 主地址 + 过渡期兜底（去重、去空）。顺序就是尝试顺序。 */
-    private static String[] bases() {
-        String a = BuildCfg.UPGRADE_BASE == null ? "" : BuildCfg.UPGRADE_BASE;
-        String b = BuildCfg.UPGRADE_FALLBACK == null ? "" : BuildCfg.UPGRADE_FALLBACK;
-        if (b.isEmpty() || b.equals(a)) return new String[]{a};
-        return new String[]{a, b};
+        return BuildCfg.UPGRADE_BASE != null && BuildCfg.UPGRADE_BASE.startsWith("http");
     }
 
     /**
@@ -196,27 +187,20 @@ public final class Updater {
             return;
         }
         Thread t = new Thread(() -> {
-            Result first = null;
-            for (String base : bases()) {
-                if (!base.startsWith("http")) continue;
-                Result r;
-                try {
-                    r = fetch(base);
-                } catch (Throwable e) {
-                    r = Result.fail(e.getClass().getSimpleName() + ": " + e.getMessage());
-                }
-                if (r.ok()) {
-                    Log.i(TAG, "update_check_src " + base
-                            + " remote=" + r.versionCode + " (" + r.versionName + ")");
-                    final Result ok = r;
-                    post(() -> cb.onResult(ok));
-                    return;
-                }
-                // 失败原因一定落日志：证书不匹配、DNS 挂了、404，都要能一眼看出来
-                Log.i(TAG, "update_check_fail " + base + " -> " + r.error);
-                if (first == null) first = r;
+            Result r;
+            try {
+                r = fetch(BuildCfg.UPGRADE_BASE);
+            } catch (Throwable e) {
+                r = Result.fail(e.getClass().getSimpleName() + ": " + e.getMessage());
             }
-            final Result fr = first == null ? Result.fail("没有可用的升级源") : first;
+            if (r.ok()) {
+                Log.i(TAG, "update_check_src " + BuildCfg.UPGRADE_BASE + " remote="
+                        + r.versionCode + " (" + r.versionName + ")");
+            } else {
+                // 失败原因一定落日志：证书不匹配、DNS 挂了、404，都要能一眼看出来
+                Log.i(TAG, "update_check_fail " + BuildCfg.UPGRADE_BASE + " -> " + r.error);
+            }
+            final Result fr = r;
             post(() -> cb.onResult(fr));
         }, "quizgate-update-check");
         t.setDaemon(true);

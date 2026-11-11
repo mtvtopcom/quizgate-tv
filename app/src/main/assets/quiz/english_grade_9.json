@@ -1,0 +1,111 @@
+{
+ "version": 2,
+ "subject": "英语",
+ "grade": 9,
+ "items": [
+  {
+   "id": "e9-001",
+   "subject": "英语",
+   "stem": "The boy ___ is wearing a hat is my brother.",
+   "options": [
+    "who",
+    "which",
+    "whose",
+    "whom"
+   ],
+   "answerIndex": 0,
+   "explanation": "先行词是人，作主语用 who"
+  },
+  {
+   "id": "e9-002",
+   "subject": "英语",
+   "stem": "If I ___ you, I would go.",
+   "options": [
+    "am",
+    "was",
+    "were",
+    "be"
+   ],
+   "answerIndex": 2,
+   "explanation": "虚拟语气用 were"
+  },
+  {
+   "id": "e9-003",
+   "subject": "英语",
+   "stem": "Not until he came ___ I leave.",
+   "options": [
+    "did",
+    "do",
+    "does",
+    "had"
+   ],
+   "answerIndex": 0,
+   "explanation": "Not until 放句首，主句部分倒装"
+  },
+  {
+   "id": "e9-004",
+   "subject": "英语",
+   "stem": "It is important ___ us to learn English.",
+   "options": [
+    "for",
+    "of",
+    "to",
+    "with"
+   ],
+   "answerIndex": 0,
+   "explanation": "It is + adj + for sb to do"
+  },
+  {
+   "id": "e9-005",
+   "subject": "英语",
+   "stem": "Neither of them ___ ready.",
+   "options": [
+    "is",
+    "are",
+    "am",
+    "be"
+   ],
+   "answerIndex": 0,
+   "explanation": "neither of 谓语用单数"
+  },
+  {
+   "id": "e9-006",
+   "subject": "英语",
+   "stem": "He suggested ___ earlier.",
+   "options": [
+    "leaving",
+    "to leave",
+    "leave",
+    "left"
+   ],
+   "answerIndex": 0,
+   "explanation": "suggest doing"
+  },
+  {
+   "id": "e9-007",
+   "subject": "英语",
+   "stem": "The number of students ___ increasing.",
+   "options": [
+    "is",
+    "are",
+    "were",
+    "be"
+   ],
+   "answerIndex": 0,
+   "explanation": "the number of 谓语用单数"
+  },
+  {
+   "id": "e9-008",
+   "subject": "英语",
+   "stem": "Hardly ___ I arrived when it rained.",
+   "options": [
+    "had",
+    "have",
+    "did",
+    "was"
+   ],
+   "answerIndex": 0,
+   "explanation": "Hardly...when 用过去完成时倒装"
+  }
+ ]
+}

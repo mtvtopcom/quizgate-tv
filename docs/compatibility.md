@@ -57,7 +57,7 @@
 | --- | --- | --- |
 | 应用启动 / 界面显示 | 通过 | `am start -W` → `Status: ok`、`LaunchState: WARM`，MainActivity 正常前台，无崩溃 / ANR |
 | 悬浮窗内子 View 焦点 | **失效（系统行为）** | `requestFocus()` 假成功，方向键 / OK 被 WindowManager 判 `Unhandled key`；v1.2.4 改为根 View 自行路由 |
-| 回桌面后守护存活 | 需三条授权 | 缺电池白名单 / 通知使用权时 `Force stopping app.quizgate.tv`；补齐后 3 分钟观察存活，并出现 `resurrect_restore ok via immediate` |
+| 回桌面后守护存活 | 1.2.5 时结论：需三条授权 | 当时缺电池白名单 / 通知使用权会 `Force stopping app.quizgate.tv`；补齐后 3 分钟观察存活，并出现 `resurrect_restore ok via immediate`。**1.3.0 复测推翻了白名单这一项**：D1 / D2 移出白名单后计时、到点出题、锁屏按 HOME 全正常，装机降为两条必需授权，见证据 D12 |
 | 遮罩出题与判题 | 通过（v1.2.4） | 方向键移动选中（高亮唯一）、OK 判题 `solved +1min -> 1:01` |
 | 遮罩内家长口令面板 | 通过（v1.2.4） | 高亮唯一、底部「忘记口令」可达、数字键输码 `pin ok -> exit session` |
 | 遮罩内恢复码键盘 | 通过（v1.2.4） | 8 位输入、方向键可用、`Unhandled key` 计数 0 |
@@ -65,8 +65,9 @@
 | 锁屏按 HOME | 通过（v1.2.9） | 只剩遮罩时 HOME 不杀进程、窗口保持焦点；后台有 Activity 时会被杀，`NotifProbe` 0.1s 内 RESTORE、遮罩 <1s 回来 |
 
 **这次踩坑的重点：同一型号、不同 Android 大版本，悬浮窗焦点与后台策略都变了**，不能把 D1 的
-结论套到 D2 上（D1 的「悬浮窗焦点：通过」在 D2 上不成立）。新增装机的三条 adb 授权见
-[README](../README.md) 第 2 步。
+结论套到 D2 上（D1 的「悬浮窗焦点：通过」在 D2 上不成立）。当时的装机是三条 adb 授权；
+**1.3.0 起取消电池白名单，改为两条必需 + 一条可选**，见 [README](../README.md) 第 2 步
+与证据 D12 的双机复测。
 
 截图与日志见 `evidence/D4-2026-11-10/`。
 

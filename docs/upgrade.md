@@ -117,7 +117,9 @@ dist/version.json
 
 1. 顶部「当前版本」区块：版本号 / `versionCode` / 发布日 / apk 文件名 / sha256 / 更新日志链接；
 2. 「10 分钟装好」「安装路径 A」里的 apk 文件名、授权条数、操作步骤；
-   1.2.6 起要区分「三条必需授权」与「一条只用于卸载留痕的可选授权」，别混成「四条缺一不可」；
+   1.2.6–1.2.9 区分「三条必需授权」与「一条只用于卸载留痕的可选授权」，别混成「四条缺一不可」；
+   **1.3.0 起电池白名单已取消**，装机是「两条必需 + 一条可选」，别再写「三条缺一不可」，
+   也要说明「1.2.9 及以前仍需三条」，免得旧版用户按新文档装机漏了白名单；
 3. 有新截图或新兼容性结论时，换图、补矩阵；
 4. 「常见故障」表补上这一版新修的现象，`shasum` 示例别停在老版本文件名上。
 
@@ -169,11 +171,13 @@ $ADB -s $D install dist/quizgate-<上一版>.apk
 $ADB -s $D shell appops set app.quizgate.tv SYSTEM_ALERT_WINDOW allow
 $ADB -s $D shell appops set app.quizgate.tv REQUEST_INSTALL_PACKAGES allow
 $ADB -s $D shell cmd notification allow_listener app.quizgate.tv/app.quizgate.tv.NotifProbe
-$ADB -s $D shell dumpsys deviceidle whitelist +app.quizgate.tv
+# 1.3.0 起不需要电池白名单；退回 1.2.9 及更早版本时才加下面这条
+# $ADB -s $D shell dumpsys deviceidle whitelist +app.quizgate.tv
 $ADB -s $D shell am start -n app.quizgate.tv/.MainActivity
 ```
 
-- 卸载会清掉通知使用权和电池白名单，三条必需授权要补回来；只补 appops 会复现 D5 的「到点不出题」。
+- 卸载会清掉通知使用权（1.2.9 及以前还会清电池白名单），必需授权要补回来；
+  只补 appops 会复现 D5 的「到点不出题」。1.3.0 起是两条必需，1.2.9 及以前是三条。
 - **别给旧版机预授权 `WRITE_SECURE_SETTINGS`**（上一版也没声明这个权限）。覆盖升级到 1.2.6 后
   设置页第五项应当是红字「未启用」，正好验证发布说明里「覆盖升级不自动获得可选授权」这一点。
 - 复核 logcat 出现 `update_check self=<旧 versionCode> remote=<新 versionCode>`，
@@ -366,9 +370,10 @@ adb shell settings get secure quizgate_install_anchor   # 补完重进应用，�
 两个要点要在发布说明里讲清楚，别造成误解：
 
 1. **锚点从授权生效那一刻才建立，1.2.6 之前的卸载历史查不到。** 这是留痕，不是回溯取证。
-2. **卸载重装会重置授权状态**（和通知使用权、电池白名单同理），重装后请重新核对
-   三条必需授权 + 这条可选授权；锚点本身在 `Settings.Secure` 里不会被清，所以
-   重装后的「曾被卸载 N 次」告警照常显示。
+2. **卸载重装会重置授权状态**（和通知使用权同理），重装后请重新核对
+   必需授权（1.3.0 起两条、1.2.9 及以前三条）+ 这条可选授权；锚点本身在
+   `Settings.Secure` 里不会被清，所以重装后的「曾被卸载 N 次」告警照常显示。
+   **1.3.0 起没卸过就不显示任何留痕提示**（旧版会显示「未启用」红字）。
 
 留痕只记录时间戳与次数，不含口令 / 恢复码 / 任何凭据派生值；只告警、不拦截，
 重装仍由用户自己设 6 位口令。双机取证见 [`evidence/D7-2026-11-11/`](../evidence/D7-2026-11-11/README.md)。

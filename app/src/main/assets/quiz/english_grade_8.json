@@ -1,0 +1,111 @@
+{
+ "version": 2,
+ "subject": "英语",
+ "grade": 8,
+ "items": [
+  {
+   "id": "e8-001",
+   "subject": "英语",
+   "stem": "I ___ here since 2020.",
+   "options": [
+    "live",
+    "lived",
+    "have lived",
+    "am living"
+   ],
+   "answerIndex": 2,
+   "explanation": "since 用现在完成时"
+  },
+  {
+   "id": "e8-002",
+   "subject": "英语",
+   "stem": "The room ___ every day.",
+   "options": [
+    "cleans",
+    "is cleaned",
+    "cleaned",
+    "is cleaning"
+   ],
+   "answerIndex": 1,
+   "explanation": "被动语态 be + 过去分词"
+  },
+  {
+   "id": "e8-003",
+   "subject": "英语",
+   "stem": "He asked me ___ I was tired.",
+   "options": [
+    "if",
+    "that",
+    "what",
+    "which"
+   ],
+   "answerIndex": 0,
+   "explanation": "宾语从句用 if 表是否"
+  },
+  {
+   "id": "e8-004",
+   "subject": "英语",
+   "stem": "neither...nor 连接主语时，谓语动词看？",
+   "options": [
+    "就近的主语",
+    "前面的主语",
+    "都用复数",
+    "都用单数"
+   ],
+   "answerIndex": 0,
+   "explanation": "就近原则"
+  },
+  {
+   "id": "e8-005",
+   "subject": "英语",
+   "stem": "“too...to”是什么意思？",
+   "options": [
+    "太……而不能",
+    "太……以至于",
+    "为了……",
+    "不但……而且"
+   ],
+   "answerIndex": 0,
+   "explanation": "too + adj + to do"
+  },
+  {
+   "id": "e8-006",
+   "subject": "英语",
+   "stem": "“used to”是什么意思？",
+   "options": [
+    "过去常常",
+    "被用来",
+    "习惯于",
+    "使用"
+   ],
+   "answerIndex": 0,
+   "explanation": "used to do 过去常常"
+  },
+  {
+   "id": "e8-007",
+   "subject": "英语",
+   "stem": "although 能和 but 同时用吗？",
+   "options": [
+    "能",
+    "不能",
+    "只能放句首",
+    "只能放句末"
+   ],
+   "answerIndex": 1,
+   "explanation": "although 与 but 不连用"
+  },
+  {
+   "id": "e8-008",
+   "subject": "英语",
+   "stem": "“the more, the better”是什么意思？",
+   "options": [
+    "越多越好",
+    "越来越好",
+    "越少越好",
+    "越多越差"
+   ],
+   "answerIndex": 0,
+   "explanation": "the + 比较级，the + 比较级"
+  }
+ ]
+}

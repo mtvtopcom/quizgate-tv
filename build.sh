@@ -12,22 +12,14 @@ cd "$(dirname "$0")"
 MODE="${1:-debug}"
 # 版本号默认值随发布走；做真机升级验证时用环境变量临时覆盖，
 # 免得为了「造一个更新包」去改仓库里的版本号。
-VERSION_NAME="${QUIZGATE_VERSION_NAME:-1.2.9}"
-VERSION_CODE="${QUIZGATE_VERSION_CODE:-10209}"
+VERSION_NAME="${QUIZGATE_VERSION_NAME:-1.3.0}"
+VERSION_CODE="${QUIZGATE_VERSION_CODE:-10300}"
 
 # 升级源：默认就是生产目录（发版后用户能自动收到更新）。
 # 想完全离线：QUIZGATE_UPGRADE_BASE= ./build.sh ...
 # 想做真机验证：QUIZGATE_UPGRADE_BASE=http://127.0.0.1:8765/ ./build.sh debug
 DEFAULT_BASE="https://7789.cn/y/quizgate-tv/"
-# 过渡期兜底（与 BuildCfg.UPGRADE_FALLBACK 保持一致）：主地址证书/网络不通时才会用。
-DEFAULT_FALLBACK="https://shitang.mianmiangou.cn/static/quizgate-tv/"
 BASE="${QUIZGATE_UPGRADE_BASE-$DEFAULT_BASE}"
-# 显式指定了升级源（调试、离线、内网验证）就不要再连生产兜底
-if [ -n "${QUIZGATE_UPGRADE_BASE+x}" ]; then
-  FALLBACK=""
-else
-  FALLBACK="$DEFAULT_FALLBACK"
-fi
 if [ -n "$BASE" ]; then
   case "$BASE" in */) ;; *) BASE="$BASE/" ;; esac
   if [ "$MODE" = "release" ] && [ "${BASE%%:*}" = "http" ]; then
@@ -75,22 +67,20 @@ rm -rf "$OUT"
 mkdir -p "$OUT/res" "$OUT/gen" "$OUT/classes" "$OUT/dex"
 
 # 把升级源写进 BuildCfg，编译完归还源文件（trap 保证编译失败也会还原）。
-# 两个常量一起改写：BASE 空 = 纯离线，FALLBACK 空 = 不启用兜底。
+# BASE 空 = 纯离线。
 BC="app/src/main/java/app/quizgate/tv/BuildCfg.java"
 BC_BAK="$OUT/BuildCfg.java.bak"
 cp "$BC" "$BC_BAK"
 trap 'cp "$BC_BAK" "$BC" 2>/dev/null || true' EXIT
-python3 - "$BASE" "$FALLBACK" <<'PY'
+python3 - "$BASE" <<'PY'
 import sys, re
 p = 'app/src/main/java/app/quizgate/tv/BuildCfg.java'
 s = open(p, encoding='utf-8').read()
 s = re.sub(r'UPGRADE_BASE = "[^"]*"', 'UPGRADE_BASE = "%s"' % sys.argv[1], s, count=1)
-s = re.sub(r'UPGRADE_FALLBACK = "[^"]*"', 'UPGRADE_FALLBACK = "%s"' % sys.argv[2], s, count=1)
 open(p, 'w', encoding='utf-8').write(s)
 PY
 if [ -n "$BASE" ]; then
   echo "  升级源：$BASE"
-  if [ -n "$FALLBACK" ]; then echo "  兜底源：$FALLBACK"; fi
 else
   echo "  升级源：未配置（纯离线，不检查更新）"
   if [ "$MODE" = "release" ]; then

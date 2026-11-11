@@ -1,0 +1,111 @@
+{
+ "version": 2,
+ "subject": "语文",
+ "grade": 1,
+ "items": [
+  {
+   "id": "c1-001",
+   "subject": "语文",
+   "stem": "“日”字有几笔？",
+   "options": [
+    "3 笔",
+    "4 笔",
+    "5 笔",
+    "6 笔"
+   ],
+   "answerIndex": 1,
+   "explanation": "“日”是 4 笔"
+  },
+  {
+   "id": "c1-002",
+   "subject": "语文",
+   "stem": "“山”字有几笔？",
+   "options": [
+    "2 笔",
+    "3 笔",
+    "4 笔",
+    "5 笔"
+   ],
+   "answerIndex": 1,
+   "explanation": "“山”是 3 笔"
+  },
+  {
+   "id": "c1-003",
+   "subject": "语文",
+   "stem": "“上”的反义词是什么？",
+   "options": [
+    "左",
+    "下",
+    "前",
+    "里"
+   ],
+   "answerIndex": 1,
+   "explanation": "上与下相对"
+  },
+  {
+   "id": "c1-004",
+   "subject": "语文",
+   "stem": "一（ ）铅笔，括号里用什么量词？",
+   "options": [
+    "个",
+    "只",
+    "支",
+    "条"
+   ],
+   "answerIndex": 2,
+   "explanation": "细长的笔用“支”"
+  },
+  {
+   "id": "c1-005",
+   "subject": "语文",
+   "stem": "“水”的拼音是？",
+   "options": [
+    "shuǐ",
+    "suǐ",
+    "shǔi",
+    "shuī"
+   ],
+   "answerIndex": 0,
+   "explanation": "水读 shuǐ，第三声"
+  },
+  {
+   "id": "c1-006",
+   "subject": "语文",
+   "stem": "“大”的反义词是什么？",
+   "options": [
+    "多",
+    "小",
+    "高",
+    "长"
+   ],
+   "answerIndex": 1,
+   "explanation": "大与小相对"
+  },
+  {
+   "id": "c1-007",
+   "subject": "语文",
+   "stem": "“人”字加一笔可以变成哪个字？",
+   "options": [
+    "大",
+    "天",
+    "木",
+    "水"
+   ],
+   "answerIndex": 0,
+   "explanation": "人加一横就是“大”"
+  },
+  {
+   "id": "c1-008",
+   "subject": "语文",
+   "stem": "“月”字有几笔？",
+   "options": [
+    "3 笔",
+    "4 笔",
+    "5 笔",
+    "6 笔"
+   ],
+   "answerIndex": 1,
+   "explanation": "“月”是 4 笔"
+  }
+ ]
+}

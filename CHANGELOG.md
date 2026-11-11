@@ -3,6 +3,70 @@
 本项目遵循 [Semantic Versioning](https://semver.org/lang/zh-CN/)。
 `versionCode = MAJOR*10000 + MINOR*100 + PATCH`，单调递增。
 
+## [1.3.0] - 2026-11-11（开发中，尚未发布）
+
+**单一升级源；题目可选语数英；授权质检收进「守护状态」；取消电池白名单；家长解锁后进首页并短期免密；卸载留痕只在真有痕迹时提示。**
+
+> 本轮只做代码、文档与真机验收，**没有打 Release、没有上传 version.json**。
+> 线上仍是 1.2.9；`versionCode 10300` 的本地包 sha256 以最后一次 `publish.sh` 为准。
+
+### 1. 升级源删掉 fallback
+
+`BuildCfg.UPGRADE_FALLBACK`、`Updater.bases()`、`build.sh` / `tools/publish.sh` 的 `DEFAULT_FALLBACK`
+全部移除，只剩 `https://7789.cn/y/quizgate-tv/`。1.2.9 发布当天主地址证书已补齐
+（`CN=7789.cn`），真机日志 `update_check_src https://7789.cn/y/quizgate-tv/ remote=10209`
+确认单地址直连，没必要留第二个出网点。CI 的「出网点只有 2 处」断言在真实产物上复跑通过。
+
+### 2. 科目：语文 / 数学 / 英语 × 1–9 年级
+
+- `tools/gen_quiz.py` 重写，生成 27 份 `quiz/<subject>_grade_<n>.json`，每份 8 题，共 216 题；
+  旧的 `grade_*.json` 全部删除。JSON 全部校验过（4 选项、答案下标合法、stem 非空）。
+- `QuizBank.next(subjectKey, grade, floor, r)` 按科目加载；缓存与去重 key 都加 subject；
+  语文 / 英语没有算术兜底，题库缺片时退到该科目最低年级，最后给一道通用常识题。
+- 设置页「题目年级」改成三级：学段（小学 / 初中）→ 年级 → 科目；`gradeText()` 显示
+  「初中 · 初二 · 英语」。`Prefs` 新增 `subject()` / `setSubject()`，老用户默认数学。
+
+### 3. 授权质检收进「守护状态」子页
+
+设置页删掉独立 `btnPerm` / `authBox`，只留一个「守护状态」入口；悬浮窗 / 通知使用权 /
+守护服务三项自检、adb 修复命令、「显示权限」按钮、「重新检测」、卸载留痕告警全部搬进子页。
+`topOverlay()` / `maybeInitFocus()` / BACK 分发都补了 `guardPanel`。D1（Android 11）与
+D2（Android 14）实测「重新检测」按钮都能按动，Android 14 的焦点假成功坑没有复现。
+
+### 4. 取消电池优化白名单（双机复测）
+
+D1（Android 11）与 D2（Android 14）都执行 `dumpsys deviceidle whitelist -app.quizgate.tv`
+移出白名单后重跑全流程：回桌面、1 分钟到点出题（`lock at 0` → `mask_add ok`）、
+锁屏按 HOME 均正常，进程未被 `Force stopping`。因此从 `AndroidManifest.xml` 移除
+`REQUEST_IGNORE_BATTERY_OPTIMIZATIONS`，`authItems()` / `authComplete()` / 守护状态自检
+都不再查它，CI 权限白名单同步删项。**装机从「三条必需」降为「两条必需」**
+（1.2.9 及以前仍按三条装机，README 按版本分界写明）。
+
+### 5. 锁屏输对口令：进首页，且短期免密
+
+`GateService.onPinOk()` 不再只 `exitSession()` 退到桌面，而是设解锁态 + 打开应用首页，
+由家长在首页决定开始 / 结束。`MainActivity.gate()` 在解锁后不再弹口令面板。
+解锁态**落盘在 `Prefs.parentUnlocked()`**：小米电视随时强停进程，只放进程内静态变量
+活不过一次回收；`doStart()` 开始新一局时把两处一起清掉。真机验证：输对口令 → 首页 →
+进设置免密；`am force-stop` 换 pid 后仍免密；再点「开始计时」后重新要求口令。
+
+### 6. 卸载留痕：有痕迹才提示
+
+`refreshAnchorWarn()` 与守护状态页都改成只在 `anchorReport.uninstalls > 0` 时显示，
+无痕迹（含未授权、未启用）时首页 / 设置页 / 守护状态页一律干净，不再摆「未启用」红字。
+
+### 7. 真机验收与交付态
+
+- D1 `192.168.1.123`（Android 11）：1.3.0 验收机，覆盖全部新功能，取证见
+  `evidence/D12-2026-11-11/`（含初二英语题、守护状态页、免密、强停后免密、重新上锁）。
+- D2 `192.168.1.88`（Android 14）：焦点回归与无白名单到点出题后，按纪律
+  **先删 secure/system 锚点键再卸载**，退回 1.2.9 正式包留作下次 OTA 的旧版机；
+  补必需授权但**不预授权** `WRITE_SECURE_SETTINGS`，也不加电池白名单。
+- 两台都已 `pm clear`，停在「设置 6 位家长口令」；锚点均为 `null`。
+- **痕迹检查结果**：两台 `Settings.Secure` / `System` / `Global` 里没有任何
+  `quizgate_install_anchor` 之类的卸载留痕键；D2 的 `/sdcard/Download/` 里还留着一个
+  历史升级包 `quizgate-1.2.6 (1).apk`（不影响功能，未删除，等用户决定）。
+
 ## [1.2.9] - 2026-11-11（正式发布）
 
 **设置页按新规则重排、时长/年级换选法、开始前先查授权；修首页裁字与锁屏态 HOME 切出。**

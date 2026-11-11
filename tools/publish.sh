@@ -27,10 +27,10 @@ MAJOR="${VER%%.*}"; REST="${VER#*.}"
 MINOR="${REST%%.*}"; PATCH="${REST#*.}"
 CODE=$(( MAJOR * 10000 + MINOR * 100 + PATCH ))
 
-# 升级源默认用 build.sh 里的生产地址（7789.cn）与过渡期兜底。
-# 显式传入 QUIZGATE_UPGRADE_BASE 时只连那一个地址（内网/离线验证用）。
+# 升级源默认用 build.sh 里的生产地址（7789.cn）；显式传入 QUIZGATE_UPGRADE_BASE
+# 时改用那个地址（内网/离线验证用）。
 BASE="${QUIZGATE_UPGRADE_BASE:-}"
-DISPLAY_BASE="${BASE:-https://7789.cn/y/quizgate-tv/（build.sh 默认 + 兜底）}"
+DISPLAY_BASE="${BASE:-https://7789.cn/y/quizgate-tv/（build.sh 默认）}"
 
 echo "== 构建 $VER ($CODE)，升级源 $DISPLAY_BASE"
 if [ -n "$BASE" ]; then
@@ -79,6 +79,6 @@ fi
 echo
 echo "== 双机验收：一新版一旧版（别把两台都刷成最终 dist 包）"
 echo "   一台刷本次 dist 包做新版本验收；另一台留/退回上一版本，让用户真机走一遍 OTA 升级"
-echo "   退回旧版顺序：删 system/secure 锚点键 → 卸载 → 装上一版 dist 包 → 补三条必需授权"
+echo "   退回旧版顺序：删 system/secure 锚点键 → 卸载 → 装上一版 dist 包 → 补必需授权（1.3.0+ 两条 / 1.2.9- 三条）"
 echo "   旧版机别预授权 WRITE_SECURE_SETTINGS，正好验证「覆盖升级不自动获得可选授权」"
 echo "   详见 docs/upgrade.md「双机验收：一新版一旧版」"

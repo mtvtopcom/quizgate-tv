@@ -1,0 +1,111 @@
+{
+ "version": 2,
+ "subject": "语文",
+ "grade": 5,
+ "items": [
+  {
+   "id": "c5-001",
+   "subject": "语文",
+   "stem": "成语「刻舟求（ ）」空缺的是？",
+   "options": [
+    "剑",
+    "鱼",
+    "宝",
+    "人"
+   ],
+   "answerIndex": 0,
+   "explanation": "刻舟求剑"
+  },
+  {
+   "id": "c5-002",
+   "subject": "语文",
+   "stem": "《水浒传》的作者是？",
+   "options": [
+    "施耐庵",
+    "罗贯中",
+    "吴承恩",
+    "曹雪芹"
+   ],
+   "answerIndex": 0,
+   "explanation": "施耐庵写《水浒传》"
+  },
+  {
+   "id": "c5-003",
+   "subject": "语文",
+   "stem": "“飞流直下三千尺”用了什么修辞？",
+   "options": [
+    "比喻",
+    "拟人",
+    "夸张",
+    "对偶"
+   ],
+   "answerIndex": 2,
+   "explanation": "三千尺是夸张"
+  },
+  {
+   "id": "c5-004",
+   "subject": "语文",
+   "stem": "成语「画龙点（ ）」空缺的是？",
+   "options": [
+    "睛",
+    "眼",
+    "珠",
+    "头"
+   ],
+   "answerIndex": 0,
+   "explanation": "画龙点睛"
+  },
+  {
+   "id": "c5-005",
+   "subject": "语文",
+   "stem": "“他像一只快乐的小鸟”用了什么修辞？",
+   "options": [
+    "比喻",
+    "拟人",
+    "夸张",
+    "设问"
+   ],
+   "answerIndex": 0,
+   "explanation": "把他比作小鸟"
+  },
+  {
+   "id": "c5-006",
+   "subject": "语文",
+   "stem": "下面哪一项不是说明文的说明方法？",
+   "options": [
+    "举例子",
+    "列数字",
+    "打比方",
+    "抒情"
+   ],
+   "answerIndex": 3,
+   "explanation": "抒情是表达方式，不是说明方法"
+  },
+  {
+   "id": "c5-007",
+   "subject": "语文",
+   "stem": "成语「亡羊补牢」的意思是？",
+   "options": [
+    "出了问题及时补救",
+    "丢了东西不找",
+    "做事不考虑后果",
+    "一味等待"
+   ],
+   "answerIndex": 0,
+   "explanation": "补牢是修补羊圈"
+  },
+  {
+   "id": "c5-008",
+   "subject": "语文",
+   "stem": "“一日不见，如隔三秋”用了什么修辞？",
+   "options": [
+    "比喻",
+    "夸张",
+    "拟人",
+    "反问"
+   ],
+   "answerIndex": 1,
+   "explanation": "把一天说成三年，是夸张"
+  }
+ ]
+}

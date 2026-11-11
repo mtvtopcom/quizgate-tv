@@ -1,10 +1,11 @@
 {
- "version": 1,
+ "version": 2,
+ "subject": "数学",
  "grade": 3,
  "items": [
   {
-   "id": "g3-001",
-   "subject": "综合",
+   "id": "m3-001",
+   "subject": "数学",
    "stem": "48 ÷ 6 = ?",
    "options": [
     "6",
@@ -16,8 +17,8 @@
    "explanation": "六八四十八"
   },
   {
-   "id": "g3-002",
-   "subject": "综合",
+   "id": "m3-002",
+   "subject": "数学",
    "stem": "1 米等于多少厘米？",
    "options": [
     "10 厘米",
@@ -29,8 +30,8 @@
    "explanation": "1 米 = 100 厘米"
   },
   {
-   "id": "g3-003",
-   "subject": "综合",
+   "id": "m3-003",
+   "subject": "数学",
    "stem": "125 + 275 = ?",
    "options": [
     "390",
@@ -42,8 +43,8 @@
    "explanation": "125 + 275 = 400"
   },
   {
-   "id": "g3-004",
-   "subject": "综合",
+   "id": "m3-004",
+   "subject": "数学",
    "stem": "一年中 31 天的月份有几个？",
    "options": [
     "5 个",
@@ -55,8 +56,8 @@
    "explanation": "1、3、5、7、8、10、12 月"
   },
   {
-   "id": "g3-005",
-   "subject": "综合",
+   "id": "m3-005",
+   "subject": "数学",
    "stem": "7 × 9 - 8 = ?",
    "options": [
     "45",
@@ -68,21 +69,8 @@
    "explanation": "63 - 8 = 55"
   },
   {
-   "id": "g3-006",
-   "subject": "综合",
-   "stem": "“China”的意思是？",
-   "options": [
-    "中国",
-    "日本",
-    "美国",
-    "英国"
-   ],
-   "answerIndex": 0,
-   "explanation": "China 是中国"
-  },
-  {
-   "id": "g3-007",
-   "subject": "综合",
+   "id": "m3-006",
+   "subject": "数学",
    "stem": "半小时等于多少分钟？",
    "options": [
     "15 分钟",
@@ -94,8 +82,8 @@
    "explanation": "半小时 30 分钟"
   },
   {
-   "id": "g3-008",
-   "subject": "综合",
+   "id": "m3-007",
+   "subject": "数学",
    "stem": "正方形有几条对称轴？",
    "options": [
     "1 条",
@@ -105,6 +93,19 @@
    ],
    "answerIndex": 2,
    "explanation": "两条对角线与两条中位线"
+  },
+  {
+   "id": "m3-008",
+   "subject": "数学",
+   "stem": "240 ÷ 8 = ?",
+   "options": [
+    "20",
+    "30",
+    "40",
+    "60"
+   ],
+   "answerIndex": 1,
+   "explanation": "三八二十四"
   }
  ]
 }

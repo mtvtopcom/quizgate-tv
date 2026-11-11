@@ -1,0 +1,111 @@
+{
+ "version": 2,
+ "subject": "英语",
+ "grade": 7,
+ "items": [
+  {
+   "id": "e7-001",
+   "subject": "英语",
+   "stem": "She ___ TV now.",
+   "options": [
+    "watch",
+    "watches",
+    "is watching",
+    "watched"
+   ],
+   "answerIndex": 2,
+   "explanation": "now 用现在进行时"
+  },
+  {
+   "id": "e7-002",
+   "subject": "英语",
+   "stem": "I have ___ apple and ___ banana.",
+   "options": [
+    "an, a",
+    "a, an",
+    "an, an",
+    "a, a"
+   ],
+   "answerIndex": 0,
+   "explanation": "apple 元音开头用 an"
+  },
+  {
+   "id": "e7-003",
+   "subject": "英语",
+   "stem": "He is good ___ math.",
+   "options": [
+    "at",
+    "in",
+    "on",
+    "for"
+   ],
+   "answerIndex": 0,
+   "explanation": "be good at 擅长"
+  },
+  {
+   "id": "e7-004",
+   "subject": "英语",
+   "stem": "Tom ___ to Beijing last year.",
+   "options": [
+    "go",
+    "goes",
+    "went",
+    "going"
+   ],
+   "answerIndex": 2,
+   "explanation": "last year 用过去式"
+  },
+  {
+   "id": "e7-005",
+   "subject": "英语",
+   "stem": "Would you like ___ tea?",
+   "options": [
+    "some",
+    "any",
+    "many",
+    "a"
+   ],
+   "answerIndex": 0,
+   "explanation": "征求意愿用 some"
+  },
+  {
+   "id": "e7-006",
+   "subject": "英语",
+   "stem": "The book is ___ the desk.",
+   "options": [
+    "on",
+    "in",
+    "at",
+    "to"
+   ],
+   "answerIndex": 0,
+   "explanation": "on the desk 在桌上"
+  },
+  {
+   "id": "e7-007",
+   "subject": "英语",
+   "stem": "How long 问的是什么？",
+   "options": [
+    "多长时间",
+    "多远",
+    "多大",
+    "多少"
+   ],
+   "answerIndex": 0,
+   "explanation": "how long 问时长/长度"
+  },
+  {
+   "id": "e7-008",
+   "subject": "英语",
+   "stem": "“friendly”是什么意思？",
+   "options": [
+    "友好的",
+    "寒冷的",
+    "危险的",
+    "安静的"
+   ],
+   "answerIndex": 0,
+   "explanation": "friend + ly"
+  }
+ ]
+}

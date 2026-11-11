@@ -42,6 +42,32 @@ public final class Prefs {
     /** 学段：0 = 小学（1-6 年级），1 = 初中（初一/初二/初三 = 7/8/9 年级）。 */
     public static final int STAGE_PRIMARY = 0, STAGE_JUNIOR = 1;
 
+    /** 科目：0 = 语文，1 = 数学，2 = 英语。题库文件名为 <subject>_grade_<n>.json。 */
+    public static final int SUBJECT_CHINESE = 0, SUBJECT_MATH = 1, SUBJECT_ENGLISH = 2;
+    public static final String[] SUBJECT_KEYS = {"chinese", "math", "english"};
+    public static final String[] SUBJECT_NAMES = {"语文", "数学", "英语"};
+
+    public int subject() { return clamp(sp.getInt("subject", SUBJECT_MATH), 0, 2); }
+
+    public void setSubject(int v) { sp.edit().putInt("subject", clamp(v, 0, 2)).commit(); }
+
+    public String subjectKey() { return SUBJECT_KEYS[subject()]; }
+
+    public String subjectName() { return SUBJECT_NAMES[subject()]; }
+
+    /**
+     * 1.3.0：家长在锁屏遮罩上输对过一次口令后，到「开始新一局计时」为止进设置不再要口令。
+     *
+     * <p><b>必须落盘</b>：小米电视回桌面 / 待机会强停第三方进程，只放进程内静态变量
+     * 活不过这一下，家长刚解锁完、按 HOME 再回来又被要一次口令。卸载重装会随
+     * gate prefs 一起清掉，不会把解锁状态带到新安装。
+     */
+    public boolean parentUnlocked() { return sp.getBoolean("parentUnlocked", false); }
+
+    public void setParentUnlocked(boolean v) {
+        sp.edit().putBoolean("parentUnlocked", v).commit();
+    }
+
     /**
      * 1.2.9 之前只有「年级 1-9」，没有学段。老用户升上来时按已有年级推断，
      * 别让一个设了 8 年级的电视突然显示「小学」。

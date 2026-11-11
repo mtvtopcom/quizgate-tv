@@ -1,0 +1,111 @@
+{
+ "version": 2,
+ "subject": "语文",
+ "grade": 6,
+ "items": [
+  {
+   "id": "c6-001",
+   "subject": "语文",
+   "stem": "《三国演义》的作者是？",
+   "options": [
+    "罗贯中",
+    "施耐庵",
+    "吴承恩",
+    "曹雪芹"
+   ],
+   "answerIndex": 0,
+   "explanation": "罗贯中写《三国演义》"
+  },
+  {
+   "id": "c6-002",
+   "subject": "语文",
+   "stem": "成语「不耻下（ ）」空缺的是？",
+   "options": [
+    "问",
+    "学",
+    "看",
+    "听"
+   ],
+   "answerIndex": 0,
+   "explanation": "不耻下问"
+  },
+  {
+   "id": "c6-003",
+   "subject": "语文",
+   "stem": "“孰为汝多知乎”中的“孰”是什么意思？",
+   "options": [
+    "谁",
+    "什么",
+    "怎么",
+    "哪里"
+   ],
+   "answerIndex": 0,
+   "explanation": "孰即“谁”"
+  },
+  {
+   "id": "c6-004",
+   "subject": "语文",
+   "stem": "《红楼梦》的作者是？",
+   "options": [
+    "曹雪芹",
+    "罗贯中",
+    "吴承恩",
+    "施耐庵"
+   ],
+   "answerIndex": 0,
+   "explanation": "曹雪芹写《红楼梦》"
+  },
+  {
+   "id": "c6-005",
+   "subject": "语文",
+   "stem": "“通国之善弈者也”中的“善”是什么意思？",
+   "options": [
+    "善良",
+    "擅长",
+    "喜欢",
+    "经常"
+   ],
+   "answerIndex": 1,
+   "explanation": "善弈即擅长下棋"
+  },
+  {
+   "id": "c6-006",
+   "subject": "语文",
+   "stem": "成语「舍近求（ ）」空缺的是？",
+   "options": [
+    "远",
+    "近",
+    "易",
+    "难"
+   ],
+   "answerIndex": 0,
+   "explanation": "舍近求远"
+  },
+  {
+   "id": "c6-007",
+   "subject": "语文",
+   "stem": "形容一个人说话算数，用哪个成语？",
+   "options": [
+    "一诺千金",
+    "一言不发",
+    "一鸣惊人",
+    "一举两得"
+   ],
+   "answerIndex": 0,
+   "explanation": "一诺千金指承诺值千金"
+  },
+  {
+   "id": "c6-008",
+   "subject": "语文",
+   "stem": "“粉骨碎身浑不怕”写的是什么？",
+   "options": [
+    "石灰",
+    "梅花",
+    "竹子",
+    "菊花"
+   ],
+   "answerIndex": 0,
+   "explanation": "于谦《石灰吟》"
+  }
+ ]
+}
