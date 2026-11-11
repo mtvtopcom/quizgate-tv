@@ -3,6 +3,85 @@
 本项目遵循 [Semantic Versioning](https://semver.org/lang/zh-CN/)。
 `versionCode = MAJOR*10000 + MINOR*100 + PATCH`，单调递增。
 
+## [1.2.6] - 2026-11-11（代码与双机验证完成，**尚未正式发布**）
+
+**卸载不再「无痕」：装一个应用数据之外的锚点，重装后明确告诉家长这台电视被卸过几次、失联多久。**
+
+> 本版代码已在 `main`，但 `dist/` 正式产物、tag、GitHub Release、生产 `version.json`
+> 都还没做。线上可下载版本与升级源仍是 **1.2.5**。
+
+### 问题与取舍
+
+用户报「启动软件后把软件删掉，就能成功逃脱监管」。这是 Android 的设计边界，不是 bug：
+卸载会连 `/data/data/app.quizgate.tv` 一起清空，悬浮窗、前台服务、通知监听、开机广播
+全部消失，普通 APK 内部代码拦不住。只读探测过 Device Owner / Device Admin
+（两台电视已有账号，Device Owner 要求无账号 / 恢复出厂；`remove-active-admin` 还要求
+`android:testOnly`），家庭场景不可接受，**不做硬锁**。
+
+方向改成「让家长知道被卸载过」。真正的漏洞不是卸不掉，而是卸过之后看不出来：
+原来重装后 `hasPin()==false` 就走首装分支，孩子自己设个新口令，
+家长看到的是一个干净的新应用。
+
+**只告警、不拦截**：重装后仍由用户自己设 6 位口令。若反过来要求输原恢复码，
+忘口令且丢码的家长本就只能卸载重装，会形成死循环。
+
+### 实现：系统设置锚点
+
+- 新增 `Anchor.java`，把一条 JSON 写进 `Settings.System` / `Settings.Secure` 的自定义键
+  `quizgate_install_anchor`。这两个命名空间属于系统设置库，**卸载 APK 不会清**，
+  遥控器也删不掉（只有 adb / root 能改）
+- 内容只有 `first`（首次安装）、`seen`（最后心跳）、`uninstalls`（累计次数）、
+  `gap`（最近失联毫秒）。**不含口令 / 恢复码 / `pinHash` / 任何凭据派生值** ——
+  `Settings.Secure` 全局可读，`adb shell settings get secure …` 不需要 root
+- 判据：系统设置锚点存在 + `!prefs.hasPin()` + `!prefs.anchorInit()` 才算卸载重装。
+  `anchorInit` 存在 `/data/data`，卸载即消失；「首次安装后还没设口令就重进应用」不会误报
+- `Prefs` 新增 `anchorInit()` / `markAnchorInit()`；`MainActivity.onCreate()` 在
+  `buildContent()` 之前先 `Anchor.sync()`，把结果交给首页 / 设置页 / 口令面板
+- 三处常驻红字（不是一次性 Toast）：口令面板标题下、首页状态卡外、设置页详情行；
+  设置页「卸载留痕」行点开看完整说明（累计次数、失联时长、首次安装时间、擦不掉）
+- 授权自检从四项变五项，缺授权时红字给出可照抄的 adb 命令；**没授权时功能自动停用**，
+  不崩溃、不影响原有守护与计时
+- 心跳：`MainActivity.onResume()` 与 `GateService` ticker 每 60 秒各调一次 `Anchor.touch()`。
+  点「开始计时」后界面就关了，只有服务在跑，不刷心跳会让「最后在线」停在打开应用那一刻
+- 清单新增 `WRITE_SETTINGS` / `WRITE_SECURE_SETTINGS` 两个权限，CI 白名单同步为
+  「基础 5 + 升级 2 + 卸载留痕 2」共 9 项；真实产物本地跑过断言，出网点仍 2 处
+
+### 双机实测的关键发现
+
+D1（Android 11）与 D2（Android 14）**都**在 `Settings.System.putString()` 写自定义键时抛
+`You cannot keep your settings in the secure settings.`。真正生效的是：
+
+```bash
+adb shell pm grant app.quizgate.tv android.permission.WRITE_SECURE_SETTINGS
+```
+
+`Anchor.write()` 捕获该异常后置 `systemUnsupported = true`，本进程不再重试 System 分支，
+改走 `Settings.Secure`，写后立刻读回确认；System 分支保留给其它固件兜底。
+读取时两个命名空间都读、取心跳较新的一份，只补一条授权也能工作。
+自检里的命令顺序也按实测调成 `pm grant` 在前。
+
+| 项 | D2 / Android 14 | D1 / Android 11 |
+| --- | --- | --- |
+| 无授权降级 | 自检红字 + adb 指引，其余功能正常 | 同版本代码 |
+| `Settings.Secure` 锚点跨真卸载保留 | 通过 | 通过 |
+| 第一次卸载重装 | `count=1`，口令面板红字 | `count=1`，口令面板红字 |
+| 第二次卸载重装 | `count=2`，次数累加不重置 | — |
+| 覆盖升级 | 保持 `2`，不误报不重复计数 | 保持 `1`，不误报不重复计数 |
+
+证据 `evidence/D7-2026-11-11/`（12 张截图 + 日志时间轴）。
+
+### 顺带修掉的两个 UI 问题
+
+- `PinPadView` 没有副标题参数，最初把告警传进 `showPinOverlay()` 会被吞；也不能塞 `msg`
+  （`fail()` 的「口令不正确」会冲掉它）。新增 `setNotice()`，标题下插入独立常驻红字行
+- 首页红字原先放在权重高度的状态卡里，最后一行被下边缘裁掉半截；`homeAuth` /
+  `homeAnchor` 移到卡片外按 `wrap_content` 算高度
+
+### 交付态
+
+两台验证后卸载 1.2.6、删掉 system / secure 锚点键、装回**已发布的** 1.2.5、
+`pm clear` 清测试口令与恢复码、补齐原三条授权，停在「设置 6 位家长口令」。
+
 ## [1.2.5] - 2026-11-11
 
 **新 logo + 电视风格首页；把上次 D2 报障暴露的授权问题做成应用自己能查、能提示、能自愈。**

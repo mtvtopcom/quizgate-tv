@@ -76,6 +76,7 @@ dist/version.json
 
 1. 顶部「当前版本」区块：版本号 / `versionCode` / 发布日 / apk 文件名 / sha256 / 更新日志链接；
 2. 「10 分钟装好」「安装路径 A」里的 apk 文件名、授权条数、操作步骤；
+   v1.2.6 起要区分「三条必需授权」与「一条只用于卸载留痕的可选授权」，别混成「四条缺一不可」；
 3. 有新截图或新兼容性结论时，换图、补矩阵；
 4. 「常见故障」表补上这一版新修的现象，`shasum` 示例别停在老版本文件名上。
 
@@ -256,3 +257,33 @@ QUIZGATE_UPGRADE_BASE=http://127.0.0.1:8765/ ./build.sh debug
 
 调试包会自动允许明文 HTTP（`build.sh` 里判断 base 是否以 `http` 开头），
 **发布包不接受 http 的 base，构建会直接失败**。
+
+---
+
+## 6. 升级到 v1.2.6 的额外一步（卸载留痕授权）
+
+> v1.2.6 **尚未正式发布**，本节是为发布后准备的运维说明。
+
+v1.2.6 新增 `WRITE_SETTINGS` / `WRITE_SECURE_SETTINGS` 两个权限用于写系统设置锚点。
+`WRITE_SECURE_SETTINGS` 是系统级权限，**覆盖升级不会自动获得**，从 1.2.5 升上来的
+电视也不会。不补的后果仅是留痕不启用：应用照常计时、出题、升级，设置页「授权自检」
+第五项显示红字 `✗ 卸载留痕：缺失` 并给出命令，不会崩溃。
+
+补法（D1 / Android 11、D2 / Android 14 双机实测生效的是第一条）：
+
+```bash
+adb shell pm grant app.quizgate.tv android.permission.WRITE_SECURE_SETTINGS
+# 个别固件若拒绝，再补这条兜底：
+adb shell appops set app.quizgate.tv WRITE_SETTINGS allow
+adb shell settings get secure quizgate_install_anchor   # 补完重进应用，应能看到一条 JSON
+```
+
+两个要点要在发布说明里讲清楚，别造成误解：
+
+1. **锚点从授权生效那一刻才建立，1.2.6 之前的卸载历史查不到。** 这是留痕，不是回溯取证。
+2. **卸载重装会重置授权状态**（和通知使用权、电池白名单同理），重装后请重新核对
+   三条必需授权 + 这条可选授权；锚点本身在 `Settings.Secure` 里不会被清，所以
+   重装后的「曾被卸载 N 次」告警照常显示。
+
+留痕只记录时间戳与次数，不含口令 / 恢复码 / 任何凭据派生值；只告警、不拦截，
+重装仍由用户自己设 6 位口令。双机取证见 [`evidence/D7-2026-11-11/`](../evidence/D7-2026-11-11/README.md)。

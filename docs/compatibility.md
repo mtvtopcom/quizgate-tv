@@ -88,6 +88,30 @@
 进程 pid 在 0.4 秒内换掉；守护靠 `NotifProbe` RESTORE 复活。任何只存在服务实例内存里的
 短时 UI 状态都必须落盘，否则活不过这一下。截图与日志见 `evidence/D6-2026-11-10/`。
 
+#### 1.2.6 双机回归：系统设置锚点（同日）
+
+1.2.6 新增卸载留痕，两套固件**分别取证**，没有互套结论：
+
+| 项 | D1 / Android 11 | D2 / Android 14 |
+| --- | --- | --- |
+| `Settings.System.putString` 写自定义键 | **被拒**：`You cannot keep your settings in the secure settings.` | 同左（两套固件行为一致） |
+| `pm grant WRITE_SECURE_SETTINGS` 后写 `Settings.Secure` | 通过，写后读回一致 | 通过 |
+| 锚点跨 `pm uninstall` 保留 | 通过 | 通过 |
+| 第一次卸载重装 | `anchor_reinstall count=1`，口令面板红字 | `count=1`，口令面板红字 |
+| 第二次卸载重装 | — | `count=2`（累加不重置），红字变 2 次 |
+| 覆盖升级 | 保持 `1`，不误报、不重复计数 | 保持 `2`，不误报、不重复计数 |
+| 无授权时降级 | 同版本代码 | 自检「✗ 卸载留痕：缺失」+ adb 命令，原有计时不受影响 |
+
+**结论**：真正生效的授权是
+`adb shell pm grant app.quizgate.tv android.permission.WRITE_SECURE_SETTINGS`；
+`appops set … WRITE_SETTINGS allow` 只是给其它固件的兜底，自检里的命令顺序按此调整。
+`Anchor.write()` 捕获 System 分支的 `IllegalArgumentException` 后本进程不再重试，
+避免每 60 秒一次的心跳反复抛异常。
+
+判据「锚点存在 + `!hasPin()` + `!anchorInit()`」里的 `anchorInit` 存在 `/data/data`，
+卸载即消失，所以「首次安装后还没设口令就重进应用」不会被当成卸载。
+证据与完整日志时间轴见 `evidence/D7-2026-11-11/`。
+
 ## 未验证
 
 以下机型/系统组合**没有任何实测数据**，不构成支持声明：
@@ -116,6 +140,10 @@ adb shell input keyevent 26       # 电源键，会触发 killAllThirdApp
 # 是否被强停
 adb shell dumpsys package app.quizgate.tv | grep -o "stopped=[a-z]*"
 adb shell logcat -d | grep killAllThirdApp
+
+# 卸载留痕锚点（v1.2.6 起；读不需要任何权限）
+adb shell settings get secure quizgate_install_anchor
+adb shell settings get system quizgate_install_anchor
 
 # 日志
 adb logcat -v monotonic -s QuizGate:I

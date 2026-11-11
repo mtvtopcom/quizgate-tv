@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="app.quizgate.tv"
-    android:versionCode="10205"
-    android:versionName="1.2.5">
+    android:versionCode="10206"
+    android:versionName="1.2.6">
 
     <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
@@ -15,6 +15,12 @@
     <uses-permission android:name="android.permission.INTERNET" />
     <!-- 把下载好的 APK 交给系统安装器。仍然需要用户在系统弹窗上按「安装」，无法静默安装。 -->
     <uses-permission android:name="android.permission.REQUEST_INSTALL_PACKAGES" />
+
+    <!-- v1.2.6 卸载留痕：只写一个自定义系统设置键（首次安装 / 最后心跳 / 卸载次数），
+         不改任何系统配置、不含口令或凭据派生值。缺授权时功能自动停用并在设置页红字提示。
+         两条 adb 授权任一生效即可：appops WRITE_SETTINGS 或 pm grant WRITE_SECURE_SETTINGS。 -->
+    <uses-permission android:name="android.permission.WRITE_SETTINGS" />
+    <uses-permission android:name="android.permission.WRITE_SECURE_SETTINGS" />
 
     <uses-feature android:name="android.software.leanback" android:required="false" />
     <uses-feature android:name="android.hardware.touchscreen" android:required="false" />

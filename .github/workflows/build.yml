@@ -39,7 +39,9 @@ jobs:
           BASE="SYSTEM_ALERT_WINDOW FOREGROUND_SERVICE FOREGROUND_SERVICE_SPECIAL_USE POST_NOTIFICATIONS RECEIVE_BOOT_COMPLETED"
           # v1.2.0 起为在线升级新增的两个
           UPDATE="INTERNET REQUEST_INSTALL_PACKAGES"
-          ALLOWED="$BASE $UPDATE"
+          # v1.2.6 起为卸载留痕新增的两个：只写一个自定义系统设置键，不改系统配置
+          ANCHOR="WRITE_SETTINGS WRITE_SECURE_SETTINGS"
+          ALLOWED="$BASE $UPDATE $ANCHOR"
           fail=0
           for p in $(echo "$PERMS" | sed -n "s/uses-permission: name='android.permission\.\([^']*\)'/\1/p"); do
             case " $ALLOWED " in
@@ -48,7 +50,7 @@ jobs:
             esac
           done
           if [ $fail -ne 0 ]; then exit 1; fi
-          echo "OK: 权限清单与白名单一致（基础 5 + 升级 2）"
+          echo "OK: 权限清单与白名单一致（基础 5 + 升级 2 + 卸载留痕 2）"
 
       # 出网点是隐私承诺的核心。数量一旦变化，docs/upgrade.md 里的审计说明就失效了。
       - name: 断言出网点只有两处

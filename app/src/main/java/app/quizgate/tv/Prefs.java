@@ -107,6 +107,18 @@ public final class Prefs {
         if (!startHintOn()) clearStartHint();
     }
 
+    // ---------- 卸载留痕 ----------
+    /**
+     * 区分「首次装完还没设口令就重进应用」和「卸载后重装」：
+     * 两种情况下 hasPin() 都是 false、系统设置锚点都存在。这个标记随 /data/data 一起被卸载清掉，
+     * 所以重装后必然是 false —— 正是我们要的判据。
+     */
+    public boolean anchorInit() { return sp.getBoolean("anchorInit", false); }
+
+    public void markAnchorInit() {
+        if (!anchorInit()) sp.edit().putBoolean("anchorInit", true).commit();
+    }
+
     // ---------- 家长口令 ----------
     public boolean hasPin() { return sp.getString("pinHash", null) != null; }
 

@@ -109,6 +109,18 @@ public class PinPadView extends FrameLayout {
         addView(panel, plp);
     }
 
+    /**
+     * 标题下方的常驻提示（如「卸载留痕」告警）。单独一行，不用 msg ——
+     * msg 会被 fail() 的「口令不正确 / 两次不一致」覆盖，而这类告警不能被冲掉。
+     */
+    public void setNotice(String text) {
+        if (text == null || text.length() == 0) return;
+        TextView n = Ui.label(getContext(), text, 18, Ui.BAD);
+        LinearLayout.LayoutParams nlp = new LinearLayout.LayoutParams(-2, -2);
+        nlp.topMargin = Ui.dp(getContext(), 10);
+        panel.addView(n, 1);   // 紧跟标题，在圆点之前
+    }
+
     /** 面板底部追加一行次要入口（如「忘记口令？」）。r 为 null 时只当说明文字，不可聚焦。 */
     public void setFooter(String text, Runnable r) {
         TextView t = Ui.label(getContext(), text, 17, Ui.DIM);

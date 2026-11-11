@@ -221,6 +221,9 @@ public class GateService extends Service implements MaskView.Host {
                 if (++tickCount % 5 == 0) {              // 约 1s 一次心跳
                     prefs.tickSnapshot(remaining);
                     updateMini();
+                    // 点「开始计时」后应用界面就关了，只有服务在跑。每 60s 刷新一次
+                    // 「最后在线」，否则家长看到的是上次打开应用的时间，失联时长会虚高。
+                    if (tickCount % 300 == 0) Anchor.touch(GateService.this);
                     // 通知不要每秒刷：通知监听被系统绑着，每次 notify 都会叫醒它，纯属自扰
                     if (tickCount % 150 == 0) updateNotification();
                     if (DIAG) {

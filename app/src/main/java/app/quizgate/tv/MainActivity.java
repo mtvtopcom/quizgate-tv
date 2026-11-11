@@ -32,16 +32,19 @@ public class MainActivity extends Activity {
     private LinearLayout content;
 
     private TextView valueDuration, valueExtend, valueGrade, valuePin, valueRecovery, valueGuard, status, diag, btnPerm;
-    private TextView valueVersion;
+    private TextView valueVersion, valueAnchor;
+    private TextView anchorWarn;
     private TextView btnStart;
     private TextView banner;
     /** 首页（只看运行状态）；设置页是原来的 contentScroll，两者在同一个 Activity 里切换。 */
     private View homeRoot;
-    private TextView homePhase, homeTime, homeGuard, homeAuth, homeBanner, homeBtnStart;
+    private TextView homePhase, homeTime, homeGuard, homeAuth, homeAnchor, homeBanner, homeBtnStart;
     private LinearLayout authBox;
     private boolean showingSettings = false;
     private boolean settingsUnlocked = false;
     private long lastRestoreAt = 0L;
+    /** 卸载留痕判定；warning 只要卸过就一直显示，不是一次性提示。 */
+    private Anchor.Report anchorReport;
     private final Handler h = new Handler(Looper.getMainLooper());
 
     private PinPadView gate;
@@ -61,6 +64,8 @@ public class MainActivity extends Activity {
     protected void onCreate(Bundle b) {
         super.onCreate(b);
         prefs = new Prefs(this);
+        // 必须在 buildContent / showSettings（都会 refresh）之前拿到判定结果
+        anchorReport = Anchor.sync(this, prefs);
 
         root = new FrameLayout(this);
         root.setBackgroundColor(Ui.BG);
@@ -110,6 +115,13 @@ public class MainActivity extends Activity {
         stlp.topMargin = Ui.dp(this, 26);
         content.addView(status, stlp);
 
+        // 卸载留痕：只要系统设置锚点里记过卸载，这里就一直红字，孩子重装也抹不掉
+        anchorWarn = Ui.label(this, "", 18, Ui.BAD);
+        LinearLayout.LayoutParams awlp = new LinearLayout.LayoutParams(-1, -2);
+        awlp.topMargin = Ui.dp(this, 16);
+        content.addView(anchorWarn, awlp);
+        anchorWarn.setVisibility(View.GONE);
+
         valueDuration = addRow("本次时长", v -> prefs.setDurationMin(v), this::refresh);
         valueExtend = addRow("答对延长", v -> prefs.setExtendMin(v), this::refresh);
         valueGrade = addRow("题目年级", v -> prefs.setGrade(v), this::refresh);
@@ -117,6 +129,8 @@ public class MainActivity extends Activity {
         valueRecovery = addRow("恢复码", v -> onRecoveryRow(), this::refresh);
         valueGuard = addRow("守护状态", v -> promptClearSafeMode(), this::refresh);
         valueVersion = addRow("当前版本", v -> toast(versionText()), this::refresh);
+        valueAnchor = addRow("卸载留痕",
+                v -> toast(anchorReport == null ? "未检测" : anchorReport.detail()), this::refresh);
 
         LinearLayout btns = Ui.row(this);
         LinearLayout.LayoutParams blp = new LinearLayout.LayoutParams(-1, -2);
@@ -207,13 +221,6 @@ public class MainActivity extends Activity {
         glp.topMargin = Ui.dp(this, 10);
         card.addView(homeGuard, glp);
 
-        homeAuth = Ui.label(this, "", 17, Ui.BAD);
-        homeAuth.setGravity(Gravity.CENTER);
-        LinearLayout.LayoutParams alp = new LinearLayout.LayoutParams(-2, -2);
-        alp.topMargin = Ui.dp(this, 10);
-        card.addView(homeAuth, alp);
-        homeAuth.setVisibility(View.GONE);
-
         homeBanner = Ui.label(this, "", 19, Ui.BLACK);
         homeBanner.setBackgroundColor(Ui.BAD);
         homeBanner.setPadding(Ui.dp(this, 20), Ui.dp(this, 12), Ui.dp(this, 20), Ui.dp(this, 12));
@@ -226,6 +233,22 @@ public class MainActivity extends Activity {
         card.addView(homeBanner, hblp);
 
         home.addView(card, new LinearLayout.LayoutParams(-1, 0, 1f));
+
+        // 告警行放在卡片**外面**：卡片是权重高度，多两行就会把最后一行裁掉半截，
+        // 真机截过图（红字只露出上半部分）。放在外面板高度按 wrap_content 算，不会被截。
+        homeAuth = Ui.label(this, "", 17, Ui.BAD);
+        homeAuth.setGravity(Gravity.CENTER);
+        LinearLayout.LayoutParams walp = new LinearLayout.LayoutParams(-1, -2);
+        walp.topMargin = Ui.dp(this, 12);
+        home.addView(homeAuth, walp);
+        homeAuth.setVisibility(View.GONE);
+
+        homeAnchor = Ui.label(this, "", 17, Ui.BAD);
+        homeAnchor.setGravity(Gravity.CENTER);
+        LinearLayout.LayoutParams wanlp = new LinearLayout.LayoutParams(-1, -2);
+        wanlp.topMargin = Ui.dp(this, 10);
+        home.addView(homeAnchor, wanlp);
+        homeAnchor.setVisibility(View.GONE);
 
         LinearLayout btns = Ui.row(this);
         btns.setGravity(Gravity.CENTER);
@@ -340,6 +363,19 @@ public class MainActivity extends Activity {
         authBox.addView(authLine("电池优化白名单", battery, battery ? null
                 : "adb shell dumpsys deviceidle whitelist +" + getPackageName()));
         authBox.addView(authLine("守护服务", needGuard ? alive : true, null));
+        boolean anchorOk = anchorReport != null && anchorReport.enabled;
+        // pm grant 放第一条：D1(Android 11)/D2(Android 14) 实测都靠它写进 Secure；
+        // Settings.System 自定义键在这两套固件上都会被拒，appops 那条只留给别的固件兜底。
+        authBox.addView(authLine("卸载留痕", anchorOk,
+                anchorOk ? null : Anchor.adbSecure(getPackageName())));
+        if (!anchorOk) {
+            authBox.addView(mono(Anchor.adbSystem(getPackageName())));
+            TextView alt = Ui.label(this,
+                    "首选 pm grant（双机实测生效）；个别固件若拒绝，再补 appops 那条。"
+                            + "补完重进本页会自动变 ✓。记录只含时间戳与次数，不含口令。",
+                    16, Ui.DIM);
+            authBox.addView(alt);
+        }
         if (!notif || !battery || (needGuard && !alive)) {
             TextView tip = Ui.label(this,
                     "卸载重装或系统回收后，通知使用权 / 电池白名单可能被清掉；按上面命令补齐，再重进应用即可。",
@@ -347,6 +383,21 @@ public class MainActivity extends Activity {
             LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(-1, -2);
             lp.topMargin = Ui.dp(this, 12);
             authBox.addView(tip, lp);
+        }
+    }
+
+    /** 首页一行红字 + 设置页完整说明；只要锚点里累计过卸载就常驻，孩子改不掉。 */
+    private void refreshAnchorWarn() {
+        Anchor.Report r = anchorReport;
+        String line = r == null ? null : r.warning;
+        if (homeAnchor != null) {
+            homeAnchor.setText(line == null ? "" : line);
+            homeAnchor.setVisibility(line == null ? View.GONE : View.VISIBLE);
+        }
+        if (anchorWarn != null) {
+            String detail = (r == null || r.uninstalls <= 0) ? null : "⚠ 卸载留痕：" + r.detail();
+            anchorWarn.setText(detail == null ? "" : detail);
+            anchorWarn.setVisibility(detail == null ? View.GONE : View.VISIBLE);
         }
     }
 
@@ -638,6 +689,11 @@ public class MainActivity extends Activity {
             }
         });
         gate.setBackgroundColor(Ui.BG);
+        // 重装后第一屏是全屏口令面板，会把首页/设置页的红字全盖住。告警必须直接挂在面板里，
+        // 否则孩子「卸载 → 重装 → 自己设个新口令」这一段就完全看不出痕迹。
+        if (anchorReport != null && anchorReport.uninstalls > 0) {
+            gate.setNotice("⚠ 检测到曾被卸载 " + anchorReport.uninstalls + " 次 · 请家长确认");
+        }
         if (!settingPin) gate.setFooter("忘记口令？用恢复码重置", this::startRecovery);
         root.addView(gate, new FrameLayout.LayoutParams(-1, -1));
         blockFocusBelow();
@@ -701,6 +757,14 @@ public class MainActivity extends Activity {
         valueRecovery.setText(!prefs.hasRecoveryCode() ? "未生成"
                 : (prefs.recoverySaved() ? "已保存" : "待拍照"));
         valueVersion.setText(versionText());
+        if (valueAnchor != null) {
+            boolean bad = anchorReport == null || anchorReport.uninstalls > 0 || !anchorReport.enabled;
+            valueAnchor.setText(anchorReport == null ? "未知"
+                    : (anchorReport.uninstalls > 0 ? "⚠ " + anchorReport.uninstalls + " 次"
+                    : (anchorReport.enabled ? "已启用 · 无记录" : "未启用")));
+            valueAnchor.setTextColor(bad ? Ui.BAD : Ui.ACCENT);
+        }
+        refreshAnchorWarn();
         refreshAuth();
         refreshHomeAuth();
         refreshGuard();
@@ -1058,6 +1122,7 @@ public class MainActivity extends Activity {
 
     @Override protected void onResume() {
         super.onResume();
+        Anchor.touch(this);   // 刷新「最后在线」，卸载时才能算出失联多久
         autoRestore();
         refresh();
         h.removeCallbacks(uiTick);
