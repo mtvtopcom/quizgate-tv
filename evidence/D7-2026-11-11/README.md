@@ -120,7 +120,8 @@ W QuizGate: anchor_reinstall count=1 last_seen=11-11 08:33 gap=38660ms
 | `08_d2_reinstall2_pin.png` | 第二次卸载重装：口令面板红字变成「2 次」 |
 | `09_d1_reinstall_pin.png` | D1 / Android 11 独立取证：同样显示「⚠ 检测到曾被卸载 1 次」 |
 | `10_d2_home_after_pin.png` | 设完口令进首页：常驻告警行仍在 |
-| `11_deliver_d2.png` / `12_deliver_d1.png` | 双机恢复交付态：停在「设置 6 位家长口令」 |
+| `11_deliver_d2.png` / `12_deliver_d1.png` | 验证结束时恢复的交付态（当时装回线上 1.2.5） |
+| `13_deliver_final_d2.png` / `14_deliver_final_d1.png` | **正式发布后**改刷最终 `dist/quizgate-1.2.6.apk` 的首装交付态：无红字告警、锚点 `uninstalls=0` |
 
 ## 过程中修掉的两个 UI 问题
 
@@ -162,5 +163,12 @@ adb shell dumpsys deviceidle whitelist +app.quizgate.tv
 
 2026-11-11 已完成代码、双机取证与正式发版（`dist/quizgate-1.2.6.apk`、tag `v1.2.6`、
 GitHub Release）。本目录记录的是**验证期**过程，不代表正式包的 sha；
-正式包指纹见 `CHANGELOG.md` 与 Release 正文。正式发版后两台设备已改刷最终 `dist` 包
-并重新回到首装交付态。
+正式包指纹见 `CHANGELOG.md` 与 Release 正文。
+
+正式发版后两台设备改刷最终 `dist` 包并恢复交付态：`versionName=1.2.6`、
+锚点 `uninstalls=0`、三条必需授权 + 可选 `WRITE_SECURE_SETTINGS` 均在，
+截图确认停在「设置 6 位家长口令」（`13` / `14`）。
+
+> 顺序很重要：**先删 system/secure 锚点键，再 `pm clear`**。`pm clear` 会清掉
+> `/data/data` 里的 `anchorInit` 和 `pinHash` 却不碰系统设置锚点，应用会把它与真卸载
+> 重装混淆、累加一次假计数。详见 [`docs/upgrade.md`](../../docs/upgrade.md) 第 6 节。
