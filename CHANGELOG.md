@@ -75,10 +75,25 @@
 - **模拟器（Android 14 / 1920×1080 / 320dpi）**：设置页、时长与自定义键盘（1→240、
   超上限拦截）、小学/初中两级、授权面板四种状态（全缺 / 缺两项 / 全绿 / 从系统页返回自动刷新）、
   「去开启」跳转、「仍然开始」、1 分钟到点出题、答题 +8 分钟、口令结束会话，全部走通，无崩溃。
-- **升级链路**：`update_check_fail ... SSLPeerUnverifiedException` → 回落旧源
-  `update_check_src https://shitang.mianmiangou.cn/...` 成功，兜底按预期工作。
-- **真机（D1 / D2）本次未测**：两台不在线。需要上电后补做：遥控器按键路由、
-  小米回桌面强停后的复活、首页排版实际观感。模拟器替代不了这三项。
+- **D2 真机（MiTV-MFTR0 / Android 14）全流程通过**（2026-11-11，取证 `evidence/D10-2026-11-11/`）：
+  设置页顶部已删、时长 8 分钟用数字键盘输入、延长 3、年级「初中 · 初二」、
+  首页最下一行完整可见、授权面板（缺通知使用权 → 去开启跳
+  `NotificationAccessActivity` → 遥控器打开开关 → 返回自动全绿）、1 分钟到点出初二题、
+  答对 +3 分钟、口令结束会话。日志 `solved +3min -> 3:01`、`service_destroy phase=未开始`。
+- **HOME（D2 实测）**：后台还留着 Activity 时按 HOME 会 `WIN DEATH` 整个进程，
+  有通知使用权时 `NotifProbe` 0.1s 内 RESTORE、遮罩 <1s 回来；只剩遮罩、没有 Activity 时
+  按 HOME 不杀进程、窗口保持焦点。**没有通知使用权时停在桌面**——这正是用户报的
+  「按 home 能切出去 / 时间不走」，复现与修复都已取证。
+- **升级**：D1 1.2.6→1.2.9、D2 1.2.8→1.2.9 均为覆盖安装，口令 / 恢复码 / 时长 / 年级 /
+  会话快照全部保留。
+- **升级链路（两台真机同样结果）**：
+  `update_check_fail https://7789.cn/y/quizgate-tv/ -> SSLPeerUnverifiedException: Hostname 7789.cn not verified`
+  → 回落 `update_check_src https://shitang.mianmiangou.cn/static/quizgate-tv/ remote=10206`
+  → `self=10209` 不提示。兜底按预期工作，但**主地址的证书必须补**，否则这条回落会长期存在。
+- **D1 真机（Android 11）本次只确认了升级与数据保留**：开始跑 UI 时它的前台被第三方
+  播放器占用，为避免干扰正在播放的内容没有继续发按键，遥控器路由与版面待其空闲后补测。
+- **顺带发现**：`pm clear` 会清掉通知使用权（`enabled_notification_listeners` 变空），
+  但保留悬浮窗 appops 与电池白名单；恢复交付态要「clear → 补三条」。
 
 ## [1.2.8] - 2026-11-11（界面调整，**尚未正式发布**）
 
