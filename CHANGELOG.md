@@ -19,6 +19,12 @@
 （`CN=7789.cn`），真机日志 `update_check_src https://7789.cn/y/quizgate-tv/ remote=10209`
 确认单地址直连，没必要留第二个出网点。CI 的「出网点只有 2 处」断言在真实产物上复跑通过。
 
+> **发布后补充（2026-11-11 23:56）**：旧升级目录
+> `https://shitang.mianmiangou.cn/static/quizgate-tv/` 已确认**永久下线**（域名根可访问，
+> `/static/` 及其下 `version.json` 返回 404）。≤1.2.8 的电视只认该地址，不会再自动收到
+> 1.3.0 提示，需手动覆盖安装；1.2.9 与 1.3.0 走主目录不受影响。以后发版只需上传主目录的
+> apk ＋ `version.json`，不再同步两个目录。真机 OTA 验收见 `evidence/D13-2026-11-11/`。
+
 ### 2. 科目：语文 / 数学 / 英语 × 1–9 年级
 
 - `tools/gen_quiz.py` 重写，生成 27 份 `quiz/<subject>_grade_<n>.json`，每份 8 题，共 216 题；
