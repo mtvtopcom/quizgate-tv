@@ -35,6 +35,8 @@ public class RecoveryFlow extends FrameLayout {
     /** 悬浮窗（遮罩）里焦点树不可靠：键盘走自绘选中 + 自己路由方向键。Activity 里保持 false。 */
     private boolean selfPaint = false;
     private Runnable showConfirm;
+    /** 展示页面板；按键自路由用，见 CodePanel。 */
+    private CodePanel panel;
 
     public RecoveryFlow(Context c, Prefs prefs, Done done) {
         super(c);
@@ -116,9 +118,9 @@ public class RecoveryFlow extends FrameLayout {
     private void stepShow(String code) {
         step = STEP_SHOW;
         showConfirm = () -> { prefs.markRecoverySaved(); finish(true); };
-        View p = codePanel(getContext(), code, showConfirm, null);
+        panel = codePanel(getContext(), code, showConfirm, null);
         removeAllViews();
-        addView(p, new FrameLayout.LayoutParams(-1, -1));
+        addView(panel, new FrameLayout.LayoutParams(-1, -1));
     }
 
     // ---------- 收尾 ----------
@@ -144,6 +146,14 @@ public class RecoveryFlow extends FrameLayout {
     public boolean consumeKey(KeyEvent e) {
         int k = e.getKeyCode();
         boolean down = e.getAction() == KeyEvent.ACTION_DOWN;
+        // 展示页统一自路由：Activity 和遮罩共用同一个 CodePanel，不依赖焦点树。
+        // 真机（D2 / Android 14）上 overlay 根容器会抢走焦点，两个按钮始终
+        // focused=false，方向键与 OK 全判 Unhandled key —— 家长看到的是「遥控器失灵」。
+        if (step == STEP_SHOW && panel != null) {
+            if (!down) return true;                 // 抬键也吞，别漏给下层应用
+            if (k == KeyEvent.KEYCODE_BACK) { finish(true); return true; }  // 码已落库，退出=稍后再拍
+            return panel.consumeKey(e);
+        }
         if (selfPaint && !down) return true;      // 悬浮窗里抬键也吞掉，别漏给下层应用
         if (!down) return false;
         if (k == KeyEvent.KEYCODE_BACK) {
@@ -153,13 +163,7 @@ public class RecoveryFlow extends FrameLayout {
         }
         if (selfPaint) {
             // 悬浮窗里不靠焦点树：方向键 / OK 交给键盘自己路由
-            if (step == STEP_SHOW) {
-                if ((k == KeyEvent.KEYCODE_DPAD_CENTER || k == KeyEvent.KEYCODE_ENTER
-                        || k == KeyEvent.KEYCODE_NUMPAD_ENTER) && showConfirm != null) {
-                    showConfirm.run();
-                }
-                return true;
-            }
+            // （STEP_SHOW 已在上面交给 CodePanel）
             if (pad != null) {
                 if (pad.consumeNav(e)) return true;
                 int d = PinPadView.digitOf(e);
@@ -184,8 +188,8 @@ public class RecoveryFlow extends FrameLayout {
      * @param onConfirm 点「我已拍照保存」后调用
      * @param onRegen   传 null 则不显示「换一个」（恢复流程的收尾阶段没有旧码可换）
      */
-    public static FrameLayout codePanel(Context c, String code, Runnable onConfirm, Runnable onRegen) {
-        FrameLayout root = new FrameLayout(c);
+    public static CodePanel codePanel(Context c, String code, Runnable onConfirm, Runnable onRegen) {
+        CodePanel root = new CodePanel(c);
         root.setBackgroundColor(Ui.BG);
         root.setClickable(true);
 
@@ -211,14 +215,16 @@ public class RecoveryFlow extends FrameLayout {
         box.addView(warn);
 
         TextView ok = Ui.key(c, "我已拍照保存", 24);
-        ok.setBackgroundResource(R.drawable.opt_bg);
+        ok.setFocusable(false);          // 选中态由 CodePanel 自绘，别让焦点树插手
         LinearLayout.LayoutParams olp = new LinearLayout.LayoutParams(-1, Ui.dp(c, 66));
         olp.topMargin = Ui.dp(c, 26);
         box.addView(ok, olp);
         ok.setOnClickListener(v -> onConfirm.run());
 
+        TextView re = null;
         if (onRegen != null) {
-            TextView re = Ui.key(c, "换一组（旧码立即作废）", 18);
+            re = Ui.key(c, "换一组（旧码立即作废）", 18);
+            re.setFocusable(false);
             LinearLayout.LayoutParams rlp = new LinearLayout.LayoutParams(-1, Ui.dp(c, 52));
             rlp.topMargin = Ui.dp(c, 10);
             box.addView(re, rlp);
@@ -229,8 +235,67 @@ public class RecoveryFlow extends FrameLayout {
         blp.gravity = Gravity.CENTER;
         root.addView(box, blp);
 
-        ok.post(ok::requestFocus);
+        root.bind(re == null ? new TextView[]{ok} : new TextView[]{ok, re},
+                  re == null ? new Runnable[]{onConfirm} : new Runnable[]{onConfirm, onRegen});
         return root;
+    }
+
+    /**
+     * 恢复码展示页：自绘选中框 + 自己路由方向键/OK，完全不依赖系统焦点树。
+     *
+     * <p>真机坑（D2 / Android 14 / MiTV-MFTR0）：overlay 的根 FrameLayout 被
+     * {@code blockFocusBelow()} 设成 focusable 后自己拿到焦点，两个按钮始终是
+     * {@code focused=false}；{@code ok.post(ok::requestFocus)} 抢不回来，
+     * 方向键和 OK 全落到容器上判 Unhandled key，家长看到的就是「遥控器失灵」。
+     * Activity 和遮罩里的恢复流程共用这一套，避免两台固件表现不一致。
+     */
+    public static class CodePanel extends FrameLayout {
+        private TextView[] btns;
+        private Runnable[] acts;
+        private int sel = 0;
+
+        public CodePanel(Context c) {
+            super(c);
+            setFocusable(true);
+        }
+
+        void bind(TextView[] btns, Runnable[] acts) {
+            this.btns = btns;
+            this.acts = acts;
+            paint();
+        }
+
+        /** @return false 只留给 BACK，由调用方决定收起还是退出。 */
+        public boolean consumeKey(KeyEvent e) {
+            if (e.getAction() != KeyEvent.ACTION_DOWN) return true;   // 抬键也吞
+            int k = e.getKeyCode();
+            if (k == KeyEvent.KEYCODE_BACK) return false;
+            if (k == KeyEvent.KEYCODE_DPAD_UP || k == KeyEvent.KEYCODE_DPAD_DOWN) {
+                if (btns.length > 1) {
+                    sel = (k == KeyEvent.KEYCODE_DPAD_DOWN)
+                            ? Math.min(btns.length - 1, sel + 1)
+                            : Math.max(0, sel - 1);
+                    paint();
+                }
+                return true;
+            }
+            if (k == KeyEvent.KEYCODE_DPAD_CENTER || k == KeyEvent.KEYCODE_ENTER
+                    || k == KeyEvent.KEYCODE_NUMPAD_ENTER) {
+                acts[sel].run();
+                return true;
+            }
+            return true;   // 其余键一律吞，别漏给背后的设置页
+        }
+
+        private void paint() {
+            for (int i = 0; i < btns.length; i++) {
+                boolean on = (i == sel);
+                btns[i].setBackground(Ui.box(getContext(),
+                        on ? 0x33FDC90C : 0x1AFFFFFF,
+                        on ? 0xFFFDC90C : 0x33FFFFFF,
+                        Ui.dp(getContext(), on ? 3 : 2), 14));
+            }
+        }
     }
 
     private static TextView line(Context c, String s) {

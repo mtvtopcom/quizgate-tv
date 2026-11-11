@@ -2,6 +2,7 @@ package app.quizgate.tv;
 
 import android.content.Context;
 import android.view.Gravity;
+import android.view.KeyEvent;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
@@ -40,6 +41,9 @@ public class UpgradeView extends FrameLayout {
     private TextView primary;
     private TextView secondary;
     private State st = State.READY_TO_DOWNLOAD;
+    /** 自绘选中态：两个按钮 + 当前下标。电视上不能只靠 requestFocus()，见 consumeKey。 */
+    private TextView[] keys;
+    private int sel = 0;
 
     public UpgradeView(Context c, Updater.Result r, Listener l) {
         super(c);
@@ -63,9 +67,14 @@ public class UpgradeView extends FrameLayout {
         wrap.addView(ver, vlp);
 
         if (info.notes != null && !info.notes.trim().isEmpty()) {
-            TextView notes = Ui.label(c, info.notes.trim(), 19, Ui.TEXT);
+            // 升级说明可能很长（1.2.6 的 notes 有八行）。不限制行数会把下面两个按钮
+            // 顶出 1080p 屏幕，家长看得见提示却按不到「立即更新」——D1 真机截到过。
+            // 超过四行就省略，完整说明在 Release 正文 / README 里。
+            TextView notes = Ui.label(c, info.notes.trim(), 18, Ui.TEXT);
+            notes.setMaxLines(4);
+            notes.setEllipsize(android.text.TextUtils.TruncateAt.END);
             LinearLayout.LayoutParams nlp = new LinearLayout.LayoutParams(-1, -2);
-            nlp.topMargin = Ui.dp(c, 20);
+            nlp.topMargin = Ui.dp(c, 14);
             wrap.addView(notes, nlp);
         }
 
@@ -88,14 +97,14 @@ public class UpgradeView extends FrameLayout {
         wrap.addView(btns, btnlp);
 
         primary = Ui.key(c, "立即更新", 22);
-        primary.setBackgroundResource(R.drawable.opt_bg);
+        primary.setFocusable(false);       // 选中态由 paint() 自绘，不交给焦点树
         primary.setMinWidth(Ui.dp(c, 220));
         primary.setMinHeight(Ui.dp(c, 62));
         primary.setOnClickListener(v -> onPrimary());
         btns.addView(primary);
 
         secondary = Ui.key(c, "以后再说", 22);
-        secondary.setBackgroundResource(R.drawable.opt_bg);
+        secondary.setFocusable(false);
         secondary.setMinWidth(Ui.dp(c, 200));
         secondary.setMinHeight(Ui.dp(c, 62));
         secondary.setOnClickListener(v -> { if (st != State.DOWNLOADING) listener.onDone(); });
@@ -120,7 +129,44 @@ public class UpgradeView extends FrameLayout {
             showReadyToDownload();
         }
 
-        primary.post(primary::requestFocus);
+        keys = new TextView[]{primary, secondary};
+        paint();
+    }
+
+    /**
+     * 升级弹层自己路由遥控器，不依赖焦点树。D2(Android 14) 上 overlay 根容器会
+     * 抢走焦点，按钮永远 focused=false，{@code primary.post(primary::requestFocus)}
+     * 抢不回来，方向键/OK 全判 Unhandled key —— 和恢复码面板是同一个坑。
+     *
+     * @return false 只留给 BACK（MainActivity 当作「以后再说」）
+     */
+    public boolean consumeKey(KeyEvent e) {
+        if (e.getAction() != KeyEvent.ACTION_DOWN) return true;   // 抬键也吞
+        int k = e.getKeyCode();
+        if (k == KeyEvent.KEYCODE_BACK) return false;
+        if (k == KeyEvent.KEYCODE_DPAD_LEFT || k == KeyEvent.KEYCODE_DPAD_UP
+                || k == KeyEvent.KEYCODE_DPAD_RIGHT || k == KeyEvent.KEYCODE_DPAD_DOWN) {
+            int next = (k == KeyEvent.KEYCODE_DPAD_RIGHT || k == KeyEvent.KEYCODE_DPAD_DOWN) ? 1 : 0;
+            if (next != sel) { sel = next; paint(); }
+            return true;
+        }
+        if (k == KeyEvent.KEYCODE_DPAD_CENTER || k == KeyEvent.KEYCODE_ENTER
+                || k == KeyEvent.KEYCODE_NUMPAD_ENTER) {
+            if (keys[sel].isEnabled()) keys[sel].performClick();
+            return true;
+        }
+        return true;   // 其余键一律吞，别漏给背后的页面
+    }
+
+    private void paint() {
+        if (keys == null) return;
+        for (int i = 0; i < keys.length; i++) {
+            boolean on = (i == sel);
+            keys[i].setBackground(Ui.box(ctx,
+                    on ? 0x33FDC90C : 0x1AFFFFFF,
+                    on ? 0xFFFDC90C : 0x33FFFFFF,
+                    Ui.dp(ctx, on ? 3 : 2), 14));
+        }
     }
 
     // ---------- 四个状态 ----------
@@ -246,6 +292,6 @@ public class UpgradeView extends FrameLayout {
         primary.setAlpha(on ? 1f : 0.4f);
         secondary.setEnabled(on);
         secondary.setAlpha(on ? 1f : 0.4f);
-        if (on) primary.requestFocus();
+        if (on) { sel = 0; paint(); }
     }
 }

@@ -112,6 +112,34 @@
 卸载即消失，所以「首次安装后还没设口令就重进应用」不会被当成卸载。
 证据与完整日志时间轴见 `evidence/D7-2026-11-11/`。
 
+### 弹层焦点与桌面图标（1.2.7 起，2026-11-11）
+
+**D2（Android 14）实测**：`blockFocusBelow()` 给 overlay 根容器设 `focusable=true` 后，
+`uiautomator dump` 显示 `focused=true` 落在根 `FrameLayout`，恢复码面板两个按钮
+`focusable=true / focused=false`；`ok.post(ok::requestFocus)` 抢不回来，
+方向键和 OK 全判 `Unhandled key`。**Activity 内弹层也不能只靠 `requestFocus()`**，
+和悬浮窗里那个坑同源。1.2.7 起所有弹层自绘选中框 + 自路由按键；
+`MainActivity.topOverlay()` 按 `addView` 顺序取最上层，别写死优先级
+（恢复码面板会盖在升级提示上）。
+
+**升级说明过长会吃掉按钮**：1.2.6 的 notes 八行，1080p 上
+`立即更新` / `以后再说` 被顶出屏幕（D1 截图 `D8/03`）。1.2.7 限制四行 + 省略号。
+
+**桌面图标缓存**：1.2.4 及之前是 `ic_launcher.xml`（矢量简笔电视），
+1.2.5 换成同名 `ic_launcher.png`，`aapt` 按去扩展名的文件名分配资源名 →
+键没变，`com.mitv.tvhome` 一直显示旧图，覆盖升级 / 卸载重装都刷不掉。
+1.2.7 改名 `ic_launcher_v2` / `banner_v2`；兜底命令：
+
+```bash
+adb shell am force-stop com.mitv.tvhome      # 无损，先试
+adb shell pm clear com.mitv.tvhome           # 会重置桌面布局，需用户确认
+```
+
+**取证工具坑**：`uiautomator dump` 在两台小米电视上偶发
+`ERROR: could not get idle state`，换 `screencap` 逐帧截图，别判成设备问题。
+`adb shell input keyevent` 一次传多个 keycode 会丢键，要逐条发 + `sleep 0.15`；
+`PinPadView` 输满 6 位自动提交，多发一个 OK 会落在焦点按钮「1」上把口令搅乱。
+
 ## 未验证
 
 以下机型/系统组合**没有任何实测数据**，不构成支持声明：

@@ -462,7 +462,7 @@ public class GateService extends Service implements MaskView.Host {
                 : new Notification.Builder(this);
         return b.setContentTitle("答对再看")
                 .setContentText(text)
-                .setSmallIcon(R.drawable.ic_launcher)
+                .setSmallIcon(R.drawable.ic_launcher_v2)
                 .setOngoing(ongoing)
                 .setAutoCancel(!ongoing)
                 .setContentIntent(pi)

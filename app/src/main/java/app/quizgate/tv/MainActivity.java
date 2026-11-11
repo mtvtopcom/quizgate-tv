@@ -718,12 +718,21 @@ public class MainActivity extends Activity {
      * 实测（MiTV-MFTR0）：口令面板在焦点走到最底一行后再按 DOWN，焦点会「掉」到面板背后
      * 的设置页，接着按 OK 就会误触「开始计时」——面板看着盖住了，键却打在背后。
      */
+    /**
+     * 最上层弹层：按 addView 顺序倒着找。恢复码面板是后加在升级提示之上的，
+     * 写死「upgrade 优先」会把焦点和按键都送到看不见的那一层（D2 实测）。
+     */
+    private View topOverlay() {
+        if (root == null) return null;
+        for (int i = root.getChildCount() - 1; i >= 0; i--) {
+            View c = root.getChildAt(i);
+            if (c == upgrade || c == codeOverlay || c == recovery || c == gate) return c;
+        }
+        return null;
+    }
+
     private void blockFocusBelow() {
-        View top = null;
-        if (upgrade != null) top = upgrade;
-        else if (codeOverlay != null) top = codeOverlay;
-        else if (recovery != null) top = recovery;
-        else if (gate != null && gate.getParent() != null) top = gate;
+        View top = topOverlay();
         // 首页和设置页是两个并列的子 View，只让当前显示的那一个吃焦点
         View active = showingSettings ? contentScroll : homeRoot;
         for (int i = 0; i < root.getChildCount(); i++) {
@@ -928,31 +937,37 @@ public class MainActivity extends Activity {
     /** 遥控器数字键 / USB 小键盘直接输入（很多电视遥控器带数字键，别浪费）。 */
     @Override
     public boolean dispatchKeyEvent(android.view.KeyEvent e) {
-        if (upgrade != null) {
+        View top = topOverlay();
+        if (top != null && top == upgrade) {
             // 返回 = 「以后再说」。不直接 finish()：家长可能只是想先看看设置页。
+            if (upgrade.consumeKey(e)) return true;
             if (e.getAction() == android.view.KeyEvent.ACTION_DOWN
                     && e.getKeyCode() == android.view.KeyEvent.KEYCODE_BACK) {
                 pendingUpdate = null;
                 hideUpgrade();
-                return true;
             }
-            return super.dispatchKeyEvent(e);
+            return true;   // BACK 抬键也吞，别让系统把 Activity finish 掉
         }
-        if (recovery != null) {
+        if (top != null && top == recovery) {
             if (recovery.consumeKey(e)) return true;
             if (e.getAction() == android.view.KeyEvent.ACTION_DOWN
                     && e.getKeyCode() == android.view.KeyEvent.KEYCODE_BACK) return true;
             return super.dispatchKeyEvent(e);
         }
-        if (codeOverlay != null) {
-            // 展示页只有两个按钮，交给焦点树；BACK 只是收起（码已落库，设置页会标「待拍照」催家长再拍）
-            if (e.getAction() == android.view.KeyEvent.ACTION_DOWN
-                    && e.getKeyCode() == android.view.KeyEvent.KEYCODE_BACK) {
-                hideRecoveryCode();
-                refresh();
-                return true;
+        if (top != null && top == codeOverlay) {
+            // 恢复码面板自路由：D2(Android 14) 上焦点被 overlay 根容器抢走，
+            // 按钮永远拿不到焦点，交给焦点树会让遥控器完全失灵。
+            if (codeOverlay instanceof RecoveryFlow.CodePanel
+                    && ((RecoveryFlow.CodePanel) codeOverlay).consumeKey(e)) return true;
+            // BACK 只是收起（码已落库，设置页会标「待拍照」催家长再拍）
+            if (e.getKeyCode() == android.view.KeyEvent.KEYCODE_BACK) {
+                if (e.getAction() == android.view.KeyEvent.ACTION_DOWN) {
+                    hideRecoveryCode();
+                    refresh();
+                }
+                return true;   // DOWN/UP 都吞
             }
-            return super.dispatchKeyEvent(e);
+            return true;
         }
         // 返回键：设置页 → 首页。口令门禁盖在上面时也要能退回首页，
         // 否则系统默认 BACK 会直接 finish 掉应用（首装还没设口令时禁止退出）。

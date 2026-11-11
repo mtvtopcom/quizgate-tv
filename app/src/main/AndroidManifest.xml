@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="app.quizgate.tv"
-    android:versionCode="10206"
-    android:versionName="1.2.6">
+    android:versionCode="10207"
+    android:versionName="1.2.7">
 
     <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
@@ -25,11 +25,15 @@
     <uses-feature android:name="android.software.leanback" android:required="false" />
     <uses-feature android:name="android.hardware.touchscreen" android:required="false" />
 
+    <!-- 1.2.7：图标换成 _v2 资源名。1.2.4 之前是 ic_launcher.xml（矢量简笔电视），
+         1.2.5 直接换成同名 ic_launcher.png，资源名没变，小米桌面 com.mitv.tvhome
+         按包名/资源名缓存的旧图标一直不失效，覆盖升级甚至卸载重装都显示老 logo。
+         换个资源名让缓存键变化；桌面仍缓存时再 am force-stop / pm clear com.mitv.tvhome。 -->
     <application
         android:name=".App"
         android:label="答对再看"
-        android:icon="@drawable/ic_launcher"
-        android:banner="@drawable/banner"
+        android:icon="@drawable/ic_launcher_v2"
+        android:banner="@drawable/banner_v2"
         android:allowBackup="false"
         android:usesCleartextTraffic="false"
         android:theme="@android:style/Theme.Material.NoActionBar">
