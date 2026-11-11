@@ -99,7 +99,52 @@ shasum -a 256 README.md
 git push origin main && git push origin vX.Y.Z
 上传 apk → 上传 version.json → 本地/CDN/Release 三方验 sha
 建 GitHub Release → 把 README 的下载链换成 /releases/tag/vX.Y.Z
+双机留一旧：一台刷最终包，另一台留上一版本供真机走 OTA 升级
 ```
+
+### 双机验收：一新版一旧版（每次发版必做）
+
+**别把两台电视都刷成最终 `dist` 包**（2026-11-11 用户要求）。发版后固定留一台上一版本，
+用户自己从旧版点「下载 → 立即安装」走一遍真实 OTA 升级路径，这才验得到
+「清单解析 → 下载落盘 → 签名比对 → 拉起安装器 → 覆盖升级保留口令与设置」这条链路；
+直接 adb 刷包是验不到的，线上 `version.json` 换了也不代表旧用户真能升上来。
+
+| 机器 | 角色 | 发版后状态 |
+| --- | --- | --- |
+| D1 `192.168.1.123:5555`（Android 11） | 新版验收机 | 刷本次最终 `dist` 包，恢复干净首装交付态 |
+| D2 `192.168.1.88:5555`（Android 14） | 旧版待升级机 | 装回上一版正式包，首装态，等用户走 OTA 升级 |
+
+> 每次发版可以轮换角色，让两套固件都轮流测过升级安装器；别长期只在一台上测
+> （同型号不同 Android 大版本的安装器行为不能互相套结论）。
+
+**退回旧版的顺序**（顺序错了会被 1.2.6 的卸载留痕误判成一次卸载重装，红字污染测试）：
+
+```bash
+ADB=$HOME/android-dev/sdk/platform-tools/adb; D=192.168.1.88:5555
+$ADB -s $D shell settings delete secure quizgate_install_anchor
+$ADB -s $D shell settings delete system quizgate_install_anchor
+$ADB -s $D uninstall app.quizgate.tv
+$ADB -s $D install dist/quizgate-<上一版>.apk
+$ADB -s $D shell appops set app.quizgate.tv SYSTEM_ALERT_WINDOW allow
+$ADB -s $D shell appops set app.quizgate.tv REQUEST_INSTALL_PACKAGES allow
+$ADB -s $D shell cmd notification allow_listener app.quizgate.tv/app.quizgate.tv.NotifProbe
+$ADB -s $D shell dumpsys deviceidle whitelist +app.quizgate.tv
+$ADB -s $D shell am start -n app.quizgate.tv/.MainActivity
+```
+
+- 卸载会清掉通知使用权和电池白名单，三条必需授权要补回来；只补 appops 会复现 D5 的「到点不出题」。
+- **别给旧版机预授权 `WRITE_SECURE_SETTINGS`**（上一版也没声明这个权限）。覆盖升级到 1.2.6 后
+  设置页第五项应当是红字「未启用」，正好验证发布说明里「覆盖升级不自动获得可选授权」这一点。
+- 复核 logcat 出现 `update_check self=<旧 versionCode> remote=<新 versionCode>`，
+  说明旧版机确实读到了线上清单、具备升级条件；截图前先查 `mResumedActivity`，别拿桌面图当证据。
+- 旧版机停在「设置 6 位家长口令」即可：`checkUpdate()` 拿到更高 versionCode 后，
+  `maybeShowUpdate()` 会被口令门禁挡住；设完口令时 `hidePinOverlay()` 补弹升级提示
+  （恢复码面板短暂盖在上层，确认后即露出）。万一网络慢没赶上，退出重进一次，
+  `onResume()` 也会补弹。
+
+**用户走完升级后要验的点**：口令与恢复码沿用、时长/年级不变、`versionName` 变成新版、
+设置页授权自检状态正确、以及**没有**出现「曾被卸载 N 次」红字（覆盖升级不该误报）。
+测完再按交付纪律清掉测试口令、恢复两台干净首装态。
 
 **签名必须一致，而且换钥匙的代价很大。** 升级包和已装版本用不同 keystore 签，
 系统直接 `INSTALL_FAILED_UPDATE_INCOMPATIBLE`；而唯一的解法是卸载重装 ——

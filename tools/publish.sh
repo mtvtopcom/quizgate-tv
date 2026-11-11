@@ -69,3 +69,9 @@ if grep -Fq "v${VER}" README.md; then
 else
   echo "!! README.md 里还没有 v${VER}：更新顶部「当前版本」区块后再 push main"
 fi
+echo
+echo "== 双机验收：一新版一旧版（别把两台都刷成最终 dist 包）"
+echo "   一台刷本次 dist 包做新版本验收；另一台留/退回上一版本，让用户真机走一遍 OTA 升级"
+echo "   退回旧版顺序：删 system/secure 锚点键 → 卸载 → 装上一版 dist 包 → 补三条必需授权"
+echo "   旧版机别预授权 WRITE_SECURE_SETTINGS，正好验证「覆盖升级不自动获得可选授权」"
+echo "   详见 docs/upgrade.md「双机验收：一新版一旧版」"

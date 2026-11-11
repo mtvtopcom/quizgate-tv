@@ -122,6 +122,8 @@ W QuizGate: anchor_reinstall count=1 last_seen=11-11 08:33 gap=38660ms
 | `10_d2_home_after_pin.png` | 设完口令进首页：常驻告警行仍在 |
 | `11_deliver_d2.png` / `12_deliver_d1.png` | 验证结束时恢复的交付态（当时装回线上 1.2.5） |
 | `13_deliver_final_d2.png` / `14_deliver_final_d1.png` | **正式发布后**改刷最终 `dist/quizgate-1.2.6.apk` 的首装交付态：无红字告警、锚点 `uninstalls=0` |
+| `15_d2_old_125_upgrade_probe.png` | 按新约定把 D2 退回 `dist/quizgate-1.2.5.apk`：停在「设置 6 位家长口令」，干净首装态、无红字，等待真机走 OTA 升级 |
+| `16_d1_new_126_baseline.png` | D1 保持最终 `dist/quizgate-1.2.6.apk`，作为「新版验收机」基线 |
 
 ## 过程中修掉的两个 UI 问题
 
@@ -172,3 +174,24 @@ GitHub Release）。本目录记录的是**验证期**过程，不代表正式�
 > 顺序很重要：**先删 system/secure 锚点键，再 `pm clear`**。`pm clear` 会清掉
 > `/data/data` 里的 `anchorInit` 和 `pinHash` 却不碰系统设置锚点，应用会把它与真卸载
 > 重装混淆、累加一次假计数。详见 [`docs/upgrade.md`](../../docs/upgrade.md) 第 6 节。
+
+## 发版后双机改成「一新版一旧版」
+
+用户 2026-11-11 新要求：**以后发版一台电视新版本、一台老版本**，用来自己测升级流程。
+所以 `13` / `14` 那种「两台都刷最终 `dist` 包」的做法到此为止，改为：
+
+| 机器 | 本次角色 | 版本 | 用途 |
+| --- | --- | --- | --- |
+| D1 `192.168.1.123`（Android 11） | 新版验收机 | `dist/quizgate-1.2.6.apk` | 验新功能、保持干净首装态（`16`） |
+| D2 `192.168.1.88`（Android 14） | 旧版待升级机 | `dist/quizgate-1.2.5.apk` | 用户真机走 1.2.5 → 1.2.6 OTA 升级（`15`） |
+
+D2 退回旧版的顺序：先删 secure / system 锚点键 → 卸载 1.2.6 → 装 1.2.5 →
+补三条必需授权（卸载会清掉通知使用权与电池白名单）→ 启动。**故意不 grant**
+`WRITE_SECURE_SETTINGS`，这样覆盖升级到 1.2.6 后设置页第五项会是红字，
+正好验证「覆盖升级不自动获得可选授权」这条发布说明。
+
+D2 logcat 已确认 `update_check self=10205 remote=10206 (1.2.6)`，
+即旧版机确实读到了线上清单。`maybeShowUpdate()` 暂时被首装口令门禁挡住，
+但设完口令时 `hidePinOverlay()` 会补弹升级提示（恢复码面板短暂盖在上层，
+确认后即露出）；万一网络慢没赶上，退出重进一次，`onResume()` 也会补弹。
+完整步骤见 [`docs/upgrade.md`](../../docs/upgrade.md)「双机验收：一新版一旧版」。
