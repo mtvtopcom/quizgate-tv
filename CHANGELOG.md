@@ -3,12 +3,15 @@
 本项目遵循 [Semantic Versioning](https://semver.org/lang/zh-CN/)。
 `versionCode = MAJOR*10000 + MINOR*100 + PATCH`，单调递增。
 
-## [1.2.9] - 2026-11-11（按用户反馈改版，**尚未正式发布**）
+## [1.2.9] - 2026-11-11（正式发布）
 
 **设置页按新规则重排、时长/年级换选法、开始前先查授权；修首页裁字与锁屏态 HOME 切出。**
 
-> 1.2.7 / 1.2.8 都没对外发布，1.2.9 在它们之上继续改，`versionCode` 走到 10209。
-> 线上可下载版本仍是 **1.2.6**。
+> 正式包 `quizgate-1.2.9.apk`（10209），SHA-256
+> `50fe7f845bce3ffb3ee20f780f4711a1298b4cc94f9edfa25aac0af0ab197bc8`。
+> 详见 [v1.2.9 Release](https://github.com/mtvtopcom/quizgate-tv/releases/tag/v1.2.9)。
+>
+> 1.2.7 / 1.2.8 都没对外发布，1.2.9 在它们之上继续改。
 
 ### 1. 在线升级源换成 `https://7789.cn/y/quizgate-tv/`
 

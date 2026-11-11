@@ -6,19 +6,15 @@
   <img src="docs/img/logo.png" width="18%" alt="答对再看">
 </p>
 
-> **当前版本 [v1.2.6](https://github.com/mtvtopcom/quizgate-tv/releases/tag/v1.2.6)** · `versionCode 10206` · 2026-11-11 发布
-> `quizgate-1.2.6.apk` · SHA-256 `bd4f45454f4bec094122704deefa415cf51a316e8ca7eb394f34be1eded15bc1`
+> **当前版本 [v1.2.9](https://github.com/mtvtopcom/quizgate-tv/releases/tag/v1.2.9)** · `versionCode 10209` · 2026-11-11 发布
+> `quizgate-1.2.9.apk` · SHA-256 `50fe7f845bce3ffb3ee20f780f4711a1298b4cc94f9edfa25aac0af0ab197bc8`
 > · [更新日志](CHANGELOG.md) · [全部 Release](https://github.com/mtvtopcom/quizgate-tv/releases)
 >
 > 已装 1.2.x 的电视不用手动下载：**升级源已更新**，进应用会提示新版本（可点「以后再说」跳过）。
 > 升级不改口令、恢复码、时长与年级；卸载重装仍需自己设 6 位口令。
 >
-> 1.2.6 新增「卸载留痕」：想启用需补一条**可选** adb 授权（不补不影响计时出题），见下文。
-
-> **1.2.9 开发中（未发布）**：设置页顶部精简为「设置」、本次时长/答对延长支持自定义、
-> 年级分小学/初中、点「开始计时」先查三项授权；另外修了首页最下一行被裁、
-> 以及锁屏态按 HOME 能切出去。下面截图与「当前版本」仍是已发布的 **1.2.6**，
-> 新界面等真机补拍后再换图。
+> 1.2.6 新增「卸载留痕」（可选 adb 授权，不补不影响计时）；1.2.9 把设置页顶部精简为「设置」、
+> 时长与答对延长可用自定义数字键盘、年级分小学/初中，并在开始计时前检查三项授权。
 
 **首页**（只放运行状态）与**设置页**（参数、授权自检五项、当前版本）：
 
@@ -81,12 +77,12 @@
 
 ### 1. 装 APK
 
-从 [v1.2.6 Release](https://github.com/mtvtopcom/quizgate-tv/releases/tag/v1.2.6) 下载 `quizgate-1.2.6.apk`，
+从 [v1.2.9 Release](https://github.com/mtvtopcom/quizgate-tv/releases/tag/v1.2.9) 下载 `quizgate-1.2.9.apk`，
 按上方 SHA-256（或 Release 附的 `SHA256SUMS.txt`）校验后安装：
 
 ```bash
 adb connect <电视IP>:5555
-adb install -r quizgate-1.2.6.apk
+adb install -r quizgate-1.2.9.apk
 ```
 
 也可以用 U 盘装（见下方「安装路径 A」）。
@@ -324,5 +320,5 @@ export ANDROID_HOME=/path/to/android-sdk
 ```bash
 shasum -a 256 -c SHA256SUMS.txt
 # 或单独看指纹：
-shasum -a 256 quizgate-1.2.6.apk
+shasum -a 256 quizgate-1.2.9.apk
 ```
