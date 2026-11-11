@@ -13,14 +13,48 @@
 正式位置（固定不变，客户端里就是写死这个目录）：
 
 ```
-https://shitang.mianmiangou.cn/static/quizgate-tv/
+https://7789.cn/y/quizgate-tv/
 ├── version.json              ← 客户端靠它判断有没有新版
-└── quizgate-1.2.6.apk
+└── quizgate-1.2.9.apk
 ```
 
 > **这个目录不支持列目录**（`GET 目录` 返回 404），客户端没法「看看文件夹里有什么」，
 > 只能按固定文件名 `version.json` 去取。所以每次发版**必须**传 `version.json`，
 > 只传 apk 等于没发。
+
+### 1.1 主地址的证书问题（2026-11-11 实测，未解决）
+
+`7789.cn:443` 出示的是 `CN=*.mianmiangou.cn` 的 Let's Encrypt 证书（`subjectAltName`
+只覆盖旧域名），所以标准 TLS 校验必然失败：
+
+```bash
+curl -sS https://7789.cn/y/quizgate-tv/version.json
+# curl: (60) SSL: no alternative certificate subject name matches target host name '7789.cn'
+```
+
+Android 侧的同一现象（真机 / 模拟器 logcat）：
+
+```
+I QuizGate: update_check_fail https://7789.cn/y/quizgate-tv/ -> SSLPeerUnverifiedException: Hostname 7789.cn not verified
+```
+
+**在证书覆盖 `7789.cn` 之前，新地址一个字节都取不到。** 因此 1.2.9 加了过渡期兜底
+`BuildCfg.UPGRADE_FALLBACK`（旧目录）：主地址失败才回落，并在 logcat 里留下
+`update_check_fail <base> -> <原因>` / `update_check_src <base>` 两行。证书补齐后：
+
+1. 确认 `curl -sS https://7789.cn/y/quizgate-tv/version.json` 不再报证书错；
+2. 把 `BuildCfg.UPGRADE_FALLBACK` 与 `build.sh` 的 `DEFAULT_FALLBACK` 一起置空串，
+   恢复「只连一个地址」。
+
+### 1.2 存量用户怎么迁到新地址
+
+**客户端的 `base` 是编译进包里的。** ≤1.2.6 的电视只会去旧目录取 `version.json`，
+所以：
+
+- 新包发到新目录的同时，**旧目录的 `version.json` 必须也改成 10209**（apk 字段可以用
+  完整 `https://` 绝对地址，也可以把同一个包再传一份到旧目录）；
+- 等确认绝大多数电视升到 1.2.9 之后，旧目录才可以停止更新（但别删，
+  否则停在旧版的电视永远收不到提示）。
 
 `version.json`：
 
@@ -250,6 +284,7 @@ grep -rn "openConnection" app/src/main/java/
 ```
 
 - 只有两个请求：`GET {base}version.json`、`GET {base}quizgate-x.y.z.apk`
+  （`base` 是主地址；1.2.9 起主地址失败时会换兜底地址再试一次，见 1.1）
 - 裸 GET：无 query、无 body、无 cookie、无自定义 header（除固定的 `User-Agent: QuizGate`）
 - **不传设备信息**：默认 UA 是 `Dalvik/2.1.0 (Linux; U; Android 11; ...)`，
   会把系统版本和机型报出去，所以强制改成 `QuizGate`

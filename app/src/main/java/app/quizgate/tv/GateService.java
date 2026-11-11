@@ -69,6 +69,9 @@ public class GateService extends Service implements MaskView.Host {
     private BroadcastReceiver screenRx;
     private long offU = 0, offE = 0;
     private boolean pendingMask = false;
+    /** 遮罩被切走（HOME / 切应用）后重新置顶的节流。 */
+    private long lastRegrabAt = 0L;
+    private int focusLostCount = 0;
     /**
      * 开局提示的收尾。截止时间存在 Prefs 里而不是本实例字段：小米电视回桌面时会因
      * 「应用还挂着系统悬浮窗」直接 Force stop 进程，守护是在**新进程**里由 NotifProbe
@@ -208,6 +211,10 @@ public class GateService extends Service implements MaskView.Host {
                 showMask();
             }
 
+            // 锁屏态盯住窗口层级：HOME 键普通应用拦不住（系统在 PhoneWindowManager
+            // 就把它吃了，遮罩根本收不到），能做的只有「被切走之后立刻抢回焦点」。
+            if (prefs.phase() == Prefs.LOCKED) keepMaskOnTop();
+
             if (prefs.phase() == Prefs.RUNNING) {
                 if (screenOn()) {
                     remaining -= delta;
@@ -255,6 +262,41 @@ public class GateService extends Service implements MaskView.Host {
             Log.i(TAG, "mask_deferred（屏幕未亮，等亮屏再挂）");
         }
         updateNotification();
+    }
+
+    /**
+     * 锁屏态把遮罩抢回最前面。
+     *
+     * <p>HOME 键在 Android 上不会派发给应用（{@code PhoneWindowManager} 直接处理），
+     * {@code TYPE_APPLICATION_OVERLAY} 窗口既收不到也吞不掉，所以「禁止按 HOME」做不到。
+     * 能做的是：一旦发现窗口失去焦点（= 被 HOME / 切应用顶掉了），连续 1 秒都没拿回来
+     * 就重新挂一次窗口 —— 只有重新 {@code addView} 才会重新请求焦点，对已存在的窗口调
+     * {@code requestFocus()} 在 Android 14 上是「假成功」（1.2.7 的教训）。
+     *
+     * <p>节流：至少 2.5 秒一次，避免和系统弹层（音量条、电源菜单）抢焦点时反复重建。
+     * 小米电视按 HOME 时可能把带系统窗口的进程直接强停，那条路由 NotifProbe 复活，
+     * 这里只负责「进程还活着」的那一半。
+     */
+    private void keepMaskOnTop() {
+        if (!screenOn()) return;
+        long now = SystemClock.uptimeMillis();
+        if (mask == null) {
+            // 加窗失败（比如权限被回收）时别每 200ms 重试一次，会刷日志也会耗电
+            if (now - lastRegrabAt < 2500L) return;
+            lastRegrabAt = now;
+            showMask();
+            return;
+        }
+        if (mask.hasWindowFocus()) { focusLostCount = 0; return; }
+        focusLostCount++;
+        // 要求连续约 1 秒都没有焦点才动手：系统音量条、电源菜单这类瞬时弹层
+        // 也会让 hasWindowFocus() 短暂变 false，抢太急会把家长正在选的选项刷掉。
+        if (focusLostCount < 5 || now - lastRegrabAt < 2500L) return;
+        lastRegrabAt = now;
+        focusLostCount = 0;
+        removeMask();
+        showMask();
+        Log.i(TAG, "mask_regrab（被切走后重新置顶）");
     }
 
     /** 屏幕是否真的亮着。两个独立信号都成立才算，任一不可信都倾向于「不亮」。 */
@@ -360,6 +402,7 @@ public class GateService extends Service implements MaskView.Host {
         }
         pendingMask = false;
         mask = new MaskView(this, prefs, bank, this);
+        focusLostCount = 0;     // 新窗口要先给系统一帧时间拿焦点，别立刻判成「被切走」
         try {
             wm.addView(mask, maskLp());
             Log.i(TAG, "mask_add ok");

@@ -108,7 +108,16 @@ public final class Updater {
 
     /** 是否配置了升级源。空配置 = 纯离线，一次网络请求都不发。 */
     public static boolean enabled() {
-        return BuildCfg.UPGRADE_BASE != null && BuildCfg.UPGRADE_BASE.startsWith("http");
+        for (String b : bases()) if (b.startsWith("http")) return true;
+        return false;
+    }
+
+    /** 主地址 + 过渡期兜底（去重、去空）。顺序就是尝试顺序。 */
+    private static String[] bases() {
+        String a = BuildCfg.UPGRADE_BASE == null ? "" : BuildCfg.UPGRADE_BASE;
+        String b = BuildCfg.UPGRADE_FALLBACK == null ? "" : BuildCfg.UPGRADE_FALLBACK;
+        if (b.isEmpty() || b.equals(a)) return new String[]{a};
+        return new String[]{a, b};
     }
 
     /**
@@ -187,13 +196,27 @@ public final class Updater {
             return;
         }
         Thread t = new Thread(() -> {
-            Result r;
-            try {
-                r = fetch(BuildCfg.UPGRADE_BASE);
-            } catch (Throwable e) {
-                r = Result.fail(e.getClass().getSimpleName() + ": " + e.getMessage());
+            Result first = null;
+            for (String base : bases()) {
+                if (!base.startsWith("http")) continue;
+                Result r;
+                try {
+                    r = fetch(base);
+                } catch (Throwable e) {
+                    r = Result.fail(e.getClass().getSimpleName() + ": " + e.getMessage());
+                }
+                if (r.ok()) {
+                    Log.i(TAG, "update_check_src " + base
+                            + " remote=" + r.versionCode + " (" + r.versionName + ")");
+                    final Result ok = r;
+                    post(() -> cb.onResult(ok));
+                    return;
+                }
+                // 失败原因一定落日志：证书不匹配、DNS 挂了、404，都要能一眼看出来
+                Log.i(TAG, "update_check_fail " + base + " -> " + r.error);
+                if (first == null) first = r;
             }
-            final Result fr = r;
+            final Result fr = first == null ? Result.fail("没有可用的升级源") : first;
             post(() -> cb.onResult(fr));
         }, "quizgate-update-check");
         t.setDaemon(true);

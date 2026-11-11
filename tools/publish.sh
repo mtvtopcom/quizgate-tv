@@ -27,11 +27,18 @@ MAJOR="${VER%%.*}"; REST="${VER#*.}"
 MINOR="${REST%%.*}"; PATCH="${REST#*.}"
 CODE=$(( MAJOR * 10000 + MINOR * 100 + PATCH ))
 
-BASE="${QUIZGATE_UPGRADE_BASE:-https://shitang.mianmiangou.cn/static/quizgate-tv/}"
+# 升级源默认用 build.sh 里的生产地址（7789.cn）与过渡期兜底。
+# 显式传入 QUIZGATE_UPGRADE_BASE 时只连那一个地址（内网/离线验证用）。
+BASE="${QUIZGATE_UPGRADE_BASE:-}"
+DISPLAY_BASE="${BASE:-https://7789.cn/y/quizgate-tv/（build.sh 默认 + 兜底）}"
 
-echo "== 构建 $VER ($CODE)，升级源 $BASE"
-QUIZGATE_VERSION_NAME="$VER" QUIZGATE_VERSION_CODE="$CODE" \
-QUIZGATE_UPGRADE_BASE="$BASE" ./build.sh release
+echo "== 构建 $VER ($CODE)，升级源 $DISPLAY_BASE"
+if [ -n "$BASE" ]; then
+  QUIZGATE_VERSION_NAME="$VER" QUIZGATE_VERSION_CODE="$CODE" \
+  QUIZGATE_UPGRADE_BASE="$BASE" ./build.sh release
+else
+  QUIZGATE_VERSION_NAME="$VER" QUIZGATE_VERSION_CODE="$CODE" ./build.sh release
+fi
 
 APK="build/quizgate-${VER}.apk"
 [ -f "$APK" ] || { echo "构建产物不在 $APK"; exit 1; }
@@ -61,7 +68,7 @@ echo
 echo "sha256 = $SHA"
 echo
 echo "上传顺序：先 apk，最后 version.json —— 反了会出现「清单说有新版、包还没传完」"
-echo "目标目录：$BASE"
+echo "目标目录：${BASE:-https://7789.cn/y/quizgate-tv/}"
 echo
 echo "== 正式发布别忘了同步 GitHub 上的 README.md（仓库首页展示的就是它）"
 if grep -Fq "v${VER}" README.md; then

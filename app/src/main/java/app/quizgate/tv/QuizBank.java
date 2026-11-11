@@ -51,9 +51,14 @@ public final class QuizBank {
         return 0;
     }
 
-    public Q next(int grade, Random r) {
+    /**
+     * @param floor 最低可回落的年级。初中（7-9）要传 7，否则题库缺片时会退到小学题，
+     *              初二学生看到「3 + 4 = ?」比没题还糟。小学传 1。
+     */
+    public Q next(int grade, int floor, Random r) {
         int g = Math.max(1, Math.min(9, grade));
-        for (int cur = g; cur >= 1; cur--) {
+        int lo = Math.max(1, Math.min(g, floor));
+        for (int cur = g; cur >= lo; cur--) {
             List<Q> list = load(cur);
             if (list.isEmpty()) continue;
             Q src = pick(list, cur, r);

@@ -39,8 +39,28 @@ public final class Prefs {
     public int extendMin() { return sp.getInt("extendMin", 5); }
     public void setExtendMin(int v) { sp.edit().putInt("extendMin", clamp(v, 1, 60)).commit(); }
 
+    /** 学段：0 = 小学（1-6 年级），1 = 初中（初一/初二/初三 = 7/8/9 年级）。 */
+    public static final int STAGE_PRIMARY = 0, STAGE_JUNIOR = 1;
+
+    /**
+     * 1.2.9 之前只有「年级 1-9」，没有学段。老用户升上来时按已有年级推断，
+     * 别让一个设了 8 年级的电视突然显示「小学」。
+     */
+    public int stage() {
+        if (sp.contains("stage")) return clamp(sp.getInt("stage", STAGE_PRIMARY), 0, 1);
+        return sp.getInt("grade", 3) >= 7 ? STAGE_JUNIOR : STAGE_PRIMARY;
+    }
+
+    public void setStage(int v) { sp.edit().putInt("stage", clamp(v, 0, 1)).commit(); }
+
     public int grade() { return sp.getInt("grade", 3); }
     public void setGrade(int v) { sp.edit().putInt("grade", clamp(v, 1, 9)).commit(); }
+
+    /**
+     * 抽题下限。初中不能回落到小学题：{@link QuizBank} 抽不到题会逐级往下退，
+     * 不设下限的话初二会抽到「3 + 4 = ?」。
+     */
+    public int floorGrade() { return stage() == STAGE_JUNIOR ? 7 : 1; }
 
     // ---------- 会话快照 ----------
     public int phase() { return sp.getInt("phase", IDLE); }

@@ -21,21 +21,29 @@ import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /** 设置页：遥控器可完成全部操作，不依赖输入法。 */
 public class MainActivity extends Activity {
 
-    private interface IntPick { void on(int v); }
+    /** 开始计时前检查的三项授权。卸载留痕是可选功能，刻意不在这一层提示。 */
+    private static final String AUTH_OVERLAY = "overlay";
+    private static final String AUTH_NOTIF = "notif";
+    private static final String AUTH_BATTERY = "battery";
 
     private Prefs prefs;
     private FrameLayout root;
     private ScrollView contentScroll;
     private LinearLayout content;
 
-    private TextView valueDuration, valueExtend, valueGrade, valuePin, valueRecovery, valueGuard, status, btnPerm;
+    private TextView valueDuration, valueExtend, valueGrade, valuePin, valueRecovery, valueGuard, btnPerm;
     private TextView valueVersion, valueAnchor, valueLog;
     private TextView anchorWarn;
-    /** 设置页顶部的返回按钮：没有它家长只能靠遥控器 BACK 猜怎么回去。 */
-    private TextView btnBack;
+    /** 设置页的第一项（本次时长）。顶部返回按钮在 1.2.9 删掉后，焦点默认落在这里。 */
+    private View firstRow;
+    /** 刚从哪一行打开过面板：关掉面板后把焦点还给它，别让家长重新一路按下去。 */
+    private View settingsFocus;
     private TextView banner;
     /** 首页（只看运行状态）；设置页是原来的 contentScroll，两者在同一个 Activity 里切换。 */
     private View homeRoot;
@@ -46,6 +54,10 @@ public class MainActivity extends Activity {
     /** 设置页里的「运行日志」子页；null = 没打开。 */
     private FrameLayout logPanel;
     private TextView logBody;
+    /** 选时长 / 选年级的自绘面板。null = 没打开。 */
+    private OptionPanel optionPanel;
+    /** 开始计时前的授权检查面板。null = 没打开。 */
+    private AuthView authPanel;
     private boolean showingSettings = false;
     private boolean settingsUnlocked = false;
     private long lastRestoreAt = 0L;
@@ -98,30 +110,15 @@ public class MainActivity extends Activity {
         sv.setFillViewport(true);
         content = new LinearLayout(this);
         content.setOrientation(LinearLayout.VERTICAL);
-        content.setPadding(Ui.dp(this, 88), Ui.dp(this, 56), Ui.dp(this, 88), Ui.dp(this, 56));
+        content.setPadding(Ui.dp(this, 88), Ui.dp(this, 44), Ui.dp(this, 88), Ui.dp(this, 44));
         sv.addView(content, new FrameLayout.LayoutParams(-1, -2));
         root.addView(sv, new FrameLayout.LayoutParams(-1, -1));
 
-        // 返回入口放在最上面：设置页很长，家长滚到一半也必须知道怎么回去
-        LinearLayout topBar = Ui.row(this);
-        topBar.setGravity(Gravity.START | Gravity.CENTER_VERTICAL);
-        btnBack = Ui.key(this, "← 返回首页", 20);
-        btnBack.setBackgroundResource(R.drawable.opt_bg);
-        btnBack.setMinWidth(Ui.dp(this, 168));
-        btnBack.setMinHeight(Ui.dp(this, 54));
-        btnBack.setOnClickListener(v -> showHome());
-        topBar.addView(btnBack);
-        TextView tip = Ui.label(this, "　方向键选择 · OK 确认 · BACK 也可返回", 16, Ui.DIM);
-        topBar.addView(tip);
-        content.addView(topBar, new LinearLayout.LayoutParams(-1, -2));
+        // 1.2.9：原来最上面那块（← 返回首页 / 「答对再看」/ 一句说明 / 「未开始 · 待机」状态行）
+        // 整块删掉，抬头直接是「设置」。返回入口仍在页底，「BACK」也照旧可回首页。
+        content.addView(Ui.title(this, "设置", 34));
 
-        content.addView(Ui.title(this, "答对再看", 40));
-        TextView sub = Ui.label(this, "到点一题，答对续时。答完继续看，家长口令结束本次会话。", 18, Ui.DIM);
-        LinearLayout.LayoutParams slp = new LinearLayout.LayoutParams(-2, -2);
-        slp.topMargin = Ui.dp(this, 8);
-        content.addView(sub, slp);
-
-        // 熔断横幅：安全模式下遮罩不会出来，这行必须比什么都显眼，否则家长以为还在守护
+        // 熔断横幅不是「顶部模块」，是故障态的唯一显眼出口：正常时 GONE，只在连续崩溃后出现。
         banner = Ui.label(this, "", 20, Ui.BG);
         banner.setBackgroundColor(Ui.BAD);
         banner.setPadding(Ui.dp(this, 22), Ui.dp(this, 14), Ui.dp(this, 22), Ui.dp(this, 14));
@@ -130,13 +127,8 @@ public class MainActivity extends Activity {
         banner.setOnClickListener(v -> promptClearSafeMode());
         banner.setVisibility(View.GONE);
         LinearLayout.LayoutParams blp0 = new LinearLayout.LayoutParams(-1, -2);
-        blp0.topMargin = Ui.dp(this, 20);
+        blp0.topMargin = Ui.dp(this, 16);
         content.addView(banner, blp0);
-
-        status = Ui.label(this, "", 22, Ui.ACCENT);
-        LinearLayout.LayoutParams stlp = new LinearLayout.LayoutParams(-2, -2);
-        stlp.topMargin = Ui.dp(this, 26);
-        content.addView(status, stlp);
 
         // 卸载留痕：只要系统设置锚点里记过卸载，这里就一直红字，孩子重装也抹不掉
         anchorWarn = Ui.label(this, "", 18, Ui.BAD);
@@ -145,15 +137,18 @@ public class MainActivity extends Activity {
         content.addView(anchorWarn, awlp);
         anchorWarn.setVisibility(View.GONE);
 
-        valueDuration = addRow("本次时长", v -> prefs.setDurationMin(v), this::refresh);
-        valueExtend = addRow("答对延长", v -> prefs.setExtendMin(v), this::refresh);
-        valueGrade = addRow("题目年级", v -> prefs.setGrade(v), this::refresh);
-        valuePin = addRow("家长口令", v -> promptSetPin(), this::refresh);
-        valueRecovery = addRow("恢复码", v -> onRecoveryRow(), this::refresh);
-        valueGuard = addRow("守护状态", v -> promptClearSafeMode(), this::refresh);
-        valueVersion = addRow("当前版本", v -> toast(versionText()), this::refresh);
+        valueDuration = addRow("本次时长", this::openDurationPanel);
+        valueExtend = addRow("答对延长", this::openExtendPanel);
+        valueGrade = addRow("题目年级", this::openStagePanel);
+        valuePin = addRow("家长口令", this::promptSetPin);
+        valueRecovery = addRow("恢复码", this::onRecoveryRow);
+        valueGuard = addRow("守护状态", this::promptClearSafeMode);
+        valueVersion = addRow("当前版本", () -> toast(versionText()));
         valueAnchor = addRow("卸载留痕",
-                v -> toast(anchorReport == null ? "未检测" : anchorReport.detail()), this::refresh);
+                () -> toast(anchorReport == null ? "未检测" : anchorReport.detail()));
+
+        // 顶部返回按钮删掉后，进设置页的默认焦点落在这里
+        firstRow = (View) valueDuration.getParent();
 
         TextView perm = Ui.key(this, "授权：显示在其他应用上层", 18);
         btnPerm = perm;
@@ -171,7 +166,7 @@ public class MainActivity extends Activity {
 
         // 授权自检后面原本是一大段日志文字，直接铺在设置页上又长又像报错。
         // 现在只在自检下面留一个入口，点进去是独立子页。
-        valueLog = addRow("运行日志", v -> showLogPanel(), this::refresh);
+        valueLog = addRow("运行日志", this::showLogPanel);
 
         // 底部再给一个返回：滚到最后一项时不用再往上找
         TextView backBottom = Ui.key(this, "← 返回首页", 22);
@@ -188,20 +183,23 @@ public class MainActivity extends Activity {
         LinearLayout home = new LinearLayout(this);
         home.setOrientation(LinearLayout.VERTICAL);
         home.setBackgroundColor(Ui.BG);
-        home.setPadding(Ui.dp(this, 72), Ui.dp(this, 32), Ui.dp(this, 72), Ui.dp(this, 24));
+        // 1080p 电视的有效视口只有 960×540dp，而且固件普遍还有 overscan。
+        // 1.2.8 之前这里的固定尺寸加起来超过 540dp，最下面那行「方向键选择…」在真机上
+        // 被整行裁掉（用户报的「开始计时下面的字看不见」）。全部收紧一档，留出约 150dp 余量。
+        home.setPadding(Ui.dp(this, 72), Ui.dp(this, 24), Ui.dp(this, 72), Ui.dp(this, 16));
 
         LinearLayout brand = Ui.row(this);
         brand.setGravity(Gravity.CENTER_VERTICAL);
-        brand.setPadding(0, 0, 0, Ui.dp(this, 24));
+        brand.setPadding(0, 0, 0, Ui.dp(this, 14));
         ImageView logo = new ImageView(this);
         logo.setImageResource(R.drawable.home_logo);
         logo.setScaleType(ImageView.ScaleType.FIT_CENTER);
-        brand.addView(logo, new LinearLayout.LayoutParams(Ui.dp(this, 88), Ui.dp(this, 88)));
+        brand.addView(logo, new LinearLayout.LayoutParams(Ui.dp(this, 60), Ui.dp(this, 60)));
         LinearLayout titles = Ui.col(this);
         titles.setGravity(Gravity.START);
-        titles.setPadding(Ui.dp(this, 22), 0, 0, 0);
-        titles.addView(Ui.title(this, "答对再看", 34));
-        titles.addView(Ui.label(this, "到点一题 · 答对续时", 18, Ui.DIM));
+        titles.setPadding(Ui.dp(this, 18), 0, 0, 0);
+        titles.addView(Ui.title(this, "答对再看", 30));
+        titles.addView(Ui.label(this, "到点一题 · 答对续时", 17, Ui.DIM));
         brand.addView(titles, new LinearLayout.LayoutParams(-2, -2));
         home.addView(brand, new LinearLayout.LayoutParams(-1, -2));
 
@@ -220,11 +218,11 @@ public class MainActivity extends Activity {
         homeBar = new View(this);
         // 色条给固定高度，不跟文字做 MATCH_PARENT：卡片改成 wrap 之后，
         // 横向 LinearLayout 里的 -1 会退化成 0，色条会整条消失（模拟器实测）。
-        readout.addView(homeBar, new LinearLayout.LayoutParams(Ui.dp(this, 6), Ui.dp(this, 96)));
+        readout.addView(homeBar, new LinearLayout.LayoutParams(Ui.dp(this, 6), Ui.dp(this, 78)));
 
         LinearLayout info = Ui.col(this);
         info.setGravity(Gravity.CENTER_VERTICAL | Gravity.START);
-        info.setPadding(Ui.dp(this, 36), Ui.dp(this, 22), Ui.dp(this, 32), Ui.dp(this, 22));
+        info.setPadding(Ui.dp(this, 32), Ui.dp(this, 14), Ui.dp(this, 28), Ui.dp(this, 14));
         readout.addView(info, new LinearLayout.LayoutParams(0, -2, 1f));
         card.addView(readout, new LinearLayout.LayoutParams(-1, -2));
 
@@ -232,22 +230,22 @@ public class MainActivity extends Activity {
         bottomRule.setBackgroundColor(0xFF1F1F1F);
         card.addView(bottomRule, new LinearLayout.LayoutParams(-1, Ui.dp(this, 1)));
 
-        homePhase = Ui.label(this, "未开始 · 待机", 24, Ui.DIM);
+        homePhase = Ui.label(this, "未开始 · 待机", 21, Ui.DIM);
         homePhase.setGravity(Gravity.START);
         info.addView(homePhase);
 
-        homeTime = Ui.label(this, "--:--", 88, 0xFF6B7075);
+        homeTime = Ui.label(this, "--:--", 62, 0xFF6B7075);
         // 等宽字体：倒计时数字不会跳动，待机时的 --:-- 也不会散成「- - : - -」
         homeTime.setTypeface(Typeface.MONOSPACE, Typeface.BOLD);
         homeTime.setGravity(Gravity.START);
         LinearLayout.LayoutParams tlp = new LinearLayout.LayoutParams(-2, -2);
-        tlp.topMargin = Ui.dp(this, 4);
+        tlp.topMargin = Ui.dp(this, 2);
         info.addView(homeTime, tlp);
 
-        homeGuard = Ui.label(this, "", 20, Ui.ACCENT);
+        homeGuard = Ui.label(this, "", 18, Ui.ACCENT);
         homeGuard.setGravity(Gravity.START);
         LinearLayout.LayoutParams glp = new LinearLayout.LayoutParams(-2, -2);
-        glp.topMargin = Ui.dp(this, 10);
+        glp.topMargin = Ui.dp(this, 8);
         info.addView(homeGuard, glp);
 
         homeBanner = Ui.label(this, "", 19, Ui.BLACK);
@@ -264,17 +262,17 @@ public class MainActivity extends Activity {
         home.addView(card, new LinearLayout.LayoutParams(-1, -2));
 
         // 告警行放在卡片**外面**：卡片高度按内容走，告警多两行也不会把最后一行裁掉半截。
-        homeAuth = Ui.label(this, "", 17, Ui.BAD);
+        homeAuth = Ui.label(this, "", 16, Ui.BAD);
         homeAuth.setGravity(Gravity.CENTER);
         LinearLayout.LayoutParams walp = new LinearLayout.LayoutParams(-1, -2);
-        walp.topMargin = Ui.dp(this, 12);
+        walp.topMargin = Ui.dp(this, 10);
         home.addView(homeAuth, walp);
         homeAuth.setVisibility(View.GONE);
 
-        homeAnchor = Ui.label(this, "", 17, Ui.BAD);
+        homeAnchor = Ui.label(this, "", 16, Ui.BAD);
         homeAnchor.setGravity(Gravity.CENTER);
         LinearLayout.LayoutParams wanlp = new LinearLayout.LayoutParams(-1, -2);
-        wanlp.topMargin = Ui.dp(this, 10);
+        wanlp.topMargin = Ui.dp(this, 8);
         home.addView(homeAnchor, wanlp);
         homeAnchor.setVisibility(View.GONE);
 
@@ -285,28 +283,31 @@ public class MainActivity extends Activity {
         LinearLayout btns = Ui.row(this);
         btns.setGravity(Gravity.CENTER);
         homeBtnStart = Ui.homeKey(this, "开始计时", true);
+        homeBtnStart.setMinHeight(Ui.dp(this, 56));
         homeBtnStart.setOnClickListener(v -> startSession());
         btns.addView(homeBtnStart);
 
         TextView end = Ui.homeKey(this, "结束本次会话", false);
+        end.setMinHeight(Ui.dp(this, 56));
         end.setOnClickListener(v -> exitSession());
         LinearLayout.LayoutParams elp = new LinearLayout.LayoutParams(-2, -2);
         elp.leftMargin = Ui.dp(this, 20);
         btns.addView(end, elp);
 
         TextView settings = Ui.homeKey(this, "设置", false);
+        settings.setMinHeight(Ui.dp(this, 56));
         settings.setOnClickListener(v -> showSettings());
         LinearLayout.LayoutParams slp = new LinearLayout.LayoutParams(-2, -2);
         slp.leftMargin = Ui.dp(this, 20);
         btns.addView(settings, slp);
         LinearLayout.LayoutParams blp = new LinearLayout.LayoutParams(-1, -2);
-        blp.topMargin = Ui.dp(this, 24);
+        blp.topMargin = Ui.dp(this, 16);
         home.addView(btns, blp);
 
         TextView hint = Ui.label(this, "方向键选择 · OK 确认 · 时长、口令、恢复码都在「设置」里", 16, Ui.DIM);
         hint.setGravity(Gravity.CENTER);
         LinearLayout.LayoutParams hlp = new LinearLayout.LayoutParams(-1, -2);
-        hlp.topMargin = Ui.dp(this, 16);
+        hlp.topMargin = Ui.dp(this, 10);
         home.addView(hint, hlp);
 
         homeRoot = home;
@@ -326,6 +327,7 @@ public class MainActivity extends Activity {
     /** 设置页受口令保护；本次 Activity 里解锁过一次就不再反复问。 */
     private void showSettings() {
         showingSettings = true;
+        settingsFocus = null;      // 每次进设置页都从第一项开始
         homeRoot.setVisibility(View.GONE);
         contentScroll.setVisibility(View.VISIBLE);
         focusInited = false;
@@ -457,7 +459,7 @@ public class MainActivity extends Activity {
         }
     }
 
-    private TextView addRow(String label, IntPick onPick, Runnable after) {
+    private TextView addRow(String label, Runnable action) {
         LinearLayout row = Ui.row(this);
         row.setBackgroundResource(R.drawable.opt_bg);
         row.setFocusable(true);
@@ -475,49 +477,94 @@ public class MainActivity extends Activity {
         content.addView(row, rlp);
 
         row.setOnClickListener(x -> {
-            if ("本次时长".equals(label)) {
-                choose("本次时长（分钟）", new int[]{1, 5, 10, 15, 20, 30, 45, 60, 90, 120}, prefs.durationMin(), onPick, after);
-            } else if ("答对延长".equals(label)) {
-                choose("答对延长（分钟）", new int[]{1, 2, 3, 5, 10, 15, 20, 30}, prefs.extendMin(), onPick, after);
-            } else if ("题目年级".equals(label)) {
-                choose("题目年级", new int[]{1, 2, 3, 4, 5, 6, 7, 8, 9}, prefs.grade(), onPick, after);
-            } else {
-                onPick.on(0);
-            }
+            settingsFocus = row;
+            action.run();
         });
         return v;
     }
 
-    private void choose(String title, int[] vals, int cur, IntPick onPick, Runnable after) {
-        Dialog d = new Dialog(this);
-        LinearLayout box = new LinearLayout(this);
-        box.setOrientation(LinearLayout.VERTICAL);
-        box.setBackgroundResource(R.drawable.panel_bg);
-        box.setPadding(Ui.dp(this, 40), Ui.dp(this, 28), Ui.dp(this, 40), Ui.dp(this, 28));
-        box.addView(Ui.title(this, title, 24));
+    // ---------- 参数面板（自绘，不依赖焦点树） ----------
 
-        TextView first = null;
-        for (int v : vals) {
-            String txt = (v == cur ? "● " : "　 ") + v + (title.contains("年级") ? " 年级" : "");
-            TextView k = Ui.key(this, txt, 22);
-            k.setBackgroundResource(R.drawable.key_bg);
-            k.setMinWidth(Ui.dp(this, 260));
-            k.setGravity(Gravity.START | Gravity.CENTER_VERTICAL);
-            k.setPadding(Ui.dp(this, 22), Ui.dp(this, 10), Ui.dp(this, 22), Ui.dp(this, 10));
-            LinearLayout.LayoutParams klp = new LinearLayout.LayoutParams(-1, -2);
-            klp.topMargin = Ui.dp(this, 8);
-            box.addView(k, klp);
-            final int vv = v;
-            k.setOnClickListener(x -> { onPick.on(vv); after.run(); d.dismiss(); });
-            if (first == null) first = k;
+    private void mountOption(OptionPanel p) {
+        hideOptionPanel();
+        optionPanel = p;
+        root.addView(p, new FrameLayout.LayoutParams(-1, -1));
+        blockFocusBelow();
+    }
+
+    private void hideOptionPanel() {
+        if (optionPanel != null && optionPanel.getParent() != null) root.removeView(optionPanel);
+        optionPanel = null;
+        blockFocusBelow();
+        View t = focusTarget();
+        if (t != null) t.post(t::requestFocus);
+    }
+
+    /** 本次时长：1 / 5 / 10 / 15 / 30 分钟，或自定义（数字键盘）。 */
+    private void openDurationPanel() {
+        String[] labels = {"1", "5", "10", "15", "30"};
+        int[] vals = {1, 5, 10, 15, 30};
+        mountOption(new OptionPanel(this, "本次时长（分钟）", labels, vals, prefs.durationMin(),
+                "分钟", 1, 240,
+                v -> {
+                    prefs.setDurationMin(v);
+                    hideOptionPanel();
+                    refresh();
+                    toast("本次时长：" + v + " 分钟");
+                }, this::hideOptionPanel));
+    }
+
+    /** 答对延长：1 / 2 / 3 / 5 / 10 分钟，或自定义。 */
+    private void openExtendPanel() {
+        String[] labels = {"1", "2", "3", "5", "10"};
+        int[] vals = {1, 2, 3, 5, 10};
+        mountOption(new OptionPanel(this, "答对延长（分钟）", labels, vals, prefs.extendMin(),
+                "分钟", 1, 60,
+                v -> {
+                    prefs.setExtendMin(v);
+                    hideOptionPanel();
+                    refresh();
+                    toast("答对延长：+ " + v + " 分钟");
+                }, this::hideOptionPanel));
+    }
+
+    /** 年级两级：先选小学 / 初中，再选具体年级。 */
+    private void openStagePanel() {
+        String[] labels = {"小学", "初中"};
+        int[] vals = {Prefs.STAGE_PRIMARY, Prefs.STAGE_JUNIOR};
+        mountOption(new OptionPanel(this, "题目年级 · 选学段", labels, vals, prefs.stage(),
+                "", 0, 0,
+                this::openGradePanel, this::hideOptionPanel));
+    }
+
+    private void openGradePanel(int stage) {
+        boolean junior = stage == Prefs.STAGE_JUNIOR;
+        String[] labels = junior
+                ? new String[]{"初一", "初二", "初三"}
+                : new String[]{"1 年级", "2 年级", "3 年级", "4 年级", "5 年级", "6 年级"};
+        int[] vals = junior ? new int[]{7, 8, 9} : new int[]{1, 2, 3, 4, 5, 6};
+        int cur = prefs.grade();
+        if (junior && cur < 7) cur = 7;
+        if (!junior && cur > 6) cur = 3;
+        mountOption(new OptionPanel(this, "题目年级 · " + (junior ? "初中" : "小学"),
+                labels, vals, cur, "", 0, 0,
+                g -> {
+                    prefs.setStage(stage);
+                    prefs.setGrade(g);
+                    hideOptionPanel();
+                    refresh();
+                    toast("题目年级：" + gradeText());
+                },
+                this::openStagePanel));   // BACK 退回上一步选学段
+    }
+
+    private String gradeText() {
+        int g = prefs.grade();
+        if (prefs.stage() == Prefs.STAGE_JUNIOR) {
+            String[] cn = {"初一", "初二", "初三"};
+            return "初中 · " + cn[Math.max(0, Math.min(2, g - 7))];
         }
-        d.setContentView(box);
-        if (d.getWindow() != null) {
-            d.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
-            d.getWindow().setLayout(Ui.dp(this, 420), ViewGroup.LayoutParams.WRAP_CONTENT);
-        }
-        d.show();
-        if (first != null) first.requestFocus();
+        return "小学 · " + Math.max(1, Math.min(6, g)) + " 年级";
     }
 
     // ---------- 会话 ----------
@@ -526,11 +573,6 @@ public class MainActivity extends Activity {
         if (prefs.safeMode()) {
             toast("守护处于安全模式，先在「守护状态」里恢复");
             promptClearSafeMode();
-            return;
-        }
-        if (!Settings.canDrawOverlays(this)) {
-            toast("遮罩需要「显示在其他应用上层」权限，否则到点出不来题");
-            requestOverlay();
             return;
         }
         if (!prefs.hasPin()) {
@@ -543,12 +585,122 @@ public class MainActivity extends Activity {
             toast("已有会话在进行，请先结束");
             return;
         }
+        // 授权检查放在最后：前面几项是「能不能开始」，授权决定的是「开始了会不会停表」。
+        // 缺授权时静默开始，家长会看到「退出应用后时间不走」——那正是 1.2.8 被报的故障。
+        if (!authComplete()) {
+            showAuthGate();
+            return;
+        }
+        doStart();
+    }
+
+    /** 三项都齐才直接开始；缺任一项都先摆出来让家长选。 */
+    private boolean authComplete() {
+        return Settings.canDrawOverlays(this) && notifOn() && batteryOk();
+    }
+
+    private void doStart() {
         Intent i = new Intent(this, GateService.class).setAction(GateService.ACTION_START);
         startForegroundService(i);
         toast("已开始：" + prefs.durationMin() + " 分钟后出题");
         refresh();
         // 回到电视桌面；右下角由守护服务亮 5 秒「本次时长」提示，5 秒后自动收起
         finish();
+    }
+
+    // ---------- 开始前的授权检查 ----------
+
+    /**
+     * 三项必需授权。卸载留痕（WRITE_SECURE_SETTINGS）明确不列：它只影响「能不能看出被卸载过」，
+     * 不影响计时出题，按用户要求「不需要就不要提示」。
+     */
+    private List<AuthView.Item> authItems() {
+        List<AuthView.Item> out = new ArrayList<>();
+        String pkg = getPackageName();
+
+        boolean ov = Settings.canDrawOverlays(this);
+        out.add(new AuthView.Item(AUTH_OVERLAY, "悬浮窗权限", ov, ov ? "" :
+                "到点要盖住整屏出题，缺了它题根本出不来。\n"
+                        + "设置 → 应用 → 答对再看 → 权限；或用电脑执行：\n"
+                        + "adb shell appops set " + pkg + " SYSTEM_ALERT_WINDOW allow"));
+
+        boolean notif = notifOn();
+        out.add(new AuthView.Item(AUTH_NOTIF, "通知使用权", notif, notif ? "" :
+                "退出应用后靠它把被系统杀掉的守护拉回来，不开就会停表。\n"
+                        + "用电脑执行：\n"
+                        + "adb shell cmd notification allow_listener " + pkg + "/" + pkg + ".NotifProbe"));
+
+        boolean battery = batteryOk();
+        out.add(new AuthView.Item(AUTH_BATTERY, "电池优化白名单", battery, battery ? "" :
+                "Android 14 的电视回桌面会强停没进白名单的应用，\n"
+                        + "表现就是「时间不走了」。用电脑执行：\n"
+                        + "adb shell dumpsys deviceidle whitelist +" + pkg));
+        return out;
+    }
+
+    private void showAuthGate() {
+        if (authPanel != null) {
+            authPanel.refresh();
+            return;
+        }
+        authPanel = new AuthView(this, new AuthView.Host() {
+            @Override public List<AuthView.Item> items() { return authItems(); }
+            @Override public void fix(String id) { fixAuth(id); }
+            @Override public void startAnyway() {
+                if (!Settings.canDrawOverlays(MainActivity.this)) {
+                    toast("还缺悬浮窗权限：没有它到点出不来题");
+                    return;
+                }
+                // 留一行日志：以后家长反馈「时间不走」时，能立刻看出他是点了「仍然开始」
+                android.util.Log.i("QuizGate", "start_anyway notif=" + notifOn()
+                        + " battery=" + batteryOk() + " " + prefs.debugLine());
+                hideAuthGate();
+                doStart();
+            }
+            @Override public void cancel() { hideAuthGate(); }
+        });
+        root.addView(authPanel, new FrameLayout.LayoutParams(-1, -1));
+        blockFocusBelow();
+    }
+
+    private void hideAuthGate() {
+        if (authPanel != null && authPanel.getParent() != null) root.removeView(authPanel);
+        authPanel = null;
+        blockFocusBelow();
+        View t = focusTarget();
+        if (t != null) t.post(t::requestFocus);
+    }
+
+    /** 跳对应的系统设置页；全都打不开就退回面板上那条 adb 命令。 */
+    private void fixAuth(String id) {
+        String pkg = getPackageName();
+        if (AUTH_OVERLAY.equals(id)) {
+            requestOverlay();
+            return;
+        }
+        if (AUTH_NOTIF.equals(id)) {
+            if (jump(new Intent(Settings.ACTION_NOTIFICATION_LISTENER_SETTINGS))) return;
+            if (jump(new Intent(Settings.ACTION_SETTINGS))) return;
+            toast("这台电视没有通知使用权页面，请按面板上的 adb 命令开启");
+            return;
+        }
+        if (AUTH_BATTERY.equals(id)) {
+            if (jump(new Intent(Settings.ACTION_REQUEST_IGNORE_BATTERY_OPTIMIZATIONS,
+                    Uri.parse("package:" + pkg)))) return;
+            if (jump(new Intent(Settings.ACTION_IGNORE_BATTERY_OPTIMIZATION_SETTINGS))) return;
+            if (jump(new Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS,
+                    Uri.parse("package:" + pkg)))) return;
+            toast("这台电视没有电池优化页面，请按面板上的 adb 命令开启");
+        }
+    }
+
+    private boolean jump(Intent i) {
+        try {
+            startActivity(i);
+            return true;
+        } catch (Throwable t) {
+            return false;
+        }
     }
 
     /**
@@ -739,7 +891,8 @@ public class MainActivity extends Activity {
         logPanel = null;
         logBody = null;
         blockFocusBelow();
-        if (btnBack != null) btnBack.post(btnBack::requestFocus);
+        View t = focusTarget();
+        if (t != null) t.post(t::requestFocus);
     }
 
     // ---------- 口令门禁 ----------
@@ -863,7 +1016,8 @@ public class MainActivity extends Activity {
         if (root == null) return null;
         for (int i = root.getChildCount() - 1; i >= 0; i--) {
             View c = root.getChildAt(i);
-            if (c == upgrade || c == codeOverlay || c == recovery || c == gate || c == logPanel) return c;
+            if (c == upgrade || c == codeOverlay || c == recovery || c == gate
+                    || c == logPanel || c == optionPanel || c == authPanel) return c;
         }
         return null;
     }
@@ -897,7 +1051,7 @@ public class MainActivity extends Activity {
         if (valueDuration == null) return;
         valueDuration.setText(prefs.durationMin() + " 分钟");
         valueExtend.setText("+ " + prefs.extendMin() + " 分钟");
-        valueGrade.setText(prefs.grade() + " 年级");
+        valueGrade.setText(gradeText());
         valuePin.setText(prefs.hasPin() ? "已设置" : "未设置");
         // 只存哈希：应用里看不到已生成的码，想再看只能重新生成（旧码立即作废）
         valueRecovery.setText(!prefs.hasRecoveryCode() ? "未生成"
@@ -956,9 +1110,12 @@ public class MainActivity extends Activity {
         }
     }
 
-    /** 当前页面该先给谁焦点。设置页里「开始计时」已经移走，返回按钮就是第一个该看到的东西。 */
+    /** 当前页面该先给谁焦点。1.2.9 起设置页顶部没有返回按钮了，落在第一项「本次时长」上。 */
     private View focusTarget() {
-        if (showingSettings) return prefs.safeMode() ? banner : btnBack;
+        if (showingSettings) {
+            if (prefs.safeMode()) return banner;
+            return settingsFocus != null ? settingsFocus : firstRow;
+        }
         return prefs.safeMode() ? homeBanner : homeBtnStart;
     }
 
@@ -967,6 +1124,7 @@ public class MainActivity extends Activity {
         if (focusInited) return;
         if (gate != null && gate.getParent() != null) return;
         if (recovery != null || codeOverlay != null || upgrade != null || logPanel != null) return;
+        if (optionPanel != null || authPanel != null) return;
         View t = focusTarget();
         if (t == null) return;
         focusInited = true;
@@ -1063,10 +1221,6 @@ public class MainActivity extends Activity {
             phase = "计时中";
             big = Core.fmt(prefs.remainingMs());
         }
-        status.setText(p == Prefs.IDLE ? "未开始 · 待机"
-                : (p == Prefs.LOCKED ? "已锁定 · 等待答题"
-                : (!alive ? "守护恢复中…（不显示冻结时间）"
-                : "计时中 · 剩余 " + Core.fmt(prefs.remainingMs()))));
         if (homePhase != null) homePhase.setText(phase);
         if (homeTime != null) homeTime.setText(big);
         styleHomeReadout(p, alive);
@@ -1172,6 +1326,15 @@ public class MainActivity extends Activity {
                 return true;
             }
             return super.dispatchKeyEvent(e);
+        }
+        if (top != null && top == optionPanel) {
+            // 选值 / 数字键盘：整个面板自路由，按键一个都不许漏给背后的设置页
+            if (optionPanel.consumeKey(e)) return true;
+            return true;
+        }
+        if (top != null && top == authPanel) {
+            if (authPanel.consumeKey(e)) return true;
+            return true;
         }
         // 返回键：设置页 → 首页。口令门禁盖在上面时也要能退回首页，
         // 否则系统默认 BACK 会直接 finish 掉应用（首装还没设口令时禁止退出）。
@@ -1344,6 +1507,8 @@ public class MainActivity extends Activity {
         Anchor.touch(this);   // 刷新「最后在线」，卸载时才能算出失联多久
         autoRestore();
         refresh();
+        // 从系统授权页回来：授权面板还在就重新查一遍，缺的项会自动变 ✓
+        if (authPanel != null) authPanel.refresh();
         h.removeCallbacks(uiTick);
         h.post(uiTick);
         maybeShowUpdate();

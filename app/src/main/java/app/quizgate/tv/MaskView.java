@@ -25,6 +25,7 @@ public class MaskView extends FrameLayout {
     private final QuizBank bank;
     private final Random rnd = new Random();
     private final int grade;
+    private final int floorGrade;
     private final int extendMin;
 
     private final TextView stemView;
@@ -46,6 +47,7 @@ public class MaskView extends FrameLayout {
         this.bank = bank;
         this.host = host;
         this.grade = prefs.grade();
+        this.floorGrade = prefs.floorGrade();
         this.extendMin = prefs.extendMin();
 
         setBackgroundColor(Ui.BG);
@@ -129,7 +131,7 @@ public class MaskView extends FrameLayout {
     }
 
     public void nextQuestion() {
-        q = bank.next(grade, rnd);
+        q = bank.next(grade, floorGrade, rnd);
         answering = false;
         stemView.setText(q.stem);
         for (int i = 0; i < 4; i++) opts[i].setText(q.options[i]);
