@@ -47,7 +47,7 @@
    有通知使用权时 `NotifProbe` 0.1s 内 RESTORE、遮罩 <1s 回来。
 2. 只剩遮罩、没有 Activity 时按 HOME → **进程不被杀，窗口保持焦点**，画面不变。
 
-## D1（Android 11）：界面项通过，HOME 一项被真遥控器打断
+## D1（Android 11）：全部通过
 
 | 文件 | 结论 |
 | --- | --- |
@@ -59,7 +59,8 @@
 | `18_d1_auth_gate_hint.png` | 授权面板：通知使用权 ✗ 自动选中；**按钮下方多一行**「电视里找不到这一页时，用电脑执行上面那条 adb 命令即可」 |
 | `19_d1_mask_grade8.png` | 1 分钟到点出题，初二几何题（平行四边形）；遮罩版面正常 |
 | `20_d1_end_session_pin.png` | 口令结束会话面板完整，含「忘记口令？用恢复码重置」 |
-| `12_d1_pin_setup_after_upgrade.png` | 1.2.6 → 1.2.9 覆盖升级后数据保留（原库无口令 → 直接进设置口令） |
+| `24_d1_after_home.png` | **锁定态按 HOME 之后**：仍是同一张遮罩（窗口 id `d177877` 未变、画面同一帧） |
+| `25_d1_delivery_state.png` | 测试后清回「设置 6 位家长口令」 |
 
 ### D1 上没有「通知使用权」设置页
 
@@ -73,15 +74,23 @@ adb -s 192.168.1.123:5555 shell cmd package resolve-activity --brief \
 （logcat 里只有两条 `START`，界面仍停在本应用），只能靠 adb 命令。
 所以这次在授权面板底部补了一行常驻兜底提示——toast 一闪而过，说不清这件事。
 
-### HOME 一项为什么没结论
+### HOME 一项的取证过程（前两次被打断）
 
-两次都在到点后按了 HOME，但都在我按键前 ~2 秒，**有人在用实体遥控器按了 OK**
+前两次都在到点后按了 HOME，但都在我按键前约 2 秒，**有人用实体遥控器按了 OK**
 （`interceptKeyTq keycode=KEYCODE_DPAD_CENTER name=小米蓝牙语音遥控器`，
-15:16:43 / 15:22:55），题目被答对、遮罩按设计收起，于是 HOME 落到的是桌面而不是遮罩。
-D1 的 HOME 行为与 D2 走同一段代码，但**按项目规矩，没有干净取证就不下结论**。
-等 D1 完全空闲（遥控器静止 ≥1 分钟）时可以补一次：开始 1 分钟计时 → 到点 → 只发一次
-`input keyevent 3` → 看 `mCurrentFocus` 是否仍是 `QuizGateMask` / 是否出现
-`resurrect_restore`。
+15:16:43 / 15:22:55），题目被答对、遮罩按设计收起，于是 HOME 落到的是桌面。
+
+第三次等遥控器静止后重跑，窗口区间内只有一条 `KEYCODE_HOME name=Virtual`
+（即我自己发的），结果是遮罩保持：
+
+```
+15:28:27.569 lock at 0 (screen=true)
+15:28:27.611 mask_add ok
+15:28:30.964 interceptKeyTq keycode=KEYCODE_HOME name=Virtual     ← 唯一一条按键
+15:28:38    mCurrentFocus=Window{d177877 u0 QuizGateMask}          ← 5 秒后仍是同一窗口
+```
+
+结论：**D1（Android 11）与 D2 一致——只挂遮罩时按 HOME 不会退出**。
 
 ## 关键日志
 

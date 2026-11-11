@@ -22,7 +22,7 @@
 | --- | --- | --- |
 | 悬浮窗层级 | 通过 | `ty=APPLICATION_OVERLAY`、`mHasSurface=true`、`mObscured=false` |
 | 悬浮窗焦点 | 通过 | `mCurrentFocus=Window{… QuizGateMask}` |
-| 按 HOME | 通过 | 遮罩不消失且保持焦点（2026-11-10, v1.2.4） |
+| 按 HOME | 通过 | 遮罩不消失且保持焦点（2026-11-10 v1.2.4；2026-11-11 v1.2.9 复测：按后 5 秒仍是同一窗口 id） |
 | 通知使用权设置页 | **不存在** | `cmd package resolve-activity -a android.settings.ACTION_NOTIFICATION_LISTENER_SETTINGS` → `No activity found`；只能 adb 开启，v1.2.9 起授权面板底部常驻 adb 兜底提示 |
 | 熄屏暂停 | 通过 | 熄屏 88.7s，`du=88697 / de=88697`（uptime 未停），产品扣时 ≈0 |
 | 按电源键 | 通过 | `killAllThirdApp forcestop` 后 150ms 由通知监听重绑复活 |
@@ -35,10 +35,9 @@
 原始输出见仓库 `evidence/D1-2026-11-10/`。
 
 > 2026-11-11 用 v1.2.9 复测：设置页顶部删除、时长自定义（7 分钟）、年级「初中·初二」、
-> 授权面板、首页最下一行、到点出题、口令结束会话均通过（`evidence/D10-2026-11-11/`）。
-> **按 HOME 一项这次没取到干净样本**：两次都在发 `input keyevent 3` 前约 2 秒，
-> 现场有人用实体遥控器按了 OK，题目被答对、遮罩按设计收起，HOME 落到的是桌面。
-> 该行结论仍沿用 2026-11-10 的测试，未用这次的数据改写。
+> 授权面板、首页最下一行、到点出题、口令结束会话、**锁定态按 HOME 遮罩保持**
+> 均通过（`evidence/D10-2026-11-11/`）。按 HOME 的前两次复测被现场实体遥控器按 OK
+> 打断（题目被答对、遮罩收起），第三次确认窗口区间内只有虚拟 HOME 键，结论成立。
 
 ### D2 · 小米电视 MiTV-MFTR0（Android 14 固件）
 

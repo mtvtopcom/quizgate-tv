@@ -94,12 +94,12 @@
   `update_check_fail https://7789.cn/y/quizgate-tv/ -> SSLPeerUnverifiedException: Hostname 7789.cn not verified`
   → 回落 `update_check_src https://shitang.mianmiangou.cn/static/quizgate-tv/ remote=10206`
   → `self=10209` 不提示。兜底按预期工作，但**主地址的证书必须补**，否则这条回落会长期存在。
-- **D1 真机（Android 11）界面项通过**：设置页顶栏删除、时长自定义（7 分钟）、
+- **D1 真机（Android 11）全部通过**：设置页顶栏删除、时长自定义（7 分钟）、
   年级「初中 · 初二」、授权面板（含 adb 兜底提示）、首页最下一行、到点出初二几何题、
-  口令结束会话，全部正常。
-  **按 HOME 一项这次没拿到干净样本**：两次都在按键前约 2 秒有人用实体遥控器按了 OK
-  （`KEYCODE_DPAD_CENTER name=小米蓝牙语音遥控器`），题目被答对、遮罩按设计收起，
-  HOME 落到的是桌面。该行仍沿用 2026-11-10 的结论，未用这次数据改写。
+  口令结束会话都正常；**锁定态按 HOME 之后仍是同一张遮罩（窗口 id 未变）**。
+  前两次 HOME 测试被现场实体遥控器按 OK 打断（题目被答对、遮罩收起），
+  第三次等遥控器静止后重跑，窗口区间内只有一条 `KEYCODE_HOME name=Virtual`，
+  结果干净，见 `evidence/D10-2026-11-11/README.md`。
 - **顺带发现**：`pm clear` 会清掉通知使用权（`enabled_notification_listeners` 变空），
   但保留悬浮窗 appops 与电池白名单；恢复交付态要「clear → 补三条」。
 
