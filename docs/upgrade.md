@@ -22,29 +22,36 @@ https://7789.cn/y/quizgate-tv/
 > 只能按固定文件名 `version.json` 去取。所以每次发版**必须**传 `version.json`，
 > 只传 apk 等于没发。
 
-### 1.1 主地址的证书问题（2026-11-11 实测，未解决）
+### 1.1 主地址的证书（发布当天已补齐）
 
-`7789.cn:443` 出示的是 `CN=*.mianmiangou.cn` 的 Let's Encrypt 证书（`subjectAltName`
-只覆盖旧域名），所以标准 TLS 校验必然失败：
+**现状（2026-11-11 16:10 起）**：`7789.cn` 已是自己的证书，1.2.9 直连主地址即可。
 
 ```bash
-curl -sS https://7789.cn/y/quizgate-tv/version.json
-# curl: (60) SSL: no alternative certificate subject name matches target host name '7789.cn'
+curl -v https://7789.cn/y/quizgate-tv/version.json
+# *  subject: CN=7789.cn
+# *  issuer:  C=US; O=Let's Encrypt; CN=YR1
+# *  expire date: Feb  9 06:57:19 2027 GMT
+# *  SSL certificate verify ok.
 ```
 
-Android 侧的同一现象（真机 / 模拟器 logcat）：
+真机日志（D1 升级到 1.2.9 后）：
 
 ```
-I QuizGate: update_check_fail https://7789.cn/y/quizgate-tv/ -> SSLPeerUnverifiedException: Hostname 7789.cn not verified
+I QuizGate: update_check_src https://7789.cn/y/quizgate-tv/ remote=10209 (1.2.9)
 ```
 
-**在证书覆盖 `7789.cn` 之前，新地址一个字节都取不到。** 因此 1.2.9 加了过渡期兜底
-`BuildCfg.UPGRADE_FALLBACK`（旧目录）：主地址失败才回落，并在 logcat 里留下
-`update_check_fail <base> -> <原因>` / `update_check_src <base>` 两行。证书补齐后：
+**历史（构建时）**：当天上午该端口出示的是 `CN=*.mianmiangou.cn` 的证书，
+TLS 校验失败（`SSLPeerUnverifiedException: Hostname 7789.cn not verified`），
+所以 1.2.9 带了过渡期兜底 `BuildCfg.UPGRADE_FALLBACK`（旧目录）。
+现在兜底只在「主地址临时不可达 / DNS 挂了」时才会用到，日志里会成对出现：
 
-1. 确认 `curl -sS https://7789.cn/y/quizgate-tv/version.json` 不再报证书错；
-2. 把 `BuildCfg.UPGRADE_FALLBACK` 与 `build.sh` 的 `DEFAULT_FALLBACK` 一起置空串，
-   恢复「只连一个地址」。
+```
+update_check_fail <base> -> <原因>
+update_check_src  <实际用到的 base>
+```
+
+**下一版**把 `BuildCfg.UPGRADE_FALLBACK` 与 `build.sh` 的 `DEFAULT_FALLBACK` 一起置空串，
+恢复「只连一个地址」。这版先留着，代价只是极端情况多一次请求。
 
 ### 1.2 存量用户怎么迁到新地址
 

@@ -195,10 +195,10 @@ adb shell dumpsys deviceidle whitelist | grep quizgate       # 应输出 user,ap
    `Updater.java` 里只有两处（GET 一个 `version.json`、GET 那个 APK），
    请求不带参数、不带 cookie、不带设备信息（UA 固定写死成 `QuizGate`，不上报系统版本和机型）。
    升级源默认就是生产目录 `https://7789.cn/y/quizgate-tv/`（1.2.9 起；旧目录
-   `https://shitang.mianmiangou.cn/static/quizgate-tv/` 只在主地址连不上/证书不过时兜底）。
-   **该域名目前的证书只覆盖 `*.mianmiangou.cn`**，实测
-   `SSLPeerUnverifiedException: Hostname 7789.cn not verified`，所以兜底不是可选项；
-   证书补齐后把 `BuildCfg.UPGRADE_FALLBACK` 置空串即可恢复「只连一个地址」。
+   `https://shitang.mianmiangou.cn/static/quizgate-tv/` 只在主地址连不上时兜底）。
+   该域名的证书在 2026-11-11 16:10 补齐（`CN=7789.cn`，Let's Encrypt，有效期到 2027-02-09），
+   1.2.9 实测就是直连主地址取到清单的；兜底只为「DNS 挂了 / 临时不可达」保留，
+   下一版会把 `BuildCfg.UPGRADE_FALLBACK` 置空，恢复「只连一个地址」。
    用 `QUIZGATE_UPGRADE_BASE=` 空值构建时，一次请求都不发。
    出网之外的行为没有变：不采集、不上报、不读屏幕内容。
 5. **不做多孩子档案**、不做远程控制、不做手机 App。

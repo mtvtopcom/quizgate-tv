@@ -16,10 +16,12 @@
 ### 1. 在线升级源换成 `https://7789.cn/y/quizgate-tv/`
 
 - `BuildCfg.UPGRADE_BASE`、`build.sh`、`tools/publish.sh`、`docs/upgrade.md` / README 全部同步。
-- **实测阻塞**：该域名 443 端口出示的是 `CN=*.mianmiangou.cn` 的证书，
+- **实测阻塞（发布前已解决）**：构建时该域名 443 出示的是 `CN=*.mianmiangou.cn` 的证书，
   `curl` 报 `no alternative certificate subject name matches target host name '7789.cn'`，
   Android 报 `SSLPeerUnverifiedException: Hostname 7789.cn not verified`。
-  证书不补齐，新地址一个字节都取不到，而升级检查失败按设计是**静默**的。
+  发布当天 16:10 证书补齐（`CN=7789.cn`，Let's Encrypt，到 2027-02-09），
+  真机 OTA 实测已直连主地址：`update_check_src https://7789.cn/y/quizgate-tv/ remote=10209`，
+  没有先出现 `update_check_fail`。见 `evidence/D11-2026-11-11/`。
 - 所以加了过渡期兜底 `BuildCfg.UPGRADE_FALLBACK`（旧目录）：主地址失败才回落，
   logcat 各留一行 `update_check_fail <base> -> <原因>` / `update_check_src <base>`。
   证书补齐后把 `UPGRADE_FALLBACK` 与 `build.sh` 的 `DEFAULT_FALLBACK` 置空串即可。
