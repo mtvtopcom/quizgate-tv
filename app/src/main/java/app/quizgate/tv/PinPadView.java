@@ -67,19 +67,21 @@ public class PinPadView extends FrameLayout {
 
         panel = Ui.col(c);
         panel.setBackgroundResource(R.drawable.panel_bg);
-        panel.setPadding(Ui.dp(c, 40), Ui.dp(c, 32), Ui.dp(c, 40), Ui.dp(c, 32));
+        // 1080p 电视的有效高度只有 540dp：原来 32dp 上下留白 + 64dp 键高 + 底部「忘记口令」
+        // 加起来正好顶出屏幕，恢复码入口在真机上根本看不见。压缩到 26/58 留出余量。
+        panel.setPadding(Ui.dp(c, 40), Ui.dp(c, 26), Ui.dp(c, 40), Ui.dp(c, 26));
 
         TextView t = Ui.title(c, title, 26);
         panel.addView(t);
 
         dots = Ui.label(c, display(), 30, Ui.ACCENT);
         LinearLayout.LayoutParams dlp = new LinearLayout.LayoutParams(-2, -2);
-        dlp.topMargin = Ui.dp(c, 18);
+        dlp.topMargin = Ui.dp(c, 12);
         panel.addView(dots, dlp);
 
         msg = Ui.label(c, "", 18, Ui.DIM);
         LinearLayout.LayoutParams mlp = new LinearLayout.LayoutParams(-2, -2);
-        mlp.topMargin = Ui.dp(c, 10);
+        mlp.topMargin = Ui.dp(c, 6);
         panel.addView(msg, mlp);
 
         String[][] keys = {
@@ -91,11 +93,11 @@ public class PinPadView extends FrameLayout {
         for (String[] r : keys) {
             LinearLayout row = Ui.row(c);
             LinearLayout.LayoutParams rlp = new LinearLayout.LayoutParams(-2, -2);
-            rlp.topMargin = Ui.dp(c, 10);
+            rlp.topMargin = Ui.dp(c, 8);
             panel.addView(row, rlp);
             for (String k : r) {
                 TextView b = Ui.key(c, k, 24);
-                LinearLayout.LayoutParams blp = new LinearLayout.LayoutParams(Ui.dp(c, 104), Ui.dp(c, 64));
+                LinearLayout.LayoutParams blp = new LinearLayout.LayoutParams(Ui.dp(c, 104), Ui.dp(c, 58));
                 blp.leftMargin = Ui.dp(c, 6);
                 blp.rightMargin = Ui.dp(c, 6);
                 row.addView(b, blp);
@@ -136,7 +138,7 @@ public class PinPadView extends FrameLayout {
             footerBtn = t;
         }
         LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(-2, -2);
-        lp.topMargin = Ui.dp(getContext(), 14);
+        lp.topMargin = Ui.dp(getContext(), 10);
         panel.addView(t, lp);
     }
 

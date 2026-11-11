@@ -6,6 +6,7 @@ import android.view.Gravity;
 import android.view.KeyEvent;
 import android.view.View;
 import android.widget.FrameLayout;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -52,7 +53,9 @@ public class MaskView extends FrameLayout {
         setFocusableInTouchMode(true);
 
         box = Ui.col(c);
-        box.setPadding(Ui.dp(c, 72), Ui.dp(c, 40), Ui.dp(c, 72), Ui.dp(c, 40));
+        // 1080p 电视只有 540dp 高：右下角加了品牌角标后，竖向留白必须收一收，
+        // 否则题干换两行时品牌会被挤出屏幕（模拟器实测）。
+        box.setPadding(Ui.dp(c, 72), Ui.dp(c, 28), Ui.dp(c, 72), Ui.dp(c, 28));
 
         TextView kicker = Ui.label(c, "本次观看时间到", 20, Ui.DIM);
         box.addView(kicker);
@@ -60,13 +63,13 @@ public class MaskView extends FrameLayout {
         stemView = Ui.title(c, "", 30);
         stemView.setGravity(Gravity.CENTER);
         LinearLayout.LayoutParams slp = new LinearLayout.LayoutParams(-1, -2);
-        slp.topMargin = Ui.dp(c, 22);
+        slp.topMargin = Ui.dp(c, 16);
         box.addView(stemView, slp);
 
         for (int row = 0; row < 2; row++) {
             LinearLayout r = Ui.row(c);
-            LinearLayout.LayoutParams rlp = new LinearLayout.LayoutParams(-1, Ui.dp(c, 78));
-            rlp.topMargin = Ui.dp(c, row == 0 ? 28 : 16);
+            LinearLayout.LayoutParams rlp = new LinearLayout.LayoutParams(-1, Ui.dp(c, 72));
+            rlp.topMargin = Ui.dp(c, row == 0 ? 20 : 12);
             box.addView(r, rlp);
             for (int col = 0; col < 2; col++) {
                 final int i = row * 2 + col;
@@ -90,14 +93,28 @@ public class MaskView extends FrameLayout {
         feedback = Ui.label(c, "", 20, Ui.DIM);
         feedback.setGravity(Gravity.CENTER);
         LinearLayout.LayoutParams flp = new LinearLayout.LayoutParams(-1, -2);
-        flp.topMargin = Ui.dp(c, 18);
+        flp.topMargin = Ui.dp(c, 14);
         box.addView(feedback, flp);
 
         TextView hint = Ui.label(c, "按 1–4 或方向键选择，OK 确认　·　菜单键 = 家长", 16, Ui.DIM);
         hint.setGravity(Gravity.CENTER);
         LinearLayout.LayoutParams hlp = new LinearLayout.LayoutParams(-1, -2);
-        hlp.topMargin = Ui.dp(c, 24);
+        hlp.topMargin = Ui.dp(c, 16);
         box.addView(hint, hlp);
+
+        // 右下角品牌角标：家长在出题这一刻看到的还是「答对再看」自己的界面。
+        // 放进内容流而不是盖在右下角 —— 1080p 下题干换两行时贴角会压到提示行。
+        LinearLayout brand = Ui.row(c);
+        brand.setGravity(Gravity.END | Gravity.CENTER_VERTICAL);
+        ImageView logo = new ImageView(c);
+        logo.setImageResource(R.drawable.home_logo);
+        brand.addView(logo, new LinearLayout.LayoutParams(Ui.dp(c, 30), Ui.dp(c, 30)));
+        TextView name = Ui.label(c, "答对再看", 18, Ui.DIM);
+        name.setPadding(Ui.dp(c, 10), 0, 0, 0);
+        brand.addView(name);
+        LinearLayout.LayoutParams blp = new LinearLayout.LayoutParams(-1, -2);
+        blp.topMargin = Ui.dp(c, 10);
+        box.addView(brand, blp);
 
         addView(box, new FrameLayout.LayoutParams(-1, -1));
         nextQuestion();
