@@ -163,6 +163,18 @@ public class AuthView extends FrameLayout {
         boolean allOk = true;
         for (Item it : items) if (!it.ok) allOk = false;
 
+        // D1（Android 11 / MiTV）实测：系统里根本没有「通知使用权」这一页，
+        // `ACTION_NOTIFICATION_LISTENER_SETTINGS` 和 `ACTION_SETTINGS` 都启动失败，
+        // 家长按「去开启」只会看到一闪而过的提示。所以把兜底写死在面板上，
+        // 不指望 toast 能把话说完。
+        if (!allOk) {
+            TextView tip = Ui.label(ctx,
+                    "电视里找不到这一页时，用电脑执行上面那条 adb 命令即可。", 14, Ui.DIM);
+            LinearLayout.LayoutParams tlp = new LinearLayout.LayoutParams(-1, -2);
+            tlp.topMargin = Ui.dp(ctx, 10);
+            panel.addView(tip, tlp);
+        }
+
         if (allOk) {
             addBtn("开始计时", true, () -> host.startAnyway());
             addBtn("取消", true, () -> host.cancel());
