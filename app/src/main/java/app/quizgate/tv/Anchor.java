@@ -12,7 +12,7 @@ import java.util.Date;
 import java.util.Locale;
 
 /**
- * 卸载留痕：把「这台电视装过答对再看」记在应用数据之外。
+ * 卸载留痕：把「这台电视装过答题续时」记在应用数据之外。
  *
  * <p>卸载 APK 会连 /data/data 一起清空（pinHash、恢复码、会话全没），重装后
  * {@code hasPin()==false} 就走「首次安装」分支——孩子自己设个新口令，家长看到的是

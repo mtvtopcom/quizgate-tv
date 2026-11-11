@@ -3,12 +3,14 @@
 本项目遵循 [Semantic Versioning](https://semver.org/lang/zh-CN/)。
 `versionCode = MAJOR*10000 + MINOR*100 + PATCH`，单调递增。
 
-## [1.3.0] - 2026-11-11（开发中，尚未发布）
+## [1.3.0] - 2026-11-11（正式发布）
 
 **单一升级源；题目可选语数英；授权质检收进「守护状态」；取消电池白名单；家长解锁后进首页并短期免密；卸载留痕只在真有痕迹时提示。**
 
-> 本轮只做代码、文档与真机验收，**没有打 Release、没有上传 version.json**。
-> 线上仍是 1.2.9；`versionCode 10300` 的本地包 sha256 以最后一次 `publish.sh` 为准。
+> 正式包 `dist/quizgate-1.3.0.apk`（244647 字节，`versionCode 10300`），
+> SHA-256 `ba8a51bf29b175673151051871f9a83d8ce62beffca2c5521e31c6f7fa623ce2`
+> （以最后一次 `publish.sh` 产出为准）；[Release v1.3.0](https://github.com/mtvtopcom/quizgate-tv/releases/tag/v1.3.0)。
+> `dist/version.json` 的 `notes` 已写入四行升级说明，包含改名与授权条数。
 
 ### 1. 升级源删掉 fallback
 
@@ -66,6 +68,28 @@ D1（Android 11）与 D2（Android 14）都执行 `dumpsys deviceidle whitelist 
 - **痕迹检查结果**：两台 `Settings.Secure` / `System` / `Global` 里没有任何
   `quizgate_install_anchor` 之类的卸载留痕键；D2 的 `/sdcard/Download/` 里还留着一个
   历史升级包 `quizgate-1.2.6 (1).apk`（不影响功能，未删除，等用户决定）。
+
+### 8. 应用改名为「答题续时」
+
+原名「答对再看」第一眼看不出是做什么的，改为**答题续时**：直接点出「答题换观看时长」这层机制，
+也不叫「锁屏」——本应用是到点盖系统悬浮窗，不是系统锁屏，更没法吞掉 HOME。
+
+- `AndroidManifest.xml` 的 `android:label` 改为「答题续时」，桌面 / 安装器 / 系统设置 / 权限页
+  的应用名随之变化；首页标题、通知标题、答题页右下角品牌角标同步。
+- **两处权限引导路径**（「设置 → 应用 → 答对再看 → 权限」）与未知来源安装引导同步改，
+  否则家长照着提示找不到应用。
+- `banner_v2.png` 上印着中文名，重绘为 `banner_v3.png`；`ic_launcher_v2` → `ic_launcher_v3`，
+  换资源名绕开小米桌面按资源名缓存旧图（1.2.7 同款坑）。`home_logo.png` 是纯图形，不变。
+  旧 `_v2` 文件删除后编译立刻暴露出 `GateService` 通知小图标还写着
+  `R.drawable.ic_launcher_v2`，已同步改 v3 —— 只搜中文名会漏掉这类资源引用。
+- 首页副标题「到点一题 · 答对续时」作为机制说明保留，不另改文案。
+- **包名 `app.quizgate.tv`、签名、仓库名、升级源目录全部不动**：只是显示名变化，
+  覆盖升级仍是同一个应用，口令 / 恢复码 / 时长 / 年级设置照旧沿用。
+- 版本分界：1.2.9 及以前的安装包、截图、发布说明与取证记录里仍显示「答对再看」，
+  那些是改名前的历史文案，**未作修改**；`docs/release-notes-v1.1.0.md`、
+  `docs/release-notes-v1.2.3.md`、`evidence/D8|D9|D11-2026-11-11/` 与本文件 1.2.9 条目同理。
+- `dist/version.json` 的 `notes` 首行已写明「1.3.0 改名为「答题续时」」，
+  避免家长覆盖升级后看到桌面换名以为装了别的软件；升级页限四行，多余内容省略。
 
 ## [1.2.9] - 2026-11-11（正式发布）
 

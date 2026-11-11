@@ -15,14 +15,14 @@
 ```
 https://7789.cn/y/quizgate-tv/
 ├── version.json              ← 客户端靠它判断有没有新版
-└── quizgate-1.2.9.apk
+└── quizgate-1.3.0.apk
 ```
 
 > **这个目录不支持列目录**（`GET 目录` 返回 404），客户端没法「看看文件夹里有什么」，
 > 只能按固定文件名 `version.json` 去取。所以每次发版**必须**传 `version.json`，
 > 只传 apk 等于没发。
 
-### 1.1 主地址的证书（发布当天已补齐）
+### 1.1 主地址的证书（已补齐；1.3.0 起单地址）
 
 **现状（2026-11-11 16:10 起）**：`7789.cn` 已是自己的证书，1.2.9 直连主地址即可。
 
@@ -40,26 +40,22 @@ curl -v https://7789.cn/y/quizgate-tv/version.json
 I QuizGate: update_check_src https://7789.cn/y/quizgate-tv/ remote=10209 (1.2.9)
 ```
 
-**历史（构建时）**：当天上午该端口出示的是 `CN=*.mianmiangou.cn` 的证书，
+**历史**：1.2.9 构建当天该端口出示过 `CN=*.mianmiangou.cn` 的证书，
 TLS 校验失败（`SSLPeerUnverifiedException: Hostname 7789.cn not verified`），
 所以 1.2.9 带了过渡期兜底 `BuildCfg.UPGRADE_FALLBACK`（旧目录）。
-现在兜底只在「主地址临时不可达 / DNS 挂了」时才会用到，日志里会成对出现：
-
-```
-update_check_fail <base> -> <原因>
-update_check_src  <实际用到的 base>
-```
-
-**下一版**把 `BuildCfg.UPGRADE_FALLBACK` 与 `build.sh` 的 `DEFAULT_FALLBACK` 一起置空串，
-恢复「只连一个地址」。这版先留着，代价只是极端情况多一次请求。
+证书补齐后，**1.3.0 已把 `BuildCfg.UPGRADE_FALLBACK` 与 `build.sh` /
+`tools/publish.sh` 的 fallback 一起删掉**，恢复「只连一个地址」：主地址连不上就静默放弃，
+不会再请求第二个地址，日志里只有一行 `update_check_fail <base> -> <原因>`。
+CI 仍断言 `\.openConnection()` 恰好 2 处。
 
 ### 1.2 存量用户怎么迁到新地址
 
 **客户端的 `base` 是编译进包里的。** ≤1.2.6 的电视只会去旧目录取 `version.json`，
 所以：
 
-- 新包发到新目录的同时，**旧目录的 `version.json` 必须也改成 10209**（apk 字段可以用
-  完整 `https://` 绝对地址，也可以把同一个包再传一份到旧目录）；
+- 新包发到新目录的同时，**旧目录的 `version.json` 必须也改成 10300**（apk 字段可以用
+  完整 `https://` 绝对地址，也可以把同一个包再传一份到旧目录），
+  否则停在 ≤1.2.8 的电视收不到 1.3.0 的提示；
 - 等确认绝大多数电视升到 1.2.9 之后，旧目录才可以停止更新（但别删，
   否则停在旧版的电视永远收不到提示）。
 
@@ -67,9 +63,9 @@ update_check_src  <实际用到的 base>
 
 ```json
 {
-  "versionCode": 10206,
-  "versionName": "1.2.6",
-  "apk": "quizgate-1.2.6.apk",
+  "versionCode": 10300,
+  "versionName": "1.3.0",
+  "apk": "quizgate-1.3.0.apk",
   "sha256": "完整的 64 位十六进制",
   "notes": "更新说明，会原样显示在升级页上，支持换行"
 }
@@ -77,7 +73,7 @@ update_check_src  <实际用到的 base>
 
 | 字段 | 必填 | 说明 |
 | --- | --- | --- |
-| `versionCode` | ✅ | 必须**大于**已安装版本才会提示；算法 `MAJOR*10000+MINOR*100+PATCH`，1.2.6 = 10206 |
+| `versionCode` | ✅ | 必须**大于**已安装版本才会提示；算法 `MAJOR*10000+MINOR*100+PATCH`，1.3.0 = 10300 |
 | `versionName` | ✅ | 显示用 |
 | `apk` | ✅ | 相对路径会拼在 base 后面；也可以直接写完整 `https://` 地址 |
 | `sha256` | ✅ | 64 位小写十六进制。只防传输损坏，不防篡改（见下） |
@@ -94,7 +90,7 @@ update_check_src  <实际用到的 base>
 
 ```bash
 # 一条命令：构建 release 包 + 生成要上传的两个文件（在 dist/）
-./tools/publish.sh 1.2.6 "这次改了什么"
+./tools/publish.sh 1.3.0 "这次改了什么"
 ```
 
 脚本做的事：按版本号算 `versionCode` → 注入清单和 `BuildCfg.UPGRADE_BASE` →
@@ -104,7 +100,7 @@ update_check_src  <实际用到的 base>
 然后把**这两个文件**传到 `quizgate-tv/` 目录：
 
 ```
-dist/quizgate-1.2.6.apk
+dist/quizgate-1.3.0.apk
 dist/version.json
 ```
 
@@ -155,7 +151,7 @@ git push origin main && git push origin vX.Y.Z
 | 机器 | 角色 | 发版后状态 |
 | --- | --- | --- |
 | D1 `192.168.1.123:5555`（Android 11） | 新版验收机 | 刷本次最终 `dist` 包，恢复干净首装交付态 |
-| D2 `192.168.1.88:5555`（Android 14） | 旧版待升级机 | 装回上一版正式包，首装态，等用户走 OTA 升级 |
+| D2 `192.168.1.88:5555`（Android 14） | 旧版待升级机 | 装回 **v1.2.9** 正式包，首装态，等用户走 OTA 升级 |
 
 > 每次发版可以轮换角色，让两套固件都轮流测过升级安装器；别长期只在一台上测
 > （同型号不同 Android 大版本的安装器行为不能互相套结论）。
@@ -167,7 +163,7 @@ ADB=$HOME/android-dev/sdk/platform-tools/adb; D=192.168.1.88:5555
 $ADB -s $D shell settings delete secure quizgate_install_anchor
 $ADB -s $D shell settings delete system quizgate_install_anchor
 $ADB -s $D uninstall app.quizgate.tv
-$ADB -s $D install dist/quizgate-<上一版>.apk
+$ADB -s $D install dist/quizgate-1.2.9.apk
 $ADB -s $D shell appops set app.quizgate.tv SYSTEM_ALERT_WINDOW allow
 $ADB -s $D shell appops set app.quizgate.tv REQUEST_INSTALL_PACKAGES allow
 $ADB -s $D shell cmd notification allow_listener app.quizgate.tv/app.quizgate.tv.NotifProbe
@@ -178,8 +174,8 @@ $ADB -s $D shell am start -n app.quizgate.tv/.MainActivity
 
 - 卸载会清掉通知使用权（1.2.9 及以前还会清电池白名单），必需授权要补回来；
   只补 appops 会复现 D5 的「到点不出题」。1.3.0 起是两条必需，1.2.9 及以前是三条。
-- **别给旧版机预授权 `WRITE_SECURE_SETTINGS`**（上一版也没声明这个权限）。覆盖升级到 1.2.6 后
-  设置页第五项应当是红字「未启用」，正好验证发布说明里「覆盖升级不自动获得可选授权」这一点。
+- **别给旧版机预授权 `WRITE_SECURE_SETTINGS`**。1.3.0 起没卸过就不显示留痕提示，
+  正好验证「覆盖升级不自动获得可选授权」；1.2.9 及以前设置页会有「未启用」红字。
 - 复核 logcat 出现 `update_check self=<旧 versionCode> remote=<新 versionCode>`，
   说明旧版机确实读到了线上清单、具备升级条件；截图前先查 `mResumedActivity`，别拿桌面图当证据。
 - 旧版机停在「设置 6 位家长口令」即可：`checkUpdate()` 拿到更高 versionCode 后，
@@ -295,7 +291,7 @@ grep -rn "openConnection" app/src/main/java/
 ```
 
 - 只有两个请求：`GET {base}version.json`、`GET {base}quizgate-x.y.z.apk`
-  （`base` 是主地址；1.2.9 起主地址失败时会换兜底地址再试一次，见 1.1）
+  （1.3.0 起 `base` 只有主地址一个，失败即放弃、不再换地址，见 1.1）
 - 裸 GET：无 query、无 body、无 cookie、无自定义 header（除固定的 `User-Agent: QuizGate`）
 - **不传设备信息**：默认 UA 是 `Dalvik/2.1.0 (Linux; U; Android 11; ...)`，
   会把系统版本和机型报出去，所以强制改成 `QuizGate`

@@ -251,7 +251,7 @@ public class UpgradeView extends FrameLayout {
         if (!Updater.canInstall(ctx)) {
             state.setTextColor(Ui.BAD);
             state.setText("需要先允许本应用「安装未知应用」。\n"
-                    + "如果设置页没弹出来：设置 → 应用 → 安全 → 安装未知应用 → 答对再看 → 允许\n"
+                    + "如果设置页没弹出来：设置 → 应用 → 安全 → 安装未知应用 → 答题续时 → 允许\n"
                     + "（安装包已经下载好了，授权后回来点「立即安装」就行）");
             try {
                 ctx.startActivity(Updater.installSettingsIntent(ctx));

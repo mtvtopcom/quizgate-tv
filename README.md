@@ -1,20 +1,25 @@
-# 答对再看 · QuizGate
+# 答题续时 · QuizGate
 
 **到点出一题，答对换 N 分钟。** 给中国电视（小米为主）用的「续时闸门」，不是家长控制软件，也不是儿童锁。
 
 <p align="center">
-  <img src="docs/img/logo.png" width="18%" alt="答对再看">
+  <img src="docs/img/logo.png" width="18%" alt="答题续时">
 </p>
 
-> **当前版本 [v1.2.9](https://github.com/mtvtopcom/quizgate-tv/releases/tag/v1.2.9)** · `versionCode 10209` · 2026-11-11 发布
-> `quizgate-1.2.9.apk` · SHA-256 `50fe7f845bce3ffb3ee20f780f4711a1298b4cc94f9edfa25aac0af0ab197bc8`
+> **当前版本 [v1.3.0](https://github.com/mtvtopcom/quizgate-tv/releases/tag/v1.3.0)** · `versionCode 10300` · 2026-11-11 发布
+> `quizgate-1.3.0.apk` · SHA-256 `ba8a51bf29b175673151051871f9a83d8ce62beffca2c5521e31c6f7fa623ce2`
 > · [更新日志](CHANGELOG.md) · [全部 Release](https://github.com/mtvtopcom/quizgate-tv/releases)
 >
-> 已装 1.2.x 的电视不用手动下载：**升级源已更新**，进应用会提示新版本（可点「以后再说」跳过）。
+> 已装 1.2.x 的电视不用手动下载：升级源更新后会提示新版本（可点「以后再说」跳过）。
 > 升级不改口令、恢复码、时长与年级；卸载重装仍需自己设 6 位口令。
 >
-> 1.2.6 新增「卸载留痕」（可选 adb 授权，不补不影响计时）；1.2.9 把设置页顶部精简为「设置」、
-> 时长与答对延长可用自定义数字键盘、年级分小学/初中，并在开始计时前检查三项授权。
+> 1.3.0 应用改名「答题续时」，题库扩到语文 / 数学 / 英语 × 1–9 年级（216 题），
+> 授权自检收进「守护状态」子页，取消电池白名单（装机改为**两条必需 ＋ 一条可选**），
+> 家长解锁后进首页并短期免密，卸载留痕只在真有痕迹时提示。
+>
+> **应用名分界**：1.3.0 起改为「答题续时」；v1.2.9 安装包、仓库内截图与 1.3.0 验收期的
+> `evidence/D12` 取证图都拍于改名落地前，仍显示「答对再看」。包名 `app.quizgate.tv` 没变，
+> 覆盖升级沿用原口令 / 恢复码 / 设置。
 
 **首页**（只放运行状态）与**设置页**（参数、守护状态、当前版本；1.3.0 起授权自检收进「守护状态」子页）：
 
@@ -80,17 +85,17 @@
 
 ### 1. 装 APK
 
-从 [v1.2.9 Release](https://github.com/mtvtopcom/quizgate-tv/releases/tag/v1.2.9) 下载 `quizgate-1.2.9.apk`，
+从 [v1.3.0 Release](https://github.com/mtvtopcom/quizgate-tv/releases/tag/v1.3.0) 下载 `quizgate-1.3.0.apk`，
 按上方 SHA-256（或 Release 附的 `SHA256SUMS.txt`）校验后安装：
 
 ```bash
 adb connect <电视IP>:5555
-adb install -r quizgate-1.2.9.apk
+adb install -r quizgate-1.3.0.apk
 ```
 
 也可以用 U 盘装（见下方「安装路径 A」）。
 
-### 2. 授权（关键，缺一不可）
+### 2. 授权（两条必需）
 
 ```bash
 # ① 显示在其他应用上层：遮罩要靠它
@@ -108,7 +113,7 @@ adb shell appops get app.quizgate.tv SYSTEM_ALERT_WINDOW     # 应输出 allow
 adb shell settings get secure enabled_notification_listeners # 应包含 app.quizgate.tv/...
 ```
 
-> 1.2.6 起还有**第三条、且是可选**的授权，只用于「卸载留痕」，**不补不影响计时和出题**：
+> 1.2.6 起还有**一条可选**的授权（不属于上面两条必需），只用于「卸载留痕」，**不补不影响计时和出题**：
 >
 > ```bash
 > adb shell pm grant app.quizgate.tv android.permission.WRITE_SECURE_SETTINGS
@@ -120,7 +125,7 @@ adb shell settings get secure enabled_notification_listeners # 应包含 app.qui
 
 ### 3. 设口令、开始
 
-1. 打开**答对再看** → 设 6 位口令（输两遍），随即拍照保存恢复码
+1. 打开**答题续时**（1.2.9 及以前显示为「答对再看」）→ 设 6 位口令（输两遍），随即拍照保存恢复码
 2. 进「设置」把「本次时长」改成 **1 分钟**（第一次别用 30 分钟，等不起）；
    1.3.0 起点「守护状态」看授权自检三项是不是全 ✓（悬浮窗 / 通知使用权 / 守护服务），
    1.2.9 及以前看设置页「授权自检」五项（只缺可选的卸载留痕不影响计时出题），以及「当前版本」
@@ -183,7 +188,7 @@ adb shell settings get secure enabled_notification_listeners # 应包含 app.qui
 | **退出应用后时间不走 / 倒计时暂停** | 同上：进程被系统强停，又没有通知使用权把它拉回来 | **1.2.9 起点「开始计时」会先查授权**（1.3.0 起查两项），缺了会明确提示（缺悬浮窗时不允许开始）。看到提示就别点「仍然开始」，先补授权 |
 | **点「开始计时」弹出「先补齐授权」**（1.2.9+） | 通知使用权缺失（1.2.9 还查电池白名单）；悬浮窗缺失时「仍然开始」是灰的 | 按面板上的 ✓/✗ 逐项点「去开启」，或用面板里那条 adb 命令；回到应用会自动重查，全绿后按钮变「开始计时」 |
 | 按 HOME 能切出答题页（1.2.9+ 已缓解） | HOME 键在系统层就被处理了，普通应用既收不到也吞不掉 | 1.2.9 起锁定态会盯着窗口焦点，被切走后约 0.5–2.5 秒重新挂遮罩抢回焦点；**要彻底禁止得靠无障碍服务或设备所有者**，本项目没做 |
-| 升级提示一直不出来（1.2.9+） | 主升级源证书不匹配（见「它不做什么」第 4 条） | 会自动回落旧目录并照常提示；`adb logcat -s QuizGate` 里能看到 `update_check_fail` 与 `update_check_src` 各一行 |
+| 升级提示一直不出来（1.3.0+ 无兜底地址） | 升级源不可达 / 域名证书异常；1.3.0 起只连主地址一个，检查失败静默跳过 | 确认电视能访问 `https://7789.cn/y/quizgate-tv/`、证书有效（`CN=7789.cn`，到 2027-02-09）；`adb logcat -s QuizGate` 里只有一行 `update_check_fail`。回落旧目录是 ≤1.2.9 的旧行为 |
 | 升级页显示「下载失败」 | 电视没网 / 升级源不可用 | 不影响使用（检查失败会静默跳过）；确认升级源地址后再进应用 |
 | 点「立即安装」提示要去授权 | 没给「安装未知应用」权限（重装应用会重置） | 设置 → 应用 → 安全 → 安装未知应用 → 允许；回来再点「立即安装」，包已经下好了 |
 | 点「立即安装」没反应 | 电视固件改过安装器入口 | 包就在 `Download/quizgate-x.y.z.apk`，用「媒体中心 / 文件管理」打开它 |
@@ -200,11 +205,11 @@ adb shell settings get secure enabled_notification_listeners # 应包含 app.qui
    在 1.1 及之前成立、现在不再成立，别拿旧说法当依据。可以验证的部分是：全部出网点在
    `Updater.java` 里只有两处（GET 一个 `version.json`、GET 那个 APK），
    请求不带参数、不带 cookie、不带设备信息（UA 固定写死成 `QuizGate`，不上报系统版本和机型）。
-   升级源默认就是生产目录 `https://7789.cn/y/quizgate-tv/`（1.2.9 起；旧目录
-   `https://shitang.mianmiangou.cn/static/quizgate-tv/` 只在主地址连不上时兜底）。
+   升级源只有生产目录 `https://7789.cn/y/quizgate-tv/` 一个（1.3.0 起删掉兜底）；
+   ≤1.2.8 的电视仍认旧目录 `https://shitang.mianmiangou.cn/static/quizgate-tv/`，
+   发版时旧目录的 `version.json` 也要同步，否则老电视收不到提示。
    该域名的证书在 2026-11-11 16:10 补齐（`CN=7789.cn`，Let's Encrypt，有效期到 2027-02-09），
-   1.2.9 实测就是直连主地址取到清单的；兜底只为「DNS 挂了 / 临时不可达」保留，
-   下一版会把 `BuildCfg.UPGRADE_FALLBACK` 置空，恢复「只连一个地址」。
+   真机实测直连主地址取清单；1.3.0 起连不上就静默放弃，不会再请求第二个地址。
    用 `QUIZGATE_UPGRADE_BASE=` 空值构建时，一次请求都不发。
    出网之外的行为没有变：不采集、不上报、不读屏幕内容。
 5. **不做多孩子档案**、不做远程控制、不做手机 App。
@@ -332,5 +337,5 @@ export ANDROID_HOME=/path/to/android-sdk
 ```bash
 shasum -a 256 -c SHA256SUMS.txt
 # 或单独看指纹：
-shasum -a 256 quizgate-1.2.9.apk
+shasum -a 256 quizgate-1.3.0.apk
 ```

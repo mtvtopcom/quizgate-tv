@@ -115,7 +115,7 @@ public class MainActivity extends Activity {
         sv.addView(content, new FrameLayout.LayoutParams(-1, -2));
         root.addView(sv, new FrameLayout.LayoutParams(-1, -1));
 
-        // 1.2.9：原来最上面那块（← 返回首页 / 「答对再看」/ 一句说明 / 「未开始 · 待机」状态行）
+        // 1.2.9：原来最上面那块（← 返回首页 / 「答题续时」/ 一句说明 / 「未开始 · 待机」状态行）
         // 整块删掉，抬头直接是「设置」。返回入口仍在页底，「BACK」也照旧可回首页。
         content.addView(Ui.title(this, "设置", 34));
 
@@ -185,7 +185,7 @@ public class MainActivity extends Activity {
         LinearLayout titles = Ui.col(this);
         titles.setGravity(Gravity.START);
         titles.setPadding(Ui.dp(this, 18), 0, 0, 0);
-        titles.addView(Ui.title(this, "答对再看", 30));
+        titles.addView(Ui.title(this, "答题续时", 30));
         titles.addView(Ui.label(this, "到点一题 · 答对续时", 17, Ui.DIM));
         brand.addView(titles, new LinearLayout.LayoutParams(-2, -2));
         home.addView(brand, new LinearLayout.LayoutParams(-1, -2));
@@ -725,7 +725,7 @@ public class MainActivity extends Activity {
         boolean ov = Settings.canDrawOverlays(this);
         out.add(new AuthView.Item(AUTH_OVERLAY, "悬浮窗权限", ov, ov ? "" :
                 "到点要盖住整屏出题，缺了它题根本出不来。\n"
-                        + "设置 → 应用 → 答对再看 → 权限；或用电脑执行：\n"
+                        + "设置 → 应用 → 答题续时 → 权限；或用电脑执行：\n"
                         + "adb shell appops set " + pkg + " SYSTEM_ALERT_WINDOW allow"));
 
         boolean notif = notifOn();
@@ -861,7 +861,7 @@ public class MainActivity extends Activity {
 
         box.addView(section("② 在电视设置里找下面任意一个词"));
         box.addView(section("显示在其他应用上层 · 悬浮窗 · 显示悬浮窗 · 在其他应用上层显示"));
-        box.addView(section("常见位置：设置 → 应用 → 应用管理 → 答对再看 → 权限；或 电视管家 → 权限管理。"));
+        box.addView(section("常见位置：设置 → 应用 → 应用管理 → 答题续时 → 权限；或 电视管家 → 权限管理。"));
 
         box.addView(section("③ 两条都找不到"));
         box.addView(section("说明这台固件彻底隐藏了该权限，请把日志发我，我改成「Activity 兜底锁屏」模式。"));

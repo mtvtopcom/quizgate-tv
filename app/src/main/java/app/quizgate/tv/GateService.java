@@ -523,9 +523,9 @@ public class GateService extends Service implements MaskView.Host {
         Notification.Builder b = Build.VERSION.SDK_INT >= 26
                 ? new Notification.Builder(this, CHANNEL)
                 : new Notification.Builder(this);
-        return b.setContentTitle("答对再看")
+        return b.setContentTitle("答题续时")
                 .setContentText(text)
-                .setSmallIcon(R.drawable.ic_launcher_v2)
+                .setSmallIcon(R.drawable.ic_launcher_v3)
                 .setOngoing(ongoing)
                 .setAutoCancel(!ongoing)
                 .setContentIntent(pi)

@@ -28,12 +28,15 @@
     <!-- 1.2.7：图标换成 _v2 资源名。1.2.4 之前是 ic_launcher.xml（矢量简笔电视），
          1.2.5 直接换成同名 ic_launcher.png，资源名没变，小米桌面 com.mitv.tvhome
          按包名/资源名缓存的旧图标一直不失效，覆盖升级甚至卸载重装都显示老 logo。
-         换个资源名让缓存键变化；桌面仍缓存时再 am force-stop / pm clear com.mitv.tvhome。 -->
+         换个资源名让缓存键变化；桌面仍缓存时再 am force-stop / pm clear com.mitv.tvhome。
+         1.3.0：应用名改为「答题续时」，banner 上印着的中文名必须重绘；图标与 banner
+         一并换 _v3 资源名，避免桌面按资源名缓存继续显示旧图（同 1.2.7 的坑）。
+         只改 label 与资源，不动包名：覆盖升级仍沿用口令 / 恢复码 / 时长设置。 -->
     <application
         android:name=".App"
-        android:label="答对再看"
-        android:icon="@drawable/ic_launcher_v2"
-        android:banner="@drawable/banner_v2"
+        android:label="答题续时"
+        android:icon="@drawable/ic_launcher_v3"
+        android:banner="@drawable/banner_v3"
         android:allowBackup="false"
         android:usesCleartextTraffic="false"
         android:theme="@android:style/Theme.Material.NoActionBar">

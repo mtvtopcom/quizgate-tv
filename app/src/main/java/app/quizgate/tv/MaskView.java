@@ -106,14 +106,14 @@ public class MaskView extends FrameLayout {
         hlp.topMargin = Ui.dp(c, 16);
         box.addView(hint, hlp);
 
-        // 右下角品牌角标：家长在出题这一刻看到的还是「答对再看」自己的界面。
+        // 右下角品牌角标：家长在出题这一刻看到的还是「答题续时」自己的界面。
         // 放进内容流而不是盖在右下角 —— 1080p 下题干换两行时贴角会压到提示行。
         LinearLayout brand = Ui.row(c);
         brand.setGravity(Gravity.END | Gravity.CENTER_VERTICAL);
         ImageView logo = new ImageView(c);
         logo.setImageResource(R.drawable.home_logo);
         brand.addView(logo, new LinearLayout.LayoutParams(Ui.dp(c, 30), Ui.dp(c, 30)));
-        TextView name = Ui.label(c, "答对再看", 18, Ui.DIM);
+        TextView name = Ui.label(c, "答题续时", 18, Ui.DIM);
         name.setPadding(Ui.dp(c, 10), 0, 0, 0);
         brand.addView(name);
         LinearLayout.LayoutParams blp = new LinearLayout.LayoutParams(-1, -2);
