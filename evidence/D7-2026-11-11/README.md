@@ -26,7 +26,10 @@ D1=2，Device Owner 要求无账号 / 恢复出厂；`remove-active-admin` 还�
 | 被测包 | `build/quizgate-1.2.6.apk`（10206） | 同左 |
 
 验证包 sha256 `a484f784abce6a07131af724ca053f5033490f9038482fe58635d0c321c49a32`
-（**验证期产物，不是正式发布包**；正式 `dist/` 包要等「正式发布」时由 `publish.sh` 重签产出）。
+（**验证期产物，不是正式发布包**；`build/quizgate-1.2.6.apk` 这个同名文件后来已被
+`publish.sh` 产出的正式包覆盖）。正式发布包是 `dist/quizgate-1.2.6.apk`，
+sha256 `bd4f45454f4bec094122704deefa415cf51a316e8ca7eb394f34be1eded15bc1`
+（每次 `publish.sh` 都会重签，以最后一次产出的 sha 为准）。
 
 本地按 CI 原文用该真实产物跑过断言：9 个权限全在白名单（基础 5 + 升级 2 + 卸载留痕 2）、
 `\.openConnection()` 仍 2 处且都在 `Updater.java`、无 `TEMP` / `TODO-TEST` 残留。
@@ -130,7 +133,7 @@ W QuizGate: anchor_reinstall count=1 last_seen=11-11 08:33 gap=38660ms
 ## 交付态恢复
 
 验证结束后两台都卸载 1.2.6、删除 `quizgate_install_anchor` 的 system / secure 键，
-装回**已发布的** `dist/quizgate-1.2.5.apk`，`pm clear` 清掉测试口令与恢复码，
+装回当时的线上版本 `dist/quizgate-1.2.5.apk`，`pm clear` 清掉测试口令与恢复码，
 补齐原有三条授权：
 
 ```bash
@@ -157,5 +160,7 @@ adb shell dumpsys deviceidle whitelist +app.quizgate.tv
 
 ## 状态
 
-代码与双机验证已完成。**v1.2.6 尚未正式发布**：没有 `dist/` 正式产物、没有 tag、
-没有 GitHub Release，生产升级源 `version.json` 与 GitHub Latest 仍是 1.2.5。
+2026-11-11 已完成代码、双机取证与正式发版（`dist/quizgate-1.2.6.apk`、tag `v1.2.6`、
+GitHub Release）。本目录记录的是**验证期**过程，不代表正式包的 sha；
+正式包指纹见 `CHANGELOG.md` 与 Release 正文。正式发版后两台设备已改刷最终 `dist` 包
+并重新回到首装交付态。

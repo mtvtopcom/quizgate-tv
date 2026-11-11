@@ -3,12 +3,13 @@
 本项目遵循 [Semantic Versioning](https://semver.org/lang/zh-CN/)。
 `versionCode = MAJOR*10000 + MINOR*100 + PATCH`，单调递增。
 
-## [1.2.6] - 2026-11-11（代码与双机验证完成，**尚未正式发布**）
+## [1.2.6] - 2026-11-11
 
 **卸载不再「无痕」：装一个应用数据之外的锚点，重装后明确告诉家长这台电视被卸过几次、失联多久。**
 
-> 本版代码已在 `main`，但 `dist/` 正式产物、tag、GitHub Release、生产 `version.json`
-> 都还没做。线上可下载版本与升级源仍是 **1.2.5**。
+> 正式包 `quizgate-1.2.6.apk`（10206），SHA-256
+> `bd4f45454f4bec094122704deefa415cf51a316e8ca7eb394f34be1eded15bc1`。
+> 详见 [v1.2.6 Release](https://github.com/mtvtopcom/quizgate-tv/releases/tag/v1.2.6)。
 
 ### 问题与取舍
 

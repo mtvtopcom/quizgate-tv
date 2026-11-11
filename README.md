@@ -6,24 +6,29 @@
   <img src="docs/img/logo.png" width="18%" alt="答对再看">
 </p>
 
-> **当前版本 [v1.2.5](https://github.com/mtvtopcom/quizgate-tv/releases/tag/v1.2.5)** · `versionCode 10205` · 2026-11-11 发布
-> `quizgate-1.2.5.apk` · SHA-256 `bcbbbcbe504df265f3ddc17012b019d0cd77ede569d2f20c95d721c2d5ac6f5e`
+> **当前版本 [v1.2.6](https://github.com/mtvtopcom/quizgate-tv/releases/tag/v1.2.6)** · `versionCode 10206` · 2026-11-11 发布
+> `quizgate-1.2.6.apk` · SHA-256 `bd4f45454f4bec094122704deefa415cf51a316e8ca7eb394f34be1eded15bc1`
 > · [更新日志](CHANGELOG.md) · [全部 Release](https://github.com/mtvtopcom/quizgate-tv/releases)
 >
 > 已装 1.2.x 的电视不用手动下载：**升级源已更新**，进应用会提示新版本（可点「以后再说」跳过）。
 > 升级不改口令、恢复码、时长与年级；卸载重装仍需自己设 6 位口令。
 >
-> 开发中：**v1.2.6「卸载留痕」代码已在 `main`，尚未发布**（目前没有可下载的 1.2.6 包）。
-> 现在装机请一律用上面的 1.2.5；正式发布后升级源会自动提示。
+> 1.2.6 新增「卸载留痕」：想启用需补一条**可选** adb 授权（不补不影响计时出题），见下文。
 
-**v1.2.5 首页**（只放运行状态）与**设置页**（参数、授权自检、当前版本）：
+**首页**（只放运行状态）与**设置页**（参数、授权自检五项、当前版本）：
 
 <p align="center">
-  <img src="docs/img/04-home.png" width="45%" alt="v1.2.5 首页">
-  <img src="docs/img/05-settings.png" width="45%" alt="v1.2.5 设置页">
+  <img src="docs/img/04-home.png" width="45%" alt="首页">
+  <img src="docs/img/05-settings.png" width="45%" alt="设置页">
 </p>
 
-到点出题的遮罩（1.2.5 沿用同一套交互，只换了主题色）：
+1.2.6 起，检测到曾被卸载时首页会**常驻红字**：
+
+<p align="center">
+  <img src="evidence/D7-2026-11-11/07_d2_home_warn_fixed.png" width="45%" alt="卸载留痕首页红字">
+</p>
+
+到点出题的遮罩（交互未变）：
 
 <p align="center">
   <img src="docs/img/01-pin.png" width="30%" alt="家长口令">
@@ -57,7 +62,7 @@
 
 1. **必须用电脑执行三条 adb 命令**，否则守护不生效。小米电视固件把「显示在其他应用上层」「通知使用权」「电池优化白名单」的 UI 入口藏了，只能用 adb 开。Android 14 固件尤其严格：少第三条，回桌面就会把守护强停，到点不出题。
 2. **只在小尺寸范围内验证过**：同一机型 MiTV-MFTR0 的 Android 11 / 14 两套固件。见 [兼容性矩阵](docs/compatibility.md)，未测的机型一律标「未验证」。
-3. **它防不住卸载**。这是 Android 的设计，任何第三方应用都防不住；v1.2.6 起会**留下卸载记录**让家长看得见（尚未发布，见下文「卸载留痕」），但不阻止卸载。
+3. **它防不住卸载**。这是 Android 的设计，任何第三方应用都防不住；1.2.6 起会**留下卸载记录**让家长看得见（见下文「卸载留痕」），但不阻止卸载。
 
 ---
 
@@ -71,12 +76,12 @@
 
 ### 1. 装 APK
 
-从 [v1.2.5 Release](https://github.com/mtvtopcom/quizgate-tv/releases/tag/v1.2.5) 下载 `quizgate-1.2.5.apk`，
+从 [v1.2.6 Release](https://github.com/mtvtopcom/quizgate-tv/releases/tag/v1.2.6) 下载 `quizgate-1.2.6.apk`，
 按上方 SHA-256（或 Release 附的 `SHA256SUMS.txt`）校验后安装：
 
 ```bash
 adb connect <电视IP>:5555
-adb install -r quizgate-1.2.5.apk
+adb install -r quizgate-1.2.6.apk
 ```
 
 也可以用 U 盘装（见下方「安装路径 A」）。
@@ -99,11 +104,19 @@ adb shell settings get secure enabled_notification_listeners # 应包含 app.qui
 adb shell dumpsys deviceidle whitelist | grep quizgate       # 应输出 user,app.quizgate.tv,...
 ```
 
+> 1.2.6 起还有**第四条、且是可选**的授权，只用于「卸载留痕」，**不补不影响计时和出题**：
+>
+> ```bash
+> adb shell pm grant app.quizgate.tv android.permission.WRITE_SECURE_SETTINGS
+> ```
+>
+> 覆盖升级不会自动获得它，设置页第五项会红字提醒。详见下文「卸载留痕」。
+
 ### 3. 设口令、开始
 
 1. 打开**答对再看** → 设 6 位口令（输两遍），随即拍照保存恢复码
 2. 进「设置」把「本次时长」改成 **1 分钟**（第一次别用 30 分钟，等不起）；
-   顺便看一眼「授权自检」四项是不是全 ✓，以及「当前版本」
+   顺便看一眼「授权自检」五项是不是全 ✓（只缺第五项不影响计时出题），以及「当前版本」
 3. 按返回键回首页 → 点「开始计时」：应用界面会关闭，右下角显示本次时长 5 秒后收起
 4. 60 秒后应出现读秒和遮罩，按 1–4 作答
 5. 想结束：遮罩上按**菜单键** → 输口令；或回应用首页点「结束本次会话」
@@ -139,6 +152,10 @@ adb shell dumpsys deviceidle whitelist | grep quizgate       # 应输出 user,ap
 
 原始取证命令与输出见 [docs/compatibility.md](docs/compatibility.md)。**未验证的格子不许当成结论**，这是这个项目的规矩。
 
+1.2.6 的「卸载留痕」在 D1 / D2 上分别取证：两套固件都拒绝 `Settings.System` 自定义键，
+`pm grant WRITE_SECURE_SETTINGS` 写 `Settings.Secure` 才生效；锚点跨真卸载保留、覆盖升级不误报。
+见 [证据 D7](evidence/D7-2026-11-11/README.md)。
+
 ---
 
 ## 常见故障
@@ -159,14 +176,14 @@ adb shell dumpsys deviceidle whitelist | grep quizgate       # 应输出 user,ap
 | 升级页显示「下载失败」 | 电视没网 / 升级源不可用 | 不影响使用（检查失败会静默跳过）；确认升级源地址后再进应用 |
 | 点「立即安装」提示要去授权 | 没给「安装未知应用」权限（重装应用会重置） | 设置 → 应用 → 安全 → 安装未知应用 → 允许；回来再点「立即安装」，包已经下好了 |
 | 点「立即安装」没反应 | 电视固件改过安装器入口 | 包就在 `Download/quizgate-x.y.z.apk`，用「媒体中心 / 文件管理」打开它 |
-| 设置页「卸载留痕：未启用」红字（v1.2.6 起） | 少一条只用于留痕的可选授权 | `adb shell pm grant app.quizgate.tv android.permission.WRITE_SECURE_SETTINGS`，重进本页自动变 ✓；不影响出题与计时 |
+| 设置页「卸载留痕：未启用」红字（1.2.6+） | 少一条只用于留痕的可选授权，覆盖升级不会自动获得 | `adb shell pm grant app.quizgate.tv android.permission.WRITE_SECURE_SETTINGS`，重进本页自动变 ✓；不影响出题与计时 |
 
 ---
 
 ## 它不做什么
 
 1. **不做每日总时长上限**。只做「这一次」。
-2. **不防卸载**。只有 Device Owner 能限制卸载，那要求恢复出厂，家庭场景不可接受。v1.2.6 起改为留痕告警（见下文），不是硬锁。
+2. **不防卸载**。只有 Device Owner 能限制卸载，那要求恢复出厂，家庭场景不可接受。1.2.6 起改为留痕告警（见下文），不是硬锁。
 3. **不看内容**。不监听播放了什么，不读通知内容，不读屏幕文字。
 4. **不收集数据，只在升级时联网**。v1.2.0 为在线升级引入了 `INTERNET`，所以「没有网络权限」这句
    在 1.1 及之前成立、现在不再成立，别拿旧说法当依据。可以验证的部分是：全部出网点在
@@ -177,14 +194,15 @@ adb shell dumpsys deviceidle whitelist | grep quizgate       # 应输出 user,ap
    出网之外的行为没有变：不采集、不上报、不读屏幕内容。
 5. **不做多孩子档案**、不做远程控制、不做手机 App。
 6. **不是儿童锁**。它提高「白看」的成本，不提供不可绕过的保证。
-7. **不接管桌面**。卸载后电视桌面完全恢复原样；v1.2.6 起只留一条系统设置记录，不改任何系统配置。
+7. **不接管桌面**。卸载后电视桌面完全恢复原样；1.2.6 起只留一条系统设置记录，不改任何系统配置。
 
 ---
 
-## 卸载留痕（v1.2.6 起，尚未发布）
+## 卸载留痕（1.2.6 起）
 
-> ⚠️ **这一节描述的是还没发布的版本。** 当前可下载的仍是 v1.2.5，装 1.2.5 不会有下面这些行为；
-> 代码已在 `main`，正式发布时本页顶部会换成 1.2.6。
+> ⚠️ **覆盖升级不会自动获得留痕所需的可选授权**（`WRITE_SECURE_SETTINGS`）。从 1.2.5 升上来的
+> 电视，设置页第五项会红字提示，补完命令重进本页即生效。**锚点从授权生效那一刻才建立，
+> 1.2.6 之前的卸载历史查不到** —— 这是留痕，不是回溯取证。
 
 **它不能阻止卸载，只能让「卸过」这件事看得见。** 卸载会连 `/data/data` 一起清空，
 悬浮窗、前台服务、通知监听、开机广播全没；硬锁只能上 Device Owner（要求恢复出厂 / 无账号），
@@ -227,7 +245,7 @@ adb shell appops set app.quizgate.tv WRITE_SETTINGS allow
 
 通知监听**不读取通知标题或正文**，代码里只用包名做存活判断（`NotifProbe.java`）。
 
-> 这三条是守护能跑起来的**必需**项。v1.2.6 起另有「卸载留痕」的可选授权
+> 这三条是守护能跑起来的**必需**项。1.2.6 起另有「卸载留痕」的可选授权
 > （`WRITE_SECURE_SETTINGS`），缺了只是不记录卸载，不影响出题与计时 —— 见上一节。
 
 ---
@@ -242,7 +260,7 @@ adb shell appops set app.quizgate.tv WRITE_SETTINGS allow
   若界面在、遥控器却按不动，确认装的是 **v1.2.4 及以上**：Android 14 的悬浮窗焦点树会「假成功」，
   1.2.4 起遮罩改为自己路由按键，不再依赖焦点树。
 - **卸载重装后守护不干活**：`appops` 容易记得补，通知使用权和电池白名单会被清掉。
-  **v1.2.5 起进「设置」看授权自检**，四项逐一核对，缺哪项就照抄屏幕上那条 adb 命令。
+  **1.2.5 起进「设置」看授权自检**（1.2.6 起五项），缺哪项就照抄屏幕上那条 adb 命令。
 
 详见 [docs/recovery.md](docs/recovery.md)。
 
@@ -289,5 +307,5 @@ export ANDROID_HOME=/path/to/android-sdk
 ```bash
 shasum -a 256 -c SHA256SUMS.txt
 # 或单独看指纹：
-shasum -a 256 quizgate-1.2.5.apk
+shasum -a 256 quizgate-1.2.6.apk
 ```

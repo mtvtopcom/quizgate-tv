@@ -15,7 +15,7 @@
 ```
 https://shitang.mianmiangou.cn/static/quizgate-tv/
 ├── version.json              ← 客户端靠它判断有没有新版
-└── quizgate-1.2.3.apk
+└── quizgate-1.2.6.apk
 ```
 
 > **这个目录不支持列目录**（`GET 目录` 返回 404），客户端没法「看看文件夹里有什么」，
@@ -26,9 +26,9 @@ https://shitang.mianmiangou.cn/static/quizgate-tv/
 
 ```json
 {
-  "versionCode": 10203,
-  "versionName": "1.2.3",
-  "apk": "quizgate-1.2.3.apk",
+  "versionCode": 10206,
+  "versionName": "1.2.6",
+  "apk": "quizgate-1.2.6.apk",
   "sha256": "完整的 64 位十六进制",
   "notes": "更新说明，会原样显示在升级页上，支持换行"
 }
@@ -36,7 +36,7 @@ https://shitang.mianmiangou.cn/static/quizgate-tv/
 
 | 字段 | 必填 | 说明 |
 | --- | --- | --- |
-| `versionCode` | ✅ | 必须**大于**已安装版本才会提示；算法 `MAJOR*10000+MINOR*100+PATCH`，1.2.3 = 10203 |
+| `versionCode` | ✅ | 必须**大于**已安装版本才会提示；算法 `MAJOR*10000+MINOR*100+PATCH`，1.2.6 = 10206 |
 | `versionName` | ✅ | 显示用 |
 | `apk` | ✅ | 相对路径会拼在 base 后面；也可以直接写完整 `https://` 地址 |
 | `sha256` | ✅ | 64 位小写十六进制。只防传输损坏，不防篡改（见下） |
@@ -53,7 +53,7 @@ https://shitang.mianmiangou.cn/static/quizgate-tv/
 
 ```bash
 # 一条命令：构建 release 包 + 生成要上传的两个文件（在 dist/）
-./tools/publish.sh 1.2.5 "这次改了什么"
+./tools/publish.sh 1.2.6 "这次改了什么"
 ```
 
 脚本做的事：按版本号算 `versionCode` → 注入清单和 `BuildCfg.UPGRADE_BASE` →
@@ -63,7 +63,7 @@ https://shitang.mianmiangou.cn/static/quizgate-tv/
 然后把**这两个文件**传到 `quizgate-tv/` 目录：
 
 ```
-dist/quizgate-1.2.5.apk
+dist/quizgate-1.2.6.apk
 dist/version.json
 ```
 
@@ -76,7 +76,7 @@ dist/version.json
 
 1. 顶部「当前版本」区块：版本号 / `versionCode` / 发布日 / apk 文件名 / sha256 / 更新日志链接；
 2. 「10 分钟装好」「安装路径 A」里的 apk 文件名、授权条数、操作步骤；
-   v1.2.6 起要区分「三条必需授权」与「一条只用于卸载留痕的可选授权」，别混成「四条缺一不可」；
+   1.2.6 起要区分「三条必需授权」与「一条只用于卸载留痕的可选授权」，别混成「四条缺一不可」；
 3. 有新截图或新兼容性结论时，换图、补矩阵；
 4. 「常见故障」表补上这一版新修的现象，`shasum` 示例别停在老版本文件名上。
 
@@ -260,11 +260,9 @@ QUIZGATE_UPGRADE_BASE=http://127.0.0.1:8765/ ./build.sh debug
 
 ---
 
-## 6. 升级到 v1.2.6 的额外一步（卸载留痕授权）
+## 6. 升级到 1.2.6 的额外一步（卸载留痕授权）
 
-> v1.2.6 **尚未正式发布**，本节是为发布后准备的运维说明。
-
-v1.2.6 新增 `WRITE_SETTINGS` / `WRITE_SECURE_SETTINGS` 两个权限用于写系统设置锚点。
+1.2.6 新增 `WRITE_SETTINGS` / `WRITE_SECURE_SETTINGS` 两个权限用于写系统设置锚点。
 `WRITE_SECURE_SETTINGS` 是系统级权限，**覆盖升级不会自动获得**，从 1.2.5 升上来的
 电视也不会。不补的后果仅是留痕不启用：应用照常计时、出题、升级，设置页「授权自检」
 第五项显示红字 `✗ 卸载留痕：缺失` 并给出命令，不会崩溃。
@@ -287,3 +285,18 @@ adb shell settings get secure quizgate_install_anchor   # 补完重进应用，�
 
 留痕只记录时间戳与次数，不含口令 / 恢复码 / 任何凭据派生值；只告警、不拦截，
 重装仍由用户自己设 6 位口令。双机取证见 [`evidence/D7-2026-11-11/`](../evidence/D7-2026-11-11/README.md)。
+
+### `pm clear` 会假装成一次卸载
+
+`adb shell pm clear app.quizgate.tv` 会同时清掉 `/data/data` 里的 `anchorInit` 和 `pinHash`，
+但**不会动系统设置里的锚点**。应用下次启动看到「锚点在 + 没口令 + 没首装标记」，
+与真卸载重装无法区分，会累加一次卸载计数。这是判据的固有边界（`pm clear` 需要 adb，
+孩子用遥控器做不到），但做完测试要恢复干净首装态时，必须**先删锚点再 clear**：
+
+```bash
+adb shell settings delete secure quizgate_install_anchor
+adb shell settings delete system quizgate_install_anchor
+adb shell pm clear app.quizgate.tv
+```
+
+删完重进应用，日志应出现 `anchor_init enabled=true` 且 `uninstalls=0`。
