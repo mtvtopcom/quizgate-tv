@@ -45,8 +45,8 @@ export ANDROID_HOME=/path/to/android-sdk   # build-tools 35 + platform 35
 
 ## 提交题库
 
-题库在 `app/src/main/assets/quiz/grade_<1..9>.json`，由 `tools/gen_quiz.py` 生成。
-**不要直接改 JSON**，改脚本里的 `DATA` 后重跑：
+题库在 `app/src/main/assets/quiz/<subject>_grade_<1..9>.json`，由 `tools/gen_quiz.py` 生成。
+六年级每科 100+ 题，其余年级每科 8 题。**不要直接改 JSON**，改脚本里的题库数据后重跑：
 
 ```bash
 python3 tools/gen_quiz.py

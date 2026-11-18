@@ -166,6 +166,7 @@ public class GateService extends Service implements MaskView.Host {
             if (ovMin > 0) prefs.setDurationMin(ovMin);
             remaining = ovMs > 0 ? ovMs : prefs.durationMin() * 60_000L;
             prefs.saveSnapshot(Prefs.RUNNING, remaining);
+            prefs.resetQuizProgress();      // 新一局：连对进度和冷却档位从零开始
             prefs.markStartHint(START_HINT_MS);
             Log.i(TAG, "start_hint show " + START_HINT_MS + "ms remaining=" + Core.fmt(remaining));
         } else {
@@ -251,6 +252,7 @@ public class GateService extends Service implements MaskView.Host {
 
     private void lock() {
         Log.i(TAG, "lock at 0 (screen=" + screenOn() + ")");
+        prefs.resetQuizProgress();          // 新一次锁定：连对进度和冷却档位归零
         prefs.saveSnapshot(Prefs.LOCKED, 0);
         remaining = 0;
         removeMini();
@@ -333,6 +335,7 @@ public class GateService extends Service implements MaskView.Host {
         int ext = prefs.extendMin() * 60_000;
         remaining = Math.max(1, remaining) + ext;
         prefs.saveSnapshot(Prefs.RUNNING, remaining);
+        prefs.resetQuizProgress();          // 延时到手：下一次锁定重新从 0/2 开始
         removeMask();
         lastTick = SystemClock.uptimeMillis();
         updateMini();

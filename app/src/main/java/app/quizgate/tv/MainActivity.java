@@ -11,9 +11,13 @@ import android.os.Handler;
 import android.os.Looper;
 import android.os.PowerManager;
 import android.provider.Settings;
+import android.text.InputType;
 import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
+import android.view.inputmethod.EditorInfo;
+import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -36,7 +40,7 @@ public class MainActivity extends Activity {
     private ScrollView contentScroll;
     private LinearLayout content;
 
-    private TextView valueDuration, valueExtend, valueGrade, valuePin, valueRecovery, valueGuard;
+    private TextView valueDuration, valueExtend, valueRequired, valueGrade, valueChildName, valuePin, valueRecovery, valueGuard;
     private TextView valueVersion, valueLog;
     private TextView anchorWarn;
     /** 设置页的第一项（本次时长）。顶部返回按钮在 1.2.9 删掉后，焦点默认落在这里。 */
@@ -46,7 +50,7 @@ public class MainActivity extends Activity {
     private TextView banner;
     /** 首页（只看运行状态）；设置页是原来的 contentScroll，两者在同一个 Activity 里切换。 */
     private View homeRoot;
-    private TextView homePhase, homeTime, homeGuard, homeAuth, homeAnchor, homeBanner, homeBtnStart;
+    private TextView homeSubtitle, homePhase, homeTime, homeGuard, homeAuth, homeAnchor, homeBanner, homeBtnStart;
     /** 首页状态读数左侧的色条：待机灰、计时黄、锁定红。 */
     private View homeBar;
     /** 设置页里的「运行日志」子页；null = 没打开。 */
@@ -140,7 +144,9 @@ public class MainActivity extends Activity {
 
         valueDuration = addRow("本次时长", this::openDurationPanel);
         valueExtend = addRow("答对延长", this::openExtendPanel);
+        valueRequired = addRow("连对题数", this::openRequiredPanel);
         valueGrade = addRow("题目年级", this::openStagePanel);
+        valueChildName = addRow("小朋友称呼", this::promptChildName);
         valuePin = addRow("家长口令", this::promptSetPin);
         valueRecovery = addRow("恢复码", this::onRecoveryRow);
         // 1.3.0：授权自检、显示权限按钮、卸载留痕全部收进「守护状态」子页，
@@ -186,7 +192,8 @@ public class MainActivity extends Activity {
         titles.setGravity(Gravity.START);
         titles.setPadding(Ui.dp(this, 18), 0, 0, 0);
         titles.addView(Ui.title(this, "答题续时", 30));
-        titles.addView(Ui.label(this, "到点一题 · 答对续时", 17, Ui.DIM));
+        homeSubtitle = Ui.label(this, subtitleText(), 17, Ui.DIM);
+        titles.addView(homeSubtitle);
         brand.addView(titles, new LinearLayout.LayoutParams(-2, -2));
         home.addView(brand, new LinearLayout.LayoutParams(-1, -2));
 
@@ -611,6 +618,93 @@ public class MainActivity extends Activity {
                 }, this::hideOptionPanel));
     }
 
+    /** 连对题数：1 / 2 / 3 / 4 题，或自定义 1–10。 */
+    private void openRequiredPanel() {
+        String[] labels = {"1", "2", "3", "4"};
+        int[] vals = {1, 2, 3, 4};
+        mountOption(new OptionPanel(this, "连对题数（题）", labels, vals, prefs.requiredCorrect(),
+                "题", Prefs.MIN_REQUIRED_CORRECT, Prefs.MAX_REQUIRED_CORRECT,
+                v -> {
+                    prefs.setRequiredCorrect(v);
+                    hideOptionPanel();
+                    refresh();
+                    toast("连对 " + v + " 题才延时");
+                }, this::hideOptionPanel));
+    }
+
+    /** 小朋友称呼：一次性输入，默认「小朋友」；用系统输入法或外接键盘输入。 */
+    private void promptChildName() {
+        final Dialog d = new Dialog(this);
+        LinearLayout box = new LinearLayout(this);
+        box.setOrientation(LinearLayout.VERTICAL);
+        box.setBackgroundResource(R.drawable.panel_bg);
+        box.setPadding(Ui.dp(this, 48), Ui.dp(this, 36), Ui.dp(this, 48), Ui.dp(this, 36));
+        box.addView(Ui.title(this, "小朋友称呼", 26));
+
+        EditText et = new EditText(this);
+        et.setSingleLine(true);
+        et.setInputType(InputType.TYPE_CLASS_TEXT);
+        et.setImeOptions(EditorInfo.IME_ACTION_DONE);
+        et.setText(prefs.childName());
+        et.setSelection(et.getText().length());
+        et.setTextSize(22);
+        et.setTextColor(Ui.TEXT);
+        et.setHint("例如：小朋友");
+        et.setHintTextColor(Ui.DIM);
+        et.setBackgroundResource(R.drawable.opt_bg);
+        et.setPadding(Ui.dp(this, 18), Ui.dp(this, 12), Ui.dp(this, 18), Ui.dp(this, 12));
+        LinearLayout.LayoutParams elp = new LinearLayout.LayoutParams(-1, -2);
+        elp.topMargin = Ui.dp(this, 16);
+        box.addView(et, elp);
+
+        TextView tip = Ui.label(this, "留空恢复「" + Prefs.DEFAULT_CHILD_NAME + "」；最多 16 个字", 16, Ui.DIM);
+        LinearLayout.LayoutParams tlp = new LinearLayout.LayoutParams(-1, -2);
+        tlp.topMargin = Ui.dp(this, 10);
+        box.addView(tip, tlp);
+
+        LinearLayout btns = Ui.row(this);
+        btns.setGravity(Gravity.CENTER);
+        TextView cancel = Ui.key(this, "取消", 22);
+        cancel.setBackgroundResource(R.drawable.opt_bg);
+        TextView save = Ui.key(this, "保存", 22);
+        save.setBackgroundResource(R.drawable.opt_bg);
+        LinearLayout.LayoutParams blp = new LinearLayout.LayoutParams(0, Ui.dp(this, 60), 1f);
+        LinearLayout.LayoutParams blp2 = new LinearLayout.LayoutParams(0, Ui.dp(this, 60), 1f);
+        blp.rightMargin = Ui.dp(this, 10);
+        blp2.leftMargin = Ui.dp(this, 10);
+        btns.addView(cancel, blp);
+        btns.addView(save, blp2);
+        LinearLayout.LayoutParams btlp = new LinearLayout.LayoutParams(-1, -2);
+        btlp.topMargin = Ui.dp(this, 24);
+        box.addView(btns, btlp);
+
+        Runnable doSave = () -> {
+            prefs.setChildName(et.getText().toString());
+            d.dismiss();
+            refresh();
+            toast("称呼已保存：" + prefs.childName());
+        };
+        save.setOnClickListener(v -> doSave.run());
+        cancel.setOnClickListener(v -> d.dismiss());
+        et.setOnEditorActionListener((v, actionId, event) -> {
+            if (actionId == EditorInfo.IME_ACTION_DONE) {
+                doSave.run();
+                return true;
+            }
+            return false;
+        });
+
+        d.setContentView(box);
+        if (d.getWindow() != null) {
+            d.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
+            android.util.DisplayMetrics dm = getResources().getDisplayMetrics();
+            d.getWindow().setLayout((int) (dm.widthPixels * 0.72f), ViewGroup.LayoutParams.WRAP_CONTENT);
+            d.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE);
+        }
+        d.show();
+        et.requestFocus();
+    }
+
     /** 年级三步：学段 → 年级 → 科目（语文 / 数学 / 英语）。 */
     private void openStagePanel() {
         String[] labels = {"小学", "初中"};
@@ -637,7 +731,8 @@ public class MainActivity extends Activity {
 
     private void openSubjectPanel(int stage, int grade) {
         String[] labels = Prefs.SUBJECT_NAMES;
-        int[] vals = {Prefs.SUBJECT_CHINESE, Prefs.SUBJECT_MATH, Prefs.SUBJECT_ENGLISH};
+        int[] vals = {Prefs.SUBJECT_CHINESE, Prefs.SUBJECT_MATH, Prefs.SUBJECT_ENGLISH,
+                Prefs.SUBJECT_MIXED};
         mountOption(new OptionPanel(this, "题目科目", labels, vals, prefs.subject(),
                 "", 0, 0,
                 s -> {
@@ -661,6 +756,13 @@ public class MainActivity extends Activity {
             base = "小学 · " + Math.max(1, Math.min(6, g)) + " 年级";
         }
         return base + " · " + prefs.subjectName();
+    }
+
+    /** 首页副标题随「连对题数」变化；1–10 用中文数字，和原「到点两题」保持一致。 */
+    private String subtitleText() {
+        String[] cn = {"一", "两", "三", "四", "五", "六", "七", "八", "九", "十"};
+        int n = Math.max(1, Math.min(cn.length, prefs.requiredCorrect()));
+        return "到点" + cn[n - 1] + "题 · 答对续时";
     }
 
     // ---------- 会话 ----------
@@ -1147,7 +1249,10 @@ public class MainActivity extends Activity {
         if (valueDuration == null) return;
         valueDuration.setText(prefs.durationMin() + " 分钟");
         valueExtend.setText("+ " + prefs.extendMin() + " 分钟");
+        valueRequired.setText(prefs.requiredCorrect() + " 题");
+        if (homeSubtitle != null) homeSubtitle.setText(subtitleText());
         valueGrade.setText(gradeText());
+        valueChildName.setText(prefs.childName());
         valuePin.setText(prefs.hasPin() ? "已设置" : "未设置");
         // 只存哈希：应用里看不到已生成的码，想再看只能重新生成（旧码立即作废）
         valueRecovery.setText(!prefs.hasRecoveryCode() ? "未生成"

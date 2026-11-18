@@ -106,6 +106,2333 @@
    ],
    "answerIndex": 0,
    "explanation": "do not = don't"
+  },
+  {
+   "id": "e6-009",
+   "subject": "英语",
+   "stem": "space 是什么意思？",
+   "options": [
+    "太空",
+    "速度",
+    "地点",
+    "太空船"
+   ],
+   "answerIndex": 0,
+   "explanation": "space 表示太空"
+  },
+  {
+   "id": "e6-010",
+   "subject": "英语",
+   "stem": "planet 是什么意思？",
+   "options": [
+    "行星",
+    "恒星",
+    "卫星",
+    "彗星"
+   ],
+   "answerIndex": 0,
+   "explanation": "planet 表示行星"
+  },
+  {
+   "id": "e6-011",
+   "subject": "英语",
+   "stem": "astronaut 是什么意思？",
+   "options": [
+    "宇航员",
+    "天文学家",
+    "飞行员",
+    "科学家"
+   ],
+   "answerIndex": 0,
+   "explanation": "astronaut 表示宇航员"
+  },
+  {
+   "id": "e6-012",
+   "subject": "英语",
+   "stem": "museum 是什么意思？",
+   "options": [
+    "博物馆",
+    "图书馆",
+    "医院",
+    "学校"
+   ],
+   "answerIndex": 0,
+   "explanation": "museum 表示博物馆"
+  },
+  {
+   "id": "e6-013",
+   "subject": "英语",
+   "stem": "capital 是什么意思？",
+   "options": [
+    "首都",
+    "乡村",
+    "城市",
+    "国家"
+   ],
+   "answerIndex": 0,
+   "explanation": "capital 表示首都"
+  },
+  {
+   "id": "e6-014",
+   "subject": "英语",
+   "stem": "countryside 是什么意思？",
+   "options": [
+    "乡村",
+    "城市",
+    "首都",
+    "街道"
+   ],
+   "answerIndex": 0,
+   "explanation": "countryside 表示乡村"
+  },
+  {
+   "id": "e6-015",
+   "subject": "英语",
+   "stem": "competition 是什么意思？",
+   "options": [
+    "比赛",
+    "合作",
+    "庆祝",
+    "表演"
+   ],
+   "answerIndex": 0,
+   "explanation": "competition 表示比赛"
+  },
+  {
+   "id": "e6-016",
+   "subject": "英语",
+   "stem": "prize 是什么意思？",
+   "options": [
+    "奖品",
+    "价格",
+    "礼物",
+    "分数"
+   ],
+   "answerIndex": 0,
+   "explanation": "prize 表示奖品"
+  },
+  {
+   "id": "e6-017",
+   "subject": "英语",
+   "stem": "invention 是什么意思？",
+   "options": [
+    "发明",
+    "邀请",
+    "想象",
+    "介绍"
+   ],
+   "answerIndex": 0,
+   "explanation": "invention 表示发明"
+  },
+  {
+   "id": "e6-018",
+   "subject": "英语",
+   "stem": "environment 是什么意思？",
+   "options": [
+    "环境",
+    "实验",
+    "运动",
+    "娱乐"
+   ],
+   "answerIndex": 0,
+   "explanation": "environment 表示环境"
+  },
+  {
+   "id": "e6-019",
+   "subject": "英语",
+   "stem": "pollution 是什么意思？",
+   "options": [
+    "污染",
+    "人口",
+    "政策",
+    "植物"
+   ],
+   "answerIndex": 0,
+   "explanation": "pollution 表示污染"
+  },
+  {
+   "id": "e6-020",
+   "subject": "英语",
+   "stem": "recycle 是什么意思？",
+   "options": [
+    "回收利用",
+    "骑自行车",
+    "重复",
+    "循环"
+   ],
+   "answerIndex": 0,
+   "explanation": "recycle 表示回收利用"
+  },
+  {
+   "id": "e6-021",
+   "subject": "英语",
+   "stem": "future 是什么意思？",
+   "options": [
+    "未来",
+    "父亲",
+    "特点",
+    "家具"
+   ],
+   "answerIndex": 0,
+   "explanation": "future 表示未来"
+  },
+  {
+   "id": "e6-022",
+   "subject": "英语",
+   "stem": "journey 是什么意思？",
+   "options": [
+    "旅程",
+    "日记",
+    "记者",
+    "问题"
+   ],
+   "answerIndex": 0,
+   "explanation": "journey 表示旅程"
+  },
+  {
+   "id": "e6-023",
+   "subject": "英语",
+   "stem": "advice 是什么意思？",
+   "options": [
+    "建议",
+    "广告",
+    "练习",
+    "答案"
+   ],
+   "answerIndex": 0,
+   "explanation": "advice 表示建议"
+  },
+  {
+   "id": "e6-024",
+   "subject": "英语",
+   "stem": "dangerous 是什么意思？",
+   "options": [
+    "危险的",
+    "困难的",
+    "不同的",
+    "美味的"
+   ],
+   "answerIndex": 0,
+   "explanation": "dangerous 表示危险的"
+  },
+  {
+   "id": "e6-025",
+   "subject": "英语",
+   "stem": "famous 是什么意思？",
+   "options": [
+    "著名的",
+    "有趣的",
+    "友好的",
+    "遥远的"
+   ],
+   "answerIndex": 0,
+   "explanation": "famous 表示著名的"
+  },
+  {
+   "id": "e6-026",
+   "subject": "英语",
+   "stem": "different 是什么意思？",
+   "options": [
+    "不同的",
+    "困难的",
+    "美味的",
+    "危险的"
+   ],
+   "answerIndex": 0,
+   "explanation": "different 表示不同的"
+  },
+  {
+   "id": "e6-027",
+   "subject": "英语",
+   "stem": "important 是什么意思？",
+   "options": [
+    "重要的",
+    "有趣的",
+    "不可能的",
+    "不礼貌的"
+   ],
+   "answerIndex": 0,
+   "explanation": "important 表示重要的"
+  },
+  {
+   "id": "e6-028",
+   "subject": "英语",
+   "stem": "together 是什么意思？",
+   "options": [
+    "一起",
+    "明天",
+    "今天",
+    "总是"
+   ],
+   "answerIndex": 0,
+   "explanation": "together 表示一起"
+  },
+  {
+   "id": "e6-029",
+   "subject": "英语",
+   "stem": "tall 的反义词是？",
+   "options": [
+    "short",
+    "long",
+    "big",
+    "small"
+   ],
+   "answerIndex": 0,
+   "explanation": "tall 与 short 相对"
+  },
+  {
+   "id": "e6-030",
+   "subject": "英语",
+   "stem": "heavy 的反义词是？",
+   "options": [
+    "light",
+    "strong",
+    "weak",
+    "thin"
+   ],
+   "answerIndex": 0,
+   "explanation": "heavy 与 light 相对"
+  },
+  {
+   "id": "e6-031",
+   "subject": "英语",
+   "stem": "expensive 的反义词是？",
+   "options": [
+    "cheap",
+    "rich",
+    "high",
+    "large"
+   ],
+   "answerIndex": 0,
+   "explanation": "expensive 与 cheap 相对"
+  },
+  {
+   "id": "e6-032",
+   "subject": "英语",
+   "stem": "safe 的反义词是？",
+   "options": [
+    "dangerous",
+    "clean",
+    "quiet",
+    "easy"
+   ],
+   "answerIndex": 0,
+   "explanation": "safe 与 dangerous 相对"
+  },
+  {
+   "id": "e6-033",
+   "subject": "英语",
+   "stem": "strong 的反义词是？",
+   "options": [
+    "weak",
+    "tall",
+    "heavy",
+    "fast"
+   ],
+   "answerIndex": 0,
+   "explanation": "strong 与 weak 相对"
+  },
+  {
+   "id": "e6-034",
+   "subject": "英语",
+   "stem": "clean 的反义词是？",
+   "options": [
+    "dirty",
+    "clear",
+    "quiet",
+    "dry"
+   ],
+   "answerIndex": 0,
+   "explanation": "clean 与 dirty 相对"
+  },
+  {
+   "id": "e6-035",
+   "subject": "英语",
+   "stem": "early 的反义词是？",
+   "options": [
+    "late",
+    "fast",
+    "slow",
+    "near"
+   ],
+   "answerIndex": 0,
+   "explanation": "early 与 late 相对"
+  },
+  {
+   "id": "e6-036",
+   "subject": "英语",
+   "stem": "easy 的反义词是？",
+   "options": [
+    "difficult",
+    "happy",
+    "busy",
+    "early"
+   ],
+   "answerIndex": 0,
+   "explanation": "easy 与 difficult 相对"
+  },
+  {
+   "id": "e6-037",
+   "subject": "英语",
+   "stem": "same 的反义词是？",
+   "options": [
+    "different",
+    "similar",
+    "equal",
+    "quiet"
+   ],
+   "answerIndex": 0,
+   "explanation": "same 与 different 相对"
+  },
+  {
+   "id": "e6-038",
+   "subject": "英语",
+   "stem": "before 的反义词是？",
+   "options": [
+    "after",
+    "behind",
+    "under",
+    "between"
+   ],
+   "answerIndex": 0,
+   "explanation": "before 与 after 相对"
+  },
+  {
+   "id": "e6-039",
+   "subject": "英语",
+   "stem": "child 的复数形式是？",
+   "options": [
+    "children",
+    "childs",
+    "childes",
+    "childrens"
+   ],
+   "answerIndex": 0,
+   "explanation": "child 的复数是 children"
+  },
+  {
+   "id": "e6-040",
+   "subject": "英语",
+   "stem": "man 的复数形式是？",
+   "options": [
+    "men",
+    "mans",
+    "mens",
+    "manes"
+   ],
+   "answerIndex": 0,
+   "explanation": "man 的复数是 men"
+  },
+  {
+   "id": "e6-041",
+   "subject": "英语",
+   "stem": "woman 的复数形式是？",
+   "options": [
+    "women",
+    "womans",
+    "womens",
+    "womanes"
+   ],
+   "answerIndex": 0,
+   "explanation": "woman 的复数是 women"
+  },
+  {
+   "id": "e6-042",
+   "subject": "英语",
+   "stem": "foot 的复数形式是？",
+   "options": [
+    "feet",
+    "foots",
+    "feets",
+    "footes"
+   ],
+   "answerIndex": 0,
+   "explanation": "foot 的复数是 feet"
+  },
+  {
+   "id": "e6-043",
+   "subject": "英语",
+   "stem": "tooth 的复数形式是？",
+   "options": [
+    "teeth",
+    "tooths",
+    "teeths",
+    "toothes"
+   ],
+   "answerIndex": 0,
+   "explanation": "tooth 的复数是 teeth"
+  },
+  {
+   "id": "e6-044",
+   "subject": "英语",
+   "stem": "mouse 的复数形式是？",
+   "options": [
+    "mice",
+    "mouses",
+    "mices",
+    "mouse"
+   ],
+   "answerIndex": 0,
+   "explanation": "mouse 的复数是 mice"
+  },
+  {
+   "id": "e6-045",
+   "subject": "英语",
+   "stem": "sheep 的复数形式是？",
+   "options": [
+    "sheep",
+    "sheeps",
+    "sheepes",
+    "sheeves"
+   ],
+   "answerIndex": 0,
+   "explanation": "sheep 的复数还是 sheep"
+  },
+  {
+   "id": "e6-046",
+   "subject": "英语",
+   "stem": "box 的复数形式是？",
+   "options": [
+    "boxes",
+    "boxs",
+    "boxies",
+    "boxen"
+   ],
+   "answerIndex": 0,
+   "explanation": "box 的复数是 boxes"
+  },
+  {
+   "id": "e6-047",
+   "subject": "英语",
+   "stem": "city 的复数形式是？",
+   "options": [
+    "cities",
+    "citys",
+    "cityes",
+    "city"
+   ],
+   "answerIndex": 0,
+   "explanation": "city 的复数是 cities"
+  },
+  {
+   "id": "e6-048",
+   "subject": "英语",
+   "stem": "leaf 的复数形式是？",
+   "options": [
+    "leaves",
+    "leafs",
+    "leafes",
+    "leaf"
+   ],
+   "answerIndex": 0,
+   "explanation": "leaf 的复数是 leaves"
+  },
+  {
+   "id": "e6-049",
+   "subject": "英语",
+   "stem": "go 的过去式是？",
+   "options": [
+    "went",
+    "goed",
+    "gone",
+    "going"
+   ],
+   "answerIndex": 0,
+   "explanation": "go 的过去式是 went"
+  },
+  {
+   "id": "e6-050",
+   "subject": "英语",
+   "stem": "see 的过去式是？",
+   "options": [
+    "saw",
+    "seed",
+    "seen",
+    "seeing"
+   ],
+   "answerIndex": 0,
+   "explanation": "see 的过去式是 saw"
+  },
+  {
+   "id": "e6-051",
+   "subject": "英语",
+   "stem": "eat 的过去式是？",
+   "options": [
+    "ate",
+    "eated",
+    "eaten",
+    "eating"
+   ],
+   "answerIndex": 0,
+   "explanation": "eat 的过去式是 ate"
+  },
+  {
+   "id": "e6-052",
+   "subject": "英语",
+   "stem": "buy 的过去式是？",
+   "options": [
+    "bought",
+    "buyed",
+    "boughted",
+    "buying"
+   ],
+   "answerIndex": 0,
+   "explanation": "buy 的过去式是 bought"
+  },
+  {
+   "id": "e6-053",
+   "subject": "英语",
+   "stem": "teach 的过去式是？",
+   "options": [
+    "taught",
+    "teached",
+    "taughted",
+    "teaching"
+   ],
+   "answerIndex": 0,
+   "explanation": "teach 的过去式是 taught"
+  },
+  {
+   "id": "e6-054",
+   "subject": "英语",
+   "stem": "swim 的过去式是？",
+   "options": [
+    "swam",
+    "swimmed",
+    "swum",
+    "swimming"
+   ],
+   "answerIndex": 0,
+   "explanation": "swim 的过去式是 swam"
+  },
+  {
+   "id": "e6-055",
+   "subject": "英语",
+   "stem": "take 的过去式是？",
+   "options": [
+    "took",
+    "taked",
+    "taken",
+    "taking"
+   ],
+   "answerIndex": 0,
+   "explanation": "take 的过去式是 took"
+  },
+  {
+   "id": "e6-056",
+   "subject": "英语",
+   "stem": "write 的过去式是？",
+   "options": [
+    "wrote",
+    "writed",
+    "written",
+    "writing"
+   ],
+   "answerIndex": 0,
+   "explanation": "write 的过去式是 wrote"
+  },
+  {
+   "id": "e6-057",
+   "subject": "英语",
+   "stem": "run 的现在分词是？",
+   "options": [
+    "running",
+    "runing",
+    "runned",
+    "runs"
+   ],
+   "answerIndex": 0,
+   "explanation": "run 双写 n 再加 ing"
+  },
+  {
+   "id": "e6-058",
+   "subject": "英语",
+   "stem": "swim 的现在分词是？",
+   "options": [
+    "swimming",
+    "swiming",
+    "swimmed",
+    "swims"
+   ],
+   "answerIndex": 0,
+   "explanation": "swim 双写 m 再加 ing"
+  },
+  {
+   "id": "e6-059",
+   "subject": "英语",
+   "stem": "write 的现在分词是？",
+   "options": [
+    "writing",
+    "writeing",
+    "writting",
+    "writes"
+   ],
+   "answerIndex": 0,
+   "explanation": "write 去 e 再加 ing"
+  },
+  {
+   "id": "e6-060",
+   "subject": "英语",
+   "stem": "dance 的现在分词是？",
+   "options": [
+    "dancing",
+    "danceing",
+    "danced",
+    "dances"
+   ],
+   "answerIndex": 0,
+   "explanation": "dance 去 e 再加 ing"
+  },
+  {
+   "id": "e6-061",
+   "subject": "英语",
+   "stem": "She ___ to school every day.",
+   "options": [
+    "goes",
+    "go",
+    "going",
+    "went"
+   ],
+   "answerIndex": 0,
+   "explanation": "一般现在时，第三人称单数用 goes"
+  },
+  {
+   "id": "e6-062",
+   "subject": "英语",
+   "stem": "Look! They ___ football now.",
+   "options": [
+    "are playing",
+    "play",
+    "played",
+    "plays"
+   ],
+   "answerIndex": 0,
+   "explanation": "now 提示现在进行时"
+  },
+  {
+   "id": "e6-063",
+   "subject": "英语",
+   "stem": "We ___ to the zoo yesterday.",
+   "options": [
+    "went",
+    "go",
+    "going",
+    "have gone"
+   ],
+   "answerIndex": 0,
+   "explanation": "yesterday 提示一般过去时"
+  },
+  {
+   "id": "e6-064",
+   "subject": "英语",
+   "stem": "I ___ visit my grandma tomorrow.",
+   "options": [
+    "will",
+    "did",
+    "was",
+    "have"
+   ],
+   "answerIndex": 0,
+   "explanation": "tomorrow 提示一般将来时"
+  },
+  {
+   "id": "e6-065",
+   "subject": "英语",
+   "stem": "He ___ here since 2020.",
+   "options": [
+    "has lived",
+    "lived",
+    "lives",
+    "is living"
+   ],
+   "answerIndex": 0,
+   "explanation": "since 提示现在完成时"
+  },
+  {
+   "id": "e6-066",
+   "subject": "英语",
+   "stem": "My mother ___ dinner when the phone rang.",
+   "options": [
+    "was cooking",
+    "cooks",
+    "cooked",
+    "is cooking"
+   ],
+   "answerIndex": 0,
+   "explanation": "when 引导的过去时间状语，用过去进行时"
+  },
+  {
+   "id": "e6-067",
+   "subject": "英语",
+   "stem": "Listen! Someone ___ the piano.",
+   "options": [
+    "is playing",
+    "plays",
+    "played",
+    "play"
+   ],
+   "answerIndex": 0,
+   "explanation": "Listen 提示现在进行时"
+  },
+  {
+   "id": "e6-068",
+   "subject": "英语",
+   "stem": "They ___ a party last Sunday.",
+   "options": [
+    "had",
+    "have",
+    "has",
+    "are having"
+   ],
+   "answerIndex": 0,
+   "explanation": "last Sunday 提示一般过去时"
+  },
+  {
+   "id": "e6-069",
+   "subject": "英语",
+   "stem": "She ___ just finished her homework.",
+   "options": [
+    "has",
+    "have",
+    "is",
+    "was"
+   ],
+   "answerIndex": 0,
+   "explanation": "just 提示现在完成时，用 has"
+  },
+  {
+   "id": "e6-070",
+   "subject": "英语",
+   "stem": "If it ___ tomorrow, we will stay at home.",
+   "options": [
+    "rains",
+    "rain",
+    "rained",
+    "is raining"
+   ],
+   "answerIndex": 0,
+   "explanation": "if 条件句主将从现"
+  },
+  {
+   "id": "e6-071",
+   "subject": "英语",
+   "stem": "He usually ___ to work by bus.",
+   "options": [
+    "goes",
+    "go",
+    "going",
+    "went"
+   ],
+   "answerIndex": 0,
+   "explanation": "usually 提示一般现在时"
+  },
+  {
+   "id": "e6-072",
+   "subject": "英语",
+   "stem": "I ___ my homework at eight last night.",
+   "options": [
+    "was doing",
+    "do",
+    "does",
+    "have done"
+   ],
+   "answerIndex": 0,
+   "explanation": "过去某一时刻正在做，用过去进行时"
+  },
+  {
+   "id": "e6-073",
+   "subject": "英语",
+   "stem": "We ___ each other since 2020.",
+   "options": [
+    "have known",
+    "knew",
+    "know",
+    "are knowing"
+   ],
+   "answerIndex": 0,
+   "explanation": "since 提示现在完成时"
+  },
+  {
+   "id": "e6-074",
+   "subject": "英语",
+   "stem": "The children ___ in the park now.",
+   "options": [
+    "are running",
+    "run",
+    "ran",
+    "runs"
+   ],
+   "answerIndex": 0,
+   "explanation": "now 提示现在进行时"
+  },
+  {
+   "id": "e6-075",
+   "subject": "英语",
+   "stem": "She ___ TV every evening.",
+   "options": [
+    "watches",
+    "watch",
+    "watching",
+    "watched"
+   ],
+   "answerIndex": 0,
+   "explanation": "every evening 提示一般现在时"
+  },
+  {
+   "id": "e6-076",
+   "subject": "英语",
+   "stem": "They ___ to Beijing next week.",
+   "options": [
+    "will go",
+    "went",
+    "have gone",
+    "go"
+   ],
+   "answerIndex": 0,
+   "explanation": "next week 提示一般将来时"
+  },
+  {
+   "id": "e6-077",
+   "subject": "英语",
+   "stem": "I ___ a letter to my friend yesterday.",
+   "options": [
+    "wrote",
+    "write",
+    "writes",
+    "writing"
+   ],
+   "answerIndex": 0,
+   "explanation": "yesterday 提示一般过去时"
+  },
+  {
+   "id": "e6-078",
+   "subject": "英语",
+   "stem": "He ___ football after school every day.",
+   "options": [
+    "plays",
+    "play",
+    "playing",
+    "played"
+   ],
+   "answerIndex": 0,
+   "explanation": "every day 提示一般现在时"
+  },
+  {
+   "id": "e6-079",
+   "subject": "英语",
+   "stem": "Look at the clouds. It ___ soon.",
+   "options": [
+    "is going to rain",
+    "rains",
+    "rained",
+    "rain"
+   ],
+   "answerIndex": 0,
+   "explanation": "soon 提示一般将来时"
+  },
+  {
+   "id": "e6-080",
+   "subject": "英语",
+   "stem": "My father ___ back home at six yesterday.",
+   "options": [
+    "came",
+    "comes",
+    "come",
+    "coming"
+   ],
+   "answerIndex": 0,
+   "explanation": "yesterday 提示一般过去时"
+  },
+  {
+   "id": "e6-081",
+   "subject": "英语",
+   "stem": "tall 的比较级是？",
+   "options": [
+    "taller",
+    "tallest",
+    "more tall",
+    "tallly"
+   ],
+   "answerIndex": 0,
+   "explanation": "tall 加 er 构成比较级"
+  },
+  {
+   "id": "e6-082",
+   "subject": "英语",
+   "stem": "big 的比较级是？",
+   "options": [
+    "bigger",
+    "biger",
+    "biggest",
+    "more big"
+   ],
+   "answerIndex": 0,
+   "explanation": "big 双写 g 再加 er"
+  },
+  {
+   "id": "e6-083",
+   "subject": "英语",
+   "stem": "happy 的比较级是？",
+   "options": [
+    "happier",
+    "happyer",
+    "happiest",
+    "more happy"
+   ],
+   "answerIndex": 0,
+   "explanation": "happy 变 y 为 i 再加 er"
+  },
+  {
+   "id": "e6-084",
+   "subject": "英语",
+   "stem": "good 的最高级是？",
+   "options": [
+    "best",
+    "better",
+    "goodest",
+    "most good"
+   ],
+   "answerIndex": 0,
+   "explanation": "good 的最高级是 best"
+  },
+  {
+   "id": "e6-085",
+   "subject": "英语",
+   "stem": "bad 的比较级是？",
+   "options": [
+    "worse",
+    "badder",
+    "worst",
+    "more bad"
+   ],
+   "answerIndex": 0,
+   "explanation": "bad 的比较级是 worse"
+  },
+  {
+   "id": "e6-086",
+   "subject": "英语",
+   "stem": "many 的比较级是？",
+   "options": [
+    "more",
+    "most",
+    "manyer",
+    "much"
+   ],
+   "answerIndex": 0,
+   "explanation": "many 的比较级是 more"
+  },
+  {
+   "id": "e6-087",
+   "subject": "英语",
+   "stem": "heavy 的比较级是？",
+   "options": [
+    "heavier",
+    "heavyer",
+    "heaviest",
+    "more heavy"
+   ],
+   "answerIndex": 0,
+   "explanation": "heavy 变 y 为 i 再加 er"
+  },
+  {
+   "id": "e6-088",
+   "subject": "英语",
+   "stem": "thin 的比较级是？",
+   "options": [
+    "thinner",
+    "thiner",
+    "thinnest",
+    "more thin"
+   ],
+   "answerIndex": 0,
+   "explanation": "thin 双写 n 再加 er"
+  },
+  {
+   "id": "e6-089",
+   "subject": "英语",
+   "stem": "expensive 的最高级是？",
+   "options": [
+    "most expensive",
+    "expensivest",
+    "more expensive",
+    "expensive"
+   ],
+   "answerIndex": 0,
+   "explanation": "多音节词最高级加 most"
+  },
+  {
+   "id": "e6-090",
+   "subject": "英语",
+   "stem": "careful 的比较级是？",
+   "options": [
+    "more careful",
+    "carefuller",
+    "most careful",
+    "carefuler"
+   ],
+   "answerIndex": 0,
+   "explanation": "多音节词比较级加 more"
+  },
+  {
+   "id": "e6-091",
+   "subject": "英语",
+   "stem": "The book is ___ the desk.",
+   "options": [
+    "on",
+    "in",
+    "at",
+    "to"
+   ],
+   "answerIndex": 0,
+   "explanation": "在桌面上用 on"
+  },
+  {
+   "id": "e6-092",
+   "subject": "英语",
+   "stem": "I was born ___ 2014.",
+   "options": [
+    "in",
+    "on",
+    "at",
+    "to"
+   ],
+   "answerIndex": 0,
+   "explanation": "年份前用 in"
+  },
+  {
+   "id": "e6-093",
+   "subject": "英语",
+   "stem": "We have lunch ___ noon.",
+   "options": [
+    "at",
+    "in",
+    "on",
+    "for"
+   ],
+   "answerIndex": 0,
+   "explanation": "noon 前用 at"
+  },
+  {
+   "id": "e6-094",
+   "subject": "英语",
+   "stem": "The cat is ___ the table.",
+   "options": [
+    "under",
+    "on",
+    "in",
+    "at"
+   ],
+   "answerIndex": 0,
+   "explanation": "在桌子下面用 under"
+  },
+  {
+   "id": "e6-095",
+   "subject": "英语",
+   "stem": "She is standing ___ Tom and Jack.",
+   "options": [
+    "between",
+    "among",
+    "in",
+    "on"
+   ],
+   "answerIndex": 0,
+   "explanation": "两者之间用 between"
+  },
+  {
+   "id": "e6-096",
+   "subject": "英语",
+   "stem": "He goes to school ___ bike.",
+   "options": [
+    "by",
+    "on",
+    "in",
+    "with"
+   ],
+   "answerIndex": 0,
+   "explanation": "by bike 表示骑自行车"
+  },
+  {
+   "id": "e6-097",
+   "subject": "英语",
+   "stem": "I'm good ___ English.",
+   "options": [
+    "at",
+    "in",
+    "on",
+    "for"
+   ],
+   "answerIndex": 0,
+   "explanation": "be good at 表示擅长"
+  },
+  {
+   "id": "e6-098",
+   "subject": "英语",
+   "stem": "Listen ___ me, please.",
+   "options": [
+    "to",
+    "at",
+    "for",
+    "with"
+   ],
+   "answerIndex": 0,
+   "explanation": "listen to 表示听"
+  },
+  {
+   "id": "e6-099",
+   "subject": "英语",
+   "stem": "Look ___ the blackboard.",
+   "options": [
+    "at",
+    "in",
+    "on",
+    "for"
+   ],
+   "answerIndex": 0,
+   "explanation": "look at 表示看"
+  },
+  {
+   "id": "e6-100",
+   "subject": "英语",
+   "stem": "Thank you ___ your help.",
+   "options": [
+    "for",
+    "to",
+    "at",
+    "with"
+   ],
+   "answerIndex": 0,
+   "explanation": "thank you for 表示感谢"
+  },
+  {
+   "id": "e6-101",
+   "subject": "英语",
+   "stem": "This is ___ apple.",
+   "options": [
+    "an",
+    "a",
+    "the",
+    "/"
+   ],
+   "answerIndex": 0,
+   "explanation": "apple 以元音音素开头，用 an"
+  },
+  {
+   "id": "e6-102",
+   "subject": "英语",
+   "stem": "___ sun rises in the east.",
+   "options": [
+    "The",
+    "A",
+    "An",
+    "/"
+   ],
+   "answerIndex": 0,
+   "explanation": "太阳是独一无二的事物，用 The"
+  },
+  {
+   "id": "e6-103",
+   "subject": "英语",
+   "stem": "I have two books. ___ are new.",
+   "options": [
+    "They",
+    "It",
+    "He",
+    "She"
+   ],
+   "answerIndex": 0,
+   "explanation": "复数用 They"
+  },
+  {
+   "id": "e6-104",
+   "subject": "英语",
+   "stem": "Give ___ the pen, please.",
+   "options": [
+    "me",
+    "I",
+    "my",
+    "mine"
+   ],
+   "answerIndex": 0,
+   "explanation": "动词后用宾格 me"
+  },
+  {
+   "id": "e6-105",
+   "subject": "英语",
+   "stem": "This is Tom's bag. It's ___.",
+   "options": [
+    "his",
+    "he",
+    "him",
+    "her"
+   ],
+   "answerIndex": 0,
+   "explanation": "Tom 的物主代词用 his"
+  },
+  {
+   "id": "e6-106",
+   "subject": "英语",
+   "stem": "We teach ___ English.",
+   "options": [
+    "them",
+    "they",
+    "their",
+    "theirs"
+   ],
+   "answerIndex": 0,
+   "explanation": "动词后用宾格 them"
+  },
+  {
+   "id": "e6-107",
+   "subject": "英语",
+   "stem": "___ is my friend, Lucy.",
+   "options": [
+    "She",
+    "Her",
+    "Hers",
+    "He"
+   ],
+   "answerIndex": 0,
+   "explanation": "主语用 She"
+  },
+  {
+   "id": "e6-108",
+   "subject": "英语",
+   "stem": "There ___ some milk in the glass.",
+   "options": [
+    "is",
+    "are",
+    "be",
+    "am"
+   ],
+   "answerIndex": 0,
+   "explanation": "milk 不可数，用 is"
+  },
+  {
+   "id": "e6-109",
+   "subject": "英语",
+   "stem": "I have ___ orange.",
+   "options": [
+    "an",
+    "a",
+    "the",
+    "/"
+   ],
+   "answerIndex": 0,
+   "explanation": "orange 以元音音素开头，用 an"
+  },
+  {
+   "id": "e6-110",
+   "subject": "英语",
+   "stem": "___ book is this?",
+   "options": [
+    "Whose",
+    "Who",
+    "Which",
+    "What"
+   ],
+   "answerIndex": 0,
+   "explanation": "问所属用 Whose"
+  },
+  {
+   "id": "e6-111",
+   "subject": "英语",
+   "stem": "___ is your name?",
+   "options": [
+    "What",
+    "Where",
+    "When",
+    "Who"
+   ],
+   "answerIndex": 0,
+   "explanation": "问名字用 What"
+  },
+  {
+   "id": "e6-112",
+   "subject": "英语",
+   "stem": "___ do you live?",
+   "options": [
+    "Where",
+    "What",
+    "When",
+    "Who"
+   ],
+   "answerIndex": 0,
+   "explanation": "问地点用 Where"
+  },
+  {
+   "id": "e6-113",
+   "subject": "英语",
+   "stem": "___ are you late?",
+   "options": [
+    "Why",
+    "What",
+    "Where",
+    "Who"
+   ],
+   "answerIndex": 0,
+   "explanation": "问原因用 Why"
+  },
+  {
+   "id": "e6-114",
+   "subject": "英语",
+   "stem": "___ is that man?",
+   "options": [
+    "Who",
+    "What",
+    "Where",
+    "When"
+   ],
+   "answerIndex": 0,
+   "explanation": "问人用 Who"
+  },
+  {
+   "id": "e6-115",
+   "subject": "英语",
+   "stem": "___ books do you have?",
+   "options": [
+    "How many",
+    "How much",
+    "How old",
+    "How long"
+   ],
+   "answerIndex": 0,
+   "explanation": "可数名词复数用 How many"
+  },
+  {
+   "id": "e6-116",
+   "subject": "英语",
+   "stem": "___ is the weather like today?",
+   "options": [
+    "What",
+    "How",
+    "Where",
+    "Who"
+   ],
+   "answerIndex": 0,
+   "explanation": "What is the weather like? 是问天气的固定句型"
+  },
+  {
+   "id": "e6-117",
+   "subject": "英语",
+   "stem": "___ do you go to school? By bus.",
+   "options": [
+    "How",
+    "What",
+    "Where",
+    "When"
+   ],
+   "answerIndex": 0,
+   "explanation": "问方式用 How"
+  },
+  {
+   "id": "e6-118",
+   "subject": "英语",
+   "stem": "___ is your birthday?",
+   "options": [
+    "When",
+    "What",
+    "Where",
+    "Who"
+   ],
+   "answerIndex": 0,
+   "explanation": "问时间用 When"
+  },
+  {
+   "id": "e6-119",
+   "subject": "英语",
+   "stem": "You ___ finish your homework first. It's a rule.",
+   "options": [
+    "must",
+    "can",
+    "may",
+    "would"
+   ],
+   "answerIndex": 0,
+   "explanation": "表示必须用 must"
+  },
+  {
+   "id": "e6-120",
+   "subject": "英语",
+   "stem": "___ I come in?",
+   "options": [
+    "May",
+    "Must",
+    "Should",
+    "Would"
+   ],
+   "answerIndex": 0,
+   "explanation": "请求允许用 May"
+  },
+  {
+   "id": "e6-121",
+   "subject": "英语",
+   "stem": "I ___ swim when I was five.",
+   "options": [
+    "could",
+    "can",
+    "must",
+    "should"
+   ],
+   "answerIndex": 0,
+   "explanation": "过去的能力用 could"
+  },
+  {
+   "id": "e6-122",
+   "subject": "英语",
+   "stem": "We ___ protect the environment. It's our duty.",
+   "options": [
+    "should",
+    "would",
+    "could",
+    "may"
+   ],
+   "answerIndex": 0,
+   "explanation": "表示应该用 should"
+  },
+  {
+   "id": "e6-123",
+   "subject": "英语",
+   "stem": "___ you like some tea?",
+   "options": [
+    "Would",
+    "Do",
+    "Are",
+    "Is"
+   ],
+   "answerIndex": 0,
+   "explanation": "Would you like... 是固定句型"
+  },
+  {
+   "id": "e6-124",
+   "subject": "英语",
+   "stem": "You ___ play football in the street. It's dangerous.",
+   "options": [
+    "mustn't",
+    "needn't",
+    "may",
+    "can"
+   ],
+   "answerIndex": 0,
+   "explanation": "表示禁止用 mustn't"
+  },
+  {
+   "id": "e6-125",
+   "subject": "英语",
+   "stem": "___ you help me, please?",
+   "options": [
+    "Could",
+    "Must",
+    "May",
+    "Should"
+   ],
+   "answerIndex": 0,
+   "explanation": "礼貌请求用 Could"
+  },
+  {
+   "id": "e6-126",
+   "subject": "英语",
+   "stem": "She ___ speak English and French.",
+   "options": [
+    "can",
+    "may",
+    "must",
+    "should"
+   ],
+   "answerIndex": 0,
+   "explanation": "表示能力用 can"
+  },
+  {
+   "id": "e6-127",
+   "subject": "英语",
+   "stem": "How are you? 的合适回答是？",
+   "options": [
+    "Fine, thank you.",
+    "I'm twelve.",
+    "It's sunny.",
+    "By bus."
+   ],
+   "answerIndex": 0,
+   "explanation": "How are you 问身体/状态"
+  },
+  {
+   "id": "e6-128",
+   "subject": "英语",
+   "stem": "What's the weather like today? 的合适回答是？",
+   "options": [
+    "It's sunny.",
+    "I'm fine.",
+    "It's Monday.",
+    "I'm twelve."
+   ],
+   "answerIndex": 0,
+   "explanation": "问天气用天气回答"
+  },
+  {
+   "id": "e6-129",
+   "subject": "英语",
+   "stem": "How old are you? 的合适回答是？",
+   "options": [
+    "I'm twelve.",
+    "It's sunny.",
+    "I'm from China.",
+    "By bike."
+   ],
+   "answerIndex": 0,
+   "explanation": "How old 问年龄"
+  },
+  {
+   "id": "e6-130",
+   "subject": "英语",
+   "stem": "Where are you from? 的合适回答是？",
+   "options": [
+    "I'm from China.",
+    "I'm twelve.",
+    "It's Monday.",
+    "Fine, thank you."
+   ],
+   "answerIndex": 0,
+   "explanation": "Where are you from 问来自哪里"
+  },
+  {
+   "id": "e6-131",
+   "subject": "英语",
+   "stem": "What do you want to be? 的合适回答是？",
+   "options": [
+    "I want to be a doctor.",
+    "I'm twelve.",
+    "It's sunny.",
+    "By bus."
+   ],
+   "answerIndex": 0,
+   "explanation": "问职业理想"
+  },
+  {
+   "id": "e6-132",
+   "subject": "英语",
+   "stem": "How do you go to school? 的合适回答是？",
+   "options": [
+    "By bike.",
+    "I'm fine.",
+    "It's Monday.",
+    "I'm from China."
+   ],
+   "answerIndex": 0,
+   "explanation": "问交通方式"
+  },
+  {
+   "id": "e6-133",
+   "subject": "英语",
+   "stem": "What did you do last weekend? 的合适回答是？",
+   "options": [
+    "I visited my grandparents.",
+    "I'm twelve.",
+    "It's sunny.",
+    "By bike."
+   ],
+   "answerIndex": 0,
+   "explanation": "问过去做了什么"
+  },
+  {
+   "id": "e6-134",
+   "subject": "英语",
+   "stem": "Would you like to go with me? 的合适回答是？",
+   "options": [
+    "Yes, I'd love to.",
+    "I'm twelve.",
+    "It's Monday.",
+    "By bus."
+   ],
+   "answerIndex": 0,
+   "explanation": "接受邀请用 Yes, I'd love to"
+  },
+  {
+   "id": "e6-135",
+   "subject": "英语",
+   "stem": "Thank you. 的合适回答是？",
+   "options": [
+    "You're welcome.",
+    "I'm fine.",
+    "It's sunny.",
+    "By bus."
+   ],
+   "answerIndex": 0,
+   "explanation": "回答感谢用 You're welcome"
+  },
+  {
+   "id": "e6-136",
+   "subject": "英语",
+   "stem": "Sorry, I'm late. 的合适回答是？",
+   "options": [
+    "That's OK.",
+    "I'm twelve.",
+    "It's Monday.",
+    "By bus."
+   ],
+   "answerIndex": 0,
+   "explanation": "回应道歉用 That's OK"
+  },
+  {
+   "id": "e6-137",
+   "subject": "英语",
+   "stem": "There ___ some books on the desk.",
+   "options": [
+    "are",
+    "is",
+    "be",
+    "am"
+   ],
+   "answerIndex": 0,
+   "explanation": "books 是复数，用 are"
+  },
+  {
+   "id": "e6-138",
+   "subject": "英语",
+   "stem": "They ___ to the park last Sunday.",
+   "options": [
+    "went",
+    "go",
+    "going",
+    "have gone"
+   ],
+   "answerIndex": 0,
+   "explanation": "last Sunday 提示一般过去时"
+  },
+  {
+   "id": "e6-139",
+   "subject": "英语",
+   "stem": "She is ___ than her sister.",
+   "options": [
+    "taller",
+    "tall",
+    "tallest",
+    "more tall"
+   ],
+   "answerIndex": 0,
+   "explanation": "than 前用比较级"
+  },
+  {
+   "id": "e6-140",
+   "subject": "英语",
+   "stem": "This is the ___ film I have ever seen.",
+   "options": [
+    "best",
+    "better",
+    "good",
+    "most good"
+   ],
+   "answerIndex": 0,
+   "explanation": "最高级前有 the，用 best"
+  },
+  {
+   "id": "e6-141",
+   "subject": "英语",
+   "stem": "He has ___ finished his homework.",
+   "options": [
+    "already",
+    "yet",
+    "ever",
+    "never"
+   ],
+   "answerIndex": 0,
+   "explanation": "肯定句用 already"
+  },
+  {
+   "id": "e6-142",
+   "subject": "英语",
+   "stem": "She is interested ___ music.",
+   "options": [
+    "in",
+    "on",
+    "at",
+    "for"
+   ],
+   "answerIndex": 0,
+   "explanation": "be interested in 表示对……感兴趣"
+  },
+  {
+   "id": "e6-143",
+   "subject": "英语",
+   "stem": "We should keep our classroom ___.",
+   "options": [
+    "clean",
+    "cleanly",
+    "cleaning",
+    "cleaned"
+   ],
+   "answerIndex": 0,
+   "explanation": "keep + 宾语 + 形容词"
+  },
+  {
+   "id": "e6-144",
+   "subject": "英语",
+   "stem": "The Great Wall is one of the ___ places in the world.",
+   "options": [
+    "most famous",
+    "more famous",
+    "famous",
+    "much famous"
+   ],
+   "answerIndex": 0,
+   "explanation": "one of the + 最高级"
+  },
+  {
+   "id": "e6-145",
+   "subject": "英语",
+   "stem": "The boy is good at ___ basketball.",
+   "options": [
+    "playing",
+    "play",
+    "plays",
+    "played"
+   ],
+   "answerIndex": 0,
+   "explanation": "be good at 后接动名词"
+  },
+  {
+   "id": "e6-146",
+   "subject": "英语",
+   "stem": "Tom is from the UK. He speaks ___.",
+   "options": [
+    "English",
+    "Chinese",
+    "French",
+    "Japanese"
+   ],
+   "answerIndex": 0,
+   "explanation": "英国人主要说英语"
+  },
+  {
+   "id": "e6-147",
+   "subject": "英语",
+   "stem": "It's raining. You need a(n) ___.",
+   "options": [
+    "umbrella",
+    "apple",
+    "book",
+    "bike"
+   ],
+   "answerIndex": 0,
+   "explanation": "下雨需要雨伞"
+  },
+  {
+   "id": "e6-148",
+   "subject": "英语",
+   "stem": "We go to the ___ to borrow books.",
+   "options": [
+    "library",
+    "hospital",
+    "cinema",
+    "museum"
+   ],
+   "answerIndex": 0,
+   "explanation": "借书去图书馆"
+  },
+  {
+   "id": "e6-149",
+   "subject": "英语",
+   "stem": "A doctor works in a ___.",
+   "options": [
+    "hospital",
+    "school",
+    "library",
+    "restaurant"
+   ],
+   "answerIndex": 0,
+   "explanation": "医生在医院工作"
+  },
+  {
+   "id": "e6-150",
+   "subject": "英语",
+   "stem": "The opposite of hot is ___.",
+   "options": [
+    "cold",
+    "warm",
+    "cool",
+    "dry"
+   ],
+   "answerIndex": 0,
+   "explanation": "hot 的反义词是 cold"
+  },
+  {
+   "id": "e6-151",
+   "subject": "英语",
+   "stem": "December is the ___ month of the year.",
+   "options": [
+    "twelfth",
+    "tenth",
+    "eleventh",
+    "second"
+   ],
+   "answerIndex": 0,
+   "explanation": "十二月是第十二个月"
+  },
+  {
+   "id": "e6-152",
+   "subject": "英语",
+   "stem": "We celebrate Christmas in ___.",
+   "options": [
+    "December",
+    "October",
+    "January",
+    "June"
+   ],
+   "answerIndex": 0,
+   "explanation": "圣诞节在十二月"
+  },
+  {
+   "id": "e6-153",
+   "subject": "英语",
+   "stem": "The capital of China is ___.",
+   "options": [
+    "Beijing",
+    "Shanghai",
+    "Guangzhou",
+    "Shenzhen"
+   ],
+   "answerIndex": 0,
+   "explanation": "中国首都是北京"
+  },
+  {
+   "id": "e6-154",
+   "subject": "英语",
+   "stem": "If you are thirsty, you should drink some ___.",
+   "options": [
+    "water",
+    "bread",
+    "apples",
+    "books"
+   ],
+   "answerIndex": 0,
+   "explanation": "口渴喝水"
+  },
+  {
+   "id": "e6-155",
+   "subject": "英语",
+   "stem": "We use a ___ to write.",
+   "options": [
+    "pen",
+    "cup",
+    "shoe",
+    "bag"
+   ],
+   "answerIndex": 0,
+   "explanation": "写字用笔"
+  },
+  {
+   "id": "e6-156",
+   "subject": "英语",
+   "stem": "half past seven 是几点？",
+   "options": [
+    "7:30",
+    "6:30",
+    "8:30",
+    "7:00"
+   ],
+   "answerIndex": 0,
+   "explanation": "half past seven 是七点半"
+  },
+  {
+   "id": "e6-157",
+   "subject": "英语",
+   "stem": "a quarter to nine 是几点？",
+   "options": [
+    "8:45",
+    "9:15",
+    "8:15",
+    "9:45"
+   ],
+   "answerIndex": 0,
+   "explanation": "差一刻到九点是八点四十五"
+  },
+  {
+   "id": "e6-158",
+   "subject": "英语",
+   "stem": "twenty past six 是几点？",
+   "options": [
+    "6:20",
+    "6:40",
+    "5:20",
+    "7:20"
+   ],
+   "answerIndex": 0,
+   "explanation": "six 过二十分是 6:20"
+  },
+  {
+   "id": "e6-159",
+   "subject": "英语",
+   "stem": "five to ten 是几点？",
+   "options": [
+    "9:55",
+    "10:05",
+    "9:05",
+    "10:55"
+   ],
+   "answerIndex": 0,
+   "explanation": "差五分到十点是 9:55"
+  },
+  {
+   "id": "e6-160",
+   "subject": "英语",
+   "stem": "twelve 的序数词是？",
+   "options": [
+    "twelfth",
+    "twelveth",
+    "twelvth",
+    "twelth"
+   ],
+   "answerIndex": 0,
+   "explanation": "twelve 的序数词是 twelfth"
+  },
+  {
+   "id": "e6-161",
+   "subject": "英语",
+   "stem": "three 的序数词是？",
+   "options": [
+    "third",
+    "threeth",
+    "thirth",
+    "thrid"
+   ],
+   "answerIndex": 0,
+   "explanation": "three 的序数词是 third"
+  },
+  {
+   "id": "e6-162",
+   "subject": "英语",
+   "stem": "twenty 的序数词是？",
+   "options": [
+    "twentieth",
+    "twentyth",
+    "twentith",
+    "twentieths"
+   ],
+   "answerIndex": 0,
+   "explanation": "twenty 的序数词是 twentieth"
+  },
+  {
+   "id": "e6-163",
+   "subject": "英语",
+   "stem": "one 的序数词是？",
+   "options": [
+    "first",
+    "oneth",
+    "fist",
+    "firsth"
+   ],
+   "answerIndex": 0,
+   "explanation": "one 的序数词是 first"
+  },
+  {
+   "id": "e6-164",
+   "subject": "英语",
+   "stem": "“美丽的”用英语怎么拼写？",
+   "options": [
+    "beautiful",
+    "beatiful",
+    "beautifull",
+    "butiful"
+   ],
+   "answerIndex": 0,
+   "explanation": "beautiful 拼写要注意 e-a-u"
+  },
+  {
+   "id": "e6-165",
+   "subject": "英语",
+   "stem": "“因为”用英语怎么拼写？",
+   "options": [
+    "because",
+    "becouse",
+    "becuase",
+    "beacuse"
+   ],
+   "answerIndex": 0,
+   "explanation": "because 拼写要注意 e-a-u"
+  },
+  {
+   "id": "e6-166",
+   "subject": "英语",
+   "stem": "“不同的”用英语怎么拼写？",
+   "options": [
+    "different",
+    "diffrent",
+    "diferent",
+    "differant"
+   ],
+   "answerIndex": 0,
+   "explanation": "different 有两个 f"
+  },
+  {
+   "id": "e6-167",
+   "subject": "英语",
+   "stem": "“图书馆”用英语怎么拼写？",
+   "options": [
+    "library",
+    "libary",
+    "librery",
+    "libry"
+   ],
+   "answerIndex": 0,
+   "explanation": "library 拼写要注意 r-a-r"
+  },
+  {
+   "id": "e6-168",
+   "subject": "英语",
+   "stem": "“二月”用英语怎么拼写？",
+   "options": [
+    "February",
+    "Febuary",
+    "Februray",
+    "Feburary"
+   ],
+   "answerIndex": 0,
+   "explanation": "February 拼写要注意 r-u-a-r"
+  },
+  {
+   "id": "e6-169",
+   "subject": "英语",
+   "stem": "“星期三”用英语怎么拼写？",
+   "options": [
+    "Wednesday",
+    "Wensday",
+    "Wednsday",
+    "Wednesay"
+   ],
+   "answerIndex": 0,
+   "explanation": "Wednesday 中的 d 不发音但拼写要保留"
+  },
+  {
+   "id": "e6-170",
+   "subject": "英语",
+   "stem": "“假日”用英语怎么拼写？",
+   "options": [
+    "holiday",
+    "holliday",
+    "hollyday",
+    "holidy"
+   ],
+   "answerIndex": 0,
+   "explanation": "holiday 只有一个 l"
+  },
+  {
+   "id": "e6-171",
+   "subject": "英语",
+   "stem": "“一起”用英语怎么拼写？",
+   "options": [
+    "together",
+    "toghter",
+    "togther",
+    "togather"
+   ],
+   "answerIndex": 0,
+   "explanation": "together 拼写要注意 e-ther"
+  },
+  {
+   "id": "e6-172",
+   "subject": "英语",
+   "stem": "“明天”用英语怎么拼写？",
+   "options": [
+    "tomorrow",
+    "tommorow",
+    "tomorow",
+    "tomoroww"
+   ],
+   "answerIndex": 0,
+   "explanation": "tomorrow 有两个 m、两个 r"
+  },
+  {
+   "id": "e6-173",
+   "subject": "英语",
+   "stem": "“有趣的”用英语怎么拼写？",
+   "options": [
+    "interesting",
+    "intresting",
+    "interessting",
+    "interresting"
+   ],
+   "answerIndex": 0,
+   "explanation": "interesting 拼写要注意 e-r-e-s"
+  },
+  {
+   "id": "e6-174",
+   "subject": "英语",
+   "stem": "I like apples, ___ I don't like bananas.",
+   "options": [
+    "but",
+    "and",
+    "or",
+    "so"
+   ],
+   "answerIndex": 0,
+   "explanation": "前后转折用 but"
+  },
+  {
+   "id": "e6-175",
+   "subject": "英语",
+   "stem": "It was raining, ___ we stayed at home.",
+   "options": [
+    "so",
+    "but",
+    "or",
+    "because"
+   ],
+   "answerIndex": 0,
+   "explanation": "因果结果用 so"
+  },
+  {
+   "id": "e6-176",
+   "subject": "英语",
+   "stem": "You can have tea ___ coffee.",
+   "options": [
+    "or",
+    "and",
+    "but",
+    "so"
+   ],
+   "answerIndex": 0,
+   "explanation": "选择用 or"
+  },
+  {
+   "id": "e6-177",
+   "subject": "英语",
+   "stem": "I didn't go to school ___ I was ill.",
+   "options": [
+    "because",
+    "so",
+    "but",
+    "or"
+   ],
+   "answerIndex": 0,
+   "explanation": "原因用 because"
+  },
+  {
+   "id": "e6-178",
+   "subject": "英语",
+   "stem": "___ it rains, we will not go.",
+   "options": [
+    "If",
+    "Although",
+    "Because",
+    "So"
+   ],
+   "answerIndex": 0,
+   "explanation": "条件用 If"
+  },
+  {
+   "id": "e6-179",
+   "subject": "英语",
+   "stem": "___ he is young, he knows a lot.",
+   "options": [
+    "Although",
+    "Because",
+    "If",
+    "So"
+   ],
+   "answerIndex": 0,
+   "explanation": "让步用 Although"
+  },
+  {
+   "id": "e6-180",
+   "subject": "英语",
+   "stem": "I will call you ___ I arrive.",
+   "options": [
+    "when",
+    "but",
+    "or",
+    "because"
+   ],
+   "answerIndex": 0,
+   "explanation": "时间用 when"
+  },
+  {
+   "id": "e6-181",
+   "subject": "英语",
+   "stem": "She is kind ___ helpful.",
+   "options": [
+    "and",
+    "but",
+    "or",
+    "so"
+   ],
+   "answerIndex": 0,
+   "explanation": "并列用 and"
+  },
+  {
+   "id": "e6-182",
+   "subject": "英语",
+   "stem": "How ___ milk do you want?",
+   "options": [
+    "much",
+    "many",
+    "long",
+    "old"
+   ],
+   "answerIndex": 0,
+   "explanation": "milk 不可数，用 much"
+  },
+  {
+   "id": "e6-183",
+   "subject": "英语",
+   "stem": "How ___ eggs are there?",
+   "options": [
+    "many",
+    "much",
+    "long",
+    "old"
+   ],
+   "answerIndex": 0,
+   "explanation": "eggs 可数，用 many"
+  },
+  {
+   "id": "e6-184",
+   "subject": "英语",
+   "stem": "There is some ___ in the bottle.",
+   "options": [
+    "water",
+    "apples",
+    "books",
+    "eggs"
+   ],
+   "answerIndex": 0,
+   "explanation": "water 不可数"
+  },
+  {
+   "id": "e6-185",
+   "subject": "英语",
+   "stem": "There are many ___ on the tree.",
+   "options": [
+    "apples",
+    "water",
+    "milk",
+    "bread"
+   ],
+   "answerIndex": 0,
+   "explanation": "apples 可数复数"
+  },
+  {
+   "id": "e6-186",
+   "subject": "英语",
+   "stem": "I need ___ information.",
+   "options": [
+    "some",
+    "many",
+    "a",
+    "an"
+   ],
+   "answerIndex": 0,
+   "explanation": "information 不可数，用 some"
+  },
+  {
+   "id": "e6-187",
+   "subject": "英语",
+   "stem": "We have ___ money.",
+   "options": [
+    "some",
+    "many",
+    "a",
+    "an"
+   ],
+   "answerIndex": 0,
+   "explanation": "money 不可数，用 some"
   }
  ]
 }

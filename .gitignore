@@ -20,5 +20,9 @@ local.properties
 *.log
 *.tar
 
+# Python
+__pycache__/
+*.pyc
+
 # 旧发版暂存目录（apk 已被上面的规则忽略，这里只剩校验和）
 release/

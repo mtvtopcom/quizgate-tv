@@ -1,0 +1,312 @@
+--------- beginning of kernel
+--------- beginning of system
+--------- beginning of main
+ 10044.269 18296 18296 I QuizGate: notif_connected phase=0 remaining=30:00
+ 10045.303 18296 18296 I QuizGate: anchor_init enabled=false at=11-18 23:14
+ 10048.041 18296 18370 I QuizGate: update_check_fail https://7789.cn/y/quizgate-tv/ -> SocketTimeoutException: failed to connect to 7789.cn/8.137.86.192 (port 443) from /192.168.1.106 (port 40444) after 2500ms
+ 10048.042 18296 18296 I QuizGate: update_check_fail: SocketTimeoutException: failed to connect to 7789.cn/8.137.86.192 (port 443) from /192.168.1.106 (port 40444) after 2500ms
+ 10185.237 18296 18296 I QuizGate: service_create phase=未开始 remaining=1:00 gap=0s pin=set rc=saved safe=off
+ 10185.238 18296 18296 I QuizGate: onStartCommand action=app.quizgate.tv.START
+ 10185.253 18296 18296 I QuizGate: start_hint show 5000ms remaining=1:00
+ 10185.254 18296 18296 I QuizGate: start_hint reschedule left=4995ms
+ 10185.275 18296 18296 I QuizGate: mini_show remaining=1:00 caption=本次时长
+ 10185.852 18700 18700 I QuizGate: notif_connected phase=1 remaining=1:00
+ 10185.863 18700 18700 I QuizGate: resurrect_restore ok via immediate
+ 10185.893 18700 18700 I QuizGate: service_create phase=计时中 remaining=1:00 gap=0s pin=set rc=saved safe=off
+ 10185.894 18700 18700 I QuizGate: onStartCommand action=app.quizgate.tv.RESTORE
+ 10185.895 18700 18700 I QuizGate: start_hint reschedule left=4353ms
+ 10185.961 18700 18700 I QuizGate: mini_show remaining=1:00 caption=本次时长
+ 10186.335 18700 18700 I QuizGate: notif_posted pkg=android
+ 10186.888 18700 18700 I QuizGate: diag inter=true disp=2 screenOn=true rem=59011 u=10186884 e=10186888
+ 10187.894 18700 18700 I QuizGate: diag inter=true disp=2 screenOn=true rem=58004 u=10187891 e=10187894
+ 10188.899 18700 18700 I QuizGate: diag inter=true disp=2 screenOn=true rem=56998 u=10188897 e=10188899
+ 10189.908 18700 18700 I QuizGate: diag inter=true disp=2 screenOn=true rem=55993 u=10189902 e=10189908
+ 10190.262 18700 18700 I QuizGate: start_hint dismissed
+ 10190.912 18700 18700 I QuizGate: diag inter=true disp=2 screenOn=true rem=54984 u=10190911 e=10190912
+ 10191.916 18700 18700 I QuizGate: diag inter=true disp=2 screenOn=true rem=53980 u=10191915 e=10191916
+ 10192.919 18700 18700 I QuizGate: diag inter=true disp=2 screenOn=true rem=52976 u=10192919 e=10192919
+ 10193.923 18700 18700 I QuizGate: diag inter=true disp=2 screenOn=true rem=51973 u=10193922 e=10193923
+ 10194.927 18700 18700 I QuizGate: diag inter=true disp=2 screenOn=true rem=50969 u=10194926 e=10194927
+ 10195.590 18700 18700 I QuizGate: notif_disconnected
+ 10195.599 18700 18700 I QuizGate: notif_connected phase=1 remaining=0:51
+ 10195.602 18700 18700 I QuizGate: resurrect_restore ok via immediate
+ 10195.603 18700 18700 I QuizGate: onStartCommand action=app.quizgate.tv.RESTORE
+ 10195.809 18700 18700 I QuizGate: diag inter=true disp=2 screenOn=true rem=50764 u=10195808 e=10195809
+ 10196.811 18700 18700 I QuizGate: diag inter=true disp=2 screenOn=true rem=49762 u=10196810 e=10196811
+ 10197.814 18700 18700 I QuizGate: diag inter=true disp=2 screenOn=true rem=48759 u=10197813 e=10197814
+ 10198.818 18700 18700 I QuizGate: diag inter=true disp=2 screenOn=true rem=47755 u=10198817 e=10198818
+ 10199.822 18700 18700 I QuizGate: diag inter=true disp=2 screenOn=true rem=46751 u=10199821 e=10199822
+ 10200.826 18700 18700 I QuizGate: diag inter=true disp=2 screenOn=true rem=45747 u=10200825 e=10200826
+ 10201.830 18700 18700 I QuizGate: diag inter=true disp=2 screenOn=true rem=44742 u=10201830 e=10201830
+ 10202.834 18700 18700 I QuizGate: diag inter=true disp=2 screenOn=true rem=43739 u=10202833 e=10202834
+ 10203.838 18700 18700 I QuizGate: diag inter=true disp=2 screenOn=true rem=42735 u=10203837 e=10203837
+ 10204.842 18700 18700 I QuizGate: diag inter=true disp=2 screenOn=true rem=41731 u=10204841 e=10204842
+ 10205.846 18700 18700 I QuizGate: diag inter=true disp=2 screenOn=true rem=40727 u=10205845 e=10205846
+ 10206.849 18700 18700 I QuizGate: diag inter=true disp=2 screenOn=true rem=39724 u=10206848 e=10206849
+ 10207.853 18700 18700 I QuizGate: diag inter=true disp=2 screenOn=true rem=38720 u=10207852 e=10207852
+ 10208.857 18700 18700 I QuizGate: diag inter=true disp=2 screenOn=true rem=37716 u=10208856 e=10208857
+ 10209.862 18700 18700 I QuizGate: diag inter=true disp=2 screenOn=true rem=36711 u=10209861 e=10209862
+ 10210.866 18700 18700 I QuizGate: diag inter=true disp=2 screenOn=true rem=35707 u=10210865 e=10210866
+ 10211.870 18700 18700 I QuizGate: diag inter=true disp=2 screenOn=true rem=34703 u=10211869 e=10211870
+ 10212.874 18700 18700 I QuizGate: diag inter=true disp=2 screenOn=true rem=33699 u=10212873 e=10212874
+ 10213.879 18700 18700 I QuizGate: diag inter=true disp=2 screenOn=true rem=32694 u=10213878 e=10213879
+ 10214.883 18700 18700 I QuizGate: diag inter=true disp=2 screenOn=true rem=31690 u=10214882 e=10214883
+ 10215.891 18700 18700 I QuizGate: diag inter=true disp=2 screenOn=true rem=30686 u=10215886 e=10215891
+ 10216.912 18700 18700 I QuizGate: mini_show remaining=0:30 caption=剩余
+ 10216.913 18700 18700 I QuizGate: diag inter=true disp=2 screenOn=true rem=29676 u=10216896 e=10216913
+ 10217.204 18700 18700 I QuizGate: notif_posted pkg=android
+ 10217.917 18700 18700 I QuizGate: diag inter=true disp=2 screenOn=true rem=28658 u=10217914 e=10217917
+ 10218.923 18700 18700 I QuizGate: diag inter=true disp=2 screenOn=true rem=27653 u=10218919 e=10218923
+ 10219.929 18700 18700 I QuizGate: diag inter=true disp=2 screenOn=true rem=26646 u=10219926 e=10219929
+ 10220.935 18700 18700 I QuizGate: diag inter=true disp=2 screenOn=true rem=25639 u=10220933 e=10220935
+ 10221.942 18700 18700 I QuizGate: diag inter=true disp=2 screenOn=true rem=24633 u=10221939 e=10221942
+ 10222.948 18700 18700 I QuizGate: diag inter=true disp=2 screenOn=true rem=23627 u=10222945 e=10222948
+ 10223.952 18700 18700 I QuizGate: diag inter=true disp=2 screenOn=true rem=22623 u=10223949 e=10223952
+ 10224.958 18700 18700 I QuizGate: diag inter=true disp=2 screenOn=true rem=21617 u=10224955 e=10224958
+ 10225.963 18700 18700 I QuizGate: diag inter=true disp=2 screenOn=true rem=20611 u=10225961 e=10225963
+ 10226.968 18700 18700 I QuizGate: diag inter=true disp=2 screenOn=true rem=19606 u=10226966 e=10226968
+ 10227.972 18700 18700 I QuizGate: diag inter=true disp=2 screenOn=true rem=18602 u=10227970 e=10227972
+ 10228.978 18700 18700 I QuizGate: diag inter=true disp=2 screenOn=true rem=17598 u=10228974 e=10228977
+ 10229.984 18700 18700 I QuizGate: diag inter=true disp=2 screenOn=true rem=16591 u=10229981 e=10229984
+ 10230.990 18700 18700 I QuizGate: diag inter=true disp=2 screenOn=true rem=15585 u=10230987 e=10230990
+ 10231.994 18700 18700 I QuizGate: diag inter=true disp=2 screenOn=true rem=14580 u=10231992 e=10231994
+ 10233.000 18700 18700 I QuizGate: diag inter=true disp=2 screenOn=true rem=13575 u=10232997 e=10233000
+ 10234.006 18700 18700 I QuizGate: diag inter=true disp=2 screenOn=true rem=12569 u=10234003 e=10234005
+ 10235.012 18700 18700 I QuizGate: diag inter=true disp=2 screenOn=true rem=11563 u=10235009 e=10235011
+ 10236.017 18700 18700 I QuizGate: diag inter=true disp=2 screenOn=true rem=10558 u=10236014 e=10236017
+ 10237.022 18700 18700 I QuizGate: diag inter=true disp=2 screenOn=true rem=9552 u=10237020 e=10237022
+ 10238.029 18700 18700 I QuizGate: diag inter=true disp=2 screenOn=true rem=8546 u=10238026 e=10238029
+ 10239.033 18700 18700 I QuizGate: diag inter=true disp=2 screenOn=true rem=7541 u=10239031 e=10239033
+ 10240.038 18700 18700 I QuizGate: diag inter=true disp=2 screenOn=true rem=6537 u=10240035 e=10240038
+ 10241.044 18700 18700 I QuizGate: diag inter=true disp=2 screenOn=true rem=5531 u=10241041 e=10241044
+ 10242.049 18700 18700 I QuizGate: diag inter=true disp=2 screenOn=true rem=4525 u=10242047 e=10242049
+ 10243.055 18700 18700 I QuizGate: diag inter=true disp=2 screenOn=true rem=3521 u=10243051 e=10243054
+ 10244.061 18700 18700 I QuizGate: diag inter=true disp=2 screenOn=true rem=2514 u=10244058 e=10244061
+ 10245.066 18700 18700 I QuizGate: diag inter=true disp=2 screenOn=true rem=1508 u=10245064 e=10245066
+ 10246.068 18700 18700 I QuizGate: stable 60s -> 崩溃计数归零
+ 10246.082 18700 18700 I QuizGate: diag inter=true disp=2 screenOn=true rem=504 u=10246068 e=10246082
+ 10246.683 18700 18700 I QuizGate: lock at 0 (screen=true)
+ 10246.736 18700 18700 I QuizGate: quiz_next streak=0 wrong=0
+ 10246.748 18700 18700 I QuizGate: mask_add ok
+ 10247.040 18700 18700 I QuizGate: notif_posted pkg=android
+ 10251.459 18700 18700 I QuizGate: quiz_wrong n=1 cooldown=5s
+ 10256.507 18700 18700 I QuizGate: quiz_next streak=0 wrong=1
+ 10260.061 18700 18700 I QuizGate: quiz_wrong n=2 cooldown=10s
+ 10270.138 18700 18700 I QuizGate: quiz_next streak=0 wrong=2
+ 10278.061 18700 18700 I QuizGate: quiz_wrong n=3 cooldown=20s
+ 10298.180 18700 18700 I QuizGate: quiz_next streak=0 wrong=3
+ 10300.068 18700 18700 I QuizGate: quiz_wrong n=4 cooldown=30s
+ 10330.219 18700 18700 I QuizGate: quiz_next streak=0 wrong=4
+ 10378.741 18700 18700 I QuizGate: quiz_correct 1/2
+ 10379.645 18700 18700 I QuizGate: quiz_next streak=1 wrong=4
+ 10388.615 18700 18700 I QuizGate: quiz_correct 2/2 -> extend 1min
+ 10389.334 18700 18700 I QuizGate: mask_remove
+ 10389.340 18700 18700 I QuizGate: solved +1min -> 1:01
+ 10389.896 18700 18700 I QuizGate: diag inter=true disp=2 screenOn=true rem=59440 u=10389895 e=10389895
+ 10390.898 18700 18700 I QuizGate: diag inter=true disp=2 screenOn=true rem=58437 u=10390898 e=10390898
+ 10391.900 18700 18700 I QuizGate: diag inter=true disp=2 screenOn=true rem=57435 u=10391900 e=10391900
+ 10392.903 18700 18700 I QuizGate: diag inter=true disp=2 screenOn=true rem=56432 u=10392903 e=10392903
+ 10393.906 18700 18700 I QuizGate: diag inter=true disp=2 screenOn=true rem=55429 u=10393906 e=10393906
+ 10394.909 18700 18700 I QuizGate: diag inter=true disp=2 screenOn=true rem=54427 u=10394908 e=10394909
+ 10395.910 18700 18700 I QuizGate: diag inter=true disp=2 screenOn=true rem=53426 u=10395909 e=10395910
+ 10396.912 18700 18700 I QuizGate: diag inter=true disp=2 screenOn=true rem=52423 u=10396912 e=10396912
+ 10397.913 18700 18700 I QuizGate: diag inter=true disp=2 screenOn=true rem=51422 u=10397913 e=10397913
+ 10398.916 18700 18700 I QuizGate: diag inter=true disp=2 screenOn=true rem=50419 u=10398916 e=10398916
+ 10399.918 18700 18700 I QuizGate: diag inter=true disp=2 screenOn=true rem=49418 u=10399917 e=10399918
+ 10400.921 18700 18700 I QuizGate: diag inter=true disp=2 screenOn=true rem=48415 u=10400920 e=10400920
+ 10401.922 18700 18700 I QuizGate: diag inter=true disp=2 screenOn=true rem=47413 u=10401922 e=10401922
+ 10402.925 18700 18700 I QuizGate: diag inter=true disp=2 screenOn=true rem=46410 u=10402925 e=10402925
+ 10403.928 18700 18700 I QuizGate: diag inter=true disp=2 screenOn=true rem=45408 u=10403927 e=10403928
+ 10404.930 18700 18700 I QuizGate: diag inter=true disp=2 screenOn=true rem=44406 u=10404929 e=10404930
+ 10405.932 18700 18700 I QuizGate: diag inter=true disp=2 screenOn=true rem=43403 u=10405932 e=10405932
+ 10406.935 18700 18700 I QuizGate: diag inter=true disp=2 screenOn=true rem=42401 u=10406934 e=10406935
+ 10407.938 18700 18700 I QuizGate: diag inter=true disp=2 screenOn=true rem=41398 u=10407937 e=10407938
+ 10408.941 18700 18700 I QuizGate: diag inter=true disp=2 screenOn=true rem=40395 u=10408940 e=10408940
+ 10409.942 18700 18700 I QuizGate: diag inter=true disp=2 screenOn=true rem=39393 u=10409942 e=10409942
+ 10410.944 18700 18700 I QuizGate: diag inter=true disp=2 screenOn=true rem=38392 u=10410943 e=10410944
+ 10411.947 18700 18700 I QuizGate: diag inter=true disp=2 screenOn=true rem=37389 u=10411946 e=10411946
+ 10412.949 18700 18700 I QuizGate: diag inter=true disp=2 screenOn=true rem=36386 u=10412949 e=10412949
+ 10413.952 18700 18700 I QuizGate: diag inter=true disp=2 screenOn=true rem=35383 u=10413952 e=10413952
+ 10414.955 18700 18700 I QuizGate: diag inter=true disp=2 screenOn=true rem=34381 u=10414954 e=10414955
+ 10415.957 18700 18700 I QuizGate: diag inter=true disp=2 screenOn=true rem=33378 u=10415957 e=10415957
+ 10416.960 18700 18700 I QuizGate: diag inter=true disp=2 screenOn=true rem=32375 u=10416960 e=10416960
+ 10417.963 18700 18700 I QuizGate: diag inter=true disp=2 screenOn=true rem=31373 u=10417962 e=10417963
+ 10418.969 18700 18700 I QuizGate: diag inter=true disp=2 screenOn=true rem=30370 u=10418965 e=10418969
+ 10419.988 18700 18700 I QuizGate: mini_show remaining=0:30 caption=剩余
+ 10419.988 18700 18700 I QuizGate: diag inter=true disp=2 screenOn=true rem=29363 u=10419972 e=10419988
+ 10420.266 18700 18700 I QuizGate: notif_posted pkg=android
+ 10420.992 18700 18700 I QuizGate: diag inter=true disp=2 screenOn=true rem=28345 u=10420990 e=10420992
+ 10421.997 18700 18700 I QuizGate: diag inter=true disp=2 screenOn=true rem=27341 u=10421994 e=10421997
+ 10423.001 18700 18700 I QuizGate: diag inter=true disp=2 screenOn=true rem=26336 u=10422999 e=10423001
+ 10424.005 18700 18700 I QuizGate: diag inter=true disp=2 screenOn=true rem=25332 u=10424003 e=10424005
+ 10425.008 18700 18700 I QuizGate: diag inter=true disp=2 screenOn=true rem=24328 u=10425007 e=10425008
+ 10426.011 18700 18700 I QuizGate: diag inter=true disp=2 screenOn=true rem=23325 u=10426010 e=10426011
+ 10427.016 18700 18700 I QuizGate: diag inter=true disp=2 screenOn=true rem=22320 u=10427015 e=10427016
+ 10428.019 18700 18700 I QuizGate: diag inter=true disp=2 screenOn=true rem=21317 u=10428018 e=10428019
+ 10429.021 18700 18700 I QuizGate: diag inter=true disp=2 screenOn=true rem=20315 u=10429020 e=10429021
+ 10430.025 18700 18700 I QuizGate: diag inter=true disp=2 screenOn=true rem=19311 u=10430024 e=10430025
+ 10431.028 18700 18700 I QuizGate: diag inter=true disp=2 screenOn=true rem=18308 u=10431027 e=10431028
+ 10432.031 18700 18700 I QuizGate: diag inter=true disp=2 screenOn=true rem=17305 u=10432030 e=10432031
+ 10433.035 18700 18700 I QuizGate: diag inter=true disp=2 screenOn=true rem=16302 u=10433033 e=10433035
+ 10434.039 18700 18700 I QuizGate: diag inter=true disp=2 screenOn=true rem=15298 u=10434037 e=10434039
+ 10435.042 18700 18700 I QuizGate: diag inter=true disp=2 screenOn=true rem=14294 u=10435041 e=10435042
+ 10436.046 18700 18700 I QuizGate: diag inter=true disp=2 screenOn=true rem=13291 u=10436044 e=10436046
+ 10437.049 18700 18700 I QuizGate: diag inter=true disp=2 screenOn=true rem=12287 u=10437048 e=10437049
+ 10438.052 18700 18700 I QuizGate: diag inter=true disp=2 screenOn=true rem=11284 u=10438051 e=10438052
+ 10439.056 18700 18700 I QuizGate: diag inter=true disp=2 screenOn=true rem=10281 u=10439054 e=10439056
+ 10440.058 18700 18700 I QuizGate: diag inter=true disp=2 screenOn=true rem=9278 u=10440057 e=10440058
+ 10441.062 18700 18700 I QuizGate: diag inter=true disp=2 screenOn=true rem=8274 u=10441061 e=10441062
+ 10442.065 18700 18700 I QuizGate: diag inter=true disp=2 screenOn=true rem=7271 u=10442064 e=10442065
+ 10443.069 18700 18700 I QuizGate: diag inter=true disp=2 screenOn=true rem=6268 u=10443067 e=10443068
+ 10444.074 18700 18700 I QuizGate: diag inter=true disp=2 screenOn=true rem=5263 u=10444072 e=10444074
+ 10445.078 18700 18700 I QuizGate: diag inter=true disp=2 screenOn=true rem=4259 u=10445076 e=10445078
+ 10446.082 18700 18700 I QuizGate: diag inter=true disp=2 screenOn=true rem=3255 u=10446080 e=10446082
+ 10447.086 18700 18700 I QuizGate: diag inter=true disp=2 screenOn=true rem=2251 u=10447084 e=10447086
+ 10448.090 18700 18700 I QuizGate: diag inter=true disp=2 screenOn=true rem=1247 u=10448088 e=10448090
+ 10449.097 18700 18700 I QuizGate: diag inter=true disp=2 screenOn=true rem=243 u=10449092 e=10449097
+ 10449.498 18700 18700 I QuizGate: lock at 0 (screen=true)
+ 10449.535 18700 18700 I QuizGate: quiz_next streak=0 wrong=0
+ 10449.546 18700 18700 I QuizGate: mask_add ok
+ 10449.814 18700 18700 I QuizGate: notif_posted pkg=android
+ 10456.691 18700 18700 I QuizGate: quiz_correct 1/2
+ 10457.593 18700 18700 I QuizGate: quiz_next streak=1 wrong=0
+ 10462.496 18700 18700 I QuizGate: quiz_wrong n=1 cooldown=5s
+ 10467.520 18700 18700 I QuizGate: quiz_next streak=0 wrong=1
+ 10473.763 18700 18700 I QuizGate: quiz_correct 1/2
+ 10474.665 18700 18700 I QuizGate: quiz_next streak=1 wrong=1
+ 10486.645 18700 18700 I QuizGate: quiz_correct 2/2 -> extend 1min
+ 10487.364 18700 18700 I QuizGate: mask_remove
+ 10487.370 18700 18700 I QuizGate: solved +1min -> 1:01
+ 10488.022 18700 18700 I QuizGate: diag inter=true disp=2 screenOn=true rem=59343 u=10488022 e=10488022
+ 10489.025 18700 18700 I QuizGate: diag inter=true disp=2 screenOn=true rem=58340 u=10489025 e=10489025
+ 10490.028 18700 18700 I QuizGate: diag inter=true disp=2 screenOn=true rem=57338 u=10490027 e=10490028
+ 10491.030 18700 18700 I QuizGate: diag inter=true disp=2 screenOn=true rem=56335 u=10491030 e=10491030
+ 10492.033 18700 18700 I QuizGate: diag inter=true disp=2 screenOn=true rem=55332 u=10492033 e=10492033
+ 10493.037 18700 18700 I QuizGate: diag inter=true disp=2 screenOn=true rem=54329 u=10493036 e=10493037
+ 10494.044 18700 18700 I QuizGate: diag inter=true disp=2 screenOn=true rem=53321 u=10494044 e=10494044
+ 10495.047 18700 18700 I QuizGate: diag inter=true disp=2 screenOn=true rem=52319 u=10495046 e=10495047
+ 10496.051 18700 18700 I QuizGate: diag inter=true disp=2 screenOn=true rem=51315 u=10496050 e=10496051
+ 10497.052 18700 18700 I QuizGate: diag inter=true disp=2 screenOn=true rem=50313 u=10497052 e=10497052
+ 10498.055 18700 18700 I QuizGate: diag inter=true disp=2 screenOn=true rem=49311 u=10498054 e=10498055
+ 10499.058 18700 18700 I QuizGate: diag inter=true disp=2 screenOn=true rem=48308 u=10499057 e=10499058
+ 10500.061 18700 18700 I QuizGate: diag inter=true disp=2 screenOn=true rem=47304 u=10500061 e=10500061
+ 10501.063 18700 18700 I QuizGate: diag inter=true disp=2 screenOn=true rem=46302 u=10501063 e=10501063
+ 10501.967 18700 18700 I QuizGate: anchor_init enabled=false at=11-18 23:21
+ 10502.149 18700 18700 I QuizGate: diag inter=true disp=2 screenOn=true rem=45216 u=10502149 e=10502149
+ 10503.150 18700 18700 I QuizGate: diag inter=true disp=2 screenOn=true rem=44216 u=10503149 e=10503150
+ 10504.151 18700 18700 I QuizGate: diag inter=true disp=2 screenOn=true rem=43214 u=10504151 e=10504151
+ 10504.709 18700 19209 I QuizGate: update_check_fail https://7789.cn/y/quizgate-tv/ -> SocketTimeoutException: failed to connect to 7789.cn/8.137.86.192 (port 443) from /192.168.1.106 (port 41998) after 2500ms
+ 10504.709 18700 18700 I QuizGate: update_check_fail: SocketTimeoutException: failed to connect to 7789.cn/8.137.86.192 (port 443) from /192.168.1.106 (port 41998) after 2500ms
+ 10505.153 18700 18700 I QuizGate: diag inter=true disp=2 screenOn=true rem=42212 u=10505153 e=10505153
+ 10506.155 18700 18700 I QuizGate: diag inter=true disp=2 screenOn=true rem=41210 u=10506155 e=10506155
+ 10507.156 18700 18700 I QuizGate: diag inter=true disp=2 screenOn=true rem=40210 u=10507155 e=10507156
+ 10508.157 18700 18700 I QuizGate: diag inter=true disp=2 screenOn=true rem=39208 u=10508157 e=10508157
+ 10509.158 18700 18700 I QuizGate: diag inter=true disp=2 screenOn=true rem=38207 u=10509158 e=10509158
+ 10510.160 18700 18700 I QuizGate: diag inter=true disp=2 screenOn=true rem=37205 u=10510160 e=10510160
+ 10511.160 18700 18700 I QuizGate: diag inter=true disp=2 screenOn=true rem=36205 u=10511160 e=10511160
+ 10512.162 18700 18700 I QuizGate: diag inter=true disp=2 screenOn=true rem=35203 u=10512162 e=10512162
+ 10513.165 18700 18700 I QuizGate: diag inter=true disp=2 screenOn=true rem=34201 u=10513164 e=10513165
+ 10514.168 18700 18700 I QuizGate: diag inter=true disp=2 screenOn=true rem=33197 u=10514168 e=10514168
+ 10515.177 18700 18700 I QuizGate: diag inter=true disp=2 screenOn=true rem=32188 u=10515177 e=10515177
+ 10516.180 18700 18700 I QuizGate: diag inter=true disp=2 screenOn=true rem=31185 u=10516180 e=10516180
+ 10516.769 19261 19261 I QuizGate: notif_connected phase=1 remaining=0:32
+ 10516.771 19261 19261 I QuizGate: resurrect_deferred（屏幕未亮，等亮屏再起服务）
+ 10526.495 19261 19261 I QuizGate: notif_disconnected
+ 10526.523 19261 19261 I QuizGate: notif_connected phase=1 remaining=0:32
+ 10526.524 19261 19261 I QuizGate: resurrect_deferred（屏幕未亮，等亮屏再起服务）
+ 10628.473 19261 19261 I QuizGate: resurrect_on_screen_on
+ 10628.478 19261 19261 I QuizGate: resurrect_restore ok via screen_on
+ 10628.506 19261 19261 I QuizGate: service_create phase=计时中 remaining=0:32 gap=0s pin=set rc=saved safe=off
+ 10628.507 19261 19261 I QuizGate: onStartCommand action=app.quizgate.tv.RESTORE
+ 10629.328 19261 19261 I QuizGate: diag inter=true disp=2 screenOn=true rem=30368 u=10629326 e=10629328
+ 10630.375 19261 19261 I QuizGate: mini_show remaining=0:30 caption=剩余
+ 10630.375 19261 19261 I QuizGate: diag inter=true disp=2 screenOn=true rem=29363 u=10630331 e=10630375
+ 10630.724 19261 19261 I QuizGate: notif_posted pkg=android
+ 10631.379 19261 19261 I QuizGate: diag inter=true disp=2 screenOn=true rem=28318 u=10631376 e=10631379
+ 10632.384 19261 19261 I QuizGate: diag inter=true disp=2 screenOn=true rem=27313 u=10632381 e=10632384
+ 10633.390 19261 19261 I QuizGate: diag inter=true disp=2 screenOn=true rem=26306 u=10633388 e=10633390
+ 10634.396 19261 19261 I QuizGate: diag inter=true disp=2 screenOn=true rem=25302 u=10634392 e=10634396
+ 10635.402 19261 19261 I QuizGate: diag inter=true disp=2 screenOn=true rem=24295 u=10635399 e=10635402
+ 10636.408 19261 19261 I QuizGate: diag inter=true disp=2 screenOn=true rem=23289 u=10636405 e=10636407
+ 10637.413 19261 19261 I QuizGate: diag inter=true disp=2 screenOn=true rem=22284 u=10637410 e=10637413
+ 10638.419 19261 19261 I QuizGate: diag inter=true disp=2 screenOn=true rem=21277 u=10638417 e=10638419
+ 10639.425 19261 19261 I QuizGate: diag inter=true disp=2 screenOn=true rem=20271 u=10639423 e=10639425
+ 10640.431 19261 19261 I QuizGate: diag inter=true disp=2 screenOn=true rem=19266 u=10640428 e=10640431
+ 10641.437 19261 19261 I QuizGate: diag inter=true disp=2 screenOn=true rem=18259 u=10641435 e=10641437
+ 10642.445 19261 19261 I QuizGate: diag inter=true disp=2 screenOn=true rem=17252 u=10642442 e=10642445
+ 10643.451 19261 19261 I QuizGate: diag inter=true disp=2 screenOn=true rem=16246 u=10643448 e=10643451
+ 10644.456 19261 19261 I QuizGate: diag inter=true disp=2 screenOn=true rem=15241 u=10644453 e=10644456
+ 10645.461 19261 19261 I QuizGate: diag inter=true disp=2 screenOn=true rem=14235 u=10645459 e=10645461
+ 10646.468 19261 19261 I QuizGate: diag inter=true disp=2 screenOn=true rem=13230 u=10646464 e=10646467
+ 10647.473 19261 19261 I QuizGate: diag inter=true disp=2 screenOn=true rem=12223 u=10647471 e=10647473
+ 10648.479 19261 19261 I QuizGate: diag inter=true disp=2 screenOn=true rem=11218 u=10648476 e=10648479
+ 10649.484 19261 19261 I QuizGate: diag inter=true disp=2 screenOn=true rem=10213 u=10649481 e=10649484
+ 10650.488 19261 19261 I QuizGate: diag inter=true disp=2 screenOn=true rem=9208 u=10650486 e=10650488
+ 10651.495 19261 19261 I QuizGate: diag inter=true disp=2 screenOn=true rem=8203 u=10651491 e=10651495
+ 10652.501 19261 19261 I QuizGate: diag inter=true disp=2 screenOn=true rem=7196 u=10652498 e=10652500
+ 10653.506 19261 19261 I QuizGate: diag inter=true disp=2 screenOn=true rem=6191 u=10653503 e=10653506
+ 10654.513 19261 19261 I QuizGate: diag inter=true disp=2 screenOn=true rem=5185 u=10654509 e=10654513
+ 10655.519 19261 19261 I QuizGate: diag inter=true disp=2 screenOn=true rem=4177 u=10655517 e=10655519
+ 10656.523 19261 19261 I QuizGate: diag inter=true disp=2 screenOn=true rem=3173 u=10656521 e=10656523
+ 10657.529 19261 19261 I QuizGate: diag inter=true disp=2 screenOn=true rem=2168 u=10657526 e=10657529
+ 10658.538 19261 19261 I QuizGate: diag inter=true disp=2 screenOn=true rem=1162 u=10658532 e=10658538
+ 10659.541 19261 19261 I QuizGate: diag inter=true disp=2 screenOn=true rem=155 u=10659539 e=10659541
+ 10659.741 19261 19261 I QuizGate: lock at 0 (screen=true)
+ 10659.792 19261 19261 I QuizGate: quiz_next streak=0 wrong=0
+ 10659.802 19261 19261 I QuizGate: mask_add ok
+ 10660.115 19261 19261 I QuizGate: notif_posted pkg=android
+ 10685.574 19261 19261 I QuizGate: quiz_wrong n=1 cooldown=5s
+ 10688.684 19261 19261 I QuizGate: stable 60s -> 崩溃计数归零
+ 10690.623 19261 19261 I QuizGate: quiz_next streak=0 wrong=1
+ 10701.303 19261 19261 I QuizGate: quiz_wrong n=2 cooldown=10s
+ 10711.377 19261 19261 I QuizGate: quiz_next streak=0 wrong=2
+ 10724.425 19261 19261 I QuizGate: quiz_wrong n=3 cooldown=20s
+ 10744.544 19261 19261 I QuizGate: quiz_next streak=0 wrong=3
+ 10758.582 19261 19261 I QuizGate: quiz_wrong n=4 cooldown=30s
+ 10775.166 20152 20152 I QuizGate: notif_connected phase=2 remaining=0:00
+ 10775.182 20152 20152 I QuizGate: resurrect_deferred（屏幕未亮，等亮屏再起服务）
+ 10780.799 20152 20152 I QuizGate: resurrect_on_screen_on
+ 10780.809 20152 20152 I QuizGate: resurrect_restore ok via screen_on
+ 10781.172 20152 20152 I QuizGate: mask_add ok
+ 10781.792 20152 20152 I QuizGate: notif_posted pkg=android
+ 10784.867 20152 20152 I QuizGate: notif_disconnected
+ 10784.878 20152 20152 I QuizGate: notif_connected phase=2 remaining=0:00
+ 10784.881 20152 20152 I QuizGate: resurrect_restore ok via immediate
+ 10784.881 20152 20152 I QuizGate: onStartCommand action=app.quizgate.tv.RESTORE
+ 10788.841 20152 20152 I QuizGate: quiz_next streak=0 wrong=4
+ 10806.472 20152 20152 I QuizGate: quiz_correct 1/2
+ 10807.379 20152 20152 I QuizGate: quiz_next streak=1 wrong=4
+ 10817.660 20152 20152 I QuizGate: quiz_correct 2/2 -> extend 1min
+ 10818.381 20152 20152 I QuizGate: mask_remove
+ 10818.386 20152 20152 I QuizGate: solved +1min -> 1:01
+ 10819.223 20152 20152 I QuizGate: diag inter=true disp=2 screenOn=true rem=59160 u=10819222 e=10819223
+ 10820.227 20152 20152 I QuizGate: diag inter=true disp=2 screenOn=true rem=58156 u=10820226 e=10820227
+ 10821.231 20152 20152 I QuizGate: diag inter=true disp=2 screenOn=true rem=57151 u=10821231 e=10821231
+ 10822.234 20152 20152 I QuizGate: diag inter=true disp=2 screenOn=true rem=56148 u=10822234 e=10822234
+ 10823.238 20152 20152 I QuizGate: diag inter=true disp=2 screenOn=true rem=55144 u=10823238 e=10823238
+ 10824.241 20152 20152 I QuizGate: diag inter=true disp=2 screenOn=true rem=54141 u=10824241 e=10824241
+ 10825.246 20152 20152 I QuizGate: diag inter=true disp=2 screenOn=true rem=53138 u=10825244 e=10825245
+ 10826.250 20152 20152 I QuizGate: diag inter=true disp=2 screenOn=true rem=52133 u=10826249 e=10826249
+ 10827.254 20152 20152 I QuizGate: diag inter=true disp=2 screenOn=true rem=51129 u=10827253 e=10827254
+ 10828.257 20152 20152 I QuizGate: diag inter=true disp=2 screenOn=true rem=50125 u=10828257 e=10828257
+ 10829.261 20152 20152 I QuizGate: diag inter=true disp=2 screenOn=true rem=49122 u=10829260 e=10829261
+ 10830.265 20152 20152 I QuizGate: diag inter=true disp=2 screenOn=true rem=48118 u=10830264 e=10830265
+ 10831.268 20152 20152 I QuizGate: diag inter=true disp=2 screenOn=true rem=47114 u=10831268 e=10831268
+ 10832.271 20152 20152 I QuizGate: diag inter=true disp=2 screenOn=true rem=46112 u=10832270 e=10832271
+ 10833.274 20152 20152 I QuizGate: diag inter=true disp=2 screenOn=true rem=45109 u=10833273 e=10833274
+ 10834.277 20152 20152 I QuizGate: diag inter=true disp=2 screenOn=true rem=44106 u=10834276 e=10834276
+ 10835.280 20152 20152 I QuizGate: diag inter=true disp=2 screenOn=true rem=43102 u=10835280 e=10835280
+ 10836.284 20152 20152 I QuizGate: diag inter=true disp=2 screenOn=true rem=42099 u=10836283 e=10836284
+ 10837.288 20152 20152 I QuizGate: diag inter=true disp=2 screenOn=true rem=41095 u=10837287 e=10837288
+ 10838.290 20152 20152 I QuizGate: diag inter=true disp=2 screenOn=true rem=40092 u=10838290 e=10838290
+ 10839.294 20152 20152 I QuizGate: diag inter=true disp=2 screenOn=true rem=39088 u=10839294 e=10839294
+ 10840.297 20152 20152 I QuizGate: diag inter=true disp=2 screenOn=true rem=38086 u=10840296 e=10840296
+ 10840.898 20152 20152 I QuizGate: stable 60s -> 崩溃计数归零
+ 10841.300 20152 20152 I QuizGate: diag inter=true disp=2 screenOn=true rem=37082 u=10841300 e=10841300
+ 10842.304 20152 20152 I QuizGate: diag inter=true disp=2 screenOn=true rem=36078 u=10842304 e=10842304
+ 10843.308 20152 20152 I QuizGate: diag inter=true disp=2 screenOn=true rem=35075 u=10843307 e=10843308
+ 10844.312 20152 20152 I QuizGate: diag inter=true disp=2 screenOn=true rem=34071 u=10844311 e=10844312
+ 10845.315 20152 20152 I QuizGate: diag inter=true disp=2 screenOn=true rem=33067 u=10845315 e=10845315
+ 10846.319 20152 20152 I QuizGate: diag inter=true disp=2 screenOn=true rem=32064 u=10846318 e=10846319
+ 10847.321 20152 20152 I QuizGate: diag inter=true disp=2 screenOn=true rem=31062 u=10847320 e=10847321
+ 10848.329 20152 20152 I QuizGate: diag inter=true disp=2 screenOn=true rem=30058 u=10848324 e=10848328

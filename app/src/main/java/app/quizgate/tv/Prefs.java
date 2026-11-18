@@ -2,6 +2,7 @@ package app.quizgate.tv;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.os.SystemClock;
 import android.util.Base64;
 
 import java.security.MessageDigest;
@@ -42,18 +43,81 @@ public final class Prefs {
     /** 学段：0 = 小学（1-6 年级），1 = 初中（初一/初二/初三 = 7/8/9 年级）。 */
     public static final int STAGE_PRIMARY = 0, STAGE_JUNIOR = 1;
 
-    /** 科目：0 = 语文，1 = 数学，2 = 英语。题库文件名为 <subject>_grade_<n>.json。 */
-    public static final int SUBJECT_CHINESE = 0, SUBJECT_MATH = 1, SUBJECT_ENGLISH = 2;
+    /**
+     * 科目：0 = 语文，1 = 数学，2 = 英语，3 = 混合（每题按权重独立抽科）。
+     * 题库文件名为 <subject>_grade_<n>.json，混合模式没有对应的题库文件。
+     */
+    public static final int SUBJECT_CHINESE = 0, SUBJECT_MATH = 1, SUBJECT_ENGLISH = 2,
+            SUBJECT_MIXED = 3;
     public static final String[] SUBJECT_KEYS = {"chinese", "math", "english"};
-    public static final String[] SUBJECT_NAMES = {"语文", "数学", "英语"};
+    public static final String[] SUBJECT_NAMES = {"语文", "数学", "英语", "混合"};
 
-    public int subject() { return clamp(sp.getInt("subject", SUBJECT_MATH), 0, 2); }
+    public int subject() { return clamp(sp.getInt("subject", SUBJECT_MATH), 0, SUBJECT_MIXED); }
 
-    public void setSubject(int v) { sp.edit().putInt("subject", clamp(v, 0, 2)).commit(); }
+    public void setSubject(int v) { sp.edit().putInt("subject", clamp(v, 0, SUBJECT_MIXED)).commit(); }
 
-    public String subjectKey() { return SUBJECT_KEYS[subject()]; }
+    public boolean mixed() { return subject() == SUBJECT_MIXED; }
+
+    /** 混合模式没有单一科目，调用方应先判断 {@link #mixed()}。 */
+    public String subjectKey() {
+        int s = subject();
+        return s == SUBJECT_MIXED ? null : SUBJECT_KEYS[s];
+    }
 
     public String subjectName() { return SUBJECT_NAMES[subject()]; }
+
+    // ---------- 小朋友称呼 ----------
+    /** 默认中性称呼，源码里不写真实姓名。 */
+    public static final String DEFAULT_CHILD_NAME = "小朋友";
+    private static final int MAX_CHILD_NAME = 16;
+
+    public String childName() {
+        String s = sp.getString("childName", DEFAULT_CHILD_NAME);
+        return normalizeChildName(s);
+    }
+
+    public void setChildName(String v) {
+        sp.edit().putString("childName", normalizeChildName(v)).commit();
+    }
+
+    private static String normalizeChildName(String s) {
+        if (s == null) return DEFAULT_CHILD_NAME;
+        s = s.replace('\n', ' ').replace('\r', ' ').trim();
+        if (s.isEmpty()) return DEFAULT_CHILD_NAME;
+        if (s.length() > MAX_CHILD_NAME) s = s.substring(0, MAX_CHILD_NAME);
+        return s;
+    }
+
+    // ---------- 混合科目的抽题权重（默认 语文:数学:英语 = 2:2:1） ----------
+    /**
+     * 混合模式每题独立抽科，没有“5 题一袋”的状态，进程被杀也不会重置比例。
+     * 权重现在存在 Prefs 里是为了后续加设置页时不用再改存储结构；本次不开放 UI。
+     * 返回副本，调用方不要修改。
+     */
+    public int[] mixedWeights() {
+        int c = clamp(sp.getInt("mixedWeightChinese", 2), 0, 100);
+        int m = clamp(sp.getInt("mixedWeightMath", 2), 0, 100);
+        int e = clamp(sp.getInt("mixedWeightEnglish", 1), 0, 100);
+        if (c + m + e <= 0) return new int[]{2, 2, 1};
+        return new int[]{c, m, e};
+    }
+
+    /** 预留给后续设置页；当前没有调用方。 */
+    public void setMixedWeights(int c, int m, int e) {
+        c = clamp(c, 0, 100);
+        m = clamp(m, 0, 100);
+        e = clamp(e, 0, 100);
+        if (c + m + e <= 0) {
+            c = 2;
+            m = 2;
+            e = 1;
+        }
+        sp.edit()
+                .putInt("mixedWeightChinese", c)
+                .putInt("mixedWeightMath", m)
+                .putInt("mixedWeightEnglish", e)
+                .commit();
+    }
 
     /**
      * 1.3.0：家长在锁屏遮罩上输对过一次口令后，到「开始新一局计时」为止进设置不再要口令。
@@ -121,6 +185,91 @@ public final class Prefs {
     public void resetSession() {
         saveSnapshot(IDLE, durationMin() * 60_000L);
         clearStartHint();
+        resetQuizProgress();
+    }
+
+    // ---------- 连对与答错冷却 ----------
+    /**
+     * 连对几题才发一次延时。默认 2，设置页「连对题数」可调 1–10。
+     * <p>答错即清零连对进度；答对不降低冷却档位（累计制）——档位记的是「这次锁定里
+     * 总共答错几次」，只有新一次锁定 / 延时到手 / 会话结束才归零。
+     */
+    public static final int DEFAULT_REQUIRED_CORRECT = 2;
+    public static final int MIN_REQUIRED_CORRECT = 1, MAX_REQUIRED_CORRECT = 10;
+
+    public int requiredCorrect() {
+        return clamp(sp.getInt("requiredCorrect", DEFAULT_REQUIRED_CORRECT),
+                MIN_REQUIRED_CORRECT, MAX_REQUIRED_CORRECT);
+    }
+
+    public void setRequiredCorrect(int v) {
+        sp.edit().putInt("requiredCorrect",
+                clamp(v, MIN_REQUIRED_CORRECT, MAX_REQUIRED_CORRECT)).commit();
+    }
+
+    /** 单次冷却上限。用于识别旧记录/错误值，避免把冷却算成几十分钟。 */
+    private static final long MAX_COOLDOWN_MS = 60_000L;
+
+    public int correctStreak() { return sp.getInt("quizCorrectStreak", 0); }
+
+    public void setCorrectStreak(int v) {
+        sp.edit().putInt("quizCorrectStreak",
+                Math.max(0, Math.min(requiredCorrect(), v))).commit();
+    }
+
+    public int wrongCount() { return sp.getInt("quizWrongCount", 0); }
+
+    /**
+     * 答错一次：清零连对进度、累计错题次数、写入冷却截止，三件事放进同一个 commit。
+     * <p>用 {@link SystemClock#elapsedRealtime()} 而不是墙钟：进程被小米强停后仍能算剩余，
+     * 改系统时间也无效。设备重启后 elapsedRealtime 归零，{@link #cooldownLeftMs()} 会识别
+     * 并放行（重启本身通常比一次 30 秒冷却更久）。
+     *
+     * @return 累计到本次锁定为止的答错次数
+     */
+    public int noteWrongAnswer(long cooldownMs) {
+        int n = wrongCount() + 1;
+        long now = SystemClock.elapsedRealtime();
+        long ms = Math.max(0L, Math.min(MAX_COOLDOWN_MS, cooldownMs));
+        sp.edit()
+                .putInt("quizCorrectStreak", 0)
+                .putInt("quizWrongCount", n)
+                .putLong("quizCooldownSetAt", now)
+                .putLong("quizCooldownUntil", now + ms)
+                .commit();
+        return n;
+    }
+
+    /** 剩余冷却毫秒数；0 = 不在冷却。跨进程存活，重启后自动放行。 */
+    public long cooldownLeftMs() {
+        long until = sp.getLong("quizCooldownUntil", 0L);
+        long setAt = sp.getLong("quizCooldownSetAt", 0L);
+        if (until <= 0L) return 0L;
+        long now = SystemClock.elapsedRealtime();
+        // now < setAt：设备重启过，elapsedRealtime 归零；
+        // 跨度超过上限：旧版本/坏数据；now >= until：已经冷却完。
+        if (now < setAt || until - setAt > MAX_COOLDOWN_MS || now >= until) {
+            clearCooldown();
+            return 0L;
+        }
+        return until - now;
+    }
+
+    public void clearCooldown() {
+        sp.edit()
+                .putLong("quizCooldownSetAt", 0L)
+                .putLong("quizCooldownUntil", 0L)
+                .commit();
+    }
+
+    /** 新一次锁定 / 延时到手 / 会话结束：连对进度和冷却档位一起归零。 */
+    public void resetQuizProgress() {
+        sp.edit()
+                .putInt("quizCorrectStreak", 0)
+                .putInt("quizWrongCount", 0)
+                .putLong("quizCooldownSetAt", 0L)
+                .putLong("quizCooldownUntil", 0L)
+                .commit();
     }
 
     // ---------- 开局 5 秒提示（必须跨进程存活） ----------

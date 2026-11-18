@@ -2,6 +2,7 @@ package app.quizgate.tv;
 
 import android.content.Context;
 import android.graphics.drawable.GradientDrawable;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.KeyEvent;
 import android.view.View;
@@ -15,6 +16,12 @@ import java.util.Random;
 /** 全屏遮罩：出题、判题、家长口令入口。按键全部在根 View 上路由，不依赖焦点树。 */
 public class MaskView extends FrameLayout {
 
+    private static final String TAG = "QuizGate";
+    /** 答错后的累计冷却档位：第 1/2/3/4+ 次答错分别冷却 5/10/20/30 秒。 */
+    private static final int[] COOLDOWN_SEC = {5, 10, 20, 30};
+    private static final String KICKER_SUFFIX = "，本次观看时间到，请答题";
+    private static final String HINT_DEFAULT = "按 1–4 或方向键选择，OK 确认　·　菜单键 = 家长";
+
     public interface Host {
         void onSolved();
         void onPinOk();
@@ -26,11 +33,18 @@ public class MaskView extends FrameLayout {
     private final Random rnd = new Random();
     private final int grade;
     private final int floorGrade;
-    private final String subjectKey;
+    /** 配置的科目：0–2 固定科目，3 = 混合（每题独立抽科）。 */
+    private final int subject;
     private final int extendMin;
+    /** 连对几题才延时，来自设置页「连对题数」。 */
+    private final int requiredCorrect;
+    /** 设置页「小朋友称呼」，默认「小朋友」；源码里不写真实姓名。 */
+    private final String childName;
 
+    private final TextView kickerView;
     private final TextView stemView;
     private final TextView feedback;
+    private final TextView hintView;
     private final TextView[] opts = new TextView[4];
     private final LinearLayout box;
 
@@ -39,18 +53,36 @@ public class MaskView extends FrameLayout {
     private RecoveryFlow recovery;
     private boolean pinVisible = false;
     private boolean answering = false;
+    /** 窗口被移除后，延迟回调不能再发延时或继续出题（家长可能在 700ms 内结束了会话）。 */
+    private boolean detached = false;
     /** 当前选中的选项。遮罩在悬浮窗里，不能靠焦点树，只能自己记。 */
     private int sel = 0;
+
+    private final Runnable cooldownTick = new Runnable() {
+        @Override public void run() {
+            if (!detached && answering) showCooldown();
+        }
+    };
+    private final Runnable advanceQuestion = () -> {
+        if (!detached) nextQuestion();
+    };
+    /** 在构造器里初始化：lambda 捕获构造器参数，避免引用尚未赋值的 blank final 字段。 */
+    private final Runnable grantExtension;
 
     public MaskView(Context c, Prefs prefs, QuizBank bank, Host host) {
         super(c);
         this.prefs = prefs;
         this.bank = bank;
         this.host = host;
+        this.grantExtension = () -> {
+            if (!detached) host.onSolved();
+        };
         this.grade = prefs.grade();
         this.floorGrade = prefs.floorGrade();
-        this.subjectKey = prefs.subjectKey();
+        this.subject = prefs.subject();
         this.extendMin = prefs.extendMin();
+        this.requiredCorrect = prefs.requiredCorrect();
+        this.childName = prefs.childName();
 
         setBackgroundColor(Ui.BG);
         setFocusable(true);
@@ -61,8 +93,8 @@ public class MaskView extends FrameLayout {
         // 否则题干换两行时品牌会被挤出屏幕（模拟器实测）。
         box.setPadding(Ui.dp(c, 72), Ui.dp(c, 28), Ui.dp(c, 72), Ui.dp(c, 28));
 
-        TextView kicker = Ui.label(c, "本次观看时间到", 20, Ui.DIM);
-        box.addView(kicker);
+        kickerView = Ui.label(c, childName + KICKER_SUFFIX, 20, Ui.DIM);
+        box.addView(kickerView);
 
         stemView = Ui.title(c, "", 30);
         stemView.setGravity(Gravity.CENTER);
@@ -100,11 +132,11 @@ public class MaskView extends FrameLayout {
         flp.topMargin = Ui.dp(c, 14);
         box.addView(feedback, flp);
 
-        TextView hint = Ui.label(c, "按 1–4 或方向键选择，OK 确认　·　菜单键 = 家长", 16, Ui.DIM);
-        hint.setGravity(Gravity.CENTER);
+        hintView = Ui.label(c, HINT_DEFAULT, 16, Ui.DIM);
+        hintView.setGravity(Gravity.CENTER);
         LinearLayout.LayoutParams hlp = new LinearLayout.LayoutParams(-1, -2);
         hlp.topMargin = Ui.dp(c, 16);
-        box.addView(hint, hlp);
+        box.addView(hintView, hlp);
 
         // 右下角品牌角标：家长在出题这一刻看到的还是「答题续时」自己的界面。
         // 放进内容流而不是盖在右下角 —— 1080p 下题干换两行时贴角会压到提示行。
@@ -121,25 +153,77 @@ public class MaskView extends FrameLayout {
         box.addView(brand, blp);
 
         addView(box, new FrameLayout.LayoutParams(-1, -1));
-        nextQuestion();
+
+        // 进程随时可能被强停：先从磁盘恢复冷却/连对进度，再决定显示什么。
+        if (prefs.cooldownLeftMs() > 0) {
+            showCooldown();
+        } else if (prefs.correctStreak() >= requiredCorrect) {
+            // 上一次进程死在「已连对设定题数、延时还没发」的 700ms 窗口里：补发。
+            answering = true;
+            feedback.setTextColor(Ui.OK);
+            feedback.setText("答对了（" + requiredCorrect + "/" + requiredCorrect
+                    + "），延长 " + extendMin + " 分钟");
+            Log.i(TAG, "quiz_resume " + requiredCorrect + "/"
+                    + requiredCorrect + " -> extend " + extendMin + "min");
+            postDelayed(grantExtension, 700);
+        } else {
+            nextQuestion();
+        }
     }
 
     @Override
     protected void onAttachedToWindow() {
         super.onAttachedToWindow();
+        detached = false;
         requestFocus();
         // 选项不再参与焦点树，选中态自己画
         post(this::paintSelection);
     }
 
+    @Override
+    protected void onDetachedFromWindow() {
+        detached = true;
+        removeCallbacks(cooldownTick);
+        removeCallbacks(advanceQuestion);
+        removeCallbacks(grantExtension);
+        super.onDetachedFromWindow();
+    }
+
     public void nextQuestion() {
-        q = bank.next(subjectKey, grade, floorGrade, rnd);
+        removeCallbacks(cooldownTick);
+        int subjectIdx = subject;
+        if (subjectIdx == Prefs.SUBJECT_MIXED) subjectIdx = pickMixedSubject();
+        q = bank.next(Prefs.SUBJECT_KEYS[subjectIdx], grade, floorGrade, rnd);
         answering = false;
         stemView.setText(q.stem);
         for (int i = 0; i < 4; i++) opts[i].setText(q.options[i]);
-        feedback.setText("");
+        String kicker = childName + KICKER_SUFFIX;
+        kickerView.setText(subject == Prefs.SUBJECT_MIXED
+                ? kicker + "　·　" + Prefs.SUBJECT_NAMES[subjectIdx]
+                : kicker);
+        int streak = prefs.correctStreak();
+        if (streak > 0) {
+            feedback.setTextColor(Ui.DIM);
+            feedback.setText("已连对 " + streak + "/" + requiredCorrect
+                    + " 题 · 再答对 " + Math.max(0, requiredCorrect - streak) + " 题延时");
+        } else {
+            feedback.setText("");
+        }
+        hintView.setText(HINT_DEFAULT);
         sel = 0;
         paintSelection();
+        Log.i(TAG, "quiz_next subject=" + Prefs.SUBJECT_NAMES[subjectIdx]
+                + " streak=" + streak + " wrong=" + prefs.wrongCount());
+    }
+
+    /** 混合模式：每题独立按 语文:数学:英语 权重抽科；没有袋子状态，进程被杀也不会重置比例。 */
+    private int pickMixedSubject() {
+        int[] w = prefs.mixedWeights();
+        int total = w[0] + w[1] + w[2];
+        int r = rnd.nextInt(total);
+        if (r < w[0]) return Prefs.SUBJECT_CHINESE;
+        if (r < w[0] + w[1]) return Prefs.SUBJECT_MATH;
+        return Prefs.SUBJECT_ENGLISH;
     }
 
     /** 画出选中态。遮罩里所有按键都由 {@link #dispatchKeyEvent} 路由，不靠系统焦点。 */
@@ -187,18 +271,67 @@ public class MaskView extends FrameLayout {
         answering = true;
         boolean ok = (i == q.answer);
         if (ok) {
-            opts[i].setBackgroundColor(0xFF1F6F45);
-            feedback.setTextColor(Ui.OK);
-            feedback.setText("答对了，延长 " + extendMin + " 分钟");
-            postDelayed(host::onSolved, 700);
+            int streak = prefs.correctStreak() + 1;
+            if (streak >= requiredCorrect) {
+                prefs.setCorrectStreak(requiredCorrect);
+                opts[i].setBackgroundColor(0xFF1F6F45);
+                feedback.setTextColor(Ui.OK);
+                feedback.setText("答对了（" + requiredCorrect + "/"
+                        + requiredCorrect + "），延长 " + extendMin + " 分钟");
+                Log.i(TAG, "quiz_correct " + requiredCorrect + "/"
+                        + requiredCorrect + " -> extend " + extendMin + "min");
+                postDelayed(grantExtension, 700);
+            } else {
+                prefs.setCorrectStreak(streak);
+                opts[i].setBackgroundColor(0xFF1F6F45);
+                feedback.setTextColor(Ui.OK);
+                feedback.setText("答对了（" + streak + "/" + requiredCorrect
+                        + "）· 再答对 " + (requiredCorrect - streak) + " 题才延时");
+                Log.i(TAG, "quiz_correct " + streak + "/" + requiredCorrect);
+                postDelayed(advanceQuestion, 900);
+            }
         } else {
+            int next = prefs.wrongCount() + 1;
+            int sec = COOLDOWN_SEC[Math.min(next - 1, COOLDOWN_SEC.length - 1)];
+            int wrong = prefs.noteWrongAnswer(sec * 1000L);
             opts[i].setBackgroundColor(0x8C6B1D1D);
             opts[q.answer].setBackgroundColor(0xFF1F6F45);
-            feedback.setTextColor(Ui.BAD);
-            String ex = q.explain == null || q.explain.isEmpty() ? "" : "　" + q.explain;
-            feedback.setText("正确答案是「" + q.options[q.answer] + "」" + ex);
-            postDelayed(this::nextQuestion, 1800);
+            Log.i(TAG, "quiz_wrong n=" + wrong + " cooldown=" + sec + "s");
+            showCooldown();
         }
+    }
+
+    /**
+     * 答错后的冷却。剩余时间从 {@link Prefs#cooldownLeftMs()} 读，所以进程被强停后
+     * 由 NotifProbe 复活的新 MaskView 会接着倒计时，而不是从 5 秒重新开始。
+     */
+    private void showCooldown() {
+        long left = prefs.cooldownLeftMs();
+        if (left <= 0L) {
+            prefs.clearCooldown();
+            nextQuestion();
+            return;
+        }
+        answering = true;
+        int sec = (int) ((left + 999L) / 1000L);
+        if (q != null) {
+            // 刚答错：题目和正确选项还留在屏幕上，冷却期间顺便把解析给家长/孩子看。
+            feedback.setTextColor(Ui.BAD);
+            feedback.setText("答错了 · " + sec + " 秒后可继续");
+            String ex = q.explain == null ? "" : q.explain.trim();
+            if (ex.length() > 40) ex = ex.substring(0, 40) + "…";
+            hintView.setText("正确答案是「" + q.options[q.answer] + "」"
+                    + (ex.isEmpty() ? "" : "　" + ex));
+        } else {
+            // 进程死在冷却中途：没有题目可显示，只保留倒计时和家长入口。
+            feedback.setTextColor(Ui.DIM);
+            feedback.setText("冷却中 · " + sec + " 秒后可继续");
+            hintView.setText("冷却结束后出下一题　·　菜单键 = 家长");
+            stemView.setText("");
+            for (TextView o : opts) o.setText("");
+        }
+        removeCallbacks(cooldownTick);
+        postDelayed(cooldownTick, 250L);
     }
 
     private void showPin() {
