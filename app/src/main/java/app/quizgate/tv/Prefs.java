@@ -6,7 +6,9 @@ import android.util.Base64;
 
 import java.security.MessageDigest;
 import java.security.SecureRandom;
+import java.util.HashSet;
 import java.util.Locale;
+import java.util.Set;
 
 import javax.crypto.SecretKeyFactory;
 import javax.crypto.spec.PBEKeySpec;
@@ -38,6 +40,121 @@ public final class Prefs {
 
     public int extendMin() { return sp.getInt("extendMin", 5); }
     public void setExtendMin(int v) { sp.edit().putInt("extendMin", clamp(v, 1, 60)).commit(); }
+
+    /** 本地日期键（yyyy-MM-dd），用于「每日答题」跨天清零。 */
+    private static String today() {
+        return new java.text.SimpleDateFormat("yyyy-MM-dd", Locale.US).format(new java.util.Date());
+    }
+
+    /**
+     * 跨天检查：日期变了就把答题次数清回 0，让每天从起始题数重新开始。
+     * <p>用本地日历日而不是「上次答题 +24h」：孩子晚上 23:50 答过一次，
+     * 第二天早上打开就该是重置后的题数，否则「每日」根本对不上。
+     *
+     * @return true 表示这一次真的发生了清零
+     */
+    public boolean rolloverSolveDay() {
+        String t = today();
+        if (t.equals(sp.getString("solveDay", ""))) return false;
+        sp.edit().putString("solveDay", t).putInt("solveCount", 0).commit();
+        return true;
+    }
+
+    /**
+     * 今天「答对答题、成功解锁续时」的次数。首次（当天第一次）为 0。
+     * <p>读之前先做跨天检查：跨天后自动归零，所以它同时也是「今日已解锁次数」。
+     * 随 gate prefs 落盘；卸载重装会清零，符合预期。
+     */
+    public int solveCount() {
+        rolloverSolveDay();
+        return sp.getInt("solveCount", 0);
+    }
+
+    public void bumpSolveCount() {
+        rolloverSolveDay();   // 先跨天进位再加，避免 23:59 的次数带到第二天
+        sp.edit()
+                .putInt("solveCount", sp.getInt("solveCount", 0) + 1)
+                .putString("solveDay", today())
+                .commit();
+    }
+
+    /** 家长手动清空：今日次数归零，下次锁定回到起始题数（当天不再跨天清零）。 */
+    public void clearSolveProgress() {
+        sp.edit().putInt("solveCount", 0).putInt("perfectToday", 0)
+                .putString("solveDay", today()).commit();
+    }
+
+    // ---------- 成就：本轮全对（中途一题没答错） ----------
+    /** 今天「满分」过几次：跨天随 solveCount 一起清零。 */
+    public int perfectToday() {
+        rolloverSolveDay();
+        return sp.getInt("perfectToday", 0);
+    }
+
+    /** 累计满分次数：不清零，用于设置页给家长看长期表现。 */
+    public int perfectTotal() { return sp.getInt("perfectTotal", 0); }
+
+    public void bumpPerfect() {
+        rolloverSolveDay();
+        sp.edit()
+                .putInt("perfectToday", sp.getInt("perfectToday", 0) + 1)
+                .putInt("perfectTotal", sp.getInt("perfectTotal", 0) + 1)
+                .putString("solveDay", today())
+                .commit();
+    }
+
+    /** 首次解锁需要答对的题数（默认 5）。 */
+    public int startQuizCount() { return sp.getInt("startQuizCount", 5); }
+
+    /**
+     * 设置起始题数。若大于当前上限，自动把上限抬到同一值，避免出现「起始 80、上限 51」的矛盾。
+     */
+    public void setStartQuizCount(int v) {
+        int s = clamp(v, 1, 200);
+        int m = Math.max(maxQuizCount(), s);
+        sp.edit().putInt("startQuizCount", s).putInt("maxQuizCount", m).commit();
+    }
+
+    /** 每次成功解锁后，下一轮题数的增量（默认 2；0 = 固定题数）。 */
+    public int quizStep() { return sp.getInt("quizStep", 2); }
+
+    public void setQuizStep(int v) { sp.edit().putInt("quizStep", clamp(v, 0, 20)).commit(); }
+
+    /** 题数上限（默认 51），避免长期使用后题数失控。 */
+    public int maxQuizCount() { return sp.getInt("maxQuizCount", 51); }
+
+    /** 上限低于起始题数时，把起始题数一起压下来，保证规则自洽。 */
+    public void setMaxQuizCount(int v) {
+        int m = clamp(v, 1, 200);
+        int s = Math.min(startQuizCount(), m);
+        sp.edit().putInt("maxQuizCount", m).putInt("startQuizCount", s).commit();
+    }
+
+    /**
+     * 本次锁定需要答对的题数：当天首次 = 起始题数，之后每次解锁 + 增量，封顶上限。
+     * 默认 5 / +2 / 51，与旧行为一致；三项均可在设置页调整。
+     * <p>{@link #solveCount()} 跨天会自动归零，所以题数每天从起始题数重新开始。
+     */
+    public int requiredQuizCount() {
+        return Math.min(maxQuizCount(), startQuizCount() + solveCount() * quizStep());
+    }
+
+    /**
+     * 答对全部题目后的强制休息分钟数（默认 10）。休息期间不能观看，倒计时结束才续时。
+     * 0 表示不休息，答对即解锁（兼容旧行为）。
+     */
+    public int restMin() { return sp.getInt("restMin", 10); }
+    public void setRestMin(int v) { sp.edit().putInt("restMin", clamp(v, 0, 120)).commit(); }
+
+    /**
+     * 休息截止的墙上时钟时间戳（毫秒）。>0 且大于当前时间表示正在强制休息。
+     * 用墙上时钟而非 uptime：进程被待机强杀、由通知监听在新进程 RESTORE 复活后，
+     * 截止时间仍然正确。clear 表示不在休息态。
+     */
+    public long restUntil() { return sp.getLong("restUntil", 0L); }
+    public void markRestUntil(long t) { sp.edit().putLong("restUntil", t).commit(); }
+    public void clearRestUntil() { sp.edit().remove("restUntil").commit(); }
+    public boolean resting() { return restUntil() > System.currentTimeMillis(); }
 
     /** 学段：0 = 小学（1-6 年级），1 = 初中（初一/初二/初三 = 7/8/9 年级）。 */
     public static final int STAGE_PRIMARY = 0, STAGE_JUNIOR = 1;
@@ -118,9 +235,30 @@ public final class Prefs {
     public long interruptedGapMs() { return sp.getLong("interruptedGapMs", 0L); }
     public void clearInterrupted() { sp.edit().putLong("interruptedGapMs", 0L).commit(); }
 
+    // ---------- 答题期间被我们暂停的媒体 ----------
+    /** 被 MediaControl 暂停过的包名；只有这些会话在解锁时才允许被恢复。 */
+    public Set<String> pausedPkgs() {
+        Set<String> v = sp.getStringSet("pausedPkgs", null);
+        return v == null ? new HashSet<>() : new HashSet<>(v);
+    }
+
+    public void setPausedPkgs(Set<String> v) {
+        sp.edit().putStringSet("pausedPkgs", new HashSet<>(v)).commit();
+    }
+
+    /** true = 标准会话不可用，用媒体键暂停的；解锁时同样用媒体键恢复。 */
+    public boolean pausedByKey() { return sp.getBoolean("pausedByKey", false); }
+
+    public void setPausedByKey(boolean v) { sp.edit().putBoolean("pausedByKey", v).commit(); }
+
+    public void clearPausedMedia() {
+        sp.edit().remove("pausedPkgs").putBoolean("pausedByKey", false).commit();
+    }
+
     public void resetSession() {
         saveSnapshot(IDLE, durationMin() * 60_000L);
         clearStartHint();
+        clearPausedMedia();
     }
 
     // ---------- 开局 5 秒提示（必须跨进程存活） ----------
@@ -379,8 +517,10 @@ public final class Prefs {
 
     public String debugLine() {
         return String.format(Locale.US,
-                "phase=%s remaining=%s gap=%ds pin=%s rc=%s safe=%s",
+                "phase=%s remaining=%s gap=%ds quiz=%d+%d*n/%d solved=%d perfect=%d/%d pin=%s rc=%s safe=%s",
                 phaseName(phase()), Core.fmt(remainingMs()), serviceGapMs() / 1000,
+                startQuizCount(), quizStep(), maxQuizCount(), solveCount(),
+                perfectToday(), perfectTotal(),
                 hasPin() ? "set" : "none",
                 hasRecoveryCode() ? (recoverySaved() ? "saved" : "unsaved") : "none",
                 safeMode() ? ("on/" + crashCount()) : "off");

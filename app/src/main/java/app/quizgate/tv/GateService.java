@@ -137,6 +137,8 @@ public class GateService extends Service implements MaskView.Host {
         if (prefs.safeMode()) {
             Log.e(TAG, "safe_mode 连续 " + Prefs.MAX_CRASH + " 次崩溃（最后一次 " + prefs.crashInfo()
                     + "）-> 停止守护，不再重启");
+            // 熔断后不再守护：把之前因答题暂停的视频还回去，别让孩子卡在黑屏
+            MediaControl.resumePaused(this);
             notify("守护已停止（安全模式）：连续崩溃，请到设置页处理");
             return false;
         }
@@ -174,6 +176,7 @@ public class GateService extends Service implements MaskView.Host {
 
         if (!Settings.canDrawOverlays(this)) {
             Log.w(TAG, "no overlay permission -> 守护不可信，会话作废");
+            MediaControl.resumePaused(this);
             prefs.resetSession();
             notify("缺少悬浮窗权限，守护已停止");
             stopSelf();
@@ -213,7 +216,21 @@ public class GateService extends Service implements MaskView.Host {
 
             // 锁屏态盯住窗口层级：HOME 键普通应用拦不住（系统在 PhoneWindowManager
             // 就把它吃了，遮罩根本收不到），能做的只有「被切走之后立刻抢回焦点」。
-            if (prefs.phase() == Prefs.LOCKED) keepMaskOnTop();
+            if (prefs.phase() == Prefs.LOCKED) {
+                keepMaskOnTop();
+                // 强制休息：每秒刷新遮罩倒计时；到点续时解锁。截止时间落盘，
+                // 进程被待机强杀后新进程仍按同一截止时间继续，不会重新计时或提前放行。
+                if (prefs.restUntil() > 0) {
+                    long left = prefs.restUntil() - System.currentTimeMillis();
+                    if (mask != null) mask.setRestRemaining(left);
+                    if (left <= 0) {
+                        Log.i(TAG, "rest_done -> 续时解锁");
+                        onRestDone();
+                        h.postDelayed(this, TICK_MS);
+                        return;
+                    }
+                }
+            }
 
             if (prefs.phase() == Prefs.RUNNING) {
                 if (screenOn()) {
@@ -251,7 +268,10 @@ public class GateService extends Service implements MaskView.Host {
 
     private void lock() {
         Log.i(TAG, "lock at 0 (screen=" + screenOn() + ")");
+        prefs.clearRestUntil();          // 新一轮锁定：清掉上一轮可能残留的休息状态
         prefs.saveSnapshot(Prefs.LOCKED, 0);
+        // 时间到 => 进入答题：暂停后台视频，解锁时按记录恢复
+        MediaControl.pauseIfPlaying(this);
         remaining = 0;
         removeMini();
         if (screenOn()) {
@@ -329,15 +349,39 @@ public class GateService extends Service implements MaskView.Host {
         }
     }
 
+    @Override public void onRestStart() {
+        // 用墙上时钟记录截止，保持 LOCKED；休息期间不续时、不移除遮罩。
+        long until = System.currentTimeMillis() + (long) prefs.restMin() * 60_000L;
+        prefs.markRestUntil(until);
+        updateNotification();
+        Log.i(TAG, "rest_start " + prefs.restMin() + "min -> " + until);
+    }
+
+    @Override public void onRestDone() {
+        prefs.clearRestUntil();
+        unlockAfterQuiz();
+    }
+
     @Override public void onSolved() {
+        // 未启用强制休息（restMin=0）时的旧路径：答对即解锁
+        unlockAfterQuiz();
+    }
+
+    /** 真正的解锁：续时 + 累加解开次数 + 移除遮罩。休息结束与旧路径共用。 */
+    private void unlockAfterQuiz() {
         int ext = prefs.extendMin() * 60_000;
         remaining = Math.max(1, remaining) + ext;
         prefs.saveSnapshot(Prefs.RUNNING, remaining);
+        // 恢复我们暂停过的视频；没被我们暂停过的一律不动
+        MediaControl.resumePaused(this);
+        // 成功解锁一次，下次锁定需要答对的题数 +2（首次 5 题，见 Prefs.requiredQuizCount）
+        prefs.bumpSolveCount();
         removeMask();
         lastTick = SystemClock.uptimeMillis();
         updateMini();
         updateNotification();
-        Log.i(TAG, "solved +" + prefs.extendMin() + "min -> " + Core.fmt(remaining));
+        Log.i(TAG, "solved +" + prefs.extendMin() + "min -> " + Core.fmt(remaining)
+                + ", next required=" + prefs.requiredQuizCount());
     }
 
     @Override public void onPinOk() {
@@ -368,10 +412,13 @@ public class GateService extends Service implements MaskView.Host {
 
     private void exitSession() {
         running = false;
+        prefs.clearRestUntil();
         h.removeCallbacks(ticker);
         h.removeCallbacks(hintDismiss);
         removeMask();
         removeMini();
+        // 会话结束：恢复被答题暂停的视频（resetSession 会清掉记录）
+        MediaControl.resumePaused(this);
         // 家长主动结束 = 这次服务是健康的，不能因为「短会话反复起停」被算成异常启动
         prefs.markStable();
         prefs.resetSession();
@@ -534,7 +581,15 @@ public class GateService extends Service implements MaskView.Host {
 
     private void updateNotification() {
         NotificationManager nm = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
-        String s = prefs.phase() == Prefs.LOCKED ? "已锁定，等待答题" : "剩余 " + Core.fmt(remaining);
+        String s;
+        if (prefs.phase() != Prefs.LOCKED) {
+            s = "剩余 " + Core.fmt(remaining);
+        } else if (prefs.restUntil() > 0) {
+            long sec = Math.max(0, (prefs.restUntil() - System.currentTimeMillis() + 999) / 1000);
+            s = "强制休息中，" + (sec / 60) + " 分 " + (sec % 60) + " 秒后恢复";
+        } else {
+            s = "已锁定，等待答题";
+        }
         try { nm.notify(NOTIF_ID, buildNotification(s, true)); } catch (Throwable ignore) { }
     }
 

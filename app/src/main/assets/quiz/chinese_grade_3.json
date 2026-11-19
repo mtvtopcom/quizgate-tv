@@ -1,111 +1,243 @@
 {
- "version": 2,
- "subject": "语文",
- "grade": 3,
- "items": [
-  {
-   "id": "c3-001",
-   "subject": "语文",
-   "stem": "成语「守株待（ ）」空缺的是？",
-   "options": [
-    "兔",
-    "鹿",
-    "虎",
-    "鱼"
-   ],
-   "answerIndex": 0,
-   "explanation": "守株待兔"
-  },
-  {
-   "id": "c3-002",
-   "subject": "语文",
-   "stem": "成语「画蛇添（ ）」空缺的是？",
-   "options": [
-    "脚",
-    "足",
-    "手",
-    "翼"
-   ],
-   "answerIndex": 1,
-   "explanation": "画蛇添足"
-  },
-  {
-   "id": "c3-003",
-   "subject": "语文",
-   "stem": "“弯弯的月亮像小船”用了什么修辞？",
-   "options": [
-    "比喻",
-    "拟人",
-    "夸张",
-    "排比"
-   ],
-   "answerIndex": 0,
-   "explanation": "把月亮比作小船"
-  },
-  {
-   "id": "c3-004",
-   "subject": "语文",
-   "stem": "《静夜思》的作者是？",
-   "options": [
-    "李白",
-    "杜甫",
-    "白居易",
-    "王维"
-   ],
-   "answerIndex": 0,
-   "explanation": "李白《静夜思》"
-  },
-  {
-   "id": "c3-005",
-   "subject": "语文",
-   "stem": "成语「亡羊补（ ）」空缺的是？",
-   "options": [
-    "门",
-    "牢",
-    "圈",
-    "墙"
-   ],
-   "answerIndex": 1,
-   "explanation": "亡羊补牢"
-  },
-  {
-   "id": "c3-006",
-   "subject": "语文",
-   "stem": "“蜜蜂在花丛中唱歌”用了什么修辞？",
-   "options": [
-    "比喻",
-    "拟人",
-    "夸张",
-    "反问"
-   ],
-   "answerIndex": 1,
-   "explanation": "把蜜蜂当作人来写"
-  },
-  {
-   "id": "c3-007",
-   "subject": "语文",
-   "stem": "成语「拔苗助（ ）」空缺的是？",
-   "options": [
-    "长",
-    "高",
-    "大",
-    "快"
-   ],
-   "answerIndex": 0,
-   "explanation": "拔苗助长"
-  },
-  {
-   "id": "c3-008",
-   "subject": "语文",
-   "stem": "“千里之行，始于（ ）”空缺的是？",
-   "options": [
-    "足下",
-    "脚下",
-    "今天",
-    "一步"
-   ],
-   "answerIndex": 0,
-   "explanation": "千里之行，始于足下"
-  }
- ]
+  "version": "1.4.0",
+  "subject": "语文",
+  "grade": 3,
+  "items": [
+    {
+      "id": "c3-001",
+      "subject": "语文",
+      "stem": "成语「守株待（ ）」空缺的是？",
+      "options": [
+        "兔",
+        "鹿",
+        "虎",
+        "鱼"
+      ],
+      "answerIndex": 0,
+      "explanation": "守株待兔"
+    },
+    {
+      "id": "c3-002",
+      "subject": "语文",
+      "stem": "成语「画蛇添（ ）」空缺的是？",
+      "options": [
+        "脚",
+        "足",
+        "手",
+        "翼"
+      ],
+      "answerIndex": 1,
+      "explanation": "画蛇添足"
+    },
+    {
+      "id": "c3-003",
+      "subject": "语文",
+      "stem": "“弯弯的月亮像小船”用了什么修辞？",
+      "options": [
+        "比喻",
+        "拟人",
+        "夸张",
+        "排比"
+      ],
+      "answerIndex": 0,
+      "explanation": "把月亮比作小船"
+    },
+    {
+      "id": "c3-004",
+      "subject": "语文",
+      "stem": "《静夜思》的作者是？",
+      "options": [
+        "李白",
+        "杜甫",
+        "白居易",
+        "王维"
+      ],
+      "answerIndex": 0,
+      "explanation": "李白《静夜思》"
+    },
+    {
+      "id": "c3-005",
+      "subject": "语文",
+      "stem": "成语「亡羊补（ ）」空缺的是？",
+      "options": [
+        "门",
+        "牢",
+        "圈",
+        "墙"
+      ],
+      "answerIndex": 1,
+      "explanation": "亡羊补牢"
+    },
+    {
+      "id": "c3-006",
+      "subject": "语文",
+      "stem": "“蜜蜂在花丛中唱歌”用了什么修辞？",
+      "options": [
+        "比喻",
+        "拟人",
+        "夸张",
+        "反问"
+      ],
+      "answerIndex": 1,
+      "explanation": "把蜜蜂当作人来写"
+    },
+    {
+      "id": "c3-007",
+      "subject": "语文",
+      "stem": "成语「拔苗助（ ）」空缺的是？",
+      "options": [
+        "长",
+        "高",
+        "大",
+        "快"
+      ],
+      "answerIndex": 0,
+      "explanation": "拔苗助长"
+    },
+    {
+      "id": "c3-008",
+      "subject": "语文",
+      "stem": "“千里之行，始于（ ）”空缺的是？",
+      "options": [
+        "足下",
+        "脚下",
+        "今天",
+        "一步"
+      ],
+      "answerIndex": 0,
+      "explanation": "千里之行，始于足下"
+    },
+    {
+      "stem": "成语「井底之（ ）」空缺的是？",
+      "options": [
+        "虫",
+        "鸟",
+        "鱼",
+        "蛙"
+      ],
+      "answerIndex": 3,
+      "explanation": "正确答案是「蛙」"
+    },
+    {
+      "stem": "成语「守株待兔」中“株”的意思是？",
+      "options": [
+        "田地",
+        "兔子",
+        "禾苗",
+        "树桩"
+      ],
+      "answerIndex": 3,
+      "explanation": "正确答案是「树桩」"
+    },
+    {
+      "stem": "成语「掩耳盗（ ）」空缺的是？",
+      "options": [
+        "鼓",
+        "铃",
+        "钟",
+        "锣"
+      ],
+      "answerIndex": 1,
+      "explanation": "正确答案是「铃」"
+    },
+    {
+      "stem": "“太阳像个大火球”用了什么修辞？",
+      "options": [
+        "夸张",
+        "排比",
+        "拟人",
+        "比喻"
+      ],
+      "answerIndex": 3,
+      "explanation": "正确答案是「比喻」"
+    },
+    {
+      "stem": "“小草偷偷地从土里钻出来”用了什么修辞？",
+      "options": [
+        "比喻",
+        "对偶",
+        "夸张",
+        "拟人"
+      ],
+      "answerIndex": 3,
+      "explanation": "正确答案是「拟人」"
+    },
+    {
+      "stem": "《咏鹅》的作者是？",
+      "options": [
+        "李白",
+        "杜甫",
+        "骆宾王",
+        "白居易"
+      ],
+      "answerIndex": 2,
+      "explanation": "正确答案是「骆宾王」"
+    },
+    {
+      "stem": "成语「自相矛（ ）」空缺的是？",
+      "options": [
+        "刀",
+        "剑",
+        "盾",
+        "矛"
+      ],
+      "answerIndex": 2,
+      "explanation": "正确答案是「盾」"
+    },
+    {
+      "stem": "成语「滥竽充数」比喻什么？",
+      "options": [
+        "没有本领的人混在行家里",
+        "勤奋学习",
+        "乐于助人",
+        "技艺高超"
+      ],
+      "answerIndex": 0,
+      "explanation": "正确答案是「没有本领的人混在行家里」"
+    },
+    {
+      "stem": "“桃花潭水深千尺”的下一句是？",
+      "options": [
+        "不及汪伦送我情",
+        "疑是银河落九天",
+        "春风吹又生",
+        "低头思故乡"
+      ],
+      "answerIndex": 0,
+      "explanation": "正确答案是「不及汪伦送我情」"
+    },
+    {
+      "stem": "“举头望明月”的下一句是？",
+      "options": [
+        "低头思故乡",
+        "不及汪伦送我情",
+        "处处闻啼鸟",
+        "疑是银河落九天"
+      ],
+      "answerIndex": 0,
+      "explanation": "正确答案是「低头思故乡」"
+    },
+    {
+      "stem": "成语「亡羊补牢」中“牢”的意思是？",
+      "options": [
+        "房子",
+        "监狱",
+        "牢固",
+        "羊圈"
+      ],
+      "answerIndex": 3,
+      "explanation": "正确答案是「羊圈」"
+    },
+    {
+      "stem": "“不知细叶谁裁出”用了什么修辞？",
+      "options": [
+        "比喻",
+        "夸张",
+        "设问",
+        "拟人"
+      ],
+      "answerIndex": 0,
+      "explanation": "正确答案是「比喻」"
+    }
+  ]
 }

@@ -1,111 +1,243 @@
 {
- "version": 2,
- "subject": "数学",
- "grade": 5,
- "items": [
-  {
-   "id": "m5-001",
-   "subject": "数学",
-   "stem": "1/2 + 1/4 = ?",
-   "options": [
-    "1/6",
-    "2/6",
-    "3/4",
-    "1/8"
-   ],
-   "answerIndex": 2,
-   "explanation": "通分后 2/4 + 1/4 = 3/4"
-  },
-  {
-   "id": "m5-002",
-   "subject": "数学",
-   "stem": "正方体棱长 3，体积是多少？",
-   "options": [
-    "9",
-    "18",
-    "27",
-    "36"
-   ],
-   "answerIndex": 2,
-   "explanation": "3 × 3 × 3 = 27"
-  },
-  {
-   "id": "m5-003",
-   "subject": "数学",
-   "stem": "3/5 化成小数是多少？",
-   "options": [
-    "0.35",
-    "0.53",
-    "0.6",
-    "0.65"
-   ],
-   "answerIndex": 2,
-   "explanation": "3 ÷ 5 = 0.6"
-  },
-  {
-   "id": "m5-004",
-   "subject": "数学",
-   "stem": "一节课 40 分钟，6 节课共多少分钟？",
-   "options": [
-    "200",
-    "220",
-    "240",
-    "260"
-   ],
-   "answerIndex": 2,
-   "explanation": "40 × 6 = 240"
-  },
-  {
-   "id": "m5-005",
-   "subject": "数学",
-   "stem": "圆的周长公式是？",
-   "options": [
-    "πr²",
-    "2πr",
-    "πd²",
-    "2r"
-   ],
-   "answerIndex": 1,
-   "explanation": "周长 = 2πr"
-  },
-  {
-   "id": "m5-006",
-   "subject": "数学",
-   "stem": "12 和 18 的最大公因数是多少？",
-   "options": [
-    "2",
-    "3",
-    "6",
-    "9"
-   ],
-   "answerIndex": 2,
-   "explanation": "公因数中最大的是 6"
-  },
-  {
-   "id": "m5-007",
-   "subject": "数学",
-   "stem": "平行四边形面积怎么算？",
-   "options": [
-    "底 × 高",
-    "(上底 + 下底) × 高 ÷ 2",
-    "边长 × 4",
-    "底 × 高 ÷ 2"
-   ],
-   "answerIndex": 0,
-   "explanation": "平行四边形面积 = 底 × 高"
-  },
-  {
-   "id": "m5-008",
-   "subject": "数学",
-   "stem": "1/3 + 1/6 = ?",
-   "options": [
-    "1/9",
-    "2/9",
-    "1/2",
-    "2/3"
-   ],
-   "answerIndex": 2,
-   "explanation": "通分后 2/6 + 1/6 = 3/6 = 1/2"
-  }
- ]
+  "version": "1.4.0",
+  "subject": "数学",
+  "grade": 5,
+  "items": [
+    {
+      "id": "m5-001",
+      "subject": "数学",
+      "stem": "1/2 + 1/4 = ?",
+      "options": [
+        "1/6",
+        "2/6",
+        "3/4",
+        "1/8"
+      ],
+      "answerIndex": 2,
+      "explanation": "通分后 2/4 + 1/4 = 3/4"
+    },
+    {
+      "id": "m5-002",
+      "subject": "数学",
+      "stem": "正方体棱长 3，体积是多少？",
+      "options": [
+        "9",
+        "18",
+        "27",
+        "36"
+      ],
+      "answerIndex": 2,
+      "explanation": "3 × 3 × 3 = 27"
+    },
+    {
+      "id": "m5-003",
+      "subject": "数学",
+      "stem": "3/5 化成小数是多少？",
+      "options": [
+        "0.35",
+        "0.53",
+        "0.6",
+        "0.65"
+      ],
+      "answerIndex": 2,
+      "explanation": "3 ÷ 5 = 0.6"
+    },
+    {
+      "id": "m5-004",
+      "subject": "数学",
+      "stem": "一节课 40 分钟，6 节课共多少分钟？",
+      "options": [
+        "200",
+        "220",
+        "240",
+        "260"
+      ],
+      "answerIndex": 2,
+      "explanation": "40 × 6 = 240"
+    },
+    {
+      "id": "m5-005",
+      "subject": "数学",
+      "stem": "圆的周长公式是？",
+      "options": [
+        "πr²",
+        "2πr",
+        "πd²",
+        "2r"
+      ],
+      "answerIndex": 1,
+      "explanation": "周长 = 2πr"
+    },
+    {
+      "id": "m5-006",
+      "subject": "数学",
+      "stem": "12 和 18 的最大公因数是多少？",
+      "options": [
+        "2",
+        "3",
+        "6",
+        "9"
+      ],
+      "answerIndex": 2,
+      "explanation": "公因数中最大的是 6"
+    },
+    {
+      "id": "m5-007",
+      "subject": "数学",
+      "stem": "平行四边形面积怎么算？",
+      "options": [
+        "底 × 高",
+        "(上底 + 下底) × 高 ÷ 2",
+        "边长 × 4",
+        "底 × 高 ÷ 2"
+      ],
+      "answerIndex": 0,
+      "explanation": "平行四边形面积 = 底 × 高"
+    },
+    {
+      "id": "m5-008",
+      "subject": "数学",
+      "stem": "1/3 + 1/6 = ?",
+      "options": [
+        "1/9",
+        "2/9",
+        "1/2",
+        "2/3"
+      ],
+      "answerIndex": 2,
+      "explanation": "通分后 2/6 + 1/6 = 3/6 = 1/2"
+    },
+    {
+      "stem": "1/2 + 1/3 = ?",
+      "options": [
+        "5/6",
+        "1/6",
+        "2/5",
+        "2/3"
+      ],
+      "answerIndex": 0,
+      "explanation": "答案是 5/6"
+    },
+    {
+      "stem": "3/4 - 1/4 = ?",
+      "options": [
+        "2/4",
+        "1",
+        "1/2",
+        "1/4"
+      ],
+      "answerIndex": 2,
+      "explanation": "答案是 1/2"
+    },
+    {
+      "stem": "0.25 × 4 = ?",
+      "options": [
+        "1",
+        "10",
+        "0.25",
+        "0.1"
+      ],
+      "answerIndex": 0,
+      "explanation": "答案是 1"
+    },
+    {
+      "stem": "一个正方体棱长 4，体积是多少？",
+      "options": [
+        "32",
+        "16",
+        "64",
+        "48"
+      ],
+      "answerIndex": 2,
+      "explanation": "答案是 64"
+    },
+    {
+      "stem": "18 和 24 的最小公倍数是？",
+      "options": [
+        "6",
+        "36",
+        "72",
+        "48"
+      ],
+      "answerIndex": 2,
+      "explanation": "答案是 72"
+    },
+    {
+      "stem": "3/8 化成小数是多少？",
+      "options": [
+        "0.625",
+        "0.38",
+        "0.35",
+        "0.375"
+      ],
+      "answerIndex": 3,
+      "explanation": "答案是 0.375"
+    },
+    {
+      "stem": "梯形上底 3、下底 5、高 4，面积是多少？",
+      "options": [
+        "12",
+        "16",
+        "20",
+        "32"
+      ],
+      "answerIndex": 1,
+      "explanation": "答案是 16"
+    },
+    {
+      "stem": "把 3/4 化成百分数是多少？",
+      "options": [
+        "43%",
+        "75%",
+        "25%",
+        "34%"
+      ],
+      "answerIndex": 1,
+      "explanation": "答案是 75%"
+    },
+    {
+      "stem": "一个数的 3 倍是 21，这个数是？",
+      "options": [
+        "63",
+        "18",
+        "7",
+        "6"
+      ],
+      "answerIndex": 2,
+      "explanation": "答案是 7"
+    },
+    {
+      "stem": "2/3 × 6 = ?",
+      "options": [
+        "4",
+        "12",
+        "3",
+        "2"
+      ],
+      "answerIndex": 0,
+      "explanation": "答案是 4"
+    },
+    {
+      "stem": "长方体长 5、宽 4、高 3，体积是多少？",
+      "options": [
+        "120",
+        "47",
+        "60",
+        "12"
+      ],
+      "answerIndex": 2,
+      "explanation": "答案是 60"
+    },
+    {
+      "stem": "5 ÷ 0.5 = ?",
+      "options": [
+        "2.5",
+        "1",
+        "25",
+        "10"
+      ],
+      "answerIndex": 3,
+      "explanation": "答案是 10"
+    }
+  ]
 }

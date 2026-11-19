@@ -1,111 +1,243 @@
 {
- "version": 2,
- "subject": "语文",
- "grade": 2,
- "items": [
-  {
-   "id": "c2-001",
-   "subject": "语文",
-   "stem": "“森”字由几个“木”组成？",
-   "options": [
-    "2 个",
-    "3 个",
-    "4 个",
-    "5 个"
-   ],
-   "answerIndex": 1,
-   "explanation": "三木为森"
-  },
-  {
-   "id": "c2-002",
-   "subject": "语文",
-   "stem": "“明”字由哪两个字组成？",
-   "options": [
-    "日 + 月",
-    "日 + 目",
-    "月 + 目",
-    "口 + 月"
-   ],
-   "answerIndex": 0,
-   "explanation": "日月同辉为明"
-  },
-  {
-   "id": "c2-003",
-   "subject": "语文",
-   "stem": "“春”的拼音是？",
-   "options": [
-    "chūn",
-    "cūn",
-    "chuēn",
-    "chōng"
-   ],
-   "answerIndex": 0,
-   "explanation": "春读 chūn"
-  },
-  {
-   "id": "c2-004",
-   "subject": "语文",
-   "stem": "一（ ）马，括号里用什么量词？",
-   "options": [
-    "条",
-    "匹",
-    "只",
-    "头"
-   ],
-   "answerIndex": 1,
-   "explanation": "马用“匹”"
-  },
-  {
-   "id": "c2-005",
-   "subject": "语文",
-   "stem": "“快乐”的近义词是？",
-   "options": [
-    "高兴",
-    "难过",
-    "安静",
-    "着急"
-   ],
-   "answerIndex": 0,
-   "explanation": "快乐与高兴意思相近"
-  },
-  {
-   "id": "c2-006",
-   "subject": "语文",
-   "stem": "“黑”的反义词是？",
-   "options": [
-    "白",
-    "红",
-    "暗",
-    "灰"
-   ],
-   "answerIndex": 0,
-   "explanation": "黑与白相对"
-  },
-  {
-   "id": "c2-007",
-   "subject": "语文",
-   "stem": "“休”字表示什么意思？",
-   "options": [
-    "人靠着树休息",
-    "水在流动",
-    "火在燃烧",
-    "手在劳动"
-   ],
-   "answerIndex": 0,
-   "explanation": "左边是人，右边是木"
-  },
-  {
-   "id": "c2-008",
-   "subject": "语文",
-   "stem": "下面哪个词表示颜色？",
-   "options": [
-    "跑步",
-    "红色",
-    "桌子",
-    "唱歌"
-   ],
-   "answerIndex": 1,
-   "explanation": "“红色”是颜色词"
-  }
- ]
+  "version": "1.4.0",
+  "subject": "语文",
+  "grade": 2,
+  "items": [
+    {
+      "id": "c2-001",
+      "subject": "语文",
+      "stem": "“森”字由几个“木”组成？",
+      "options": [
+        "2 个",
+        "3 个",
+        "4 个",
+        "5 个"
+      ],
+      "answerIndex": 1,
+      "explanation": "三木为森"
+    },
+    {
+      "id": "c2-002",
+      "subject": "语文",
+      "stem": "“明”字由哪两个字组成？",
+      "options": [
+        "日 + 月",
+        "日 + 目",
+        "月 + 目",
+        "口 + 月"
+      ],
+      "answerIndex": 0,
+      "explanation": "日月同辉为明"
+    },
+    {
+      "id": "c2-003",
+      "subject": "语文",
+      "stem": "“春”的拼音是？",
+      "options": [
+        "chūn",
+        "cūn",
+        "chuēn",
+        "chōng"
+      ],
+      "answerIndex": 0,
+      "explanation": "春读 chūn"
+    },
+    {
+      "id": "c2-004",
+      "subject": "语文",
+      "stem": "一（ ）马，括号里用什么量词？",
+      "options": [
+        "条",
+        "匹",
+        "只",
+        "头"
+      ],
+      "answerIndex": 1,
+      "explanation": "马用“匹”"
+    },
+    {
+      "id": "c2-005",
+      "subject": "语文",
+      "stem": "“快乐”的近义词是？",
+      "options": [
+        "高兴",
+        "难过",
+        "安静",
+        "着急"
+      ],
+      "answerIndex": 0,
+      "explanation": "快乐与高兴意思相近"
+    },
+    {
+      "id": "c2-006",
+      "subject": "语文",
+      "stem": "“黑”的反义词是？",
+      "options": [
+        "白",
+        "红",
+        "暗",
+        "灰"
+      ],
+      "answerIndex": 0,
+      "explanation": "黑与白相对"
+    },
+    {
+      "id": "c2-007",
+      "subject": "语文",
+      "stem": "“休”字表示什么意思？",
+      "options": [
+        "人靠着树休息",
+        "水在流动",
+        "火在燃烧",
+        "手在劳动"
+      ],
+      "answerIndex": 0,
+      "explanation": "左边是人，右边是木"
+    },
+    {
+      "id": "c2-008",
+      "subject": "语文",
+      "stem": "下面哪个词表示颜色？",
+      "options": [
+        "跑步",
+        "红色",
+        "桌子",
+        "唱歌"
+      ],
+      "answerIndex": 1,
+      "explanation": "“红色”是颜色词"
+    },
+    {
+      "stem": "“林”字由几个“木”组成？",
+      "options": [
+        "2 个",
+        "1 个",
+        "4 个",
+        "3 个"
+      ],
+      "answerIndex": 0,
+      "explanation": "正确答案是「2 个」"
+    },
+    {
+      "stem": "“从”字由哪两个字组成？",
+      "options": [
+        "人 + 人",
+        "大 + 大",
+        "人 + 木",
+        "人 + 大"
+      ],
+      "answerIndex": 0,
+      "explanation": "正确答案是「人 + 人」"
+    },
+    {
+      "stem": "“秋”的拼音是？",
+      "options": [
+        "qīu",
+        "jiū",
+        "qiū",
+        "quī"
+      ],
+      "answerIndex": 2,
+      "explanation": "正确答案是「qiū」"
+    },
+    {
+      "stem": "一（ ）鱼，括号里用什么量词？",
+      "options": [
+        "条",
+        "头",
+        "只",
+        "个"
+      ],
+      "answerIndex": 0,
+      "explanation": "正确答案是「条」"
+    },
+    {
+      "stem": "一（ ）花，括号里用什么量词？",
+      "options": [
+        "朵",
+        "只",
+        "条",
+        "个"
+      ],
+      "answerIndex": 0,
+      "explanation": "正确答案是「朵」"
+    },
+    {
+      "stem": "“寒冷”的近义词是？",
+      "options": [
+        "炎热",
+        "严寒",
+        "凉爽",
+        "温暖"
+      ],
+      "answerIndex": 1,
+      "explanation": "正确答案是「严寒」"
+    },
+    {
+      "stem": "“早”的反义词是？",
+      "options": [
+        "晚",
+        "暗",
+        "夜",
+        "迟"
+      ],
+      "answerIndex": 0,
+      "explanation": "正确答案是「晚」"
+    },
+    {
+      "stem": "“尖”字表示什么意思？",
+      "options": [
+        "左右一样",
+        "上小下大",
+        "上大下小",
+        "又圆又方"
+      ],
+      "answerIndex": 1,
+      "explanation": "正确答案是「上小下大」"
+    },
+    {
+      "stem": "下面哪个词表示动作？",
+      "options": [
+        "红色",
+        "桌子",
+        "奔跑",
+        "美丽"
+      ],
+      "answerIndex": 2,
+      "explanation": "正确答案是「奔跑」"
+    },
+    {
+      "stem": "“认真”的近义词是？",
+      "options": [
+        "仔细",
+        "随便",
+        "马虎",
+        "粗心"
+      ],
+      "answerIndex": 0,
+      "explanation": "正确答案是「仔细」"
+    },
+    {
+      "stem": "“日”和“月”合起来是什么字？",
+      "options": [
+        "昌",
+        "阳",
+        "朋",
+        "明"
+      ],
+      "answerIndex": 3,
+      "explanation": "正确答案是「明」"
+    },
+    {
+      "stem": "“哭”的反义词是？",
+      "options": [
+        "闹",
+        "喊",
+        "叫",
+        "笑"
+      ],
+      "answerIndex": 3,
+      "explanation": "正确答案是「笑」"
+    }
+  ]
 }

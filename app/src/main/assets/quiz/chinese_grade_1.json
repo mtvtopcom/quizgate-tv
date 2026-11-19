@@ -1,111 +1,243 @@
 {
- "version": 2,
- "subject": "语文",
- "grade": 1,
- "items": [
-  {
-   "id": "c1-001",
-   "subject": "语文",
-   "stem": "“日”字有几笔？",
-   "options": [
-    "3 笔",
-    "4 笔",
-    "5 笔",
-    "6 笔"
-   ],
-   "answerIndex": 1,
-   "explanation": "“日”是 4 笔"
-  },
-  {
-   "id": "c1-002",
-   "subject": "语文",
-   "stem": "“山”字有几笔？",
-   "options": [
-    "2 笔",
-    "3 笔",
-    "4 笔",
-    "5 笔"
-   ],
-   "answerIndex": 1,
-   "explanation": "“山”是 3 笔"
-  },
-  {
-   "id": "c1-003",
-   "subject": "语文",
-   "stem": "“上”的反义词是什么？",
-   "options": [
-    "左",
-    "下",
-    "前",
-    "里"
-   ],
-   "answerIndex": 1,
-   "explanation": "上与下相对"
-  },
-  {
-   "id": "c1-004",
-   "subject": "语文",
-   "stem": "一（ ）铅笔，括号里用什么量词？",
-   "options": [
-    "个",
-    "只",
-    "支",
-    "条"
-   ],
-   "answerIndex": 2,
-   "explanation": "细长的笔用“支”"
-  },
-  {
-   "id": "c1-005",
-   "subject": "语文",
-   "stem": "“水”的拼音是？",
-   "options": [
-    "shuǐ",
-    "suǐ",
-    "shǔi",
-    "shuī"
-   ],
-   "answerIndex": 0,
-   "explanation": "水读 shuǐ，第三声"
-  },
-  {
-   "id": "c1-006",
-   "subject": "语文",
-   "stem": "“大”的反义词是什么？",
-   "options": [
-    "多",
-    "小",
-    "高",
-    "长"
-   ],
-   "answerIndex": 1,
-   "explanation": "大与小相对"
-  },
-  {
-   "id": "c1-007",
-   "subject": "语文",
-   "stem": "“人”字加一笔可以变成哪个字？",
-   "options": [
-    "大",
-    "天",
-    "木",
-    "水"
-   ],
-   "answerIndex": 0,
-   "explanation": "人加一横就是“大”"
-  },
-  {
-   "id": "c1-008",
-   "subject": "语文",
-   "stem": "“月”字有几笔？",
-   "options": [
-    "3 笔",
-    "4 笔",
-    "5 笔",
-    "6 笔"
-   ],
-   "answerIndex": 1,
-   "explanation": "“月”是 4 笔"
-  }
- ]
+  "version": "1.4.0",
+  "subject": "语文",
+  "grade": 1,
+  "items": [
+    {
+      "id": "c1-001",
+      "subject": "语文",
+      "stem": "“日”字有几笔？",
+      "options": [
+        "3 笔",
+        "4 笔",
+        "5 笔",
+        "6 笔"
+      ],
+      "answerIndex": 1,
+      "explanation": "“日”是 4 笔"
+    },
+    {
+      "id": "c1-002",
+      "subject": "语文",
+      "stem": "“山”字有几笔？",
+      "options": [
+        "2 笔",
+        "3 笔",
+        "4 笔",
+        "5 笔"
+      ],
+      "answerIndex": 1,
+      "explanation": "“山”是 3 笔"
+    },
+    {
+      "id": "c1-003",
+      "subject": "语文",
+      "stem": "“上”的反义词是什么？",
+      "options": [
+        "左",
+        "下",
+        "前",
+        "里"
+      ],
+      "answerIndex": 1,
+      "explanation": "上与下相对"
+    },
+    {
+      "id": "c1-004",
+      "subject": "语文",
+      "stem": "一（ ）铅笔，括号里用什么量词？",
+      "options": [
+        "个",
+        "只",
+        "支",
+        "条"
+      ],
+      "answerIndex": 2,
+      "explanation": "细长的笔用“支”"
+    },
+    {
+      "id": "c1-005",
+      "subject": "语文",
+      "stem": "“水”的拼音是？",
+      "options": [
+        "shuǐ",
+        "suǐ",
+        "shǔi",
+        "shuī"
+      ],
+      "answerIndex": 0,
+      "explanation": "水读 shuǐ，第三声"
+    },
+    {
+      "id": "c1-006",
+      "subject": "语文",
+      "stem": "“大”的反义词是什么？",
+      "options": [
+        "多",
+        "小",
+        "高",
+        "长"
+      ],
+      "answerIndex": 1,
+      "explanation": "大与小相对"
+    },
+    {
+      "id": "c1-007",
+      "subject": "语文",
+      "stem": "“人”字加一笔可以变成哪个字？",
+      "options": [
+        "大",
+        "天",
+        "木",
+        "水"
+      ],
+      "answerIndex": 0,
+      "explanation": "人加一横就是“大”"
+    },
+    {
+      "id": "c1-008",
+      "subject": "语文",
+      "stem": "“月”字有几笔？",
+      "options": [
+        "3 笔",
+        "4 笔",
+        "5 笔",
+        "6 笔"
+      ],
+      "answerIndex": 1,
+      "explanation": "“月”是 4 笔"
+    },
+    {
+      "stem": "“木”字有几笔？",
+      "options": [
+        "5 笔",
+        "4 笔",
+        "6 笔",
+        "3 笔"
+      ],
+      "answerIndex": 1,
+      "explanation": "正确答案是「4 笔」"
+    },
+    {
+      "stem": "“火”字有几笔？",
+      "options": [
+        "3 笔",
+        "5 笔",
+        "6 笔",
+        "4 笔"
+      ],
+      "answerIndex": 3,
+      "explanation": "正确答案是「4 笔」"
+    },
+    {
+      "stem": "“左”的反义词是？",
+      "options": [
+        "右",
+        "下",
+        "上",
+        "前"
+      ],
+      "answerIndex": 0,
+      "explanation": "正确答案是「右」"
+    },
+    {
+      "stem": "“来”的反义词是？",
+      "options": [
+        "走",
+        "去",
+        "回",
+        "到"
+      ],
+      "answerIndex": 1,
+      "explanation": "正确答案是「去」"
+    },
+    {
+      "stem": "一（ ）小鸟，括号里用什么量词？",
+      "options": [
+        "头",
+        "只",
+        "条",
+        "个"
+      ],
+      "answerIndex": 1,
+      "explanation": "正确答案是「只」"
+    },
+    {
+      "stem": "一（ ）牛，括号里用什么量词？",
+      "options": [
+        "匹",
+        "头",
+        "条",
+        "只"
+      ],
+      "answerIndex": 1,
+      "explanation": "正确答案是「头」"
+    },
+    {
+      "stem": "“天”的拼音是？",
+      "options": [
+        "tian",
+        "diān",
+        "tiān",
+        "tián"
+      ],
+      "answerIndex": 2,
+      "explanation": "正确答案是「tiān」"
+    },
+    {
+      "stem": "“花”的拼音是？",
+      "options": [
+        "fā",
+        "huā",
+        "hā",
+        "huá"
+      ],
+      "answerIndex": 1,
+      "explanation": "正确答案是「huā」"
+    },
+    {
+      "stem": "“口”字加一笔可以变成哪个字？",
+      "options": [
+        "大",
+        "日",
+        "人",
+        "木"
+      ],
+      "answerIndex": 1,
+      "explanation": "正确答案是「日」"
+    },
+    {
+      "stem": "“二”字加一笔可以变成哪个字？",
+      "options": [
+        "干",
+        "三",
+        "土",
+        "十"
+      ],
+      "answerIndex": 1,
+      "explanation": "正确答案是「三」"
+    },
+    {
+      "stem": "下面哪个字是左右结构？",
+      "options": [
+        "田",
+        "山",
+        "日",
+        "明"
+      ],
+      "answerIndex": 3,
+      "explanation": "正确答案是「明」"
+    },
+    {
+      "stem": "“白”的反义词是？",
+      "options": [
+        "黄",
+        "灰",
+        "黑",
+        "红"
+      ],
+      "answerIndex": 2,
+      "explanation": "正确答案是「黑」"
+    }
+  ]
 }

@@ -36,7 +36,7 @@ public class MainActivity extends Activity {
     private ScrollView contentScroll;
     private LinearLayout content;
 
-    private TextView valueDuration, valueExtend, valueGrade, valuePin, valueRecovery, valueGuard;
+    private TextView valueDuration, valueExtend, valueRest, valueQuizRule, valueToday, valuePerfect, valueGrade, valuePin, valueRecovery, valueGuard;
     private TextView valueVersion, valueLog;
     private TextView anchorWarn;
     /** 设置页的第一项（本次时长）。顶部返回按钮在 1.2.9 删掉后，焦点默认落在这里。 */
@@ -140,6 +140,10 @@ public class MainActivity extends Activity {
 
         valueDuration = addRow("本次时长", this::openDurationPanel);
         valueExtend = addRow("答对延长", this::openExtendPanel);
+        valueRest = addRow("强制休息", this::openRestPanel);
+        valueQuizRule = addRow("解锁规则", this::openQuizStartPanel);
+        valueToday = addRow("今日答题", this::openTodayPanel);
+        valuePerfect = addRow("满分记录", () -> toast("本轮一题没错算一次满分；" + perfectText()));
         valueGrade = addRow("题目年级", this::openStagePanel);
         valuePin = addRow("家长口令", this::promptSetPin);
         valueRecovery = addRow("恢复码", this::onRecoveryRow);
@@ -609,6 +613,98 @@ public class MainActivity extends Activity {
                     refresh();
                     toast("答对延长：+ " + v + " 分钟");
                 }, this::hideOptionPanel));
+    }
+
+    /** 强制休息：0 / 5 / 10 / 15 / 20 分钟，或自定义（0 = 不休息，答对即解锁）。 */
+    private void openRestPanel() {
+        String[] labels = {"不休息", "5", "10", "15", "20"};
+        int[] vals = {0, 5, 10, 15, 20};
+        mountOption(new OptionPanel(this, "答对后强制休息（分钟）", labels, vals, prefs.restMin(),
+                "分钟", 0, 120,
+                v -> {
+                    prefs.setRestMin(v);
+                    hideOptionPanel();
+                    refresh();
+                    toast(v == 0 ? "强制休息：关闭" : "强制休息：" + v + " 分钟");
+                }, this::hideOptionPanel));
+    }
+
+    /** 解锁规则三步：起始题数 → 每次增加 → 上限。默认值 5 / +2 / 51，与旧行为一致。 */
+    private void openQuizStartPanel() {
+        String[] labels = {"3", "5", "8", "10"};
+        int[] vals = {3, 5, 8, 10};
+        mountOption(new OptionPanel(this, "解锁规则 · 起始题数", labels, vals,
+                prefs.startQuizCount(), "题", 1, 200,
+                v -> {
+                    prefs.setStartQuizCount(v);
+                    refresh();
+                    openQuizStepPanel();
+                }, this::hideOptionPanel));
+    }
+
+    private void openQuizStepPanel() {
+        String[] labels = {"0（固定）", "1", "2", "3", "5"};
+        int[] vals = {0, 1, 2, 3, 5};
+        mountOption(new OptionPanel(this, "解锁规则 · 每次增加", labels, vals,
+                prefs.quizStep(), "题", 0, 20,
+                v -> {
+                    prefs.setQuizStep(v);
+                    refresh();
+                    openQuizMaxPanel();
+                }, this::openQuizStartPanel));   // BACK 退回起始题数
+    }
+
+    private void openQuizMaxPanel() {
+        String[] labels = {"10", "20", "30", "51", "80"};
+        int[] vals = {10, 20, 30, 51, 80};
+        mountOption(new OptionPanel(this, "解锁规则 · 题数上限", labels, vals,
+                prefs.maxQuizCount(), "题", 1, 200,
+                v -> {
+                    prefs.setMaxQuizCount(v);
+                    refresh();
+                    hideOptionPanel();
+                    toast("解锁规则：" + quizRuleText());
+                }, this::openQuizStepPanel));    // BACK 退回每次增加
+    }
+
+    private String quizRuleText() {
+        int step = prefs.quizStep();
+        return prefs.startQuizCount() + " 题起 · 每次 +" + step + " · 上限 "
+                + prefs.maxQuizCount();
+    }
+
+    /**
+     * 今日答题进度：显示今天已解锁次数与下次所需题数，可一键清空回到起始题数。
+     * <p>跨天清零由 {@link Prefs#solveCount()} 自动处理，这里只负责展示与手动清空。
+     */
+    private void openTodayPanel() {
+        int n = prefs.solveCount();          // 读之前先做跨天检查，别把昨天的数带出来
+        int start = prefs.startQuizCount();
+        String[] labels = {"清空（回到 " + start + " 题）", "取消"};
+        int[] vals = {1, 0};
+        // current 传 0（取消）：面板默认选中「取消」，避免家长一按 OK 就把进度清了
+        mountOption(new OptionPanel(this,
+                "今日已解锁 " + n + " 次 · 下次 " + prefs.requiredQuizCount() + " 题",
+                labels, vals, 0, "", 0, 0,
+                v -> {
+                    if (v == 1) {
+                        prefs.clearSolveProgress();
+                        toast("已清空，下次锁定从 " + prefs.startQuizCount() + " 题开始");
+                    }
+                    hideOptionPanel();
+                    refresh();
+                }, this::hideOptionPanel));
+    }
+
+    private String todayText() {
+        int n = prefs.solveCount();
+        String head = n == 0 ? "今天还没答题" : "已解锁 " + n + " 次";
+        return head + " · 下次 " + prefs.requiredQuizCount() + " 题";
+    }
+
+    /** 满分记录：今日 + 累计。累计不清零，家长能看到长期表现。 */
+    private String perfectText() {
+        return "今日 " + prefs.perfectToday() + " 次 · 累计 " + prefs.perfectTotal() + " 次";
     }
 
     /** 年级三步：学段 → 年级 → 科目（语文 / 数学 / 英语）。 */
@@ -1147,6 +1243,11 @@ public class MainActivity extends Activity {
         if (valueDuration == null) return;
         valueDuration.setText(prefs.durationMin() + " 分钟");
         valueExtend.setText("+ " + prefs.extendMin() + " 分钟");
+        int rest = prefs.restMin();
+        valueRest.setText(rest == 0 ? "不休息" : rest + " 分钟");
+        valueQuizRule.setText(quizRuleText());
+        valueToday.setText(todayText());
+        valuePerfect.setText(perfectText());
         valueGrade.setText(gradeText());
         valuePin.setText(prefs.hasPin() ? "已设置" : "未设置");
         // 只存哈希：应用里看不到已生成的码，想再看只能重新生成（旧码立即作废）

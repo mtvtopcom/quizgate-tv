@@ -1,111 +1,243 @@
 {
- "version": 2,
- "subject": "英语",
- "grade": 8,
- "items": [
-  {
-   "id": "e8-001",
-   "subject": "英语",
-   "stem": "I ___ here since 2020.",
-   "options": [
-    "live",
-    "lived",
-    "have lived",
-    "am living"
-   ],
-   "answerIndex": 2,
-   "explanation": "since 用现在完成时"
-  },
-  {
-   "id": "e8-002",
-   "subject": "英语",
-   "stem": "The room ___ every day.",
-   "options": [
-    "cleans",
-    "is cleaned",
-    "cleaned",
-    "is cleaning"
-   ],
-   "answerIndex": 1,
-   "explanation": "被动语态 be + 过去分词"
-  },
-  {
-   "id": "e8-003",
-   "subject": "英语",
-   "stem": "He asked me ___ I was tired.",
-   "options": [
-    "if",
-    "that",
-    "what",
-    "which"
-   ],
-   "answerIndex": 0,
-   "explanation": "宾语从句用 if 表是否"
-  },
-  {
-   "id": "e8-004",
-   "subject": "英语",
-   "stem": "neither...nor 连接主语时，谓语动词看？",
-   "options": [
-    "就近的主语",
-    "前面的主语",
-    "都用复数",
-    "都用单数"
-   ],
-   "answerIndex": 0,
-   "explanation": "就近原则"
-  },
-  {
-   "id": "e8-005",
-   "subject": "英语",
-   "stem": "“too...to”是什么意思？",
-   "options": [
-    "太……而不能",
-    "太……以至于",
-    "为了……",
-    "不但……而且"
-   ],
-   "answerIndex": 0,
-   "explanation": "too + adj + to do"
-  },
-  {
-   "id": "e8-006",
-   "subject": "英语",
-   "stem": "“used to”是什么意思？",
-   "options": [
-    "过去常常",
-    "被用来",
-    "习惯于",
-    "使用"
-   ],
-   "answerIndex": 0,
-   "explanation": "used to do 过去常常"
-  },
-  {
-   "id": "e8-007",
-   "subject": "英语",
-   "stem": "although 能和 but 同时用吗？",
-   "options": [
-    "能",
-    "不能",
-    "只能放句首",
-    "只能放句末"
-   ],
-   "answerIndex": 1,
-   "explanation": "although 与 but 不连用"
-  },
-  {
-   "id": "e8-008",
-   "subject": "英语",
-   "stem": "“the more, the better”是什么意思？",
-   "options": [
-    "越多越好",
-    "越来越好",
-    "越少越好",
-    "越多越差"
-   ],
-   "answerIndex": 0,
-   "explanation": "the + 比较级，the + 比较级"
-  }
- ]
+  "version": "1.4.0",
+  "subject": "英语",
+  "grade": 8,
+  "items": [
+    {
+      "id": "e8-001",
+      "subject": "英语",
+      "stem": "I ___ here since 2020.",
+      "options": [
+        "live",
+        "lived",
+        "have lived",
+        "am living"
+      ],
+      "answerIndex": 2,
+      "explanation": "since 用现在完成时"
+    },
+    {
+      "id": "e8-002",
+      "subject": "英语",
+      "stem": "The room ___ every day.",
+      "options": [
+        "cleans",
+        "is cleaned",
+        "cleaned",
+        "is cleaning"
+      ],
+      "answerIndex": 1,
+      "explanation": "被动语态 be + 过去分词"
+    },
+    {
+      "id": "e8-003",
+      "subject": "英语",
+      "stem": "He asked me ___ I was tired.",
+      "options": [
+        "if",
+        "that",
+        "what",
+        "which"
+      ],
+      "answerIndex": 0,
+      "explanation": "宾语从句用 if 表是否"
+    },
+    {
+      "id": "e8-004",
+      "subject": "英语",
+      "stem": "neither...nor 连接主语时，谓语动词看？",
+      "options": [
+        "就近的主语",
+        "前面的主语",
+        "都用复数",
+        "都用单数"
+      ],
+      "answerIndex": 0,
+      "explanation": "就近原则"
+    },
+    {
+      "id": "e8-005",
+      "subject": "英语",
+      "stem": "“too...to”是什么意思？",
+      "options": [
+        "太……而不能",
+        "太……以至于",
+        "为了……",
+        "不但……而且"
+      ],
+      "answerIndex": 0,
+      "explanation": "too + adj + to do"
+    },
+    {
+      "id": "e8-006",
+      "subject": "英语",
+      "stem": "“used to”是什么意思？",
+      "options": [
+        "过去常常",
+        "被用来",
+        "习惯于",
+        "使用"
+      ],
+      "answerIndex": 0,
+      "explanation": "used to do 过去常常"
+    },
+    {
+      "id": "e8-007",
+      "subject": "英语",
+      "stem": "although 能和 but 同时用吗？",
+      "options": [
+        "能",
+        "不能",
+        "只能放句首",
+        "只能放句末"
+      ],
+      "answerIndex": 1,
+      "explanation": "although 与 but 不连用"
+    },
+    {
+      "id": "e8-008",
+      "subject": "英语",
+      "stem": "“the more, the better”是什么意思？",
+      "options": [
+        "越多越好",
+        "越来越好",
+        "越少越好",
+        "越多越差"
+      ],
+      "answerIndex": 0,
+      "explanation": "the + 比较级，the + 比较级"
+    },
+    {
+      "stem": "She ___ here for ten years.",
+      "options": [
+        "has lived",
+        "lived",
+        "is living",
+        "lives"
+      ],
+      "answerIndex": 0,
+      "explanation": "答案是「has lived」"
+    },
+    {
+      "stem": "The window ___ by Tom yesterday.",
+      "options": [
+        "broke",
+        "breaks",
+        "is broken",
+        "was broken"
+      ],
+      "answerIndex": 3,
+      "explanation": "答案是「was broken」"
+    },
+    {
+      "stem": "I don't know ___ he will come.",
+      "options": [
+        "that",
+        "what",
+        "whether",
+        "which"
+      ],
+      "answerIndex": 2,
+      "explanation": "答案是「whether」"
+    },
+    {
+      "stem": "both...and 连接主语时，谓语动词用？",
+      "options": [
+        "单数",
+        "就近原则",
+        "复数",
+        "都不用"
+      ],
+      "answerIndex": 2,
+      "explanation": "答案是「复数」"
+    },
+    {
+      "stem": "“so...that”是什么意思？",
+      "options": [
+        "虽然……但是",
+        "如此……以至于",
+        "不但……而且",
+        "太……而不能"
+      ],
+      "answerIndex": 1,
+      "explanation": "答案是「如此……以至于」"
+    },
+    {
+      "stem": "“be used to”是什么意思？",
+      "options": [
+        "正在使用",
+        "习惯于",
+        "被用来",
+        "过去常常"
+      ],
+      "answerIndex": 1,
+      "explanation": "答案是「习惯于」"
+    },
+    {
+      "stem": "because 和 so 能同时用吗？",
+      "options": [
+        "只能放句首",
+        "只能放句末",
+        "不能",
+        "能"
+      ],
+      "answerIndex": 2,
+      "explanation": "答案是「不能」"
+    },
+    {
+      "stem": "“the + 比较级, the + 比较级”表示？",
+      "options": [
+        "越……越……",
+        "最……",
+        "和……一样",
+        "比较……"
+      ],
+      "answerIndex": 0,
+      "explanation": "答案是「越……越……」"
+    },
+    {
+      "stem": "By the time I got there, the film ___.",
+      "options": [
+        "had started",
+        "has started",
+        "starts",
+        "started"
+      ],
+      "answerIndex": 0,
+      "explanation": "答案是「had started」"
+    },
+    {
+      "stem": "If it ___ tomorrow, we will stay at home.",
+      "options": [
+        "rain",
+        "rains",
+        "will rain",
+        "rained"
+      ],
+      "answerIndex": 1,
+      "explanation": "答案是「rains」"
+    },
+    {
+      "stem": "He is the man ___ helped me.",
+      "options": [
+        "who",
+        "what",
+        "which",
+        "whose"
+      ],
+      "answerIndex": 0,
+      "explanation": "答案是「who」"
+    },
+    {
+      "stem": "“in order to”是什么意思？",
+      "options": [
+        "以便",
+        "虽然",
+        "因为",
+        "为了"
+      ],
+      "answerIndex": 3,
+      "explanation": "答案是「为了」"
+    }
+  ]
 }

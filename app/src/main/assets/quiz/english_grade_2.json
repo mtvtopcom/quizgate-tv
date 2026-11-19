@@ -1,111 +1,243 @@
 {
- "version": 2,
- "subject": "英语",
- "grade": 2,
- "items": [
-  {
-   "id": "e2-001",
-   "subject": "英语",
-   "stem": "“book”的复数形式是？",
-   "options": [
-    "book",
-    "books",
-    "bookes",
-    "bookies"
-   ],
-   "answerIndex": 1,
-   "explanation": "一般名词加 s"
-  },
-  {
-   "id": "e2-002",
-   "subject": "英语",
-   "stem": "I ___ a student.",
-   "options": [
-    "am",
-    "is",
-    "are",
-    "be"
-   ],
-   "answerIndex": 0,
-   "explanation": "I 后面用 am"
-  },
-  {
-   "id": "e2-003",
-   "subject": "英语",
-   "stem": "英文数字 two 是几？",
-   "options": [
-    "1",
-    "2",
-    "3",
-    "4"
-   ],
-   "answerIndex": 1,
-   "explanation": "two = 2"
-  },
-  {
-   "id": "e2-004",
-   "subject": "英语",
-   "stem": "“mother”是什么意思？",
-   "options": [
-    "妈妈",
-    "爸爸",
-    "姐姐",
-    "老师"
-   ],
-   "answerIndex": 0,
-   "explanation": "mother 是妈妈"
-  },
-  {
-   "id": "e2-005",
-   "subject": "英语",
-   "stem": "别人问 What's your name? 应该怎么回答？",
-   "options": [
-    "My name is Tom.",
-    "I am fine.",
-    "I am nine.",
-    "Thank you."
-   ],
-   "answerIndex": 0,
-   "explanation": "问名字答名字"
-  },
-  {
-   "id": "e2-006",
-   "subject": "英语",
-   "stem": "“big”的反义词是？",
-   "options": [
-    "small",
-    "tall",
-    "long",
-    "new"
-   ],
-   "answerIndex": 0,
-   "explanation": "big 与 small 相对"
-  },
-  {
-   "id": "e2-007",
-   "subject": "英语",
-   "stem": "“pencil”是什么意思？",
-   "options": [
-    "铅笔",
-    "尺子",
-    "橡皮",
-    "书包"
-   ],
-   "answerIndex": 0,
-   "explanation": "pencil 是铅笔"
-  },
-  {
-   "id": "e2-008",
-   "subject": "英语",
-   "stem": "How old are you? 问的是什么？",
-   "options": [
-    "年龄",
-    "名字",
-    "天气",
-    "时间"
-   ],
-   "answerIndex": 0,
-   "explanation": "how old 问年龄"
-  }
- ]
+  "version": "1.4.0",
+  "subject": "英语",
+  "grade": 2,
+  "items": [
+    {
+      "id": "e2-001",
+      "subject": "英语",
+      "stem": "“book”的复数形式是？",
+      "options": [
+        "book",
+        "books",
+        "bookes",
+        "bookies"
+      ],
+      "answerIndex": 1,
+      "explanation": "一般名词加 s"
+    },
+    {
+      "id": "e2-002",
+      "subject": "英语",
+      "stem": "I ___ a student.",
+      "options": [
+        "am",
+        "is",
+        "are",
+        "be"
+      ],
+      "answerIndex": 0,
+      "explanation": "I 后面用 am"
+    },
+    {
+      "id": "e2-003",
+      "subject": "英语",
+      "stem": "英文数字 two 是几？",
+      "options": [
+        "1",
+        "2",
+        "3",
+        "4"
+      ],
+      "answerIndex": 1,
+      "explanation": "two = 2"
+    },
+    {
+      "id": "e2-004",
+      "subject": "英语",
+      "stem": "“mother”是什么意思？",
+      "options": [
+        "妈妈",
+        "爸爸",
+        "姐姐",
+        "老师"
+      ],
+      "answerIndex": 0,
+      "explanation": "mother 是妈妈"
+    },
+    {
+      "id": "e2-005",
+      "subject": "英语",
+      "stem": "别人问 What's your name? 应该怎么回答？",
+      "options": [
+        "My name is Tom.",
+        "I am fine.",
+        "I am nine.",
+        "Thank you."
+      ],
+      "answerIndex": 0,
+      "explanation": "问名字答名字"
+    },
+    {
+      "id": "e2-006",
+      "subject": "英语",
+      "stem": "“big”的反义词是？",
+      "options": [
+        "small",
+        "tall",
+        "long",
+        "new"
+      ],
+      "answerIndex": 0,
+      "explanation": "big 与 small 相对"
+    },
+    {
+      "id": "e2-007",
+      "subject": "英语",
+      "stem": "“pencil”是什么意思？",
+      "options": [
+        "铅笔",
+        "尺子",
+        "橡皮",
+        "书包"
+      ],
+      "answerIndex": 0,
+      "explanation": "pencil 是铅笔"
+    },
+    {
+      "id": "e2-008",
+      "subject": "英语",
+      "stem": "How old are you? 问的是什么？",
+      "options": [
+        "年龄",
+        "名字",
+        "天气",
+        "时间"
+      ],
+      "answerIndex": 0,
+      "explanation": "how old 问年龄"
+    },
+    {
+      "stem": "“pen”的复数形式是？",
+      "options": [
+        "pens",
+        "penies",
+        "penss",
+        "pen"
+      ],
+      "answerIndex": 0,
+      "explanation": "答案是「pens」"
+    },
+    {
+      "stem": "You ___ my friend.",
+      "options": [
+        "are",
+        "is",
+        "be",
+        "am"
+      ],
+      "answerIndex": 0,
+      "explanation": "答案是「are」"
+    },
+    {
+      "stem": "“father”是什么意思？",
+      "options": [
+        "妈妈",
+        "老师",
+        "爸爸",
+        "爷爷"
+      ],
+      "answerIndex": 2,
+      "explanation": "答案是「爸爸」"
+    },
+    {
+      "stem": "“red”是什么颜色？",
+      "options": [
+        "红色",
+        "黄色",
+        "蓝色",
+        "绿色"
+      ],
+      "answerIndex": 0,
+      "explanation": "答案是「红色」"
+    },
+    {
+      "stem": "英文数字 ten 是几？",
+      "options": [
+        "10",
+        "12",
+        "20",
+        "2"
+      ],
+      "answerIndex": 0,
+      "explanation": "答案是「10」"
+    },
+    {
+      "stem": "“small”的反义词是？",
+      "options": [
+        "little",
+        "big",
+        "new",
+        "short"
+      ],
+      "answerIndex": 1,
+      "explanation": "答案是「big」"
+    },
+    {
+      "stem": "“ruler”是什么意思？",
+      "options": [
+        "尺子",
+        "书包",
+        "橡皮",
+        "铅笔"
+      ],
+      "answerIndex": 0,
+      "explanation": "答案是「尺子」"
+    },
+    {
+      "stem": "别人的东西要说？",
+      "options": [
+        "Goodbye.",
+        "Thank you.",
+        "Sorry.",
+        "Hello."
+      ],
+      "answerIndex": 1,
+      "explanation": "答案是「Thank you.」"
+    },
+    {
+      "stem": "“hot”的反义词是？",
+      "options": [
+        "new",
+        "cool",
+        "cold",
+        "warm"
+      ],
+      "answerIndex": 2,
+      "explanation": "答案是「cold」"
+    },
+    {
+      "stem": "“bag”是什么意思？",
+      "options": [
+        "书包",
+        "笔",
+        "书",
+        "桌子"
+      ],
+      "answerIndex": 0,
+      "explanation": "答案是「书包」"
+    },
+    {
+      "stem": "英文数字 four 是几？",
+      "options": [
+        "40",
+        "14",
+        "5",
+        "4"
+      ],
+      "answerIndex": 3,
+      "explanation": "答案是「4」"
+    },
+    {
+      "stem": "“black”是什么颜色？",
+      "options": [
+        "白色",
+        "粉色",
+        "棕色",
+        "黑色"
+      ],
+      "answerIndex": 3,
+      "explanation": "答案是「黑色」"
+    }
+  ]
 }

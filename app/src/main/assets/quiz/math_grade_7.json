@@ -1,111 +1,243 @@
 {
- "version": 2,
- "subject": "数学",
- "grade": 7,
- "items": [
-  {
-   "id": "m7-001",
-   "subject": "数学",
-   "stem": "-3 + 5 = ?",
-   "options": [
-    "-8",
-    "-2",
-    "2",
-    "8"
-   ],
-   "answerIndex": 2,
-   "explanation": "-3 + 5 = 2"
-  },
-  {
-   "id": "m7-002",
-   "subject": "数学",
-   "stem": "2x = 10，x 等于多少？",
-   "options": [
-    "2",
-    "4",
-    "5",
-    "20"
-   ],
-   "answerIndex": 2,
-   "explanation": "两边同除以 2"
-  },
-  {
-   "id": "m7-003",
-   "subject": "数学",
-   "stem": "绝对值等于 4 的数是？",
-   "options": [
-    "只有 4",
-    "只有 -4",
-    "±4",
-    "0"
-   ],
-   "answerIndex": 2,
-   "explanation": "绝对值是到原点的距离"
-  },
-  {
-   "id": "m7-004",
-   "subject": "数学",
-   "stem": "三角形内角和是多少度？",
-   "options": [
-    "90°",
-    "180°",
-    "270°",
-    "360°"
-   ],
-   "answerIndex": 1,
-   "explanation": "内角和 180°"
-  },
-  {
-   "id": "m7-005",
-   "subject": "数学",
-   "stem": "(-2)³ = ?",
-   "options": [
-    "-6",
-    "-8",
-    "6",
-    "8"
-   ],
-   "answerIndex": 1,
-   "explanation": "三个 -2 相乘得 -8"
-  },
-  {
-   "id": "m7-006",
-   "subject": "数学",
-   "stem": "3x - 5 = 7，x 等于多少？",
-   "options": [
-    "3",
-    "4",
-    "5",
-    "6"
-   ],
-   "answerIndex": 1,
-   "explanation": "3x = 12，x = 4"
-  },
-  {
-   "id": "m7-007",
-   "subject": "数学",
-   "stem": "一个数的 1/4 是 12，这个数是多少？",
-   "options": [
-    "3",
-    "36",
-    "48",
-    "60"
-   ],
-   "answerIndex": 2,
-   "explanation": "12 × 4 = 48"
-  },
-  {
-   "id": "m7-008",
-   "subject": "数学",
-   "stem": "化简 2x + 3x 的结果是？",
-   "options": [
-    "5x",
-    "6x",
-    "5x²",
-    "x"
-   ],
-   "answerIndex": 0,
-   "explanation": "同类项合并：系数相加"
-  }
- ]
+  "version": "1.4.0",
+  "subject": "数学",
+  "grade": 7,
+  "items": [
+    {
+      "id": "m7-001",
+      "subject": "数学",
+      "stem": "-3 + 5 = ?",
+      "options": [
+        "-8",
+        "-2",
+        "2",
+        "8"
+      ],
+      "answerIndex": 2,
+      "explanation": "-3 + 5 = 2"
+    },
+    {
+      "id": "m7-002",
+      "subject": "数学",
+      "stem": "2x = 10，x 等于多少？",
+      "options": [
+        "2",
+        "4",
+        "5",
+        "20"
+      ],
+      "answerIndex": 2,
+      "explanation": "两边同除以 2"
+    },
+    {
+      "id": "m7-003",
+      "subject": "数学",
+      "stem": "绝对值等于 4 的数是？",
+      "options": [
+        "只有 4",
+        "只有 -4",
+        "±4",
+        "0"
+      ],
+      "answerIndex": 2,
+      "explanation": "绝对值是到原点的距离"
+    },
+    {
+      "id": "m7-004",
+      "subject": "数学",
+      "stem": "三角形内角和是多少度？",
+      "options": [
+        "90°",
+        "180°",
+        "270°",
+        "360°"
+      ],
+      "answerIndex": 1,
+      "explanation": "内角和 180°"
+    },
+    {
+      "id": "m7-005",
+      "subject": "数学",
+      "stem": "(-2)³ = ?",
+      "options": [
+        "-6",
+        "-8",
+        "6",
+        "8"
+      ],
+      "answerIndex": 1,
+      "explanation": "三个 -2 相乘得 -8"
+    },
+    {
+      "id": "m7-006",
+      "subject": "数学",
+      "stem": "3x - 5 = 7，x 等于多少？",
+      "options": [
+        "3",
+        "4",
+        "5",
+        "6"
+      ],
+      "answerIndex": 1,
+      "explanation": "3x = 12，x = 4"
+    },
+    {
+      "id": "m7-007",
+      "subject": "数学",
+      "stem": "一个数的 1/4 是 12，这个数是多少？",
+      "options": [
+        "3",
+        "36",
+        "48",
+        "60"
+      ],
+      "answerIndex": 2,
+      "explanation": "12 × 4 = 48"
+    },
+    {
+      "id": "m7-008",
+      "subject": "数学",
+      "stem": "化简 2x + 3x 的结果是？",
+      "options": [
+        "5x",
+        "6x",
+        "5x²",
+        "x"
+      ],
+      "answerIndex": 0,
+      "explanation": "同类项合并：系数相加"
+    },
+    {
+      "stem": "-5 + 8 = ?",
+      "options": [
+        "13",
+        "-3",
+        "-13",
+        "3"
+      ],
+      "answerIndex": 3,
+      "explanation": "答案是 3"
+    },
+    {
+      "stem": "(-3) × (-4) = ?",
+      "options": [
+        "7",
+        "12",
+        "-7",
+        "-12"
+      ],
+      "answerIndex": 1,
+      "explanation": "答案是 12"
+    },
+    {
+      "stem": "12 ÷ (-3) = ?",
+      "options": [
+        "-9",
+        "4",
+        "36",
+        "-4"
+      ],
+      "answerIndex": 3,
+      "explanation": "答案是 -4"
+    },
+    {
+      "stem": "方程 3x = 18 的解是？",
+      "options": [
+        "x = 3",
+        "x = 6",
+        "x = 15",
+        "x = 54"
+      ],
+      "answerIndex": 1,
+      "explanation": "答案是 x = 6"
+    },
+    {
+      "stem": "|−7| = ?",
+      "options": [
+        "0",
+        "-7",
+        "7",
+        "14"
+      ],
+      "answerIndex": 2,
+      "explanation": "答案是 7"
+    },
+    {
+      "stem": "一个数的相反数是 5，这个数是？",
+      "options": [
+        "5",
+        "0",
+        "1/5",
+        "-5"
+      ],
+      "answerIndex": 3,
+      "explanation": "答案是 -5"
+    },
+    {
+      "stem": "2³ = ?",
+      "options": [
+        "6",
+        "16",
+        "8",
+        "9"
+      ],
+      "answerIndex": 2,
+      "explanation": "答案是 8"
+    },
+    {
+      "stem": "两数之和为 10，差为 4，较大的数是？",
+      "options": [
+        "14",
+        "7",
+        "8",
+        "6"
+      ],
+      "answerIndex": 1,
+      "explanation": "答案是 7"
+    },
+    {
+      "stem": "数轴上 -2 和 3 之间的距离是？",
+      "options": [
+        "5",
+        "1",
+        "6",
+        "-5"
+      ],
+      "answerIndex": 0,
+      "explanation": "答案是 5"
+    },
+    {
+      "stem": "若 a > 0，b < 0，则 a × b 的符号是？",
+      "options": [
+        "正",
+        "负",
+        "零",
+        "不确定"
+      ],
+      "answerIndex": 1,
+      "explanation": "答案是 负"
+    },
+    {
+      "stem": "方程 x/2 + 1 = 4 的解是？",
+      "options": [
+        "x = 8",
+        "x = 6",
+        "x = 3",
+        "x = 5"
+      ],
+      "answerIndex": 1,
+      "explanation": "答案是 x = 6"
+    },
+    {
+      "stem": "(-1)²⁰²⁴ = ?",
+      "options": [
+        "0",
+        "2024",
+        "-1",
+        "1"
+      ],
+      "answerIndex": 3,
+      "explanation": "答案是 1"
+    }
+  ]
 }

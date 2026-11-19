@@ -1,111 +1,243 @@
 {
- "version": 2,
- "subject": "数学",
- "grade": 8,
- "items": [
-  {
-   "id": "m8-001",
-   "subject": "数学",
-   "stem": "x² = 9，x 等于多少？",
-   "options": [
-    "3",
-    "-3",
-    "±3",
-    "9"
-   ],
-   "answerIndex": 2,
-   "explanation": "正负 3 的平方都是 9"
-  },
-  {
-   "id": "m8-002",
-   "subject": "数学",
-   "stem": "一次函数 y = 2x + 1，x = 3 时 y 等于多少？",
-   "options": [
-    "5",
-    "6",
-    "7",
-    "8"
-   ],
-   "answerIndex": 2,
-   "explanation": "2×3 + 1 = 7"
-  },
-  {
-   "id": "m8-003",
-   "subject": "数学",
-   "stem": "直角三角形两直角边为 3、4，斜边是多少？",
-   "options": [
-    "5",
-    "6",
-    "7",
-    "25"
-   ],
-   "answerIndex": 0,
-   "explanation": "3² + 4² = 5²"
-  },
-  {
-   "id": "m8-004",
-   "subject": "数学",
-   "stem": "(a + b)(a - b) 等于？",
-   "options": [
-    "a² - b²",
-    "a² + b²",
-    "a² - 2ab + b²",
-    "a² + 2ab + b²"
-   ],
-   "answerIndex": 0,
-   "explanation": "平方差公式"
-  },
-  {
-   "id": "m8-005",
-   "subject": "数学",
-   "stem": "数据 2、4、4、6、9 的中位数是？",
-   "options": [
-    "4",
-    "4.5",
-    "5",
-    "6"
-   ],
-   "answerIndex": 0,
-   "explanation": "排序后中间那个是 4"
-  },
-  {
-   "id": "m8-006",
-   "subject": "数学",
-   "stem": "掷一枚均匀硬币，正面朝上的概率是？",
-   "options": [
-    "1/4",
-    "1/3",
-    "1/2",
-    "1"
-   ],
-   "answerIndex": 2,
-   "explanation": "两种结果等可能"
-  },
-  {
-   "id": "m8-007",
-   "subject": "数学",
-   "stem": "x² - 1 因式分解的结果是？",
-   "options": [
-    "(x+1)(x-1)",
-    "(x-1)²",
-    "(x+1)²",
-    "x(x-1)"
-   ],
-   "answerIndex": 0,
-   "explanation": "平方差公式反过来用"
-  },
-  {
-   "id": "m8-008",
-   "subject": "数学",
-   "stem": "反比例函数 y = 6/x，x = 2 时 y 等于？",
-   "options": [
-    "2",
-    "3",
-    "6",
-    "12"
-   ],
-   "answerIndex": 1,
-   "explanation": "6 ÷ 2 = 3"
-  }
- ]
+  "version": "1.4.0",
+  "subject": "数学",
+  "grade": 8,
+  "items": [
+    {
+      "id": "m8-001",
+      "subject": "数学",
+      "stem": "x² = 9，x 等于多少？",
+      "options": [
+        "3",
+        "-3",
+        "±3",
+        "9"
+      ],
+      "answerIndex": 2,
+      "explanation": "正负 3 的平方都是 9"
+    },
+    {
+      "id": "m8-002",
+      "subject": "数学",
+      "stem": "一次函数 y = 2x + 1，x = 3 时 y 等于多少？",
+      "options": [
+        "5",
+        "6",
+        "7",
+        "8"
+      ],
+      "answerIndex": 2,
+      "explanation": "2×3 + 1 = 7"
+    },
+    {
+      "id": "m8-003",
+      "subject": "数学",
+      "stem": "直角三角形两直角边为 3、4，斜边是多少？",
+      "options": [
+        "5",
+        "6",
+        "7",
+        "25"
+      ],
+      "answerIndex": 0,
+      "explanation": "3² + 4² = 5²"
+    },
+    {
+      "id": "m8-004",
+      "subject": "数学",
+      "stem": "(a + b)(a - b) 等于？",
+      "options": [
+        "a² - b²",
+        "a² + b²",
+        "a² - 2ab + b²",
+        "a² + 2ab + b²"
+      ],
+      "answerIndex": 0,
+      "explanation": "平方差公式"
+    },
+    {
+      "id": "m8-005",
+      "subject": "数学",
+      "stem": "数据 2、4、4、6、9 的中位数是？",
+      "options": [
+        "4",
+        "4.5",
+        "5",
+        "6"
+      ],
+      "answerIndex": 0,
+      "explanation": "排序后中间那个是 4"
+    },
+    {
+      "id": "m8-006",
+      "subject": "数学",
+      "stem": "掷一枚均匀硬币，正面朝上的概率是？",
+      "options": [
+        "1/4",
+        "1/3",
+        "1/2",
+        "1"
+      ],
+      "answerIndex": 2,
+      "explanation": "两种结果等可能"
+    },
+    {
+      "id": "m8-007",
+      "subject": "数学",
+      "stem": "x² - 1 因式分解的结果是？",
+      "options": [
+        "(x+1)(x-1)",
+        "(x-1)²",
+        "(x+1)²",
+        "x(x-1)"
+      ],
+      "answerIndex": 0,
+      "explanation": "平方差公式反过来用"
+    },
+    {
+      "id": "m8-008",
+      "subject": "数学",
+      "stem": "反比例函数 y = 6/x，x = 2 时 y 等于？",
+      "options": [
+        "2",
+        "3",
+        "6",
+        "12"
+      ],
+      "answerIndex": 1,
+      "explanation": "6 ÷ 2 = 3"
+    },
+    {
+      "stem": "√16 = ?",
+      "options": [
+        "4",
+        "8",
+        "2",
+        "±4"
+      ],
+      "answerIndex": 0,
+      "explanation": "答案是 4"
+    },
+    {
+      "stem": "函数 y = 3x - 2，当 x = 2 时 y = ?",
+      "options": [
+        "6",
+        "8",
+        "1",
+        "4"
+      ],
+      "answerIndex": 3,
+      "explanation": "答案是 4"
+    },
+    {
+      "stem": "点 (2, -3) 在第几象限？",
+      "options": [
+        "第一象限",
+        "第二象限",
+        "第四象限",
+        "第三象限"
+      ],
+      "answerIndex": 2,
+      "explanation": "答案是 第四象限"
+    },
+    {
+      "stem": "一组数据 3、5、5、7、10 的平均数是？",
+      "options": [
+        "5",
+        "7",
+        "6",
+        "5.5"
+      ],
+      "answerIndex": 2,
+      "explanation": "答案是 6"
+    },
+    {
+      "stem": "一个三角形两边为 3 和 4，第三边可能是？",
+      "options": [
+        "8",
+        "5",
+        "7",
+        "1"
+      ],
+      "answerIndex": 1,
+      "explanation": "答案是 5"
+    },
+    {
+      "stem": "若 x² = 16，则 x = ?",
+      "options": [
+        "8",
+        "±4",
+        "-4",
+        "4"
+      ],
+      "answerIndex": 1,
+      "explanation": "答案是 ±4"
+    },
+    {
+      "stem": "一次函数 y = -2x + 1 的斜率是？",
+      "options": [
+        "1",
+        "-1",
+        "-2",
+        "2"
+      ],
+      "answerIndex": 2,
+      "explanation": "答案是 -2"
+    },
+    {
+      "stem": "菱形具有而平行四边形不一定具有的性质是？",
+      "options": [
+        "四边相等",
+        "对边平行",
+        "对角相等",
+        "对角线互相平分"
+      ],
+      "answerIndex": 0,
+      "explanation": "答案是 四边相等"
+    },
+    {
+      "stem": "数据 1、2、3、4、5 的极差是？",
+      "options": [
+        "4",
+        "2",
+        "3",
+        "5"
+      ],
+      "answerIndex": 0,
+      "explanation": "答案是 4"
+    },
+    {
+      "stem": "分式 1/(x-2) 有意义的条件是？",
+      "options": [
+        "x > 2",
+        "x ≠ 2",
+        "x = 2",
+        "x ≠ 0"
+      ],
+      "answerIndex": 1,
+      "explanation": "答案是 x ≠ 2"
+    },
+    {
+      "stem": "一个矩形对角线长 10，一边长 6，另一边长是？",
+      "options": [
+        "8",
+        "16",
+        "4",
+        "6"
+      ],
+      "answerIndex": 0,
+      "explanation": "答案是 8"
+    },
+    {
+      "stem": "把 a³ - a 因式分解，结果含哪个因式？",
+      "options": [
+        "(a-1)²",
+        "(a+1)²",
+        "a²+1",
+        "a(a-1)(a+1)"
+      ],
+      "answerIndex": 3,
+      "explanation": "答案是 a(a-1)(a+1)"
+    }
+  ]
 }

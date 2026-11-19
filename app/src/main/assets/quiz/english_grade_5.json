@@ -1,111 +1,243 @@
 {
- "version": 2,
- "subject": "英语",
- "grade": 5,
- "items": [
-  {
-   "id": "e5-001",
-   "subject": "英语",
-   "stem": "Look! She ___ reading.",
-   "options": [
-    "is",
-    "are",
-    "am",
-    "be"
-   ],
-   "answerIndex": 0,
-   "explanation": "现在进行时用 is + doing"
-  },
-  {
-   "id": "e5-002",
-   "subject": "英语",
-   "stem": "I can ___ English.",
-   "options": [
-    "speak",
-    "speaks",
-    "speaking",
-    "spoke"
-   ],
-   "answerIndex": 0,
-   "explanation": "can 后面用动词原形"
-  },
-  {
-   "id": "e5-003",
-   "subject": "英语",
-   "stem": "“January”是几月？",
-   "options": [
-    "一月",
-    "二月",
-    "三月",
-    "十二月"
-   ],
-   "answerIndex": 0,
-   "explanation": "January 是一月"
-  },
-  {
-   "id": "e5-004",
-   "subject": "英语",
-   "stem": "taller 是 tall 的什么形式？",
-   "options": [
-    "比较级",
-    "最高级",
-    "复数",
-    "过去式"
-   ],
-   "answerIndex": 0,
-   "explanation": "加 er 构成比较级"
-  },
-  {
-   "id": "e5-005",
-   "subject": "英语",
-   "stem": "How much is it? 问的是什么？",
-   "options": [
-    "价格",
-    "数量",
-    "时间",
-    "地点"
-   ],
-   "answerIndex": 0,
-   "explanation": "how much 问价钱"
-  },
-  {
-   "id": "e5-006",
-   "subject": "英语",
-   "stem": "“play football”是什么意思？",
-   "options": [
-    "踢足球",
-    "打篮球",
-    "打乒乓球",
-    "跑步"
-   ],
-   "answerIndex": 0,
-   "explanation": "play + 球类"
-  },
-  {
-   "id": "e5-007",
-   "subject": "英语",
-   "stem": "“usually”是什么意思？",
-   "options": [
-    "通常",
-    "从不",
-    "已经",
-    "有时"
-   ],
-   "answerIndex": 0,
-   "explanation": "usually 表示通常"
-  },
-  {
-   "id": "e5-008",
-   "subject": "英语",
-   "stem": "went 是哪个动词的过去式？",
-   "options": [
-    "go",
-    "come",
-    "do",
-    "see"
-   ],
-   "answerIndex": 0,
-   "explanation": "go-went-gone"
-  }
- ]
+  "version": "1.4.0",
+  "subject": "英语",
+  "grade": 5,
+  "items": [
+    {
+      "id": "e5-001",
+      "subject": "英语",
+      "stem": "Look! She ___ reading.",
+      "options": [
+        "is",
+        "are",
+        "am",
+        "be"
+      ],
+      "answerIndex": 0,
+      "explanation": "现在进行时用 is + doing"
+    },
+    {
+      "id": "e5-002",
+      "subject": "英语",
+      "stem": "I can ___ English.",
+      "options": [
+        "speak",
+        "speaks",
+        "speaking",
+        "spoke"
+      ],
+      "answerIndex": 0,
+      "explanation": "can 后面用动词原形"
+    },
+    {
+      "id": "e5-003",
+      "subject": "英语",
+      "stem": "“January”是几月？",
+      "options": [
+        "一月",
+        "二月",
+        "三月",
+        "十二月"
+      ],
+      "answerIndex": 0,
+      "explanation": "January 是一月"
+    },
+    {
+      "id": "e5-004",
+      "subject": "英语",
+      "stem": "taller 是 tall 的什么形式？",
+      "options": [
+        "比较级",
+        "最高级",
+        "复数",
+        "过去式"
+      ],
+      "answerIndex": 0,
+      "explanation": "加 er 构成比较级"
+    },
+    {
+      "id": "e5-005",
+      "subject": "英语",
+      "stem": "How much is it? 问的是什么？",
+      "options": [
+        "价格",
+        "数量",
+        "时间",
+        "地点"
+      ],
+      "answerIndex": 0,
+      "explanation": "how much 问价钱"
+    },
+    {
+      "id": "e5-006",
+      "subject": "英语",
+      "stem": "“play football”是什么意思？",
+      "options": [
+        "踢足球",
+        "打篮球",
+        "打乒乓球",
+        "跑步"
+      ],
+      "answerIndex": 0,
+      "explanation": "play + 球类"
+    },
+    {
+      "id": "e5-007",
+      "subject": "英语",
+      "stem": "“usually”是什么意思？",
+      "options": [
+        "通常",
+        "从不",
+        "已经",
+        "有时"
+      ],
+      "answerIndex": 0,
+      "explanation": "usually 表示通常"
+    },
+    {
+      "id": "e5-008",
+      "subject": "英语",
+      "stem": "went 是哪个动词的过去式？",
+      "options": [
+        "go",
+        "come",
+        "do",
+        "see"
+      ],
+      "answerIndex": 0,
+      "explanation": "go-went-gone"
+    },
+    {
+      "stem": "Listen! The bird ___.",
+      "options": [
+        "is singing",
+        "sing",
+        "sings",
+        "sang"
+      ],
+      "answerIndex": 0,
+      "explanation": "答案是「is singing」"
+    },
+    {
+      "stem": "He can ___ basketball.",
+      "options": [
+        "playing",
+        "played",
+        "play",
+        "plays"
+      ],
+      "answerIndex": 2,
+      "explanation": "答案是「play」"
+    },
+    {
+      "stem": "“March”是几月？",
+      "options": [
+        "三月",
+        "四月",
+        "五月",
+        "二月"
+      ],
+      "answerIndex": 0,
+      "explanation": "答案是「三月」"
+    },
+    {
+      "stem": "bigger 是 big 的什么形式？",
+      "options": [
+        "过去式",
+        "最高级",
+        "比较级",
+        "原级"
+      ],
+      "answerIndex": 2,
+      "explanation": "答案是「比较级」"
+    },
+    {
+      "stem": "“What's the weather like?”问的是？",
+      "options": [
+        "颜色",
+        "价格",
+        "天气",
+        "年龄"
+      ],
+      "answerIndex": 2,
+      "explanation": "答案是「天气」"
+    },
+    {
+      "stem": "“ride a bike”是什么意思？",
+      "options": [
+        "唱歌",
+        "打篮球",
+        "游泳",
+        "骑自行车"
+      ],
+      "answerIndex": 3,
+      "explanation": "答案是「骑自行车」"
+    },
+    {
+      "stem": "“often”是什么意思？",
+      "options": [
+        "偶尔",
+        "经常",
+        "总是",
+        "从不"
+      ],
+      "answerIndex": 1,
+      "explanation": "答案是「经常」"
+    },
+    {
+      "stem": "did 是哪个动词的过去式？",
+      "options": [
+        "have",
+        "do",
+        "go",
+        "see"
+      ],
+      "answerIndex": 1,
+      "explanation": "答案是「do」"
+    },
+    {
+      "stem": "“September”是几月？",
+      "options": [
+        "十月",
+        "八月",
+        "九月",
+        "七月"
+      ],
+      "answerIndex": 2,
+      "explanation": "答案是「九月」"
+    },
+    {
+      "stem": "This apple is ___ than that one.",
+      "options": [
+        "bigger",
+        "biggest",
+        "big",
+        "more big"
+      ],
+      "answerIndex": 0,
+      "explanation": "答案是「bigger」"
+    },
+    {
+      "stem": "“take a bus”是什么意思？",
+      "options": [
+        "坐飞机",
+        "骑自行车",
+        "乘公共汽车",
+        "步行"
+      ],
+      "answerIndex": 2,
+      "explanation": "答案是「乘公共汽车」"
+    },
+    {
+      "stem": "How often 问的是什么？",
+      "options": [
+        "时间",
+        "数量",
+        "地点",
+        "频率"
+      ],
+      "answerIndex": 3,
+      "explanation": "答案是「频率」"
+    }
+  ]
 }

@@ -1,111 +1,243 @@
 {
- "version": 2,
- "subject": "英语",
- "grade": 6,
- "items": [
-  {
-   "id": "e6-001",
-   "subject": "英语",
-   "stem": "I ___ my homework yesterday.",
-   "options": [
-    "do",
-    "did",
-    "does",
-    "doing"
-   ],
-   "answerIndex": 1,
-   "explanation": "yesterday 用过去式"
-  },
-  {
-   "id": "e6-002",
-   "subject": "英语",
-   "stem": "He is ___ than me.",
-   "options": [
-    "tall",
-    "taller",
-    "tallest",
-    "the tall"
-   ],
-   "answerIndex": 1,
-   "explanation": "than 前用比较级"
-  },
-  {
-   "id": "e6-003",
-   "subject": "英语",
-   "stem": "“February”是几月？",
-   "options": [
-    "一月",
-    "二月",
-    "三月",
-    "四月"
-   ],
-   "answerIndex": 1,
-   "explanation": "February 是二月"
-  },
-  {
-   "id": "e6-004",
-   "subject": "英语",
-   "stem": "“library”是什么意思？",
-   "options": [
-    "图书馆",
-    "医院",
-    "学校",
-    "超市"
-   ],
-   "answerIndex": 0,
-   "explanation": "library 是图书馆"
-  },
-  {
-   "id": "e6-005",
-   "subject": "英语",
-   "stem": "How do you go to school? 问的是什么？",
-   "options": [
-    "交通方式",
-    "时间",
-    "原因",
-    "地点"
-   ],
-   "answerIndex": 0,
-   "explanation": "how 问方式"
-  },
-  {
-   "id": "e6-006",
-   "subject": "英语",
-   "stem": "“next week”是什么意思？",
-   "options": [
-    "上周",
-    "下周",
-    "这周",
-    "每天"
-   ],
-   "answerIndex": 1,
-   "explanation": "next 表示下一个"
-  },
-  {
-   "id": "e6-007",
-   "subject": "英语",
-   "stem": "“interesting”是什么意思？",
-   "options": [
-    "有趣的",
-    "无聊的",
-    "困难的",
-    "简单的"
-   ],
-   "answerIndex": 0,
-   "explanation": "interest + ing"
-  },
-  {
-   "id": "e6-008",
-   "subject": "英语",
-   "stem": "don't 是哪两个词的缩写？",
-   "options": [
-    "do not",
-    "does not",
-    "did not",
-    "is not"
-   ],
-   "answerIndex": 0,
-   "explanation": "do not = don't"
-  }
- ]
+  "version": "1.4.0",
+  "subject": "英语",
+  "grade": 6,
+  "items": [
+    {
+      "id": "e6-001",
+      "subject": "英语",
+      "stem": "I ___ my homework yesterday.",
+      "options": [
+        "do",
+        "did",
+        "does",
+        "doing"
+      ],
+      "answerIndex": 1,
+      "explanation": "yesterday 用过去式"
+    },
+    {
+      "id": "e6-002",
+      "subject": "英语",
+      "stem": "He is ___ than me.",
+      "options": [
+        "tall",
+        "taller",
+        "tallest",
+        "the tall"
+      ],
+      "answerIndex": 1,
+      "explanation": "than 前用比较级"
+    },
+    {
+      "id": "e6-003",
+      "subject": "英语",
+      "stem": "“February”是几月？",
+      "options": [
+        "一月",
+        "二月",
+        "三月",
+        "四月"
+      ],
+      "answerIndex": 1,
+      "explanation": "February 是二月"
+    },
+    {
+      "id": "e6-004",
+      "subject": "英语",
+      "stem": "“library”是什么意思？",
+      "options": [
+        "图书馆",
+        "医院",
+        "学校",
+        "超市"
+      ],
+      "answerIndex": 0,
+      "explanation": "library 是图书馆"
+    },
+    {
+      "id": "e6-005",
+      "subject": "英语",
+      "stem": "How do you go to school? 问的是什么？",
+      "options": [
+        "交通方式",
+        "时间",
+        "原因",
+        "地点"
+      ],
+      "answerIndex": 0,
+      "explanation": "how 问方式"
+    },
+    {
+      "id": "e6-006",
+      "subject": "英语",
+      "stem": "“next week”是什么意思？",
+      "options": [
+        "上周",
+        "下周",
+        "这周",
+        "每天"
+      ],
+      "answerIndex": 1,
+      "explanation": "next 表示下一个"
+    },
+    {
+      "id": "e6-007",
+      "subject": "英语",
+      "stem": "“interesting”是什么意思？",
+      "options": [
+        "有趣的",
+        "无聊的",
+        "困难的",
+        "简单的"
+      ],
+      "answerIndex": 0,
+      "explanation": "interest + ing"
+    },
+    {
+      "id": "e6-008",
+      "subject": "英语",
+      "stem": "don't 是哪两个词的缩写？",
+      "options": [
+        "do not",
+        "does not",
+        "did not",
+        "is not"
+      ],
+      "answerIndex": 0,
+      "explanation": "do not = don't"
+    },
+    {
+      "stem": "We ___ to the park yesterday.",
+      "options": [
+        "goes",
+        "go",
+        "going",
+        "went"
+      ],
+      "answerIndex": 3,
+      "explanation": "答案是「went」"
+    },
+    {
+      "stem": "She is ___ than her sister.",
+      "options": [
+        "young",
+        "youngest",
+        "more young",
+        "younger"
+      ],
+      "answerIndex": 3,
+      "explanation": "答案是「younger」"
+    },
+    {
+      "stem": "“April”是几月？",
+      "options": [
+        "三月",
+        "四月",
+        "五月",
+        "六月"
+      ],
+      "answerIndex": 1,
+      "explanation": "答案是「四月」"
+    },
+    {
+      "stem": "“hospital”是什么意思？",
+      "options": [
+        "图书馆",
+        "学校",
+        "超市",
+        "医院"
+      ],
+      "answerIndex": 3,
+      "explanation": "答案是「医院」"
+    },
+    {
+      "stem": "What did you do last night? 问的是什么？",
+      "options": [
+        "现在做什么",
+        "今晚做什么",
+        "昨晚做了什么",
+        "明天做什么"
+      ],
+      "answerIndex": 2,
+      "explanation": "答案是「昨晚做了什么」"
+    },
+    {
+      "stem": "“this evening”是什么意思？",
+      "options": [
+        "明天早上",
+        "今天傍晚",
+        "昨天傍晚",
+        "今天早上"
+      ],
+      "answerIndex": 1,
+      "explanation": "答案是「今天傍晚」"
+    },
+    {
+      "stem": "“difficult”是什么意思？",
+      "options": [
+        "困难的",
+        "有趣的",
+        "无聊的",
+        "容易的"
+      ],
+      "answerIndex": 0,
+      "explanation": "答案是「困难的」"
+    },
+    {
+      "stem": "doesn't 是哪两个词的缩写？",
+      "options": [
+        "do not",
+        "does not",
+        "did not",
+        "is not"
+      ],
+      "answerIndex": 1,
+      "explanation": "答案是「does not」"
+    },
+    {
+      "stem": "“October”是几月？",
+      "options": [
+        "十一月",
+        "十二月",
+        "十月",
+        "九月"
+      ],
+      "answerIndex": 2,
+      "explanation": "答案是「十月」"
+    },
+    {
+      "stem": "I'm going to ___ my grandparents.",
+      "options": [
+        "visits",
+        "visited",
+        "visiting",
+        "visit"
+      ],
+      "answerIndex": 3,
+      "explanation": "答案是「visit」"
+    },
+    {
+      "stem": "“by train”是什么意思？",
+      "options": [
+        "乘火车",
+        "乘船",
+        "乘飞机",
+        "步行"
+      ],
+      "answerIndex": 0,
+      "explanation": "答案是「乘火车」"
+    },
+    {
+      "stem": "“tallest”是什么意思？",
+      "options": [
+        "高",
+        "更高的",
+        "矮的",
+        "最高的"
+      ],
+      "answerIndex": 3,
+      "explanation": "答案是「最高的」"
+    }
+  ]
 }
