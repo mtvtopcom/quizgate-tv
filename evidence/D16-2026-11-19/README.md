@@ -23,6 +23,8 @@
 | 时段开启 + 隐藏 | App 启动日志 `launcher_alias hidden`；`resolve-activity` → `No activity found` | `alias_log.txt`、终端输出 |
 | 时段关闭 + 仍标记隐藏 | App 启动日志 `launcher_alias shown`；`resolve-activity` → `.LauncherAlias` | `alias_log.txt`、终端输出 |
 | 恢复原配置 | alias 恢复显示；时段回到 `16:30–22:00`，`scheduleEnabled=true` | 终端输出 |
+| adb 临时恢复（2026-11-19） | shell 直接 `pm enable` 被拒（`SecurityException: Shell cannot change component state ...`）；`run-as app.quizgate.tv pm enable ...` → `new state: enabled`，`resolve-activity` 返回 `.LauncherAlias`；进程重启后又记 `launcher_alias hidden`，确认只是临时 | 终端输出、`alias_log.txt` |
+| adb 清除隐藏标记（2026-11-19） | `run-as` + `sed` 把 `launcherHidden` 改为 `false`；强制停止后进程 649 重启，日志 `launcher_alias shown`，`resolve-activity` 仍返回 `.LauncherAlias`，prefs 保持 `false` | 终端输出、`alias_log.txt` |
 
 关键日志：
 

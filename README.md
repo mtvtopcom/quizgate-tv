@@ -81,7 +81,8 @@
 > **隐藏桌面图标（未发布，仅 Android 11）**：答题时段开启后，设置 →「桌面图标」可隐藏
 > 电视桌面入口。家长入口：时段到点 → 遮罩上按菜单键 → 输 6 位口令 → 应用首页；
 > 关闭答题时段会自动恢复图标。系统设置 → 应用里仍能看到本应用，隐藏不能防卸载；
-> 小米桌面可能缓存图标，隐藏后需重启或强制停止桌面。
+> 小米桌面可能缓存图标，隐藏后需重启或强制停止桌面。找不到入口或忘了口令时，
+> 用 adb 恢复图标 / 卸载的命令见「常见故障 → 应急：用 adb 恢复桌面图标 / 卸载应用」。
 
 **首页只显示运行状态**（阶段、剩余时间、守护状态、授权警示）；时长、答对延长、连对题数、
 题目年级、小朋友称呼、答题时段、桌面图标、口令、恢复码、守护状态、升级检查、当前版本都在
@@ -228,6 +229,94 @@ adb shell settings get secure enabled_notification_listeners # 应包含 app.qui
 | 点「立即安装」提示要去授权 | 没给「安装未知应用」权限（重装应用会重置） | 设置 → 应用 → 安全 → 安装未知应用 → 允许；回来再点「立即安装」，包已经下好了 |
 | 点「立即安装」没反应 | 电视固件改过安装器入口 | 包就在 `Download/quizgate-x.y.z.apk`，用「媒体中心 / 文件管理」打开它 |
 | 设置页「卸载留痕：未启用」红字（1.2.6–1.2.9） | 少一条只用于留痕的可选授权，覆盖升级不会自动获得 | `adb shell pm grant app.quizgate.tv android.permission.WRITE_SECURE_SETTINGS`，重进本页自动变 ✓；不影响出题与计时。**1.3.0 起这条红字不再出现**：没卸过就是正常状态，只有真检测到卸载才提示 |
+| 隐藏图标后找不到入口 / 忘了口令进不去设置 | 桌面 alias 被禁用，家长入口只剩遮罩 + 口令 | debug 包用 `adb shell run-as app.quizgate.tv pm enable app.quizgate.tv/.LauncherAlias` 临时恢复；永久恢复用 `adb shell am start -n app.quizgate.tv/.MainActivity` 打开应用后关掉「桌面图标」。详见下文「应急」 |
+| 想彻底卸载 / 覆盖安装提示签名冲突 | — | `adb uninstall app.quizgate.tv`；图标是否隐藏、口令是否还在都不影响卸载。详见下文「应急」 |
+
+### 应急：用 adb 恢复桌面图标 / 卸载应用
+
+桌面图标隐藏后，「设置 → 桌面图标」的出入口只剩答题遮罩上的菜单键（+ 6 位口令）。
+如果口令忘了、桌面没刷新，或者要彻底卸载，可以完全用 adb 处理。先在电脑上连电视：
+
+```bash
+adb connect <电视IP>:5555
+```
+
+**1. 先确认当前入口状态**
+
+```bash
+adb shell cmd package resolve-activity --brief \
+  -a android.intent.action.MAIN \
+  -c android.intent.category.LEANBACK_LAUNCHER app.quizgate.tv
+```
+
+输出 `app.quizgate.tv/.LauncherAlias` 表示图标显示中；输出 `No activity found` 表示已隐藏。
+
+**2. 立即恢复图标（临时，仅 debug 包）**
+
+```bash
+adb shell run-as app.quizgate.tv pm enable app.quizgate.tv/.LauncherAlias
+```
+
+图标马上回来，但隐藏标记还在：应用进程下次启动时会重新按设置隐藏（例如 16:30 的答题时段
+闹钟、开机、通知监听重新绑定）。所以这条只适合应急，不是永久恢复。
+
+> 不能直接用 `adb shell pm enable app.quizgate.tv/.LauncherAlias`：Android 11 的
+> `PackageManagerService` 只允许 shell 改「整包」的启用状态，改具体组件会抛
+> `SecurityException: Shell cannot change component state ...`。`run-as` 让命令以应用
+> 自己的 UID 执行，才能改自己的组件。正式包不允许 `run-as`，只能用第 3 步。
+
+**3. 永久恢复（推荐）**
+
+用 adb 打开应用，进「设置 → 桌面图标」点「显示」。设置页需要 6 位家长口令：
+
+```bash
+adb shell am start -n app.quizgate.tv/.MainActivity
+```
+
+不想进应用，也可以关闭「答题时段」：关闭时会自动清掉隐藏标记并恢复图标。
+
+**4. 调试包：直接清掉隐藏标记**
+
+只有自己构建的 debug 包允许 `run-as`，正式包不行：
+
+```bash
+adb shell am force-stop app.quizgate.tv
+adb shell "run-as app.quizgate.tv sed -i 's/name=\"launcherHidden\" value=\"true\"/name=\"launcherHidden\" value=\"false\"/' shared_prefs/gate.xml"
+adb shell run-as app.quizgate.tv pm enable app.quizgate.tv/.LauncherAlias
+```
+
+整条 `run-as` 命令要用一层双引号包住，否则 `adb shell` 会把 sed 表达式按空格拆开。
+最后一条同样要以应用 UID 执行；清掉隐藏标记后，进程下次启动也会自己恢复 alias。
+
+**5. 卸载**
+
+```bash
+adb uninstall app.quizgate.tv
+```
+
+- 图标是否隐藏、口令是否还在，都不影响卸载；
+- 覆盖安装遇到 `INSTALL_FAILED_UPDATE_INCOMPATIBLE` 时，也是先执行这一条；
+- 多用户 / 工作资料：`adb uninstall --user 0 app.quizgate.tv`；
+- 卸载后系统里的卸载留痕（`Settings.Secure` 的 `quizgate_install_anchor`）会保留。
+  确认不需要这条记录后再清：
+
+```bash
+adb shell settings delete secure quizgate_install_anchor
+```
+
+**6. 恢复后桌面仍不显示**
+
+小米桌面会缓存图标，强制刷新桌面进程：
+
+```bash
+adb shell am force-stop com.mitv.tvhome
+```
+
+或者直接重启电视。
+
+> adb 报 `Connection refused` 时，是电视的「网络调试」被关了：电视 → 设置 → 关于 →
+> 连续点版本号进开发者模式 → 打开网络调试。没有 adb 也能在「系统设置 → 应用 →
+> 答题续时」里打开应用或卸载。
 
 ---
 

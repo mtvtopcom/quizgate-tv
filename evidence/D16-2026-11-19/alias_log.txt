@@ -6,3 +6,5 @@
  10566.049 13729 13729 I QuizGate: launcher_alias shown
  10570.583 13813 13813 I QuizGate: launcher_alias shown
  10571.330 13868 13868 I QuizGate: launcher_alias shown
+ 36352.900 32603 32603 I QuizGate: launcher_alias hidden
+ 36450.133   649   649 I QuizGate: launcher_alias shown

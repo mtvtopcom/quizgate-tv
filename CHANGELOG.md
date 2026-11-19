@@ -28,6 +28,10 @@
   触发与硬结束均通过；证据见 `evidence/D15-2026-11-19/`。桌面 alias 的隐藏/恢复也已在
   同一台机器用 debug prefs 验证，证据见 `evidence/D16-2026-11-19/`；设置页开关与
   遮罩入口待真人操作验收。Android 12+ 未支持/未验收。
+- 补充「用 adb 恢复桌面图标 / 卸载应用」的应急说明（README「常见故障」）：
+  debug 包用 `run-as` + `pm enable` 临时恢复、`am start` 进设置永久恢复、
+  `adb uninstall` 卸载。Android 11 的 shell 直接 `pm enable` 组件会被
+  `PackageManagerService` 拒绝，必须借应用自己的 UID。
 
 ### 六年级题库扩充
 
