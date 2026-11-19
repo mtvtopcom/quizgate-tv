@@ -1,0 +1,28 @@
+    37.525  1996  1996 I QuizGate: schedule_arm at=09:30
+   568.359  7039  7039 I QuizGate: notif_connected phase=0 remaining=1:00
+   568.365  7039  7039 I QuizGate: schedule_arm at=09:30
+   571.192  7082  7082 I QuizGate: notif_connected phase=0 remaining=1:00
+   571.199  7082  7082 I QuizGate: schedule_arm at=09:14
+   572.705  7082  7082 I QuizGate: schedule_arm at=09:14
+   578.218  7082  7082 I QuizGate: notif_connected phase=0 remaining=1:00
+   578.224  7082  7082 I QuizGate: schedule_arm at=09:14
+   581.081  7082  7082 I QuizGate: notif_connected phase=0 remaining=1:00
+   581.086  7082  7082 I QuizGate: schedule_arm at=09:14
+   625.915  7082  7082 I QuizGate: schedule_start ok
+   625.932  7082  7082 I QuizGate: service_create phase=未开始 remaining=1:00 gap=32496s pin=set rc=unsaved safe=off
+   625.945  7082  7082 I QuizGate: start_hint show 5000ms remaining=1:00
+   625.946  7082  7082 I QuizGate: start_hint reschedule left=4995ms
+   630.956  7082  7082 I QuizGate: start_hint dismissed
+   686.078  7082  7082 I QuizGate: lock at 0 (screen=true)
+   686.172  7082  7082 I QuizGate: mask_add ok
+   806.050  7082  7082 I QuizGate: schedule_window_end -> end session
+   806.062  7082  7082 I QuizGate: mask_remove
+   806.086  7082  7082 I QuizGate: service_destroy phase=未开始 remaining=1:00 gap=32496s pin=set rc=unsaved safe=off
+   815.747  7381  7381 I QuizGate: notif_connected phase=0 remaining=1:00
+   817.570  7422  7422 I QuizGate: notif_connected phase=0 remaining=1:00
+   817.577  7422  7422 I QuizGate: schedule_arm at=09:30
+   818.959  7422  7422 I QuizGate: schedule_arm at=09:30
+   825.502  7422  7422 I QuizGate: notif_connected phase=0 remaining=1:00
+   825.508  7422  7422 I QuizGate: schedule_arm at=09:30
+   827.462  7422  7422 I QuizGate: notif_connected phase=0 remaining=1:00
+   827.468  7422  7422 I QuizGate: schedule_arm at=09:30

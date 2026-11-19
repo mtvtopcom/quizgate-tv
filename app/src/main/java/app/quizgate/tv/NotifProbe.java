@@ -20,6 +20,7 @@ import android.util.Log;
 public class NotifProbe extends NotificationListenerService {
     private static final String TAG = "QuizGate";
     private BroadcastReceiver screenRx;
+    private BroadcastReceiver scheduleRx;
 
     @Override public void onListenerConnected() {
         super.onListenerConnected();
@@ -31,6 +32,9 @@ public class NotifProbe extends NotificationListenerService {
             Log.e(TAG, "safe_mode -> 不再复活服务");
             return;
         }
+        // 当天答题时段：连接时补排今天的闹钟，或在时段内且屏幕亮着时补开始。
+        Schedules.onWake(this);
+        if (Schedules.supported() && p.scheduleEnabled()) registerScheduleRx();
         if (phase == Prefs.IDLE) return;
 
         PowerManager pm = (PowerManager) getSystemService(Context.POWER_SERVICE);
@@ -77,8 +81,33 @@ public class NotifProbe extends NotificationListenerService {
         }
     }
 
+    private void registerScheduleRx() {
+        if (scheduleRx != null) return;
+        scheduleRx = new BroadcastReceiver() {
+            @Override public void onReceive(Context c, Intent i) {
+                if (Intent.ACTION_SCREEN_ON.equals(i.getAction())) {
+                    Schedules.onScreenOn(NotifProbe.this);
+                }
+            }
+        };
+        IntentFilter f = new IntentFilter(Intent.ACTION_SCREEN_ON);
+        if (Build.VERSION.SDK_INT >= 33) {
+            registerReceiver(scheduleRx, f, Context.RECEIVER_NOT_EXPORTED);
+        } else {
+            registerReceiver(scheduleRx, f);
+        }
+    }
+
+    private void unregisterScheduleRx() {
+        if (scheduleRx != null) {
+            try { unregisterReceiver(scheduleRx); } catch (Throwable ignore) { }
+            scheduleRx = null;
+        }
+    }
+
     @Override public void onListenerDisconnected() {
         super.onListenerDisconnected();
+        unregisterScheduleRx();
         Log.i(TAG, "notif_disconnected");
     }
 

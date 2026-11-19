@@ -159,6 +159,41 @@ public class GateService extends Service implements MaskView.Host {
             exitSession();
             return START_NOT_STICKY;
         }
+
+        // 每日答题时段：只在时段内开始；时段外恢复的旧会话直接结束。
+        // 屏幕黑着时不做任何窗口动作，也不在这里启动，交给 Schedules/NotifProbe 等亮屏。
+        if (prefs.scheduleEnabled() && Schedules.supported()) {
+            long wall = System.currentTimeMillis();
+            boolean inside = Schedules.inWindow(prefs, wall);
+            if (ACTION_START.equals(action)) {
+                if (!inside) {
+                    Log.w(TAG, "schedule_start_refused（不在答题时段）");
+                    prefs.resetSession();
+                    notify("现在不在答题时段，已取消");
+                    stopForeground(true);
+                    stopSelf();
+                    return START_NOT_STICKY;
+                }
+                if (!screenOn()) {
+                    // Schedules 启动前已乐观标记 done；这里必须撤掉，否则亮屏后不会重试。
+                    prefs.clearAutoStartDone();
+                    prefs.markAutoStartPending();
+                    Log.i(TAG, "schedule_start_deferred（屏幕未亮）");
+                    stopForeground(true);
+                    stopSelf();
+                    return START_NOT_STICKY;
+                }
+                prefs.markAutoStartDone();
+                prefs.clearAutoStartPending();
+                Schedules.cancel(this);
+            } else if (!inside
+                    && (prefs.phase() == Prefs.RUNNING || prefs.phase() == Prefs.LOCKED)) {
+                Log.i(TAG, "schedule_restore_outside -> end session");
+                endForWindow();
+                return START_NOT_STICKY;
+            }
+        }
+
         if (ACTION_START.equals(action)) {
             // 测试钩子：--ei durationMin 1 / --el remainingMs 4000，仅用于现场调试
             int ovMin = intent.getIntExtra("durationMin", 0);
@@ -194,6 +229,13 @@ public class GateService extends Service implements MaskView.Host {
     private final Runnable ticker = new Runnable() {
         @Override public void run() {
             if (!running) return;
+            // 每日时段硬结束：到 22:00 一律解锁，遮罩/读秒立即撤掉。
+            if (prefs.scheduleEnabled() && Schedules.supported()
+                    && prefs.phase() != Prefs.IDLE
+                    && !Schedules.inWindow(prefs, System.currentTimeMillis())) {
+                endForWindow();
+                return;
+            }
             long now = SystemClock.uptimeMillis();
             long delta = now - lastTick;
             lastTick = now;
@@ -379,6 +421,20 @@ public class GateService extends Service implements MaskView.Host {
         prefs.markStable();
         prefs.resetSession();
         notify("会话已结束");
+        stopForeground(true);
+        stopSelf();
+    }
+
+    /** 每天答题时段结束：强制解锁，会话作废；当天不再自动重开（autoStartDoneDate 保留）。 */
+    private void endForWindow() {
+        Log.i(TAG, "schedule_window_end -> end session");
+        running = false;
+        h.removeCallbacks(ticker);
+        h.removeCallbacks(hintDismiss);
+        removeMask();
+        removeMini();
+        prefs.resetSession();
+        notify("答题时段结束，已自动解锁");
         stopForeground(true);
         stopSelf();
     }

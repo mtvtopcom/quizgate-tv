@@ -19,6 +19,7 @@ import android.view.WindowManager;
 import android.view.inputmethod.EditorInfo;
 import android.widget.EditText;
 import android.widget.FrameLayout;
+import android.widget.GridLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ScrollView;
@@ -27,6 +28,7 @@ import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.function.IntConsumer;
 
 /** 设置页：遥控器可完成全部操作，不依赖输入法。 */
 public class MainActivity extends Activity {
@@ -40,7 +42,7 @@ public class MainActivity extends Activity {
     private ScrollView contentScroll;
     private LinearLayout content;
 
-    private TextView valueDuration, valueExtend, valueRequired, valueGrade, valueChildName, valuePin, valueRecovery, valueGuard;
+    private TextView valueDuration, valueExtend, valueRequired, valueGrade, valueChildName, valueSchedule, valuePin, valueRecovery, valueGuard;
     private TextView valueVersion, valueLog;
     private TextView anchorWarn;
     /** 设置页的第一项（本次时长）。顶部返回按钮在 1.2.9 删掉后，焦点默认落在这里。 */
@@ -50,7 +52,7 @@ public class MainActivity extends Activity {
     private TextView banner;
     /** 首页（只看运行状态）；设置页是原来的 contentScroll，两者在同一个 Activity 里切换。 */
     private View homeRoot;
-    private TextView homeSubtitle, homePhase, homeTime, homeGuard, homeAuth, homeAnchor, homeBanner, homeBtnStart;
+    private TextView homeSubtitle, homePhase, homeTime, homeGuard, homeAuth, homeAnchor, homeSchedule, homeBanner, homeBtnStart;
     /** 首页状态读数左侧的色条：待机灰、计时黄、锁定红。 */
     private View homeBar;
     /** 设置页里的「运行日志」子页；null = 没打开。 */
@@ -147,6 +149,7 @@ public class MainActivity extends Activity {
         valueRequired = addRow("连对题数", this::openRequiredPanel);
         valueGrade = addRow("题目年级", this::openStagePanel);
         valueChildName = addRow("小朋友称呼", this::promptChildName);
+        valueSchedule = addRow("答题时段", this::openSchedulePanel);
         valuePin = addRow("家长口令", this::promptSetPin);
         valueRecovery = addRow("恢复码", this::onRecoveryRow);
         // 1.3.0：授权自检、显示权限按钮、卸载留痕全部收进「守护状态」子页，
@@ -269,6 +272,13 @@ public class MainActivity extends Activity {
         wanlp.topMargin = Ui.dp(this, 8);
         home.addView(homeAnchor, wanlp);
         homeAnchor.setVisibility(View.GONE);
+
+        homeSchedule = Ui.label(this, "", 16, Ui.DIM);
+        homeSchedule.setGravity(Gravity.CENTER);
+        LinearLayout.LayoutParams hs = new LinearLayout.LayoutParams(-1, -2);
+        hs.topMargin = Ui.dp(this, 8);
+        home.addView(homeSchedule, hs);
+        homeSchedule.setVisibility(View.GONE);
 
         // 弹性空白：状态读数按内容高度走，剩下的空间全给这里，按钮仍然贴着底部
         View spacer = new View(this);
@@ -705,6 +715,182 @@ public class MainActivity extends Activity {
         et.requestFocus();
     }
 
+    /** 答题时段：一个每日时段，30 分钟精度；只在 Android 11 验证。 */
+    private void openSchedulePanel() {
+        if (!Schedules.supported()) {
+            toast("答题时段目前只在 Android 11 支持");
+            return;
+        }
+        final Dialog d = new Dialog(this);
+        LinearLayout box = new LinearLayout(this);
+        box.setOrientation(LinearLayout.VERTICAL);
+        box.setBackgroundResource(R.drawable.panel_bg);
+        box.setPadding(Ui.dp(this, 44), Ui.dp(this, 30), Ui.dp(this, 44), Ui.dp(this, 30));
+        box.addView(Ui.title(this, "答题时段", 26));
+
+        final boolean[] enabled = {prefs.scheduleEnabled()};
+        final int[] start = {prefs.windowStartMin()};
+        final int[] end = {prefs.windowEndMin()};
+        TextView toggleVal = Ui.label(this, "", 20, Ui.ACCENT);
+        TextView startVal = Ui.label(this, "", 20, Ui.ACCENT);
+        TextView endVal = Ui.label(this, "", 20, Ui.ACCENT);
+        TextView tip = Ui.label(this, "", 15, Ui.DIM);
+        tip.setLineSpacing(0, 1.15f);
+
+        final Runnable[] update = new Runnable[1];
+        update[0] = () -> {
+            toggleVal.setText(enabled[0] ? "已开启" : "已关闭");
+            toggleVal.setTextColor(enabled[0] ? Ui.ACCENT : Ui.DIM);
+            startVal.setText(Schedules.hhmm(start[0]));
+            endVal.setText(Schedules.hhmm(end[0]));
+            tip.setText("每天 " + Schedules.hhmm(start[0]) + "–" + Schedules.hhmm(end[0])
+                    + "；时段外正常看电视，时段结束强制解锁。"
+                    + "\n目前只在 Android 11 验证；关闭时保持现在的手动模式。");
+        };
+
+        LinearLayout tRow = dialogRow("启用答题时段", toggleVal, () -> {
+            enabled[0] = !enabled[0];
+            update[0].run();
+        });
+        LinearLayout sRow = dialogRow("开始时间", startVal,
+                () -> pickTime("开始时间", start[0], v -> {
+                    start[0] = v;
+                    update[0].run();
+                }));
+        LinearLayout eRow = dialogRow("结束时间", endVal,
+                () -> pickTime("结束时间", end[0], v -> {
+                    end[0] = v;
+                    update[0].run();
+                }));
+        int rowH = Ui.dp(this, 56);
+        LinearLayout.LayoutParams rlp = new LinearLayout.LayoutParams(-1, rowH);
+        rlp.topMargin = Ui.dp(this, 10);
+        box.addView(tRow, rlp);
+        box.addView(sRow, new LinearLayout.LayoutParams(-1, rowH));
+        box.addView(eRow, new LinearLayout.LayoutParams(-1, rowH));
+        LinearLayout.LayoutParams tlp = new LinearLayout.LayoutParams(-1, -2);
+        tlp.topMargin = Ui.dp(this, 12);
+        box.addView(tip, tlp);
+
+        LinearLayout btns = Ui.row(this);
+        btns.setGravity(Gravity.CENTER);
+        TextView cancel = Ui.key(this, "取消", 22);
+        cancel.setBackgroundResource(R.drawable.opt_bg);
+        TextView save = Ui.key(this, "保存", 22);
+        save.setBackgroundResource(R.drawable.opt_bg);
+        LinearLayout.LayoutParams b1 = new LinearLayout.LayoutParams(0, Ui.dp(this, 58), 1f);
+        LinearLayout.LayoutParams b2 = new LinearLayout.LayoutParams(0, Ui.dp(this, 58), 1f);
+        b1.rightMargin = Ui.dp(this, 10);
+        b2.leftMargin = Ui.dp(this, 10);
+        btns.addView(cancel, b1);
+        btns.addView(save, b2);
+        LinearLayout.LayoutParams btlp = new LinearLayout.LayoutParams(-1, -2);
+        btlp.topMargin = Ui.dp(this, 18);
+        box.addView(btns, btlp);
+
+        save.setOnClickListener(v -> {
+            if (enabled[0] && start[0] >= end[0]) {
+                toast("开始时间必须早于结束时间");
+                return;
+            }
+            prefs.setScheduleEnabled(enabled[0]);
+            prefs.setWindow(start[0], end[0]);
+            Schedules.cancel(this);
+            d.dismiss();
+            refresh();
+            if (enabled[0]) {
+                int windowMin = end[0] - start[0];
+                String msg = "答题时段：" + Schedules.windowText(prefs) + "，每天自动开始";
+                if (windowMin < prefs.durationMin()) {
+                    msg += "（本次时长超过时段，结束会强制解锁）";
+                }
+                toast(msg);
+                Schedules.onWake(this);
+            } else {
+                toast("答题时段已关闭");
+            }
+        });
+        cancel.setOnClickListener(v -> d.dismiss());
+        update[0].run();
+
+        d.setContentView(box);
+        if (d.getWindow() != null) {
+            d.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
+            android.util.DisplayMetrics dm = getResources().getDisplayMetrics();
+            d.getWindow().setLayout((int) (dm.widthPixels * 0.74f), ViewGroup.LayoutParams.WRAP_CONTENT);
+        }
+        d.show();
+        tRow.requestFocus();
+    }
+
+    private LinearLayout dialogRow(String label, TextView value, Runnable onClick) {
+        LinearLayout r = Ui.row(this);
+        r.setGravity(Gravity.CENTER_VERTICAL);
+        r.setBackgroundResource(R.drawable.opt_bg);
+        r.setPadding(Ui.dp(this, 22), 0, Ui.dp(this, 18), 0);
+        r.setFocusable(true);
+        r.setClickable(true);
+        TextView lab = Ui.label(this, label, 20, Ui.TEXT);
+        r.addView(lab, new LinearLayout.LayoutParams(0, -1, 1f));
+        r.addView(value);
+        r.setOnClickListener(v -> onClick.run());
+        return r;
+    }
+
+    /** 30 分钟一档的时间选择。 */
+    private void pickTime(String title, int current, IntConsumer onPick) {
+        final Dialog d = new Dialog(this);
+        LinearLayout box = new LinearLayout(this);
+        box.setOrientation(LinearLayout.VERTICAL);
+        box.setBackgroundResource(R.drawable.panel_bg);
+        box.setPadding(Ui.dp(this, 34), Ui.dp(this, 24), Ui.dp(this, 34), Ui.dp(this, 24));
+        box.addView(Ui.title(this, title, 24));
+        TextView tip = Ui.label(this, "每 30 分钟一档 · 方向键选择", 15, Ui.DIM);
+        LinearLayout.LayoutParams tlp = new LinearLayout.LayoutParams(-1, -2);
+        tlp.topMargin = Ui.dp(this, 6);
+        box.addView(tip, tlp);
+
+        GridLayout grid = new GridLayout(this);
+        grid.setColumnCount(6);
+        LinearLayout.LayoutParams glp = new LinearLayout.LayoutParams(-1, -2);
+        glp.topMargin = Ui.dp(this, 10);
+        box.addView(grid, glp);
+        TextView first = null, selected = null;
+        for (int i = 0; i < 48; i++) {
+            final int min = i * 30;
+            TextView b = Ui.label(this, Schedules.hhmm(min), 17, Ui.TEXT);
+            b.setGravity(Gravity.CENTER);
+            b.setBackgroundResource(R.drawable.opt_bg);
+            b.setFocusable(true);
+            b.setClickable(true);
+            GridLayout.LayoutParams lp = new GridLayout.LayoutParams();
+            lp.width = 0;
+            lp.columnSpec = GridLayout.spec(GridLayout.UNDEFINED, 1f);
+            lp.height = Ui.dp(this, 40);
+            int m = Ui.dp(this, 3);
+            lp.setMargins(m, m, m, m);
+            grid.addView(b, lp);
+            if (min == current) {
+                b.setBackgroundColor(Ui.ACCENT);
+                b.setTextColor(Ui.BLACK);
+                selected = b;
+            }
+            b.setOnClickListener(v -> {
+                onPick.accept(min);
+                d.dismiss();
+            });
+            if (first == null) first = b;
+        }
+        d.setContentView(box);
+        if (d.getWindow() != null) {
+            d.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
+            android.util.DisplayMetrics dm = getResources().getDisplayMetrics();
+            d.getWindow().setLayout((int) (dm.widthPixels * 0.86f), ViewGroup.LayoutParams.WRAP_CONTENT);
+        }
+        d.show();
+        (selected != null ? selected : first).requestFocus();
+    }
+
     /** 年级三步：学段 → 年级 → 科目（语文 / 数学 / 英语）。 */
     private void openStagePanel() {
         String[] labels = {"小学", "初中"};
@@ -765,6 +951,40 @@ public class MainActivity extends Activity {
         return "到点" + cn[n - 1] + "题 · 答对续时";
     }
 
+    private String scheduleText() {
+        if (!Schedules.supported()) return "仅 Android 11";
+        if (!prefs.scheduleEnabled()) return "关闭";
+        return Schedules.windowText(prefs) + " 自动";
+    }
+
+    /** 首页的时段状态行；关闭或系统不支持时隐藏。 */
+    private void updateHomeSchedule() {
+        if (homeSchedule == null) return;
+        if (!Schedules.supported() || !prefs.scheduleEnabled()) {
+            homeSchedule.setVisibility(View.GONE);
+            return;
+        }
+        long now = System.currentTimeMillis();
+        String w = Schedules.windowText(prefs);
+        boolean inside = Schedules.inWindow(prefs, now);
+        boolean ended = prefs.autoStartDoneToday() && prefs.phase() == Prefs.IDLE;
+        String text;
+        int color;
+        if (now < Schedules.todayStart(prefs, now) && !prefs.autoStartDoneToday()) {
+            text = "答题时段 " + w + " · 今天 " + Schedules.hhmm(prefs.windowStartMin()) + " 自动开始";
+            color = Ui.DIM;
+        } else if (ended || !inside) {
+            text = "答题时段 " + w + " · 今日已结束";
+            color = Ui.DIM;
+        } else {
+            text = "答题时段 " + w + " · 时段内";
+            color = Ui.ACCENT;
+        }
+        homeSchedule.setText(text);
+        homeSchedule.setTextColor(color);
+        homeSchedule.setVisibility(View.VISIBLE);
+    }
+
     // ---------- 会话 ----------
 
     private void startSession() {
@@ -781,6 +1001,11 @@ public class MainActivity extends Activity {
         int p = prefs.phase();
         if (p != Prefs.IDLE) {
             toast("已有会话在进行，请先结束");
+            return;
+        }
+        if (Schedules.supported() && prefs.scheduleEnabled()
+                && !Schedules.inWindow(prefs, System.currentTimeMillis())) {
+            toast("现在不在答题时段（" + Schedules.windowText(prefs) + "）");
             return;
         }
         // 授权检查放在最后：前面几项是「能不能开始」，授权决定的是「开始了会不会停表」。
@@ -804,7 +1029,14 @@ public class MainActivity extends Activity {
         settingsUnlocked = false;
         Intent i = new Intent(this, GateService.class).setAction(GateService.ACTION_START);
         startForegroundService(i);
-        toast("已开始：" + prefs.durationMin() + " 分钟后出题");
+        String msg = "已开始：" + prefs.durationMin() + " 分钟后出题";
+        if (Schedules.supported() && prefs.scheduleEnabled()) {
+            int left = prefs.windowEndMin() - Schedules.minutesOfDay(System.currentTimeMillis());
+            if (left > 0 && left < prefs.durationMin()) {
+                msg += "（本时段只剩 " + left + " 分钟，到点自动结束）";
+            }
+        }
+        toast(msg);
         refresh();
         // 回到电视桌面；右下角由守护服务亮 5 秒「本次时长」提示，5 秒后自动收起
         finish();
@@ -1253,6 +1485,7 @@ public class MainActivity extends Activity {
         if (homeSubtitle != null) homeSubtitle.setText(subtitleText());
         valueGrade.setText(gradeText());
         valueChildName.setText(prefs.childName());
+        valueSchedule.setText(scheduleText());
         valuePin.setText(prefs.hasPin() ? "已设置" : "未设置");
         // 只存哈希：应用里看不到已生成的码，想再看只能重新生成（旧码立即作废）
         valueRecovery.setText(!prefs.hasRecoveryCode() ? "未生成"
@@ -1418,6 +1651,7 @@ public class MainActivity extends Activity {
         if (homePhase != null) homePhase.setText(phase);
         if (homeTime != null) homeTime.setText(big);
         styleHomeReadout(p, alive);
+        updateHomeSchedule();
         if (logBody != null && logPanel != null && logPanel.getVisibility() == View.VISIBLE) {
             logBody.setText(logText());
         }
@@ -1706,6 +1940,7 @@ public class MainActivity extends Activity {
         super.onResume();
         Anchor.touch(this);   // 刷新「最后在线」，卸载时才能算出失联多久
         autoRestore();
+        Schedules.onWake(this);   // 页面恢复时补排今天的时段/补开始
         refresh();
         // 从系统授权页回来：授权面板还在就重新查一遍，缺的项会自动变 ✓
         if (authPanel != null) authPanel.refresh();

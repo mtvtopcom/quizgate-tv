@@ -86,6 +86,10 @@ python3 tools/gen_quiz.py
 
 倒计时用 `SystemClock.uptimeMillis()` 增量累加，并且**只在 `phase == RUNNING && screenOn()` 时扣时**。`screenOn()` 同时检查 `PowerManager.isInteractive()` 和 `Display.getState()`。不要改回墙钟死线——改系统时间/时区/NTP 会直接绕过它。剩余时间快照落盘，进程被回收后按快照 RESTORE。
 
+### 每日答题时段（仅 Android 11，ADR-12）
+
+`Prefs.scheduleEnabled() / windowStartMin() / windowEndMin()` 保存一个每日时段（30 分钟精度，默认 16:30–22:00）。`Schedules` 负责当天尽力自动开始、22:00 硬结束；`ScheduleReceiver` 接当天精确闹钟；`NotifProbe` 在亮屏时补开始；`GateService.onStartCommand/ticker` 拒绝时段外启动并硬结束。不做跨天持久化：只有当天应用/通知监听/开机/亮屏时才会安排；屏幕黑着不点亮、不挂窗。`Schedules.supported()` 在 API 31+ 返回 false，设置页显示“仅 Android 11”，未新增权限。已在 MiTV-MFTR0 / Android 11 实测（D15）；屏幕熄灭后的 pending 路径和 Android 12+ 未验收。
+
 ### 遮罩与按键
 
 `GateService` 用 `WindowManager` 直接添加 `TYPE_APPLICATION_OVERLAY` 窗口：

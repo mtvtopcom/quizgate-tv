@@ -7,6 +7,8 @@ import android.util.Base64;
 
 import java.security.MessageDigest;
 import java.security.SecureRandom;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.Locale;
 
 import javax.crypto.SecretKeyFactory;
@@ -86,6 +88,72 @@ public final class Prefs {
         if (s.isEmpty()) return DEFAULT_CHILD_NAME;
         if (s.length() > MAX_CHILD_NAME) s = s.substring(0, MAX_CHILD_NAME);
         return s;
+    }
+
+    // ---------- 每日答题时段（只在 Android 11 / API < 31 验证） ----------
+    public static final int DEFAULT_WINDOW_START_MIN = 16 * 60 + 30; // 16:30
+    public static final int DEFAULT_WINDOW_END_MIN = 22 * 60;       // 22:00
+
+    public boolean scheduleEnabled() { return sp.getBoolean("scheduleEnabled", false); }
+
+    public void setScheduleEnabled(boolean v) {
+        sp.edit().putBoolean("scheduleEnabled", v).commit();
+        if (!v) {
+            clearAutoStartDone();
+            clearAutoStartPending();
+        }
+    }
+
+    public int windowStartMin() {
+        return clamp(sp.getInt("windowStartMin", DEFAULT_WINDOW_START_MIN), 0, 1439);
+    }
+
+    public int windowEndMin() {
+        return clamp(sp.getInt("windowEndMin", DEFAULT_WINDOW_END_MIN), 0, 1439);
+    }
+
+    /** 设置每日时段；start 必须早于 end（不支持跨午夜）。同时清掉当天自动开始标记。 */
+    public void setWindow(int start, int end) {
+        start = clamp(start, 0, 1439);
+        end = clamp(end, 0, 1439);
+        if (start >= end) {
+            start = DEFAULT_WINDOW_START_MIN;
+            end = DEFAULT_WINDOW_END_MIN;
+        }
+        sp.edit()
+                .putInt("windowStartMin", start)
+                .putInt("windowEndMin", end)
+                .putString("autoStartDoneDate", "")
+                .putString("autoStartPendingDate", "")
+                .commit();
+    }
+
+    public boolean autoStartDoneToday() {
+        return todayKey().equals(sp.getString("autoStartDoneDate", ""));
+    }
+
+    public void markAutoStartDone() {
+        sp.edit().putString("autoStartDoneDate", todayKey()).commit();
+    }
+
+    public void clearAutoStartDone() {
+        sp.edit().remove("autoStartDoneDate").commit();
+    }
+
+    public boolean autoStartPendingToday() {
+        return todayKey().equals(sp.getString("autoStartPendingDate", ""));
+    }
+
+    public void markAutoStartPending() {
+        sp.edit().putString("autoStartPendingDate", todayKey()).commit();
+    }
+
+    public void clearAutoStartPending() {
+        sp.edit().remove("autoStartPendingDate").commit();
+    }
+
+    private static String todayKey() {
+        return new SimpleDateFormat("yyyy-MM-dd", Locale.CHINA).format(new Date());
     }
 
     // ---------- 混合科目的抽题权重（默认 语文:数学:英语 = 2:2:1） ----------

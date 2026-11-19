@@ -73,6 +73,9 @@
              所以 exported="false" 也能收到；不声明的话，「签名不一致」这类失败会静默无提示。 -->
         <receiver android:name=".InstallResultReceiver" android:exported="false" />
 
+        <!-- 每日答题时段的当天精确闹钟（AlarmManager 显式 PendingIntent 投递，exported=false）。 -->
+        <receiver android:name=".ScheduleReceiver" android:exported="false" />
+
         <!-- 存活锚点：系统会把已授权的通知监听重新绑定，从而在强停/开机后把进程拉回来。
              不读通知内容；只作为「复活信号」。这是本机唯一可靠的存活机制。 -->
         <service
