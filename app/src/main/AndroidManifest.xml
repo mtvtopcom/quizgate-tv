@@ -45,13 +45,22 @@
             android:name=".MainActivity"
             android:exported="true"
             android:screenOrientation="landscape"
-            android:configChanges="orientation|screenSize|keyboardHidden|navigation">
+            android:configChanges="orientation|screenSize|keyboardHidden|navigation" />
+
+        <!-- 桌面入口单独做成 alias：只有答题时段开启时才允许隐藏。
+             家长入口是答题遮罩上的菜单键 + 6 位口令；关闭答题时段会自动恢复图标。
+             系统设置 → 应用里仍能看到这个包，隐藏不防卸载。 -->
+        <activity-alias
+            android:name=".LauncherAlias"
+            android:targetActivity=".MainActivity"
+            android:exported="true"
+            android:enabled="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
                 <category android:name="android.intent.category.LEANBACK_LAUNCHER" />
             </intent-filter>
-        </activity>
+        </activity-alias>
 
         <service
             android:name=".GateService"

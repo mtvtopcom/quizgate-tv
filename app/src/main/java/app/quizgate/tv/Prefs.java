@@ -101,8 +101,15 @@ public final class Prefs {
         if (!v) {
             clearAutoStartDone();
             clearAutoStartPending();
+            // 关闭答题时段 = 隐藏的入口自动恢复；绝不能把家长锁在门外。
+            setLauncherHidden(false);
         }
     }
+
+    /** 桌面 alias 是否隐藏；只有 scheduleEnabled 时才真正生效（见 LauncherIcon.apply）。 */
+    public boolean launcherHidden() { return sp.getBoolean("launcherHidden", false); }
+
+    public void setLauncherHidden(boolean v) { sp.edit().putBoolean("launcherHidden", v).commit(); }
 
     public int windowStartMin() {
         return clamp(sp.getInt("windowStartMin", DEFAULT_WINDOW_START_MIN), 0, 1439);

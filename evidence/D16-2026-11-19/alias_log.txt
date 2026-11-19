@@ -1,0 +1,8 @@
+ 10534.722 13324 13324 I QuizGate: launcher_alias shown
+ 10538.167 13469 13469 I QuizGate: launcher_alias shown
+ 10559.796 13544 13544 I QuizGate: launcher_alias shown
+ 10560.384 13578 13578 I QuizGate: launcher_alias hidden
+ 10565.434 13673 13673 I QuizGate: launcher_alias hidden
+ 10566.049 13729 13729 I QuizGate: launcher_alias shown
+ 10570.583 13813 13813 I QuizGate: launcher_alias shown
+ 10571.330 13868 13868 I QuizGate: launcher_alias shown

@@ -42,7 +42,7 @@ public class MainActivity extends Activity {
     private ScrollView contentScroll;
     private LinearLayout content;
 
-    private TextView valueDuration, valueExtend, valueRequired, valueGrade, valueChildName, valueSchedule, valuePin, valueRecovery, valueGuard;
+    private TextView valueDuration, valueExtend, valueRequired, valueGrade, valueChildName, valueSchedule, valueLauncher, valuePin, valueRecovery, valueGuard;
     private TextView valueVersion, valueLog;
     private TextView anchorWarn;
     /** 设置页的第一项（本次时长）。顶部返回按钮在 1.2.9 删掉后，焦点默认落在这里。 */
@@ -150,6 +150,7 @@ public class MainActivity extends Activity {
         valueGrade = addRow("题目年级", this::openStagePanel);
         valueChildName = addRow("小朋友称呼", this::promptChildName);
         valueSchedule = addRow("答题时段", this::openSchedulePanel);
+        valueLauncher = addRow("桌面图标", this::toggleLauncher);
         valuePin = addRow("家长口令", this::promptSetPin);
         valueRecovery = addRow("恢复码", this::onRecoveryRow);
         // 1.3.0：授权自检、显示权限按钮、卸载留痕全部收进「守护状态」子页，
@@ -796,6 +797,7 @@ public class MainActivity extends Activity {
             prefs.setScheduleEnabled(enabled[0]);
             prefs.setWindow(start[0], end[0]);
             Schedules.cancel(this);
+            LauncherIcon.apply(this, prefs);   // 关闭时段会清 hidden，随即恢复桌面图标
             d.dismiss();
             refresh();
             if (enabled[0]) {
@@ -821,6 +823,74 @@ public class MainActivity extends Activity {
         }
         d.show();
         tRow.requestFocus();
+    }
+
+    /** 隐藏/恢复桌面 alias；隐藏只允许在答题时段开启时使用。 */
+    private void toggleLauncher() {
+        boolean hidden = prefs.launcherHidden() && prefs.scheduleEnabled();
+        if (hidden) {
+            prefs.setLauncherHidden(false);
+            LauncherIcon.apply(this, prefs);
+            refresh();
+            toast("桌面图标已恢复");
+            return;
+        }
+        if (!Schedules.supported() || !prefs.scheduleEnabled()) {
+            toast("先启用「答题时段」（仅 Android 11）：隐藏后只能靠时段遮罩 + 口令进入");
+            return;
+        }
+
+        final Dialog d = new Dialog(this);
+        LinearLayout box = new LinearLayout(this);
+        box.setOrientation(LinearLayout.VERTICAL);
+        box.setBackgroundResource(R.drawable.panel_bg);
+        box.setPadding(Ui.dp(this, 44), Ui.dp(this, 30), Ui.dp(this, 44), Ui.dp(this, 30));
+        box.addView(Ui.title(this, "隐藏桌面图标", 26));
+
+        TextView body = Ui.label(this,
+                "隐藏后电视桌面 / 应用列表不再显示入口。\n\n"
+                        + "家长入口：答题时段到点 → 遮罩上按菜单键 → 输 6 位家长口令 → 应用首页。\n\n"
+                        + "关闭「答题时段」会自动恢复图标。\n"
+                        + "系统设置 → 应用里仍能看到本应用；隐藏不能防卸载。",
+                17, Ui.TEXT);
+        body.setLineSpacing(0, 1.15f);
+        LinearLayout.LayoutParams blp = new LinearLayout.LayoutParams(-1, -2);
+        blp.topMargin = Ui.dp(this, 14);
+        box.addView(body, blp);
+
+        LinearLayout btns = Ui.row(this);
+        btns.setGravity(Gravity.CENTER);
+        TextView cancel = Ui.key(this, "取消", 22);
+        cancel.setBackgroundResource(R.drawable.opt_bg);
+        TextView hide = Ui.key(this, "隐藏", 22);
+        hide.setBackgroundResource(R.drawable.opt_bg);
+        LinearLayout.LayoutParams b1 = new LinearLayout.LayoutParams(0, Ui.dp(this, 58), 1f);
+        LinearLayout.LayoutParams b2 = new LinearLayout.LayoutParams(0, Ui.dp(this, 58), 1f);
+        b1.rightMargin = Ui.dp(this, 10);
+        b2.leftMargin = Ui.dp(this, 10);
+        btns.addView(cancel, b1);
+        btns.addView(hide, b2);
+        LinearLayout.LayoutParams btlp = new LinearLayout.LayoutParams(-1, -2);
+        btlp.topMargin = Ui.dp(this, 20);
+        box.addView(btns, btlp);
+
+        cancel.setOnClickListener(v -> d.dismiss());
+        hide.setOnClickListener(v -> {
+            prefs.setLauncherHidden(true);
+            LauncherIcon.apply(this, prefs);
+            d.dismiss();
+            refresh();
+            toast("已隐藏桌面图标；请用答题时段遮罩 + 口令进入");
+        });
+
+        d.setContentView(box);
+        if (d.getWindow() != null) {
+            d.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
+            android.util.DisplayMetrics dm = getResources().getDisplayMetrics();
+            d.getWindow().setLayout((int) (dm.widthPixels * 0.76f), ViewGroup.LayoutParams.WRAP_CONTENT);
+        }
+        d.show();
+        cancel.requestFocus();
     }
 
     private LinearLayout dialogRow(String label, TextView value, Runnable onClick) {
@@ -1486,6 +1556,8 @@ public class MainActivity extends Activity {
         valueGrade.setText(gradeText());
         valueChildName.setText(prefs.childName());
         valueSchedule.setText(scheduleText());
+        valueLauncher.setText(prefs.launcherHidden() && prefs.scheduleEnabled()
+                && Schedules.supported() ? "已隐藏" : "显示");
         valuePin.setText(prefs.hasPin() ? "已设置" : "未设置");
         // 只存哈希：应用里看不到已生成的码，想再看只能重新生成（旧码立即作废）
         valueRecovery.setText(!prefs.hasRecoveryCode() ? "未生成"
