@@ -1,11 +1,12 @@
 {
- "version": 2,
+ "version": 3,
+ "schema": "k12-question-bank/v1",
  "subject": "语文",
  "grade": 7,
  "items": [
   {
-   "id": "c7-001",
-   "subject": "语文",
+   "topic_id": "junior-g7-s1-chinese-K900",
+   "topic_name": "文言实词与古诗默写",
    "stem": "“学而时习之”中的“时”是什么意思？",
    "options": [
     "时间",
@@ -13,12 +14,16 @@
     "时常",
     "当时"
    ],
-   "answerIndex": 1,
-   "explanation": "时习即按时温习"
+   "answer": "B",
+   "explanation": "时习即按时温习",
+   "difficulty": 3,
+   "bloom": "理解",
+   "type": "single_choice",
+   "id": "c7-001"
   },
   {
-   "id": "c7-002",
-   "subject": "语文",
+   "topic_id": "junior-g7-s1-chinese-K900",
+   "topic_name": "文言实词与古诗默写",
    "stem": "《观沧海》的作者是？",
    "options": [
     "曹操",
@@ -26,12 +31,16 @@
     "陶渊明",
     "李白"
    ],
-   "answerIndex": 0,
-   "explanation": "曹操《观沧海》"
+   "answer": "A",
+   "explanation": "曹操《观沧海》",
+   "difficulty": 3,
+   "bloom": "理解",
+   "type": "single_choice",
+   "id": "c7-002"
   },
   {
-   "id": "c7-003",
-   "subject": "语文",
+   "topic_id": "junior-g7-s1-chinese-K900",
+   "topic_name": "文言实词与古诗默写",
    "stem": "“海日生残夜”的下一句是？",
    "options": [
     "江春入旧年",
@@ -39,12 +48,16 @@
     "潮平两岸阔",
     "归雁洛阳边"
    ],
-   "answerIndex": 0,
-   "explanation": "王湾《次北固山下》"
+   "answer": "A",
+   "explanation": "王湾《次北固山下》",
+   "difficulty": 3,
+   "bloom": "理解",
+   "type": "single_choice",
+   "id": "c7-003"
   },
   {
-   "id": "c7-004",
-   "subject": "语文",
+   "topic_id": "junior-g7-s1-chinese-K900",
+   "topic_name": "文言实词与古诗默写",
    "stem": "成语「温故而知（ ）」空缺的是？",
    "options": [
     "新",
@@ -52,12 +65,16 @@
     "深",
     "广"
    ],
-   "answerIndex": 0,
-   "explanation": "温故而知新"
+   "answer": "A",
+   "explanation": "温故而知新",
+   "difficulty": 3,
+   "bloom": "理解",
+   "type": "single_choice",
+   "id": "c7-004"
   },
   {
-   "id": "c7-005",
-   "subject": "语文",
+   "topic_id": "junior-g7-s1-chinese-K900",
+   "topic_name": "文言实词与古诗默写",
    "stem": "“苔痕上阶绿”中的“上”是什么意思？",
    "options": [
     "上面",
@@ -65,12 +82,16 @@
     "上山",
     "向上看"
    ],
-   "answerIndex": 1,
-   "explanation": "名词作动词，长上台阶"
+   "answer": "B",
+   "explanation": "名词作动词，长上台阶",
+   "difficulty": 3,
+   "bloom": "理解",
+   "type": "single_choice",
+   "id": "c7-005"
   },
   {
-   "id": "c7-006",
-   "subject": "语文",
+   "topic_id": "junior-g7-s1-chinese-K900",
+   "topic_name": "文言实词与古诗默写",
    "stem": "“物极必反”的意思是？",
    "options": [
     "事物发展到极端会转向反面",
@@ -78,12 +99,16 @@
     "做事要适可而止",
     "物理变化会反复"
    ],
-   "answerIndex": 0,
-   "explanation": "极则变"
+   "answer": "A",
+   "explanation": "极则变",
+   "difficulty": 3,
+   "bloom": "理解",
+   "type": "single_choice",
+   "id": "c7-006"
   },
   {
-   "id": "c7-007",
-   "subject": "语文",
+   "topic_id": "junior-g7-s1-chinese-K900",
+   "topic_name": "文言实词与古诗默写",
    "stem": "《朝花夕拾》的作者是？",
    "options": [
     "鲁迅",
@@ -91,12 +116,16 @@
     "老舍",
     "冰心"
    ],
-   "answerIndex": 0,
-   "explanation": "鲁迅的散文集"
+   "answer": "A",
+   "explanation": "鲁迅的散文集",
+   "difficulty": 3,
+   "bloom": "理解",
+   "type": "single_choice",
+   "id": "c7-007"
   },
   {
-   "id": "c7-008",
-   "subject": "语文",
+   "topic_id": "junior-g7-s1-chinese-K900",
+   "topic_name": "文言实词与古诗默写",
    "stem": "“三军可夺帅也，匹夫不可夺（ ）也”空缺的是？",
    "options": [
     "志",
@@ -104,8 +133,12 @@
     "命",
     "气"
    ],
-   "answerIndex": 0,
-   "explanation": "匹夫不可夺志"
+   "answer": "A",
+   "explanation": "匹夫不可夺志",
+   "difficulty": 3,
+   "bloom": "理解",
+   "type": "single_choice",
+   "id": "c7-008"
   }
  ]
 }

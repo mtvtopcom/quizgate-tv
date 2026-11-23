@@ -1,11 +1,12 @@
 {
- "version": 2,
+ "version": 3,
+ "schema": "k12-question-bank/v1",
  "subject": "语文",
  "grade": 8,
  "items": [
   {
-   "id": "c8-001",
-   "subject": "语文",
+   "topic_id": "junior-g8-s1-chinese-K900",
+   "topic_name": "文言名句与古诗默写",
    "stem": "“不以物喜，不以己悲”出自哪篇文章？",
    "options": [
     "《岳阳楼记》",
@@ -13,12 +14,16 @@
     "《爱莲说》",
     "《陋室铭》"
    ],
-   "answerIndex": 0,
-   "explanation": "范仲淹《岳阳楼记》"
+   "answer": "A",
+   "explanation": "范仲淹《岳阳楼记》",
+   "difficulty": 3,
+   "bloom": "记忆",
+   "type": "single_choice",
+   "id": "c8-001"
   },
   {
-   "id": "c8-002",
-   "subject": "语文",
+   "topic_id": "junior-g8-s1-chinese-K900",
+   "topic_name": "文言名句与古诗默写",
    "stem": "“落红不是无情物”的下一句是？",
    "options": [
     "化作春泥更护花",
@@ -26,12 +31,16 @@
     "万紫千红总是春",
     "春风吹又生"
    ],
-   "answerIndex": 0,
-   "explanation": "龚自珍《己亥杂诗》"
+   "answer": "A",
+   "explanation": "龚自珍《己亥杂诗》",
+   "difficulty": 3,
+   "bloom": "记忆",
+   "type": "single_choice",
+   "id": "c8-002"
   },
   {
-   "id": "c8-003",
-   "subject": "语文",
+   "topic_id": "junior-g8-s1-chinese-K900",
+   "topic_name": "文言名句与古诗默写",
    "stem": "“予独爱莲之出淤泥而不染”中的“之”作用是？",
    "options": [
     "取消句子独立性",
@@ -39,12 +48,16 @@
     "动词，去",
     "语气词"
    ],
-   "answerIndex": 0,
-   "explanation": "主谓之间的“之”"
+   "answer": "A",
+   "explanation": "主谓之间的“之”",
+   "difficulty": 3,
+   "bloom": "记忆",
+   "type": "single_choice",
+   "id": "c8-003"
   },
   {
-   "id": "c8-004",
-   "subject": "语文",
+   "topic_id": "junior-g8-s1-chinese-K900",
+   "topic_name": "文言名句与古诗默写",
    "stem": "《背影》的作者是？",
    "options": [
     "朱自清",
@@ -52,12 +65,16 @@
     "老舍",
     "巴金"
    ],
-   "answerIndex": 0,
-   "explanation": "朱自清写父亲背影"
+   "answer": "A",
+   "explanation": "朱自清写父亲背影",
+   "difficulty": 3,
+   "bloom": "记忆",
+   "type": "single_choice",
+   "id": "c8-004"
   },
   {
-   "id": "c8-005",
-   "subject": "语文",
+   "topic_id": "junior-g8-s1-chinese-K900",
+   "topic_name": "文言名句与古诗默写",
    "stem": "“山重水复疑无路”的下一句是？",
    "options": [
     "柳暗花明又一村",
@@ -65,12 +82,16 @@
     "一览众山小",
     "路转溪桥忽见"
    ],
-   "answerIndex": 0,
-   "explanation": "陆游《游山西村》"
+   "answer": "A",
+   "explanation": "陆游《游山西村》",
+   "difficulty": 3,
+   "bloom": "记忆",
+   "type": "single_choice",
+   "id": "c8-005"
   },
   {
-   "id": "c8-006",
-   "subject": "语文",
+   "topic_id": "junior-g8-s1-chinese-K900",
+   "topic_name": "文言名句与古诗默写",
    "stem": "说明事物成因，一般用哪种说明顺序？",
    "options": [
     "逻辑顺序",
@@ -78,12 +99,16 @@
     "空间顺序",
     "倒叙"
    ],
-   "answerIndex": 0,
-   "explanation": "由因果关系的逻辑顺序"
+   "answer": "A",
+   "explanation": "由因果关系的逻辑顺序",
+   "difficulty": 3,
+   "bloom": "记忆",
+   "type": "single_choice",
+   "id": "c8-006"
   },
   {
-   "id": "c8-007",
-   "subject": "语文",
+   "topic_id": "junior-g8-s1-chinese-K900",
+   "topic_name": "文言名句与古诗默写",
    "stem": "“沉舟侧畔千帆过”的下一句是？",
    "options": [
     "病树前头万木春",
@@ -91,12 +116,16 @@
     "直挂云帆济沧海",
     "柳暗花明又一村"
    ],
-   "answerIndex": 0,
-   "explanation": "刘禹锡《酬乐天》"
+   "answer": "A",
+   "explanation": "刘禹锡《酬乐天》",
+   "difficulty": 3,
+   "bloom": "记忆",
+   "type": "single_choice",
+   "id": "c8-007"
   },
   {
-   "id": "c8-008",
-   "subject": "语文",
+   "topic_id": "junior-g8-s1-chinese-K900",
+   "topic_name": "文言名句与古诗默写",
    "stem": "“先天下之忧而忧”的作者是？",
    "options": [
     "范仲淹",
@@ -104,8 +133,12 @@
     "苏轼",
     "王安石"
    ],
-   "answerIndex": 0,
-   "explanation": "范仲淹《岳阳楼记》"
+   "answer": "A",
+   "explanation": "范仲淹《岳阳楼记》",
+   "difficulty": 3,
+   "bloom": "记忆",
+   "type": "single_choice",
+   "id": "c8-008"
   }
  ]
 }

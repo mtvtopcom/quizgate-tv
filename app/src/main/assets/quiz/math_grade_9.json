@@ -1,11 +1,12 @@
 {
- "version": 2,
+ "version": 3,
+ "schema": "k12-question-bank/v1",
  "subject": "数学",
  "grade": 9,
  "items": [
   {
-   "id": "m9-001",
-   "subject": "数学",
+   "topic_id": "junior-g9-s1-math-K900",
+   "topic_name": "三角函数、二次函数与一元二次方程",
    "stem": "sin30° 等于多少？",
    "options": [
     "1/4",
@@ -13,12 +14,16 @@
     "1/2",
     "√3/2"
    ],
-   "answerIndex": 2,
-   "explanation": "特殊角三角函数值"
+   "answer": "C",
+   "explanation": "特殊角三角函数值",
+   "difficulty": 3,
+   "bloom": "应用",
+   "type": "single_choice",
+   "id": "m9-001"
   },
   {
-   "id": "m9-002",
-   "subject": "数学",
+   "topic_id": "junior-g9-s1-math-K900",
+   "topic_name": "三角函数、二次函数与一元二次方程",
    "stem": "抛物线 y = x² - 4x + 3 的顶点横坐标是？",
    "options": [
     "-2",
@@ -26,12 +31,16 @@
     "3",
     "4"
    ],
-   "answerIndex": 1,
-   "explanation": "顶点横坐标 = -b/(2a) = 2"
+   "answer": "B",
+   "explanation": "顶点横坐标 = -b/(2a) = 2",
+   "difficulty": 3,
+   "bloom": "应用",
+   "type": "single_choice",
+   "id": "m9-002"
   },
   {
-   "id": "m9-003",
-   "subject": "数学",
+   "topic_id": "junior-g9-s1-math-K900",
+   "topic_name": "三角函数、二次函数与一元二次方程",
    "stem": "方程 x² - 4 = 0 的解是？",
    "options": [
     "x = 2",
@@ -39,12 +48,16 @@
     "x = ±2",
     "x = 4"
    ],
-   "answerIndex": 2,
-   "explanation": "移项后开平方，注意正负"
+   "answer": "C",
+   "explanation": "移项后开平方，注意正负",
+   "difficulty": 3,
+   "bloom": "应用",
+   "type": "single_choice",
+   "id": "m9-003"
   },
   {
-   "id": "m9-004",
-   "subject": "数学",
+   "topic_id": "junior-g9-s1-math-K900",
+   "topic_name": "三角函数、二次函数与一元二次方程",
    "stem": "抛物线 y = -2x² + 1 的开口方向是？",
    "options": [
     "向上",
@@ -52,12 +65,16 @@
     "向左",
     "向右"
    ],
-   "answerIndex": 1,
-   "explanation": "二次项系数为负，开口向下"
+   "answer": "B",
+   "explanation": "二次项系数为负，开口向下",
+   "difficulty": 3,
+   "bloom": "应用",
+   "type": "single_choice",
+   "id": "m9-004"
   },
   {
-   "id": "m9-005",
-   "subject": "数学",
+   "topic_id": "junior-g9-s1-math-K900",
+   "topic_name": "三角函数、二次函数与一元二次方程",
    "stem": "圆内接四边形的对角有什么关系？",
    "options": [
     "相等",
@@ -65,12 +82,16 @@
     "互余",
     "没有关系"
    ],
-   "answerIndex": 1,
-   "explanation": "对角之和为 180°"
+   "answer": "B",
+   "explanation": "对角之和为 180°",
+   "difficulty": 3,
+   "bloom": "应用",
+   "type": "single_choice",
+   "id": "m9-005"
   },
   {
-   "id": "m9-006",
-   "subject": "数学",
+   "topic_id": "junior-g9-s1-math-K900",
+   "topic_name": "三角函数、二次函数与一元二次方程",
    "stem": "一组数据的方差越大，说明这组数据？",
    "options": [
     "越集中",
@@ -78,12 +99,16 @@
     "平均值越大",
     "个数越多"
    ],
-   "answerIndex": 1,
-   "explanation": "方差衡量波动大小"
+   "answer": "B",
+   "explanation": "方差衡量波动大小",
+   "difficulty": 3,
+   "bloom": "应用",
+   "type": "single_choice",
+   "id": "m9-006"
   },
   {
-   "id": "m9-007",
-   "subject": "数学",
+   "topic_id": "junior-g9-s1-math-K900",
+   "topic_name": "三角函数、二次函数与一元二次方程",
    "stem": "两个相似三角形的相似比是 1:2，面积比是？",
    "options": [
     "1:2",
@@ -91,12 +116,16 @@
     "1:8",
     "2:1"
    ],
-   "answerIndex": 1,
-   "explanation": "面积比是相似比的平方"
+   "answer": "B",
+   "explanation": "面积比是相似比的平方",
+   "difficulty": 3,
+   "bloom": "应用",
+   "type": "single_choice",
+   "id": "m9-007"
   },
   {
-   "id": "m9-008",
-   "subject": "数学",
+   "topic_id": "junior-g9-s1-math-K900",
+   "topic_name": "三角函数、二次函数与一元二次方程",
    "stem": "tan45° 等于多少？",
    "options": [
     "0",
@@ -104,8 +133,12 @@
     "1",
     "√3"
    ],
-   "answerIndex": 2,
-   "explanation": "等腰直角三角形两直角边相等"
+   "answer": "C",
+   "explanation": "等腰直角三角形两直角边相等",
+   "difficulty": 3,
+   "bloom": "应用",
+   "type": "single_choice",
+   "id": "m9-008"
   }
  ]
 }

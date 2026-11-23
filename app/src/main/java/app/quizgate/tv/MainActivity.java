@@ -57,6 +57,10 @@ public class MainActivity extends Activity {
     private LinearLayout guardBody;
     /** 选时长 / 选年级的自绘面板。null = 没打开。 */
     private OptionPanel optionPanel;
+    /** 题库管理页。null = 没打开。 */
+    private BankManagerView bankManager;
+    private BankStore bankStore;
+    private TextView valueBank;
     /** 开始计时前的授权检查面板。null = 没打开。 */
     private AuthView authPanel;
     private boolean showingSettings = false;
@@ -87,6 +91,7 @@ public class MainActivity extends Activity {
     protected void onCreate(Bundle b) {
         super.onCreate(b);
         prefs = new Prefs(this);
+        bankStore = new BankStore(this);
         // 必须在 buildContent / showSettings（都会 refresh）之前拿到判定结果
         anchorReport = Anchor.sync(this, prefs);
 
@@ -141,6 +146,7 @@ public class MainActivity extends Activity {
         valueDuration = addRow("本次时长", this::openDurationPanel);
         valueExtend = addRow("答对延长", this::openExtendPanel);
         valueGrade = addRow("题目年级", this::openStagePanel);
+        valueBank = addRow("题库管理", this::showBankManager);
         valuePin = addRow("家长口令", this::promptSetPin);
         valueRecovery = addRow("恢复码", this::onRecoveryRow);
         // 1.3.0：授权自检、显示权限按钮、卸载留痕全部收进「守护状态」子页，
@@ -415,6 +421,41 @@ public class MainActivity extends Activity {
         blockFocusBelow();
         View t = focusTarget();
         if (t != null) t.post(t::requestFocus);
+    }
+
+    // ---------- 题库管理 ----------
+
+    /** 设置页显示当前题库名；题库被删或目录损坏时静默切回默认，别让抽题一直空转。 */
+    private String bankName() {
+        String id = prefs.activeBankId();
+        if (BankStore.BUILTIN_ID.equals(id)) return "默认题库";
+        BankStore.Meta m = bankStore == null ? null : bankStore.meta(id);
+        if (m == null) {
+            prefs.setActiveBankId(BankStore.BUILTIN_ID);
+            return "默认题库";
+        }
+        return m.name;
+    }
+
+    private void showBankManager() {
+        if (bankStore == null) bankStore = new BankStore(this);
+        if (bankManager != null && bankManager.getParent() != null) root.removeView(bankManager);
+        bankManager = null;
+        bankManager = new BankManagerView(this, new BankManagerView.Host() {
+            @Override public void closeBankManager() { hideBankManager(); }
+            @Override public void toast(String msg) { MainActivity.this.toast(msg); }
+        }, bankStore, prefs);
+        root.addView(bankManager, new FrameLayout.LayoutParams(-1, -1));
+        blockFocusBelow();
+    }
+
+    private void hideBankManager() {
+        if (bankManager != null && bankManager.getParent() != null) root.removeView(bankManager);
+        bankManager = null;
+        blockFocusBelow();
+        View t = focusTarget();
+        if (t != null) t.post(t::requestFocus);
+        refresh();
     }
 
     /** 重建守护状态页的内容（点「重新检测」或从系统页回来时调用）。 */
@@ -1113,7 +1154,8 @@ public class MainActivity extends Activity {
         for (int i = root.getChildCount() - 1; i >= 0; i--) {
             View c = root.getChildAt(i);
             if (c == upgrade || c == codeOverlay || c == recovery || c == gate
-                    || c == logPanel || c == guardPanel || c == optionPanel || c == authPanel) return c;
+                    || c == logPanel || c == guardPanel || c == optionPanel || c == authPanel
+                    || c == bankManager) return c;
         }
         return null;
     }
@@ -1148,6 +1190,7 @@ public class MainActivity extends Activity {
         valueDuration.setText(prefs.durationMin() + " 分钟");
         valueExtend.setText("+ " + prefs.extendMin() + " 分钟");
         valueGrade.setText(gradeText());
+        if (valueBank != null) valueBank.setText(bankName());
         valuePin.setText(prefs.hasPin() ? "已设置" : "未设置");
         // 只存哈希：应用里看不到已生成的码，想再看只能重新生成（旧码立即作废）
         valueRecovery.setText(!prefs.hasRecoveryCode() ? "未生成"
@@ -1370,6 +1413,11 @@ public class MainActivity extends Activity {
     @Override
     public boolean dispatchKeyEvent(android.view.KeyEvent e) {
         View top = topOverlay();
+        if (top != null && top == bankManager) {
+            // 题库管理页自路由：列表 / 添加 / 删除都在 consumeKey 里，BACK 只收起这一页。
+            bankManager.consumeKey(e);
+            return true;
+        }
         if (top != null && top == upgrade) {
             // 返回 = 「以后再说」。不直接 finish()：家长可能只是想先看看设置页。
             if (upgrade.consumeKey(e)) return true;

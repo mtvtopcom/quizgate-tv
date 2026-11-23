@@ -1,11 +1,12 @@
 {
- "version": 2,
+ "version": 3,
+ "schema": "k12-question-bank/v1",
  "subject": "数学",
  "grade": 7,
  "items": [
   {
-   "id": "m7-001",
-   "subject": "数学",
+   "topic_id": "junior-g7-s1-math-K900",
+   "topic_name": "有理数、一元一次方程与绝对值",
    "stem": "-3 + 5 = ?",
    "options": [
     "-8",
@@ -13,12 +14,16 @@
     "2",
     "8"
    ],
-   "answerIndex": 2,
-   "explanation": "-3 + 5 = 2"
+   "answer": "C",
+   "explanation": "-3 + 5 = 2",
+   "difficulty": 2,
+   "bloom": "应用",
+   "type": "single_choice",
+   "id": "m7-001"
   },
   {
-   "id": "m7-002",
-   "subject": "数学",
+   "topic_id": "junior-g7-s1-math-K900",
+   "topic_name": "有理数、一元一次方程与绝对值",
    "stem": "2x = 10，x 等于多少？",
    "options": [
     "2",
@@ -26,12 +31,16 @@
     "5",
     "20"
    ],
-   "answerIndex": 2,
-   "explanation": "两边同除以 2"
+   "answer": "C",
+   "explanation": "两边同除以 2",
+   "difficulty": 2,
+   "bloom": "应用",
+   "type": "single_choice",
+   "id": "m7-002"
   },
   {
-   "id": "m7-003",
-   "subject": "数学",
+   "topic_id": "junior-g7-s1-math-K900",
+   "topic_name": "有理数、一元一次方程与绝对值",
    "stem": "绝对值等于 4 的数是？",
    "options": [
     "只有 4",
@@ -39,12 +48,16 @@
     "±4",
     "0"
    ],
-   "answerIndex": 2,
-   "explanation": "绝对值是到原点的距离"
+   "answer": "C",
+   "explanation": "绝对值是到原点的距离",
+   "difficulty": 2,
+   "bloom": "应用",
+   "type": "single_choice",
+   "id": "m7-003"
   },
   {
-   "id": "m7-004",
-   "subject": "数学",
+   "topic_id": "junior-g7-s1-math-K900",
+   "topic_name": "有理数、一元一次方程与绝对值",
    "stem": "三角形内角和是多少度？",
    "options": [
     "90°",
@@ -52,12 +65,16 @@
     "270°",
     "360°"
    ],
-   "answerIndex": 1,
-   "explanation": "内角和 180°"
+   "answer": "B",
+   "explanation": "内角和 180°",
+   "difficulty": 2,
+   "bloom": "应用",
+   "type": "single_choice",
+   "id": "m7-004"
   },
   {
-   "id": "m7-005",
-   "subject": "数学",
+   "topic_id": "junior-g7-s1-math-K900",
+   "topic_name": "有理数、一元一次方程与绝对值",
    "stem": "(-2)³ = ?",
    "options": [
     "-6",
@@ -65,12 +82,16 @@
     "6",
     "8"
    ],
-   "answerIndex": 1,
-   "explanation": "三个 -2 相乘得 -8"
+   "answer": "B",
+   "explanation": "三个 -2 相乘得 -8",
+   "difficulty": 2,
+   "bloom": "应用",
+   "type": "single_choice",
+   "id": "m7-005"
   },
   {
-   "id": "m7-006",
-   "subject": "数学",
+   "topic_id": "junior-g7-s1-math-K900",
+   "topic_name": "有理数、一元一次方程与绝对值",
    "stem": "3x - 5 = 7，x 等于多少？",
    "options": [
     "3",
@@ -78,12 +99,16 @@
     "5",
     "6"
    ],
-   "answerIndex": 1,
-   "explanation": "3x = 12，x = 4"
+   "answer": "B",
+   "explanation": "3x = 12，x = 4",
+   "difficulty": 2,
+   "bloom": "应用",
+   "type": "single_choice",
+   "id": "m7-006"
   },
   {
-   "id": "m7-007",
-   "subject": "数学",
+   "topic_id": "junior-g7-s1-math-K900",
+   "topic_name": "有理数、一元一次方程与绝对值",
    "stem": "一个数的 1/4 是 12，这个数是多少？",
    "options": [
     "3",
@@ -91,12 +116,16 @@
     "48",
     "60"
    ],
-   "answerIndex": 2,
-   "explanation": "12 × 4 = 48"
+   "answer": "C",
+   "explanation": "12 × 4 = 48",
+   "difficulty": 2,
+   "bloom": "应用",
+   "type": "single_choice",
+   "id": "m7-007"
   },
   {
-   "id": "m7-008",
-   "subject": "数学",
+   "topic_id": "junior-g7-s1-math-K900",
+   "topic_name": "有理数、一元一次方程与绝对值",
    "stem": "化简 2x + 3x 的结果是？",
    "options": [
     "5x",
@@ -104,8 +133,12 @@
     "5x²",
     "x"
    ],
-   "answerIndex": 0,
-   "explanation": "同类项合并：系数相加"
+   "answer": "A",
+   "explanation": "同类项合并：系数相加",
+   "difficulty": 2,
+   "bloom": "应用",
+   "type": "single_choice",
+   "id": "m7-008"
   }
  ]
 }

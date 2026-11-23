@@ -30,13 +30,22 @@ public final class QuizBank {
         public String[] options = new String[]{"", "", "", ""};
         public int answer = 0;
         public String explain = "";
+        /** 用户题库缺当前年级题目、已回退默认题库；只在第一次回退时置 true。 */
+        public boolean fallback = false;
     }
 
     private final Context ctx;
+    private final BankStore bankStore;
+    private final Prefs prefs;
     private final Map<String, List<Q>> cache = new HashMap<>();
     private final Map<String, String> lastStem = new HashMap<>();
+    private boolean pendingFallback = false;
 
-    public QuizBank(Context ctx) { this.ctx = ctx.getApplicationContext(); }
+    public QuizBank(Context ctx) {
+        this.ctx = ctx.getApplicationContext();
+        this.bankStore = new BankStore(this.ctx);
+        this.prefs = new Prefs(this.ctx);
+    }
 
     /** 打乱选项，返回打乱后正确答案的下标。 */
     public static int shuffle(String[] opts, int answerIdx, Random r) {
@@ -56,6 +65,60 @@ public final class QuizBank {
      * @param floor      最低可回落的年级。初中（7-9）要传 7，否则题库缺片时会退到小学题。
      */
     public Q next(String subjectKey, int grade, int floor, Random r) {
+        pendingFallback = false;
+        int g = Math.max(1, Math.min(9, grade));
+
+        Q user = fromUserBank(subjectKey, g, r);
+        if (user != null) return user;
+
+        Q q = nextBuiltin(subjectKey, grade, floor, r);
+        if (pendingFallback) {
+            q.fallback = true;
+            pendingFallback = false;
+        }
+        return q;
+    }
+
+    /**
+     * 用户题库只按当前年级精确匹配：它是家长按某个年级存的，跨年级回退会把
+     * 三年级的口算塞给六年级。没有就返回 null，由内置题库接手。
+     */
+    private Q fromUserBank(String subjectKey, int grade, Random r) {
+        String id = prefs.activeBankId();
+        if (BankStore.BUILTIN_ID.equals(id)) return null;
+        List<BankQuestion> list = bankStore.load(id, subjectKey, grade);
+        if (list.isEmpty()) {
+            if (!prefs.fallbackNoticed(id)) {
+                prefs.setFallbackNoticed(id);
+                pendingFallback = true;
+            }
+            return null;
+        }
+        String key = "user|" + id + "|" + subjectKey + grade;
+        String last = lastStem.get(key);
+        for (int attempt = 0; attempt < 6; attempt++) {
+            BankQuestion src = list.get(r.nextInt(list.size()));
+            if (last == null || !last.equals(src.stem)) {
+                lastStem.put(key, src.stem);
+                return toQ(src, r);
+            }
+        }
+        BankQuestion src = list.get(r.nextInt(list.size()));
+        lastStem.put(key, src.stem);
+        return toQ(src, r);
+    }
+
+    private Q toQ(BankQuestion src, Random r) {
+        Q out = new Q();
+        out.stem = src.stem;
+        out.options = src.options.clone();
+        out.answer = src.answerIndex;
+        out.explain = src.explanation;
+        out.answer = shuffle(out.options, out.answer, r);
+        return out;
+    }
+
+    private Q nextBuiltin(String subjectKey, int grade, int floor, Random r) {
         int g = Math.max(1, Math.min(9, grade));
         int lo = Math.max(1, Math.min(g, floor));
         for (int cur = g; cur >= lo; cur--) {
@@ -133,7 +196,7 @@ public final class QuizBank {
                     Q q = new Q();
                     q.stem = o.getString("stem");
                     q.options = new String[]{opts.getString(0), opts.getString(1), opts.getString(2), opts.getString(3)};
-                    q.answer = o.getInt("answerIndex");
+                    q.answer = parseAnswer(o);
                     if (q.answer < 0 || q.answer > 3) continue;
                     q.explain = o.optString("explanation", "");
                     list.add(q);
@@ -144,5 +207,18 @@ public final class QuizBank {
         }
         cache.put(key, list);
         return list;
+    }
+
+    /**
+     * 读答案下标。K12 结构用 {@code answer} 字母（A–D），旧题库用
+     * {@code answerIndex} 下标；两种都兼容，字母优先。非法返回 -1。
+     */
+    static int parseAnswer(JSONObject o) {
+        String a = o.optString("answer", "").trim();
+        if (a.length() > 0) {
+            int i = "ABCD".indexOf(Character.toUpperCase(a.charAt(0)));
+            if (i >= 0) return i;
+        }
+        return o.has("answerIndex") ? o.optInt("answerIndex", -1) : -1;
     }
 }

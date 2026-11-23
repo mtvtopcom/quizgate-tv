@@ -1,11 +1,12 @@
 {
- "version": 2,
+ "version": 3,
+ "schema": "k12-question-bank/v1",
  "subject": "英语",
  "grade": 2,
  "items": [
   {
-   "id": "e2-001",
-   "subject": "英语",
+   "topic_id": "primary-g2-s1-english-K900",
+   "topic_name": "名词复数与 be 动词",
    "stem": "“book”的复数形式是？",
    "options": [
     "book",
@@ -13,12 +14,16 @@
     "bookes",
     "bookies"
    ],
-   "answerIndex": 1,
-   "explanation": "一般名词加 s"
+   "answer": "B",
+   "explanation": "一般名词加 s",
+   "difficulty": 1,
+   "bloom": "记忆",
+   "type": "single_choice",
+   "id": "e2-001"
   },
   {
-   "id": "e2-002",
-   "subject": "英语",
+   "topic_id": "primary-g2-s1-english-K900",
+   "topic_name": "名词复数与 be 动词",
    "stem": "I ___ a student.",
    "options": [
     "am",
@@ -26,12 +31,16 @@
     "are",
     "be"
    ],
-   "answerIndex": 0,
-   "explanation": "I 后面用 am"
+   "answer": "A",
+   "explanation": "I 后面用 am",
+   "difficulty": 1,
+   "bloom": "记忆",
+   "type": "single_choice",
+   "id": "e2-002"
   },
   {
-   "id": "e2-003",
-   "subject": "英语",
+   "topic_id": "primary-g2-s1-english-K900",
+   "topic_name": "名词复数与 be 动词",
    "stem": "英文数字 two 是几？",
    "options": [
     "1",
@@ -39,12 +48,16 @@
     "3",
     "4"
    ],
-   "answerIndex": 1,
-   "explanation": "two = 2"
+   "answer": "B",
+   "explanation": "two = 2",
+   "difficulty": 1,
+   "bloom": "记忆",
+   "type": "single_choice",
+   "id": "e2-003"
   },
   {
-   "id": "e2-004",
-   "subject": "英语",
+   "topic_id": "primary-g2-s1-english-K900",
+   "topic_name": "名词复数与 be 动词",
    "stem": "“mother”是什么意思？",
    "options": [
     "妈妈",
@@ -52,12 +65,16 @@
     "姐姐",
     "老师"
    ],
-   "answerIndex": 0,
-   "explanation": "mother 是妈妈"
+   "answer": "A",
+   "explanation": "mother 是妈妈",
+   "difficulty": 1,
+   "bloom": "记忆",
+   "type": "single_choice",
+   "id": "e2-004"
   },
   {
-   "id": "e2-005",
-   "subject": "英语",
+   "topic_id": "primary-g2-s1-english-K900",
+   "topic_name": "名词复数与 be 动词",
    "stem": "别人问 What's your name? 应该怎么回答？",
    "options": [
     "My name is Tom.",
@@ -65,12 +82,16 @@
     "I am nine.",
     "Thank you."
    ],
-   "answerIndex": 0,
-   "explanation": "问名字答名字"
+   "answer": "A",
+   "explanation": "问名字答名字",
+   "difficulty": 1,
+   "bloom": "记忆",
+   "type": "single_choice",
+   "id": "e2-005"
   },
   {
-   "id": "e2-006",
-   "subject": "英语",
+   "topic_id": "primary-g2-s1-english-K900",
+   "topic_name": "名词复数与 be 动词",
    "stem": "“big”的反义词是？",
    "options": [
     "small",
@@ -78,12 +99,16 @@
     "long",
     "new"
    ],
-   "answerIndex": 0,
-   "explanation": "big 与 small 相对"
+   "answer": "A",
+   "explanation": "big 与 small 相对",
+   "difficulty": 1,
+   "bloom": "记忆",
+   "type": "single_choice",
+   "id": "e2-006"
   },
   {
-   "id": "e2-007",
-   "subject": "英语",
+   "topic_id": "primary-g2-s1-english-K900",
+   "topic_name": "名词复数与 be 动词",
    "stem": "“pencil”是什么意思？",
    "options": [
     "铅笔",
@@ -91,12 +116,16 @@
     "橡皮",
     "书包"
    ],
-   "answerIndex": 0,
-   "explanation": "pencil 是铅笔"
+   "answer": "A",
+   "explanation": "pencil 是铅笔",
+   "difficulty": 1,
+   "bloom": "记忆",
+   "type": "single_choice",
+   "id": "e2-007"
   },
   {
-   "id": "e2-008",
-   "subject": "英语",
+   "topic_id": "primary-g2-s1-english-K900",
+   "topic_name": "名词复数与 be 动词",
    "stem": "How old are you? 问的是什么？",
    "options": [
     "年龄",
@@ -104,8 +133,12 @@
     "天气",
     "时间"
    ],
-   "answerIndex": 0,
-   "explanation": "how old 问年龄"
+   "answer": "A",
+   "explanation": "how old 问年龄",
+   "difficulty": 1,
+   "bloom": "记忆",
+   "type": "single_choice",
+   "id": "e2-008"
   }
  ]
 }

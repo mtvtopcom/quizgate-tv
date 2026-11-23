@@ -1,11 +1,12 @@
 {
- "version": 2,
+ "version": 3,
+ "schema": "k12-question-bank/v1",
  "subject": "英语",
  "grade": 9,
  "items": [
   {
-   "id": "e9-001",
-   "subject": "英语",
+   "topic_id": "junior-g9-s1-english-K900",
+   "topic_name": "定语从句、虚拟语气与倒装",
    "stem": "The boy ___ is wearing a hat is my brother.",
    "options": [
     "who",
@@ -13,12 +14,16 @@
     "whose",
     "whom"
    ],
-   "answerIndex": 0,
-   "explanation": "先行词是人，作主语用 who"
+   "answer": "A",
+   "explanation": "先行词是人，作主语用 who",
+   "difficulty": 4,
+   "bloom": "分析",
+   "type": "single_choice",
+   "id": "e9-001"
   },
   {
-   "id": "e9-002",
-   "subject": "英语",
+   "topic_id": "junior-g9-s1-english-K900",
+   "topic_name": "定语从句、虚拟语气与倒装",
    "stem": "If I ___ you, I would go.",
    "options": [
     "am",
@@ -26,12 +31,16 @@
     "were",
     "be"
    ],
-   "answerIndex": 2,
-   "explanation": "虚拟语气用 were"
+   "answer": "C",
+   "explanation": "虚拟语气用 were",
+   "difficulty": 4,
+   "bloom": "分析",
+   "type": "single_choice",
+   "id": "e9-002"
   },
   {
-   "id": "e9-003",
-   "subject": "英语",
+   "topic_id": "junior-g9-s1-english-K900",
+   "topic_name": "定语从句、虚拟语气与倒装",
    "stem": "Not until he came ___ I leave.",
    "options": [
     "did",
@@ -39,12 +48,16 @@
     "does",
     "had"
    ],
-   "answerIndex": 0,
-   "explanation": "Not until 放句首，主句部分倒装"
+   "answer": "A",
+   "explanation": "Not until 放句首，主句部分倒装",
+   "difficulty": 4,
+   "bloom": "分析",
+   "type": "single_choice",
+   "id": "e9-003"
   },
   {
-   "id": "e9-004",
-   "subject": "英语",
+   "topic_id": "junior-g9-s1-english-K900",
+   "topic_name": "定语从句、虚拟语气与倒装",
    "stem": "It is important ___ us to learn English.",
    "options": [
     "for",
@@ -52,12 +65,16 @@
     "to",
     "with"
    ],
-   "answerIndex": 0,
-   "explanation": "It is + adj + for sb to do"
+   "answer": "A",
+   "explanation": "It is + adj + for sb to do",
+   "difficulty": 4,
+   "bloom": "分析",
+   "type": "single_choice",
+   "id": "e9-004"
   },
   {
-   "id": "e9-005",
-   "subject": "英语",
+   "topic_id": "junior-g9-s1-english-K900",
+   "topic_name": "定语从句、虚拟语气与倒装",
    "stem": "Neither of them ___ ready.",
    "options": [
     "is",
@@ -65,12 +82,16 @@
     "am",
     "be"
    ],
-   "answerIndex": 0,
-   "explanation": "neither of 谓语用单数"
+   "answer": "A",
+   "explanation": "neither of 谓语用单数",
+   "difficulty": 4,
+   "bloom": "分析",
+   "type": "single_choice",
+   "id": "e9-005"
   },
   {
-   "id": "e9-006",
-   "subject": "英语",
+   "topic_id": "junior-g9-s1-english-K900",
+   "topic_name": "定语从句、虚拟语气与倒装",
    "stem": "He suggested ___ earlier.",
    "options": [
     "leaving",
@@ -78,12 +99,16 @@
     "leave",
     "left"
    ],
-   "answerIndex": 0,
-   "explanation": "suggest doing"
+   "answer": "A",
+   "explanation": "suggest doing",
+   "difficulty": 4,
+   "bloom": "分析",
+   "type": "single_choice",
+   "id": "e9-006"
   },
   {
-   "id": "e9-007",
-   "subject": "英语",
+   "topic_id": "junior-g9-s1-english-K900",
+   "topic_name": "定语从句、虚拟语气与倒装",
    "stem": "The number of students ___ increasing.",
    "options": [
     "is",
@@ -91,12 +116,16 @@
     "were",
     "be"
    ],
-   "answerIndex": 0,
-   "explanation": "the number of 谓语用单数"
+   "answer": "A",
+   "explanation": "the number of 谓语用单数",
+   "difficulty": 4,
+   "bloom": "分析",
+   "type": "single_choice",
+   "id": "e9-007"
   },
   {
-   "id": "e9-008",
-   "subject": "英语",
+   "topic_id": "junior-g9-s1-english-K900",
+   "topic_name": "定语从句、虚拟语气与倒装",
    "stem": "Hardly ___ I arrived when it rained.",
    "options": [
     "had",
@@ -104,8 +133,12 @@
     "did",
     "was"
    ],
-   "answerIndex": 0,
-   "explanation": "Hardly...when 用过去完成时倒装"
+   "answer": "A",
+   "explanation": "Hardly...when 用过去完成时倒装",
+   "difficulty": 4,
+   "bloom": "分析",
+   "type": "single_choice",
+   "id": "e9-008"
   }
  ]
 }

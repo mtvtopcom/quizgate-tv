@@ -5,19 +5,32 @@
 以下**内容**（content）不适用 Apache-2.0，单独采用
 [Creative Commons Attribution-ShareAlike 4.0 International (CC BY-SA 4.0)](https://creativecommons.org/licenses/by-sa/4.0/legalcode.zh-Hans)：
 
-- `app/src/main/assets/quiz/**` —— 题库（题干、选项、解析）
+- `app/src/main/assets/quiz/*_grade_*.json` 中本项目原创撰写、id 不以 `pohw-`
+  开头的 216 道题
 - `docs/img/**` —— 实机截图
 - `docs/**` 下的图表与示意图
 
-## 你可以
+## PoHW 导入题不适用上述两种许可
+
+`app/src/main/assets/quiz/` 中 id 以 `pohw-` 开头的 9515 道题，来自
+[PoHW](https://github.com/jagerzhang/PoHW) 随 APK 发布的题库
+（源版本 `pohw-2026.11.10-bank-v9`，转换脚本见 `tools/import_pohw.py`）。
+
+这些题**部分整理自互联网公开渠道，内容权利归各自权利人所有，
+不随 Apache-2.0 或 CC BY-SA 4.0 一并授权**。仅供个人非商业家庭学习使用。
+如涉及版权或其他权益问题，请提 issue，核实后会及时删除或替换。
+
+## 你可以（仅限上方 CC BY-SA 内容）
 
 - 自由复制、分发、修改这些内容，包括商业用途
 - 但必须**署名**（注明来源为本项目）并**以相同许可**分发修改后的版本
 
-## 你不可以
+## 你不可以（仅限上方 CC BY-SA 内容）
 
 - 把题库单独抽出放进闭源或付费产品而不开放相同许可
 - 移除或伪造署名
+
+`pohw-` 题不受这两节约束：不要把它们当作 CC BY-SA 内容再分发。
 
 ## 关于「聚合」
 
@@ -25,9 +38,32 @@
 因此 CC BY-SA 4.0 的「相同方式共享」条款**不会**传染到 Apache-2.0 的代码部分；
 反之亦然。
 
+## 题库格式来源
+
+自定义题库的**导入格式与数据结构**采用
+[K12 题库工厂](https://github.com/mtvtopcom/k12-question-bank)
+（`mtvtopcom/k12-question-bank`，MIT License，© 2026 mtvtopcom）的题目 Schema
+与四种导出格式定义：9 个必填字段（`topic_id` / `topic_name` / `stem` / `options` /
+`answer` / `explanation` / `difficulty` / `bloom` / `type`）、`topic_id` 命名规则、
+JSON / CSV / Excel-TSV / TXT 四种格式。
+
+- 本项目**只对齐格式**，未包含上游的知识点地图（`knowledge-map/`）、出题管道
+  （`src/`）与桌面应用；
+- 按 MIT 协议保留其版权声明，详见 [docs/bank-format.md](docs/bank-format.md)；
+- 该 MIT 许可**只覆盖格式定义与上游代码**，不改变本题库内容的授权状态——
+  `pohw-` 题仍不随任何开源许可授权，原创题仍是 CC BY-SA 4.0。
+
 ## 题库来源
 
-题库为本项目原创撰写，不含教材原文、教辅扫描或来源不明的网络题目。
-逐项来源与录入日期见 [provenance.md](docs/provenance.md)。
+逐项来源与录入日期见 [docs/provenance.md](docs/provenance.md)。
 
-如你认为某道题侵犯了你的权利，请提 issue，我们会在核实后删除。
+## 第三方组件
+
+以下组件以未修改的发行文件形式随应用分发，采用 Apache-2.0，**不属于**上方 CC BY-SA 内容：
+
+| 组件 | 版本 | 用途 |
+| --- | --- | --- |
+| [ZXing core](https://github.com/zxing/zxing) | 3.5.3 | 电视端生成二维码 |
+| [SheetJS Community Edition](https://sheetjs.com/) | 0.20.3 | 手机上传页解析表格 |
+
+许可全文见各自仓库。

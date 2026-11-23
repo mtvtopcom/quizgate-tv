@@ -1,5 +1,6 @@
 #!/bin/bash
 # 零 Gradle 构建：aapt2 -> javac -> d8 -> zipalign -> apksigner
+# 第三方 jar 放 libs/（目前只有 ZXing core，用于生成二维码），javac 与 d8 会自动带上。
 # 用法：./build.sh          调试包（debug 签名 + --debug-mode，可用 run-as 调试）
 #       ./build.sh release  发布包（release 签名，不带 debuggable）
 #
@@ -12,8 +13,8 @@ cd "$(dirname "$0")"
 MODE="${1:-debug}"
 # 版本号默认值随发布走；做真机升级验证时用环境变量临时覆盖，
 # 免得为了「造一个更新包」去改仓库里的版本号。
-VERSION_NAME="${QUIZGATE_VERSION_NAME:-1.3.0}"
-VERSION_CODE="${QUIZGATE_VERSION_CODE:-10300}"
+VERSION_NAME="${QUIZGATE_VERSION_NAME:-1.4.0}"
+VERSION_CODE="${QUIZGATE_VERSION_CODE:-10400}"
 
 # 升级源：默认就是生产目录（发版后用户能自动收到更新）。
 # 想完全离线：QUIZGATE_UPGRADE_BASE= ./build.sh ...
@@ -125,12 +126,14 @@ echo "[2/6] aapt2 link ($MODE)"
   "$OUT/res.zip"
 
 echo "[3/6] javac"
+# 第三方 jar 只有 libs/core-3.5.3.jar（二维码），纯 Java、无 Android 依赖。
+JARS="$(find libs -name '*.jar' 2>/dev/null | tr '\n' ':')"
 find app/src/main/java "$OUT/gen" -name '*.java' > "$OUT/sources.txt"
-javac --release 11 -encoding UTF-8 -nowarn -cp "$AJ" -d "$OUT/classes" @"$OUT/sources.txt"
+javac --release 11 -encoding UTF-8 -nowarn -cp "$AJ:$JARS" -d "$OUT/classes" @"$OUT/sources.txt"
 
 echo "[4/6] d8"
 find "$OUT/classes" -name '*.class' > "$OUT/classes.txt"
-"$BT/d8" --lib "$AJ" --min-api 26 --output "$OUT/dex" @"$OUT/classes.txt"
+"$BT/d8" --lib "$AJ" --min-api 26 --output "$OUT/dex" @"$OUT/classes.txt" libs/*.jar
 
 echo "[5/6] package + zipalign"
 cp "$OUT/base.apk" "$OUT/unsigned.apk"

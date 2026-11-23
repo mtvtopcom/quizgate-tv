@@ -1,11 +1,12 @@
 {
- "version": 2,
+ "version": 3,
+ "schema": "k12-question-bank/v1",
  "subject": "英语",
  "grade": 7,
  "items": [
   {
-   "id": "e7-001",
-   "subject": "英语",
+   "topic_id": "junior-g7-s1-english-K900",
+   "topic_name": "现在进行时、冠词与介词搭配",
    "stem": "She ___ TV now.",
    "options": [
     "watch",
@@ -13,12 +14,16 @@
     "is watching",
     "watched"
    ],
-   "answerIndex": 2,
-   "explanation": "now 用现在进行时"
+   "answer": "C",
+   "explanation": "now 用现在进行时",
+   "difficulty": 3,
+   "bloom": "应用",
+   "type": "single_choice",
+   "id": "e7-001"
   },
   {
-   "id": "e7-002",
-   "subject": "英语",
+   "topic_id": "junior-g7-s1-english-K900",
+   "topic_name": "现在进行时、冠词与介词搭配",
    "stem": "I have ___ apple and ___ banana.",
    "options": [
     "an, a",
@@ -26,12 +31,16 @@
     "an, an",
     "a, a"
    ],
-   "answerIndex": 0,
-   "explanation": "apple 元音开头用 an"
+   "answer": "A",
+   "explanation": "apple 元音开头用 an",
+   "difficulty": 3,
+   "bloom": "应用",
+   "type": "single_choice",
+   "id": "e7-002"
   },
   {
-   "id": "e7-003",
-   "subject": "英语",
+   "topic_id": "junior-g7-s1-english-K900",
+   "topic_name": "现在进行时、冠词与介词搭配",
    "stem": "He is good ___ math.",
    "options": [
     "at",
@@ -39,12 +48,16 @@
     "on",
     "for"
    ],
-   "answerIndex": 0,
-   "explanation": "be good at 擅长"
+   "answer": "A",
+   "explanation": "be good at 擅长",
+   "difficulty": 3,
+   "bloom": "应用",
+   "type": "single_choice",
+   "id": "e7-003"
   },
   {
-   "id": "e7-004",
-   "subject": "英语",
+   "topic_id": "junior-g7-s1-english-K900",
+   "topic_name": "现在进行时、冠词与介词搭配",
    "stem": "Tom ___ to Beijing last year.",
    "options": [
     "go",
@@ -52,12 +65,16 @@
     "went",
     "going"
    ],
-   "answerIndex": 2,
-   "explanation": "last year 用过去式"
+   "answer": "C",
+   "explanation": "last year 用过去式",
+   "difficulty": 3,
+   "bloom": "应用",
+   "type": "single_choice",
+   "id": "e7-004"
   },
   {
-   "id": "e7-005",
-   "subject": "英语",
+   "topic_id": "junior-g7-s1-english-K900",
+   "topic_name": "现在进行时、冠词与介词搭配",
    "stem": "Would you like ___ tea?",
    "options": [
     "some",
@@ -65,12 +82,16 @@
     "many",
     "a"
    ],
-   "answerIndex": 0,
-   "explanation": "征求意愿用 some"
+   "answer": "A",
+   "explanation": "征求意愿用 some",
+   "difficulty": 3,
+   "bloom": "应用",
+   "type": "single_choice",
+   "id": "e7-005"
   },
   {
-   "id": "e7-006",
-   "subject": "英语",
+   "topic_id": "junior-g7-s1-english-K900",
+   "topic_name": "现在进行时、冠词与介词搭配",
    "stem": "The book is ___ the desk.",
    "options": [
     "on",
@@ -78,12 +99,16 @@
     "at",
     "to"
    ],
-   "answerIndex": 0,
-   "explanation": "on the desk 在桌上"
+   "answer": "A",
+   "explanation": "on the desk 在桌上",
+   "difficulty": 3,
+   "bloom": "应用",
+   "type": "single_choice",
+   "id": "e7-006"
   },
   {
-   "id": "e7-007",
-   "subject": "英语",
+   "topic_id": "junior-g7-s1-english-K900",
+   "topic_name": "现在进行时、冠词与介词搭配",
    "stem": "How long 问的是什么？",
    "options": [
     "多长时间",
@@ -91,12 +116,16 @@
     "多大",
     "多少"
    ],
-   "answerIndex": 0,
-   "explanation": "how long 问时长/长度"
+   "answer": "A",
+   "explanation": "how long 问时长/长度",
+   "difficulty": 3,
+   "bloom": "应用",
+   "type": "single_choice",
+   "id": "e7-007"
   },
   {
-   "id": "e7-008",
-   "subject": "英语",
+   "topic_id": "junior-g7-s1-english-K900",
+   "topic_name": "现在进行时、冠词与介词搭配",
    "stem": "“friendly”是什么意思？",
    "options": [
     "友好的",
@@ -104,8 +133,12 @@
     "危险的",
     "安静的"
    ],
-   "answerIndex": 0,
-   "explanation": "friend + ly"
+   "answer": "A",
+   "explanation": "friend + ly",
+   "difficulty": 3,
+   "bloom": "应用",
+   "type": "single_choice",
+   "id": "e7-008"
   }
  ]
 }

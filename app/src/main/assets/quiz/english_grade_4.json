@@ -1,11 +1,12 @@
 {
- "version": 2,
+ "version": 3,
+ "schema": "k12-question-bank/v1",
  "subject": "英语",
  "grade": 4,
  "items": [
   {
-   "id": "e4-001",
-   "subject": "英语",
+   "topic_id": "primary-g4-s1-english-K900",
+   "topic_name": "一般现在时与 There be",
    "stem": "He ___ to school every day.",
    "options": [
     "go",
@@ -13,12 +14,16 @@
     "going",
     "went"
    ],
-   "answerIndex": 1,
-   "explanation": "第三人称单数加 es"
+   "answer": "B",
+   "explanation": "第三人称单数加 es",
+   "difficulty": 2,
+   "bloom": "应用",
+   "type": "single_choice",
+   "id": "e4-001"
   },
   {
-   "id": "e4-002",
-   "subject": "英语",
+   "topic_id": "primary-g4-s1-english-K900",
+   "topic_name": "一般现在时与 There be",
    "stem": "There ___ two books on the desk.",
    "options": [
     "is",
@@ -26,12 +31,16 @@
     "am",
     "be"
    ],
-   "answerIndex": 1,
-   "explanation": "复数主语用 are"
+   "answer": "B",
+   "explanation": "复数主语用 are",
+   "difficulty": 2,
+   "bloom": "应用",
+   "type": "single_choice",
+   "id": "e4-002"
   },
   {
-   "id": "e4-003",
-   "subject": "英语",
+   "topic_id": "primary-g4-s1-english-K900",
+   "topic_name": "一般现在时与 There be",
    "stem": "“Monday”是星期几？",
    "options": [
     "星期一",
@@ -39,12 +48,16 @@
     "星期日",
     "星期五"
    ],
-   "answerIndex": 0,
-   "explanation": "Monday 是星期一"
+   "answer": "A",
+   "explanation": "Monday 是星期一",
+   "difficulty": 2,
+   "bloom": "应用",
+   "type": "single_choice",
+   "id": "e4-003"
   },
   {
-   "id": "e4-004",
-   "subject": "英语",
+   "topic_id": "primary-g4-s1-english-K900",
+   "topic_name": "一般现在时与 There be",
    "stem": "英文数字 12 是？",
    "options": [
     "twelve",
@@ -52,12 +65,16 @@
     "eleven",
     "two"
    ],
-   "answerIndex": 0,
-   "explanation": "twelve = 12"
+   "answer": "A",
+   "explanation": "twelve = 12",
+   "difficulty": 2,
+   "bloom": "应用",
+   "type": "single_choice",
+   "id": "e4-004"
   },
   {
-   "id": "e4-005",
-   "subject": "英语",
+   "topic_id": "primary-g4-s1-english-K900",
+   "topic_name": "一般现在时与 There be",
    "stem": "“in front of”是什么意思？",
    "options": [
     "在……前面",
@@ -65,12 +82,16 @@
     "在……上面",
     "在……里面"
    ],
-   "answerIndex": 0,
-   "explanation": "front 是前面"
+   "answer": "A",
+   "explanation": "front 是前面",
+   "difficulty": 2,
+   "bloom": "应用",
+   "type": "single_choice",
+   "id": "e4-005"
   },
   {
-   "id": "e4-006",
-   "subject": "英语",
+   "topic_id": "primary-g4-s1-english-K900",
+   "topic_name": "一般现在时与 There be",
    "stem": "“swim”的现在分词是？",
    "options": [
     "swiming",
@@ -78,12 +99,16 @@
     "swimed",
     "swims"
    ],
-   "answerIndex": 1,
-   "explanation": "双写 m 再加 ing"
+   "answer": "B",
+   "explanation": "双写 m 再加 ing",
+   "difficulty": 2,
+   "bloom": "应用",
+   "type": "single_choice",
+   "id": "e4-006"
   },
   {
-   "id": "e4-007",
-   "subject": "英语",
+   "topic_id": "primary-g4-s1-english-K900",
+   "topic_name": "一般现在时与 There be",
    "stem": "Which season do you like? 问的是什么？",
    "options": [
     "季节",
@@ -91,12 +116,16 @@
     "颜色",
     "学科"
    ],
-   "answerIndex": 0,
-   "explanation": "season 是季节"
+   "answer": "A",
+   "explanation": "season 是季节",
+   "difficulty": 2,
+   "bloom": "应用",
+   "type": "single_choice",
+   "id": "e4-007"
   },
   {
-   "id": "e4-008",
-   "subject": "英语",
+   "topic_id": "primary-g4-s1-english-K900",
+   "topic_name": "一般现在时与 There be",
    "stem": "“windy”是什么意思？",
    "options": [
     "有风的",
@@ -104,8 +133,6353 @@
     "下雪的",
     "晴朗的"
    ],
-   "answerIndex": 0,
-   "explanation": "wind + y 表示有风"
+   "answer": "A",
+   "explanation": "wind + y 表示有风",
+   "difficulty": 2,
+   "bloom": "应用",
+   "type": "single_choice",
+   "id": "e4-008"
+  },
+  {
+   "topic_id": "primary-g4-s2-english-K057",
+   "topic_name": "Where's she from?",
+   "stem": "你向同伴询问男生Jack来自哪个国家，应使用哪个问句？",
+   "options": [
+    "Where's she from?",
+    "What's your name?",
+    "Where do you live?",
+    "Where's he from?"
+   ],
+   "answer": "D",
+   "explanation": "题目要求询问男生来源，用Where's he from?；其余问句分别询问女生来源、对方姓名和对方居住地。",
+   "difficulty": 1,
+   "bloom": "记忆",
+   "type": "single_choice",
+   "id": "pohw-CC06439"
+  },
+  {
+   "topic_id": "primary-g4-s2-english-K057",
+   "topic_name": "Where's she from?",
+   "stem": "你想向同伴确认女生Ella是否来自澳大利亚。哪一句符合这一目的？",
+   "options": [
+    "Is he from Australia?",
+    "Where's she from?",
+    "Is she from Australia?",
+    "Where are you from?"
+   ],
+   "answer": "C",
+   "explanation": "确认一位女生是否来自澳大利亚，用Is she from Australia?；Where's she from?是询问来源，不是确认指定国家。",
+   "difficulty": 3,
+   "bloom": "应用",
+   "type": "single_choice",
+   "id": "pohw-CC06440"
+  },
+  {
+   "topic_id": "primary-g4-s2-english-K040",
+   "topic_name": "I'm from Britain.",
+   "stem": "你扮演的虚构角色名叫Lucy。对方问：“What's your name?” 应选择哪一句？",
+   "options": [
+    "I'm from Lucy.",
+    "My name's Lucy.",
+    "Welcome to Lucy!",
+    "Where are you from?"
+   ],
+   "answer": "B",
+   "explanation": "What's your name?询问姓名。My name's Lucy.与指定姓名一致，其余选项不构成正确的姓名回答。",
+   "difficulty": 2,
+   "bloom": "理解",
+   "type": "single_choice",
+   "id": "pohw-CC06441"
+  },
+  {
+   "topic_id": "primary-g4-s2-english-K053",
+   "topic_name": "Try yourself.",
+   "stem": "在故事句子“They have a good idea.”中，idea的中文意思是什么？",
+   "options": [
+    "人们",
+    "衣服",
+    "主意",
+    "冬天"
+   ],
+   "answer": "C",
+   "explanation": "idea表示主意；人们是people，衣服是clothes，冬天是winter。原题用英文选项回答中文词义，现已修正。",
+   "difficulty": 2,
+   "bloom": "理解",
+   "type": "single_choice",
+   "id": "pohw-CC06442"
+  },
+  {
+   "topic_id": "primary-g4-s2-english-K031",
+   "topic_name": "Again, please!",
+   "stem": "在本课字母例词中，哪个单词与warm一样以字母w开头？",
+   "options": [
+    "music",
+    "jump",
+    "well",
+    "June"
+   ],
+   "answer": "C",
+   "explanation": "well以w开头，与warm相同；jump和June以j开头，music以m开头。",
+   "difficulty": 1,
+   "bloom": "记忆",
+   "type": "single_choice",
+   "id": "pohw-CC06443"
+  },
+  {
+   "topic_id": "primary-g4-s2-english-K031",
+   "topic_name": "Again, please!",
+   "stem": "按照本课例词的读音，哪个单词中的字母u与music中的字母u读音相同？",
+   "options": [
+    "jump",
+    "cute",
+    "June",
+    "July"
+   ],
+   "answer": "B",
+   "explanation": "本课例词music和cute中的字母u都读作/juː/；其余三个词中的u不读这个音。",
+   "difficulty": 3,
+   "bloom": "应用",
+   "type": "single_choice",
+   "id": "pohw-CC06444"
+  },
+  {
+   "topic_id": "primary-g4-s2-english-K053",
+   "topic_name": "Try yourself.",
+   "stem": "故事介绍Riceland的人们：“The people of Riceland grow rice. They can't make clothes.” 这两句说明他们不会做什么？",
+   "options": [
+    "种稻米",
+    "做衣服",
+    "住在城市里",
+    "介绍姓名"
+   ],
+   "answer": "B",
+   "explanation": "can't make clothes表示不会做衣服；grow rice才是种稻米，其他选项未由该句表达。",
+   "difficulty": 2,
+   "bloom": "理解",
+   "type": "single_choice",
+   "id": "pohw-CC06445"
+  },
+  {
+   "topic_id": "primary-g4-s2-english-K053",
+   "topic_name": "Try yourself.",
+   "stem": "故事原句是“They exchange rice and clothes.”。其中exchange表示什么？",
+   "options": [
+    "衣服",
+    "成为",
+    "种植",
+    "交换"
+   ],
+   "answer": "D",
+   "explanation": "exchange在故事中表示交换；rice and clothes是交换的物品，不是这个动词的含义。",
+   "difficulty": 3,
+   "bloom": "应用",
+   "type": "single_choice",
+   "id": "pohw-CC06446"
+  },
+  {
+   "topic_id": "primary-g4-s2-english-K053",
+   "topic_name": "Try yourself.",
+   "stem": "故事连续写道：“They exchange rice and clothes. They become good friends.” 按这两句的叙述顺序，哪一项正确？",
+   "options": [
+    "先成为朋友，后想出交换主意",
+    "先交换物品，后成为朋友",
+    "只交换物品，没有成为朋友",
+    "只成为朋友，没有交换物品"
+   ],
+   "answer": "B",
+   "explanation": "给出的叙述先写exchange，再写become good friends，因此应选先交换、后成为朋友；其他选项颠倒或否认了原句信息。",
+   "difficulty": 3,
+   "bloom": "应用",
+   "type": "single_choice",
+   "id": "pohw-CC06447"
+  },
+  {
+   "topic_id": "primary-g4-s2-english-K039",
+   "topic_name": "I live in Beijing.",
+   "stem": "整理“城市名称”卡片时，下列哪一项应放入城市组，而不是国家组？",
+   "options": [
+    "India",
+    "Washington D.C.",
+    "France",
+    "Australia"
+   ],
+   "answer": "B",
+   "explanation": "Washington D.C.是本课城市名称；另外三个选项都是国家名称。",
+   "difficulty": 1,
+   "bloom": "记忆",
+   "type": "single_choice",
+   "id": "pohw-CC06448"
+  },
+  {
+   "topic_id": "primary-g4-s2-english-K040",
+   "topic_name": "I'm from Britain.",
+   "stem": "新朋友刚来到中国，你想明确表达“欢迎来到中国！”，应选哪一句？",
+   "options": [
+    "What's your name?",
+    "I'm from China.",
+    "Nice to meet you.",
+    "Welcome to China!"
+   ],
+   "answer": "D",
+   "explanation": "Welcome to China!明确表示欢迎来到中国；其余分别是问姓名、介绍来源和初次见面问候。",
+   "difficulty": 1,
+   "bloom": "记忆",
+   "type": "single_choice",
+   "id": "pohw-CC06449"
+  },
+  {
+   "topic_id": "primary-g4-s2-english-K031",
+   "topic_name": "Again, please!",
+   "stem": "虚构角色Nora来自加拿大，现在住在伦敦。她的哪段介绍准确表达了这两条信息？",
+   "options": [
+    "I'm from London. I live in Canada.",
+    "I'm from Canada. I live in London.",
+    "I'm from Canada. I live in Beijing.",
+    "I'm from Britain. I live in London."
+   ],
+   "answer": "B",
+   "explanation": "来源为Canada，居住地为London，必须分别用from和live in表达；二者不必被强行配成固定国家与城市组合。",
+   "difficulty": 3,
+   "bloom": "应用",
+   "type": "single_choice",
+   "id": "pohw-CC06450"
+  },
+  {
+   "topic_id": "primary-g4-s2-english-K053",
+   "topic_name": "Try yourself.",
+   "stem": "虚构角色介绍说：“My name's Anna. I'm from Britain. I live in London.” 制作她的信息卡时，“姓名”一栏应填写什么？",
+   "options": [
+    "China",
+    "Britain",
+    "London",
+    "Anna"
+   ],
+   "answer": "D",
+   "explanation": "My name's后面给出姓名Anna；Britain是来源国家，London是居住城市，China并未出现在角色信息中。",
+   "difficulty": 3,
+   "bloom": "应用",
+   "type": "single_choice",
+   "id": "pohw-CC06451"
+  },
+  {
+   "topic_id": "primary-g4-s2-english-K053",
+   "topic_name": "Try yourself.",
+   "stem": "虚构角色的信息卡介绍是：“My name's Leo. I'm from Britain. I live in Beijing.” 这段介绍按什么顺序组织信息？",
+   "options": [
+    "先说明姓名，再说明来源国家，最后说明居住城市",
+    "先说明来源国家，再说明姓名，最后说明居住城市",
+    "先说明居住城市，再说明来源国家，最后说明姓名",
+    "只说明姓名，没有说明国家和城市"
+   ],
+   "answer": "A",
+   "explanation": "My name's介绍姓名，I'm from介绍来源，I live in介绍居住地，顺序与第一项一致。",
+   "difficulty": 3,
+   "bloom": "应用",
+   "type": "single_choice",
+   "id": "pohw-CC06452"
+  },
+  {
+   "topic_id": "primary-g4-s2-english-K057",
+   "topic_name": "Where's she from?",
+   "stem": "要把男生角色的来源国家记为“澳大利亚”，国家信息栏应选择哪个英文名称？",
+   "options": [
+    "India",
+    "France",
+    "Australia",
+    "Britain"
+   ],
+   "answer": "C",
+   "explanation": "Australia表示澳大利亚；India、France、Britain分别表示印度、法国和英国。",
+   "difficulty": 3,
+   "bloom": "应用",
+   "type": "single_choice",
+   "id": "pohw-CC06453"
+  },
+  {
+   "topic_id": "primary-g4-s2-english-K039",
+   "topic_name": "I live in Beijing.",
+   "stem": "角色Amy想知道新朋友现在住在哪座城市，而不是来自哪个国家。她应使用哪个问句？",
+   "options": [
+    "What's your name?",
+    "Where are you from?",
+    "Where do you live?",
+    "Where's she from?"
+   ],
+   "answer": "C",
+   "explanation": "要询问居住城市，应选Where do you live?；其余分别询问来源、姓名和女生来源。",
+   "difficulty": 2,
+   "bloom": "理解",
+   "type": "single_choice",
+   "id": "pohw-CC06454"
+  },
+  {
+   "topic_id": "primary-g4-s2-english-K031",
+   "topic_name": "Again, please!",
+   "stem": "角色Anna来自印度。她要用第一人称说明自己来自哪个国家，应选择哪一句？",
+   "options": [
+    "I live in India.",
+    "She's from India.",
+    "I'm from India.",
+    "My name's Anna."
+   ],
+   "answer": "C",
+   "explanation": "题目指定说话者来自印度，应使用I'm from India.；其余选项分别表示居住地、她的来源或姓名。",
+   "difficulty": 3,
+   "bloom": "应用",
+   "type": "single_choice",
+   "id": "pohw-CC06455"
+  },
+  {
+   "topic_id": "primary-g4-s2-english-K039",
+   "topic_name": "I live in Beijing.",
+   "stem": "角色Ben介绍说：“I'm from Canada. I live in Ottawa.” 他明确说自己住在哪座城市？",
+   "options": [
+    "Beijing",
+    "London",
+    "Canada",
+    "Ottawa"
+   ],
+   "answer": "D",
+   "explanation": "from Canada说明来源；live in Ottawa明确说明居住城市是Ottawa，不能把Canada当成居住城市答案。",
+   "difficulty": 3,
+   "bloom": "应用",
+   "type": "single_choice",
+   "id": "pohw-CC06456"
+  },
+  {
+   "topic_id": "primary-g4-s2-english-K057",
+   "topic_name": "Where's she from?",
+   "stem": "角色Paul是男生，来自France。有人问：“Is he from France?” 哪个简短回答与角色信息一致？",
+   "options": [
+    "No, he isn't.",
+    "Yes, she is.",
+    "Yes, he is.",
+    "No, she isn't."
+   ],
+   "answer": "C",
+   "explanation": "男生确实来自法国，应肯定回答；问句主语是he，不能在简短回答中改成she。",
+   "difficulty": 3,
+   "bloom": "应用",
+   "type": "single_choice",
+   "id": "pohw-CC06457"
+  },
+  {
+   "topic_id": "primary-g4-s2-english-K057",
+   "topic_name": "Where's she from?",
+   "stem": "角色卡写着：Eva，女生，来自India。别人问Eva来自哪里，应选择哪一句介绍她？",
+   "options": [
+    "He's from India.",
+    "She's from France.",
+    "She's from India.",
+    "Where's she from?"
+   ],
+   "answer": "C",
+   "explanation": "女生用she，印度用India；其余选项改变了性别或国家，或没有作答。",
+   "difficulty": 2,
+   "bloom": "理解",
+   "type": "single_choice",
+   "id": "pohw-CC06458"
+  },
+  {
+   "topic_id": "primary-g4-s2-english-K031",
+   "topic_name": "Again, please!",
+   "stem": "角色卡写着：Tom，男生，来自France。要向同伴介绍他的来源，应选哪一句？",
+   "options": [
+    "She's from France.",
+    "He's from Canada.",
+    "He's from France.",
+    "I live in France."
+   ],
+   "answer": "C",
+   "explanation": "男生用he，来自法国用from France；其余选项分别弄错性别、国家或改成居住信息。",
+   "difficulty": 3,
+   "bloom": "应用",
+   "type": "single_choice",
+   "id": "pohw-CC06459"
+  },
+  {
+   "topic_id": "primary-g4-s2-english-K040",
+   "topic_name": "I'm from Britain.",
+   "stem": "角色卡说明你扮演的人物来自中国。朋友问：“Where are you from?” 你应如何按角色信息回答？",
+   "options": [
+    "I'm from Canada.",
+    "She's from China.",
+    "I'm from China.",
+    "Where are you from?"
+   ],
+   "answer": "C",
+   "explanation": "角色来自中国，应以第一人称回答I'm from China.；其他选项改变了国家或人物，或仍在提问。",
+   "difficulty": 2,
+   "bloom": "理解",
+   "type": "single_choice",
+   "id": "pohw-CC06460"
+  },
+  {
+   "topic_id": "primary-g4-s2-english-K031",
+   "topic_name": "Again, please!",
+   "stem": "角色卡说明女生Rose来自China，不来自India。别人问：“Is she from India?” 请选择与信息一致的简短回答。",
+   "options": [
+    "No, he isn't.",
+    "Yes, she is.",
+    "Yes, he is.",
+    "No, she isn't."
+   ],
+   "answer": "D",
+   "explanation": "已知女生不来自印度，因此应否定回答；问句主语是she，回答仍用she。",
+   "difficulty": 3,
+   "bloom": "应用",
+   "type": "single_choice",
+   "id": "pohw-CC06461"
+  },
+  {
+   "topic_id": "primary-g4-s2-english-K033",
+   "topic_name": "Can you clean the windows?",
+   "stem": "Ben会擦自己的鞋。哪一句是对这一能力的肯定陈述，而不是描述当前动作或提出问题？",
+   "options": [
+    "Ben can clean his shoes.",
+    "Ben is cleaning his shoes.",
+    "Ben can’t clean his shoes.",
+    "Can Ben clean his shoes?"
+   ],
+   "answer": "A",
+   "explanation": "题目要求陈述Ben会擦自己的鞋。第一项表达能力；第二项表达正在擦；第三项表示不会；第四项是问句。",
+   "difficulty": 3,
+   "bloom": "应用",
+   "type": "single_choice",
+   "id": "pohw-CC06462"
+  },
+  {
+   "topic_id": "primary-g4-s2-english-K056",
+   "topic_name": "What's mum doing?",
+   "stem": "Ben是一名男孩，现在正在浇花。哪句话准确描述他此刻的动作？",
+   "options": [
+    "He’s watering the flowers.",
+    "She’s watering the flowers.",
+    "He can water the flowers.",
+    "He’s washing the dishes."
+   ],
+   "answer": "A",
+   "explanation": "题干明确Ben是男孩且正在浇花。第一项人物和动作均正确；第二项代词错误，第三项表达能力，第四项动作错误。",
+   "difficulty": 3,
+   "bloom": "应用",
+   "type": "single_choice",
+   "id": "pohw-CC06463"
+  },
+  {
+   "topic_id": "primary-g4-s2-english-K031",
+   "topic_name": "Again, please!",
+   "stem": "his中的字母s发/z/。下面哪个词也含有发/z/的字母s？",
+   "options": [
+    "yellow",
+    "egg",
+    "please",
+    "your"
+   ],
+   "answer": "C",
+   "explanation": "please中的s与his中的s均发/z/。其余选项不含s，不符合题意。",
+   "difficulty": 3,
+   "bloom": "应用",
+   "type": "single_choice",
+   "id": "pohw-CC06464"
+  },
+  {
+   "topic_id": "primary-g4-s2-english-K031",
+   "topic_name": "Again, please!",
+   "stem": "yes中的字母y发/j/。哪个选项也含有发/j/的字母y？",
+   "options": [
+    "his",
+    "help",
+    "bed",
+    "year"
+   ],
+   "answer": "D",
+   "explanation": "year中的y与yes中的y均发/j/。his不含y；bed和help也不含y。",
+   "difficulty": 1,
+   "bloom": "记忆",
+   "type": "single_choice",
+   "id": "pohw-CC06465"
+  },
+  {
+   "topic_id": "primary-g4-s2-english-K056",
+   "topic_name": "What's mum doing?",
+   "stem": "两位女孩都没有在玩电脑游戏。有人问她们“Are you playing computer games?”，她们一起作规范的否定简答，应选哪项？",
+   "options": [
+    "No, I’m not.",
+    "No, we aren’t.",
+    "No, we can’t.",
+    "Yes, we are."
+   ],
+   "answer": "B",
+   "explanation": "两位女孩共同作答使用we；问题以Are开头，否定简答用aren’t。其余选项与人数、问句形式或否定事实不符。",
+   "difficulty": 3,
+   "bloom": "应用",
+   "type": "single_choice",
+   "id": "pohw-CC06466"
+  },
+  {
+   "topic_id": "primary-g4-s2-english-K056",
+   "topic_name": "What's mum doing?",
+   "stem": "今天是妈妈的生日。你想直接向她送上生日祝福，应说哪句话？",
+   "options": [
+    "Wait a minute, mum.",
+    "Lunch is ready, mum.",
+    "Happy birthday, mum!",
+    "Come and help, mum."
+   ],
+   "answer": "C",
+   "explanation": "Happy birthday, mum!是对妈妈的生日祝福。其他选项分别表示稍等、午饭准备好了和过来帮忙，不是生日祝福。",
+   "difficulty": 1,
+   "bloom": "记忆",
+   "type": "single_choice",
+   "id": "pohw-CC06467"
+  },
+  {
+   "topic_id": "primary-g4-s2-english-K033",
+   "topic_name": "Can you clean the windows?",
+   "stem": "你不会擦窗户。朋友问“Can you clean the windows?”，哪一项是正确的否定简答？",
+   "options": [
+    "Yes, I can.",
+    "No, I’m not.",
+    "No, I can’t.",
+    "No, I don’t."
+   ],
+   "answer": "C",
+   "explanation": "题目明确不会擦窗户，应用can的否定简答。Yes, I can.与事实相反；另外两项分别使用am和do，不能作此能力问句的规范简答。",
+   "difficulty": 2,
+   "bloom": "理解",
+   "type": "single_choice",
+   "id": "pohw-CC06468"
+  },
+  {
+   "topic_id": "primary-g4-s2-english-K054",
+   "topic_name": "What are you doing?",
+   "stem": "你不知道爸爸在哪里，想询问他的位置，而不是询问他的动作或能力。应选择哪句话？",
+   "options": [
+    "What’s dad doing?",
+    "Where’s dad?",
+    "Can dad cook?",
+    "Are you cooking, dad?"
+   ],
+   "answer": "B",
+   "explanation": "题目要求询问爸爸的位置，只有Where’s dad?符合。其余分别询问动作、能力和是否正在做饭。",
+   "difficulty": 1,
+   "bloom": "记忆",
+   "type": "single_choice",
+   "id": "pohw-CC06469"
+  },
+  {
+   "topic_id": "primary-g4-s2-english-K033",
+   "topic_name": "Can you clean the windows?",
+   "stem": "你想提议“让我们一起做家务吧”，应选哪句话？",
+   "options": [
+    "Where’s dad?",
+    "I’m watering the flowers.",
+    "Lunch is ready.",
+    "Let’s do housework."
+   ],
+   "answer": "D",
+   "explanation": "Let’s do housework.是提议一起做家务。其他选项分别询问位置、描述浇花和表示午饭准备好了。",
+   "difficulty": 1,
+   "bloom": "记忆",
+   "type": "single_choice",
+   "id": "pohw-CC06470"
+  },
+  {
+   "topic_id": "primary-g4-s2-english-K054",
+   "topic_name": "What are you doing?",
+   "stem": "你想确认朋友此刻是否正在浇花，而不是问他会不会浇花。应选哪一句？",
+   "options": [
+    "Can you water the flowers?",
+    "Where are the flowers?",
+    "Are you watering the flowers?",
+    "I’m watering the flowers."
+   ],
+   "answer": "C",
+   "explanation": "询问对方是否正在浇花，用Are you watering the flowers?。第一项问能力，第三项问位置，第四项是描述自己的陈述句。",
+   "difficulty": 3,
+   "bloom": "应用",
+   "type": "single_choice",
+   "id": "pohw-CC06471"
+  },
+  {
+   "topic_id": "primary-g4-s2-english-K053",
+   "topic_name": "Try yourself.",
+   "stem": "你暂时不能马上过去，想请同伴“稍等片刻”。应选哪句话？",
+   "options": [
+    "Come and have a look.",
+    "Thank you.",
+    "Happy birthday!",
+    "Wait a minute."
+   ],
+   "answer": "D",
+   "explanation": "Wait a minute.表示稍等片刻。其他选项分别表示过来看看、谢谢和生日快乐。",
+   "difficulty": 1,
+   "bloom": "记忆",
+   "type": "single_choice",
+   "id": "pohw-CC06472"
+  },
+  {
+   "topic_id": "primary-g4-s2-english-K053",
+   "topic_name": "Try yourself.",
+   "stem": "你正在做家务，想请同伴“过来帮忙”。哪句话准确表达这一意思？",
+   "options": [
+    "Wait a minute.",
+    "Lunch is ready.",
+    "I’m here.",
+    "Come and help."
+   ],
+   "answer": "D",
+   "explanation": "Come and help.表示“过来帮忙”。其余分别表示稍等、午饭准备好了、我在这里。",
+   "difficulty": 1,
+   "bloom": "记忆",
+   "type": "single_choice",
+   "id": "pohw-CC06473"
+  },
+  {
+   "topic_id": "primary-g4-s2-english-K033",
+   "topic_name": "Can you clean the windows?",
+   "stem": "做家务时，小林说“I can’t do it well.”。这句话准确表达了什么意思？",
+   "options": [
+    "要求别人停止做家务。",
+    "不能把这件事做好。",
+    "能把这件事做好。",
+    "不愿意做任何家务。"
+   ],
+   "answer": "B",
+   "explanation": "can’t do it well表示不能做好。它不等于能做好，也不是不愿做，更没有要求别人停止。",
+   "difficulty": 2,
+   "bloom": "理解",
+   "type": "single_choice",
+   "id": "pohw-CC06474"
+  },
+  {
+   "topic_id": "primary-g4-s2-english-K031",
+   "topic_name": "Again, please!",
+   "stem": "单词help中字母e发/e/。下面哪个词也含有发/e/的字母e？",
+   "options": [
+    "your",
+    "his",
+    "get",
+    "yellow"
+   ],
+   "answer": "C",
+   "explanation": "get中的字母e与help中的e均发/e/。其余选项不含字母e，不符合题目要求。",
+   "difficulty": 3,
+   "bloom": "应用",
+   "type": "single_choice",
+   "id": "pohw-CC06475"
+  },
+  {
+   "topic_id": "primary-g4-s2-english-K053",
+   "topic_name": "Try yourself.",
+   "stem": "故事片段：妈妈拿着衣篮说“I’m going to wash clothes.”，随后叫“Come and help, Sue.”。谁说自己准备洗衣服？",
+   "options": [
+    "Danny",
+    "爸爸",
+    "妈妈",
+    "Sue"
+   ],
+   "answer": "C",
+   "explanation": "题干已说明拿衣篮并说这句话的是妈妈。Sue是被请求帮忙的人，不能误认成发言者。",
+   "difficulty": 2,
+   "bloom": "理解",
+   "type": "single_choice",
+   "id": "pohw-CC06476"
+  },
+  {
+   "topic_id": "primary-g4-s2-english-K031",
+   "topic_name": "Again, please!",
+   "stem": "朋友已经告诉你他正在做饭。你想进一步询问他正在制作什么食物，应选哪句话？",
+   "options": [
+    "Where are you?",
+    "Can you cook?",
+    "Are you cleaning your shoes?",
+    "What are you cooking?"
+   ],
+   "answer": "D",
+   "explanation": "题目要求进一步询问正在制作什么食物，故选What are you cooking?。其他选项分别问位置、能力、是否正在擦鞋。",
+   "difficulty": 3,
+   "bloom": "应用",
+   "type": "single_choice",
+   "id": "pohw-CC06477"
+  },
+  {
+   "topic_id": "primary-g4-s2-english-K054",
+   "topic_name": "What are you doing?",
+   "stem": "朋友问你“Are you cooking the meal?”，你现在没有做饭。选择规范的否定简答。",
+   "options": [
+    "No, I can’t.",
+    "Yes, I am.",
+    "No, I don’t.",
+    "No, I’m not."
+   ],
+   "answer": "D",
+   "explanation": "对Are you…?作个人否定简答用No, I’m not.。Yes, I am.与事实相反；其余两项使用can和do，不符合问句。",
+   "difficulty": 2,
+   "bloom": "理解",
+   "type": "single_choice",
+   "id": "pohw-CC06478"
+  },
+  {
+   "topic_id": "primary-g4-s2-english-K053",
+   "topic_name": "Try yourself.",
+   "stem": "爸爸说“I’m going to clean the windows. Come and help.”。根据这两句话，爸爸准备做哪件家务？",
+   "options": [
+    "洗衣服",
+    "擦窗户",
+    "做饭",
+    "浇花"
+   ],
+   "answer": "B",
+   "explanation": "clean the windows表示擦窗户；其他三项对应洗衣、做饭和浇花，与所给句子不符。",
+   "difficulty": 2,
+   "bloom": "理解",
+   "type": "single_choice",
+   "id": "pohw-CC06479"
+  },
+  {
+   "topic_id": "primary-g4-s2-english-K053",
+   "topic_name": "Try yourself.",
+   "stem": "选择表示“孩子们”的英语单词。",
+   "options": [
+    "dishes",
+    "children",
+    "flowers",
+    "windows"
+   ],
+   "answer": "B",
+   "explanation": "children表示孩子们。flowers是花，windows是窗户，dishes是盘碟。",
+   "difficulty": 1,
+   "bloom": "记忆",
+   "type": "single_choice",
+   "id": "pohw-CC06480"
+  },
+  {
+   "topic_id": "primary-g4-s2-english-K056",
+   "topic_name": "What's mum doing?",
+   "stem": "选择语法正确、用于询问爸爸正在做什么的问句。",
+   "options": [
+    "What are dad doing?",
+    "What’s dad do?",
+    "What dad is doing?",
+    "What’s dad doing?"
+   ],
+   "answer": "D",
+   "explanation": "单个人物dad用is，What is可缩写为What’s；其他选项分别误用了are、原形do或错误语序。",
+   "difficulty": 1,
+   "bloom": "记忆",
+   "type": "single_choice",
+   "id": "pohw-CC06481"
+  },
+  {
+   "topic_id": "primary-g4-s2-english-K043",
+   "topic_name": "Lesson 2 What would you like?",
+   "stem": "一位客人点餐说：“I’d like rice, chicken and tomato soup.”他选择了哪一组餐食？",
+   "options": [
+    "面条、鸡肉和番茄汤",
+    "米饭、鱼肉和番茄汤",
+    "米饭、鸡肉和番茄汤",
+    "米饭、鸡肉和梨汁"
+   ],
+   "answer": "C",
+   "explanation": "rice是米饭，chicken在点餐中表示鸡肉，tomato soup是番茄汤。其余选项分别替换了食物或汤的名称。",
+   "difficulty": 3,
+   "bloom": "应用",
+   "type": "single_choice",
+   "id": "pohw-CC06482"
+  },
+  {
+   "topic_id": "primary-g4-s2-english-K042",
+   "topic_name": "Lesson 1 I want to eat noodles.",
+   "stem": "一家人正在商量午饭，有人说“Shall we eat out?”这句话表达什么？",
+   "options": [
+    "要求马上回家。",
+    "询问想吃哪种蔬菜。",
+    "提议外出就餐。",
+    "宣布午饭已经结束。"
+   ],
+   "answer": "C",
+   "explanation": "Shall we…?在这里提出建议，eat out表示外出就餐。其余选项分别误解为回家、询问食物和结束午饭。",
+   "difficulty": 3,
+   "bloom": "应用",
+   "type": "single_choice",
+   "id": "pohw-CC06483"
+  },
+  {
+   "topic_id": "primary-g4-s2-english-K045",
+   "topic_name": "Lesson 4 Again, please!",
+   "stem": "下面哪个单词中的字母c发/k/？",
+   "options": [
+    "rice",
+    "nice",
+    "dance",
+    "cold"
+   ],
+   "answer": "D",
+   "explanation": "cold中的c发/k/；nice、rice、dance中的c都发/s/。",
+   "difficulty": 1,
+   "bloom": "记忆",
+   "type": "single_choice",
+   "id": "pohw-CC06484"
+  },
+  {
+   "topic_id": "primary-g4-s2-english-K045",
+   "topic_name": "Lesson 4 Again, please!",
+   "stem": "下面哪个单词中的字母c发/s/？",
+   "options": [
+    "come",
+    "cap",
+    "call",
+    "face"
+   ],
+   "answer": "D",
+   "explanation": "face中的c发/s/；cap、call、come中的c都发/k/。",
+   "difficulty": 1,
+   "bloom": "记忆",
+   "type": "single_choice",
+   "id": "pohw-CC06485"
+  },
+  {
+   "topic_id": "primary-g4-s2-english-K042",
+   "topic_name": "Lesson 1 I want to eat noodles.",
+   "stem": "你想准确表达“我想吃米饭”，应选哪一句？",
+   "options": [
+    "I want to eat fish.",
+    "I like rice.",
+    "I have some rice.",
+    "I want to eat rice."
+   ],
+   "answer": "D",
+   "explanation": "want to eat表示“想吃”，rice表示米饭。其余选项分别表示想吃鱼肉、喜欢米饭和拥有米饭，不等于题目要求。",
+   "difficulty": 1,
+   "bloom": "记忆",
+   "type": "single_choice",
+   "id": "pohw-CC06486"
+  },
+  {
+   "topic_id": "primary-g4-s2-english-K043",
+   "topic_name": "Lesson 2 What would you like?",
+   "stem": "你想礼貌地问客人“您想要一些汤吗？”，应选哪一句？",
+   "options": [
+    "I’d like some soup.",
+    "Have some soup, please.",
+    "Would you like some soup?",
+    "What do you want to eat?"
+   ],
+   "answer": "C",
+   "explanation": "这句礼貌询问是否要一些汤。其余选项分别表达自己的选择、请人喝汤以及询问想吃什么，都不准确对应题意。",
+   "difficulty": 3,
+   "bloom": "应用",
+   "type": "single_choice",
+   "id": "pohw-CC06487"
+  },
+  {
+   "topic_id": "primary-g4-s2-english-K044",
+   "topic_name": "Lesson 3 Would you like something to drink?",
+   "stem": "你想询问朋友是否想喝点什么，应选哪一句问话？",
+   "options": [
+    "What do you want to eat?",
+    "Would you like something to drink?",
+    "Have some fruit, please.",
+    "I’d like some pear juice."
+   ],
+   "answer": "B",
+   "explanation": "to drink表示喝，整句询问是否需要饮品。其余选项分别询问食物、招待水果和表达想要梨汁。",
+   "difficulty": 1,
+   "bloom": "记忆",
+   "type": "single_choice",
+   "id": "pohw-CC06488"
+  },
+  {
+   "topic_id": "primary-g4-s2-english-K042",
+   "topic_name": "Lesson 1 I want to eat noodles.",
+   "stem": "你想问同伴“你想吃什么？”，应该说哪一句？",
+   "options": [
+    "What’s your name?",
+    "I’m hungry.",
+    "What do you want to eat?",
+    "Thank you."
+   ],
+   "answer": "C",
+   "explanation": "目标是询问想吃什么，因此选含want to eat的问句。其余选项分别表示询问姓名、表达饥饿和致谢。",
+   "difficulty": 1,
+   "bloom": "记忆",
+   "type": "single_choice",
+   "id": "pohw-CC06489"
+  },
+  {
+   "topic_id": "primary-g4-s2-english-K044",
+   "topic_name": "Lesson 3 Would you like something to drink?",
+   "stem": "你把一盘水果递给客人，想说“请吃些水果”，应选哪一句？",
+   "options": [
+    "I’d like some fruit.",
+    "Would you like something to drink?",
+    "Thank you.",
+    "Have some fruit, please."
+   ],
+   "answer": "D",
+   "explanation": "这句表示请吃些水果；其余选项分别是自己的选择、询问饮品和致谢，不是所要求的招待用语。",
+   "difficulty": 1,
+   "bloom": "记忆",
+   "type": "single_choice",
+   "id": "pohw-CC06490"
+  },
+  {
+   "topic_id": "primary-g4-s2-english-K045",
+   "topic_name": "Lesson 4 Again, please!",
+   "stem": "你正在和同伴制定下周菜单，想明确询问星期一想要什么，应选哪一句？",
+   "options": [
+    "Would you like something to drink?",
+    "What would you like for Monday?",
+    "What would you like for Tuesday?",
+    "Wait a minute, please."
+   ],
+   "answer": "B",
+   "explanation": "for Monday指向星期一，符合询问周一菜单的要求；其余选项分别询问饮品、星期二菜单或提出稍等要求。",
+   "difficulty": 3,
+   "bloom": "应用",
+   "type": "single_choice",
+   "id": "pohw-CC06491"
+  },
+  {
+   "topic_id": "primary-g4-s2-english-K042",
+   "topic_name": "Lesson 1 I want to eat noodles.",
+   "stem": "你要用本课句型询问Amy想吃什么。哪一句语序和用词都正确？",
+   "options": [
+    "What you want to eat, Amy?",
+    "What do you want to eat, Amy?",
+    "What does you want to eat, Amy?",
+    "What do you want eat, Amy?"
+   ],
+   "answer": "B",
+   "explanation": "正确语序是What do you want to eat，称呼Amy前用逗号。其余三项分别漏掉do、错用does、漏掉to。",
+   "difficulty": 3,
+   "bloom": "应用",
+   "type": "single_choice",
+   "id": "pohw-CC06492"
+  },
+  {
+   "topic_id": "primary-g4-s2-english-K053",
+   "topic_name": "Try yourself.",
+   "stem": "你要用鱼骨图按“水果、饮品、食物”整理本单元词汇。哪种做法符合这项学习活动的目的？",
+   "options": [
+    "只按单词的长短排列。",
+    "把所有词都放进同一分支。",
+    "先确定类别，再把词语放到相应分支上。",
+    "只数单词数量，不关注词义。"
+   ],
+   "answer": "C",
+   "explanation": "鱼骨图按词义分类整理词汇。先确定水果、饮品、食物等类别，再归类，才有助于复习；按长度排列、全部混放或只数数量都不符合此项分类目标。",
+   "difficulty": 3,
+   "bloom": "应用",
+   "type": "single_choice",
+   "id": "pohw-CC06493"
+  },
+  {
+   "topic_id": "primary-g4-s2-english-K044",
+   "topic_name": "Lesson 3 Would you like something to drink?",
+   "stem": "你要表达“两块小蛋糕”，哪个短语准确且形式正确？",
+   "options": [
+    "two small cake",
+    "a small cake",
+    "two small cakes",
+    "two big cakes"
+   ],
+   "answer": "C",
+   "explanation": "two后用复数cakes，small表示小的。其余选项分别单复数错误、数量不符或大小不符。",
+   "difficulty": 3,
+   "bloom": "应用",
+   "type": "single_choice",
+   "id": "pohw-CC06494"
+  },
+  {
+   "topic_id": "primary-g4-s2-english-K053",
+   "topic_name": "Try yourself.",
+   "stem": "制作词汇鱼骨图，约定Fruit放水果，Drinks放饮品，Food放其他餐食。在这个约定下，banana应放在哪一栏？",
+   "options": [
+    "Monday",
+    "Fruit",
+    "Drinks",
+    "Food"
+   ],
+   "answer": "B",
+   "explanation": "题目已约定水果单列，banana是香蕉，应归入Fruit。Drinks是饮品，Food在本题专指其他餐食，Monday是星期一。",
+   "difficulty": 3,
+   "bloom": "应用",
+   "type": "single_choice",
+   "id": "pohw-CC06495"
+  },
+  {
+   "topic_id": "primary-g4-s2-english-K045",
+   "topic_name": "Lesson 4 Again, please!",
+   "stem": "同伴问“Would you like something to drink?”你想明确回答要一些橙汁，应选哪一句？",
+   "options": [
+    "Yes. I’d like some pear juice.",
+    "I want to eat a banana.",
+    "Yes. I’d like some orange juice.",
+    "I’d like jiaozi."
+   ],
+   "answer": "C",
+   "explanation": "题目明确要橙汁，只有orange juice符合。其余选项分别选择梨汁、香蕉和饺子。",
+   "difficulty": 3,
+   "bloom": "应用",
+   "type": "single_choice",
+   "id": "pohw-CC06496"
+  },
+  {
+   "topic_id": "primary-g4-s2-english-K053",
+   "topic_name": "Try yourself.",
+   "stem": "哪个单词表示“牛肉”？",
+   "options": [
+    "fruit",
+    "soup",
+    "horse",
+    "beef"
+   ],
+   "answer": "D",
+   "explanation": "beef是牛肉；horse是马，soup是汤，fruit是水果。",
+   "difficulty": 1,
+   "bloom": "记忆",
+   "type": "single_choice",
+   "id": "pohw-CC06497"
+  },
+  {
+   "topic_id": "primary-g4-s2-english-K053",
+   "topic_name": "Try yourself.",
+   "stem": "在餐厅里，Fred用“I could eat a horse.”形容自己非常饥饿。这句话应理解为什么？",
+   "options": [
+    "我想骑马。",
+    "我想养马。",
+    "我已经吃饱了。",
+    "我饿极了。"
+   ],
+   "answer": "D",
+   "explanation": "在点餐和饥饿情境中，这个习语表示“我饿极了”，不是骑马、养马或已经吃饱。",
+   "difficulty": 2,
+   "bloom": "理解",
+   "type": "single_choice",
+   "id": "pohw-CC06498"
+  },
+  {
+   "topic_id": "primary-g4-s2-english-K043",
+   "topic_name": "Lesson 2 What would you like?",
+   "stem": "客人说：“I’d like rice and potatoes.”他点了什么？",
+   "options": [
+    "米饭和汤",
+    "米饭和土豆",
+    "面条和土豆",
+    "米饭和鱼肉"
+   ],
+   "answer": "B",
+   "explanation": "rice是米饭，potatoes是土豆；句子没有提到面条、鱼肉或汤。",
+   "difficulty": 3,
+   "bloom": "应用",
+   "type": "single_choice",
+   "id": "pohw-CC06499"
+  },
+  {
+   "topic_id": "primary-g4-s2-english-K044",
+   "topic_name": "Lesson 3 Would you like something to drink?",
+   "stem": "按句首大写、缩写撇号和句末句号的要求检查，哪一句书写完全正确？",
+   "options": [
+    "i’d like some noodles.",
+    "Id like some noodles.",
+    "I’d like some noodles",
+    "I’d like some noodles."
+   ],
+   "answer": "D",
+   "explanation": "正确句子中I大写，I’d有撇号，句末有句号。其余选项分别存在I小写、漏撇号或漏句末标点的问题。",
+   "difficulty": 3,
+   "bloom": "应用",
+   "type": "single_choice",
+   "id": "pohw-CC06500"
+  },
+  {
+   "topic_id": "primary-g4-s2-english-K053",
+   "topic_name": "Try yourself.",
+   "stem": "整理词汇时，约定Fruit放水果，Drinks放饮品，Food放其他餐食。pear juice应归入哪一栏？",
+   "options": [
+    "Food",
+    "Monday",
+    "Fruit",
+    "Drinks"
+   ],
+   "answer": "D",
+   "explanation": "pear juice是梨汁，属于饮品，因此放入Drinks。Fruit用于水果，Food在本题用于其他餐食，Monday不是食物类别。",
+   "difficulty": 3,
+   "bloom": "应用",
+   "type": "single_choice",
+   "id": "pohw-CC06501"
+  },
+  {
+   "topic_id": "primary-g4-s2-english-K044",
+   "topic_name": "Lesson 3 Would you like something to drink?",
+   "stem": "朋友递给你一根香蕉。你接受后想说“谢谢”，应选哪一句？",
+   "options": [
+    "Thank you.",
+    "Wait a minute, please.",
+    "I’m hungry.",
+    "What would you like?"
+   ],
+   "answer": "A",
+   "explanation": "题目明确要求接受并致谢，只有Thank you.表示感谢。其余选项分别表示稍等、饥饿和询问选择。",
+   "difficulty": 1,
+   "bloom": "记忆",
+   "type": "single_choice",
+   "id": "pohw-CC06502"
+  },
+  {
+   "topic_id": "primary-g4-s2-english-K043",
+   "topic_name": "Lesson 2 What would you like?",
+   "stem": "服务员询问你的选择。你想用I’d like表达“我想要一些鸡肉”，应选哪一句？",
+   "options": [
+    "I’d like some fish.",
+    "Have some chicken, please.",
+    "I’d like some chicken.",
+    "What would you like?"
+   ],
+   "answer": "C",
+   "explanation": "I’d like some chicken.准确表示想要一些鸡肉。其余选项分别选择鱼肉、递送鸡肉或反问对方。",
+   "difficulty": 2,
+   "bloom": "理解",
+   "type": "single_choice",
+   "id": "pohw-CC06503"
+  },
+  {
+   "topic_id": "primary-g4-s2-english-K044",
+   "topic_name": "Lesson 3 Would you like something to drink?",
+   "stem": "服务员询问饮品需要。甲说“Yes. I’d like some pear juice.”乙接着说“Me, too.”乙表达了什么？",
+   "options": [
+    "想请别人稍等。",
+    "也想要梨汁。",
+    "不想喝任何饮品。",
+    "只想吃一个梨。"
+   ],
+   "answer": "B",
+   "explanation": "Me, too.表示“我也是”。紧接在想要梨汁的回答后，表示也想要梨汁，而不是改点水果或拒绝饮品。",
+   "difficulty": 3,
+   "bloom": "应用",
+   "type": "single_choice",
+   "id": "pohw-CC06504"
+  },
+  {
+   "topic_id": "primary-g4-s2-english-K043",
+   "topic_name": "Lesson 2 What would you like?",
+   "stem": "服务员说“Wait a minute, please.”，意思是什么？",
+   "options": [
+    "请坐下。",
+    "请稍等。",
+    "谢谢你。",
+    "请快吃。"
+   ],
+   "answer": "B",
+   "explanation": "Wait a minute, please.是请对方稍等，不是催促吃饭、欢迎入座或表示感谢。",
+   "difficulty": 1,
+   "bloom": "记忆",
+   "type": "single_choice",
+   "id": "pohw-CC06505"
+  },
+  {
+   "topic_id": "primary-g4-s2-english-K053",
+   "topic_name": "Try yourself.",
+   "stem": "服务员问“What do you want to eat?”客人回答“I want to eat some beef.”这位客人想吃什么？",
+   "options": [
+    "鸡肉",
+    "土豆",
+    "牛肉",
+    "鱼肉"
+   ],
+   "answer": "C",
+   "explanation": "some beef表示一些牛肉。鸡肉、鱼肉和土豆均未出现在给出的回答中。",
+   "difficulty": 2,
+   "bloom": "理解",
+   "type": "single_choice",
+   "id": "pohw-CC06506"
+  },
+  {
+   "topic_id": "primary-g4-s2-english-K045",
+   "topic_name": "Lesson 4 Again, please!",
+   "stem": "梦境对话中，有人问“What do you want to eat, Danny?”Danny回答“I want to eat a banana.”他想吃什么？",
+   "options": [
+    "饺子",
+    "橙子",
+    "蛋糕",
+    "香蕉"
+   ],
+   "answer": "D",
+   "explanation": "a banana表示一根香蕉；饺子、橙子和蛋糕都不是这句回答中的食物。",
+   "difficulty": 2,
+   "bloom": "理解",
+   "type": "single_choice",
+   "id": "pohw-CC06507"
+  },
+  {
+   "topic_id": "primary-g4-s2-english-K043",
+   "topic_name": "Lesson 2 What would you like?",
+   "stem": "菜单上哪个英语名称表示“番茄汤”？",
+   "options": [
+    "potatoes",
+    "rice",
+    "tomato soup",
+    "chicken"
+   ],
+   "answer": "C",
+   "explanation": "tomato soup表示番茄汤；potatoes是土豆，rice是米饭，chicken是鸡肉。",
+   "difficulty": 1,
+   "bloom": "记忆",
+   "type": "single_choice",
+   "id": "pohw-CC06508"
+  },
+  {
+   "topic_id": "primary-g4-s2-english-K042",
+   "topic_name": "Lesson 1 I want to eat noodles.",
+   "stem": "选择一个词补全“我想吃米饭”：I want ____ eat rice.",
+   "options": [
+    "some",
+    "and",
+    "a",
+    "to"
+   ],
+   "answer": "D",
+   "explanation": "表达“想吃”用want to eat；want后不能直接接eat。其余三个词都不能构成本题句型。",
+   "difficulty": 1,
+   "bloom": "记忆",
+   "type": "single_choice",
+   "id": "pohw-CC06509"
+  },
+  {
+   "topic_id": "primary-g4-s2-english-K035",
+   "topic_name": "Does he often play the violin?",
+   "stem": "Ben是男孩。对“Does Ben often write emails?”作否定简短回答，选哪一句？",
+   "options": [
+    "No, he isn’t.",
+    "No, he does.",
+    "No, he don’t.",
+    "No, he doesn’t."
+   ],
+   "answer": "D",
+   "explanation": "Does开头、询问男孩的问题用No, he doesn’t.作否定简短回答。don’t助动词形式错误，isn’t不匹配，No, he does.肯否搭配错误。",
+   "difficulty": 2,
+   "bloom": "理解",
+   "type": "single_choice",
+   "id": "pohw-CC06510"
+  },
+  {
+   "topic_id": "primary-g4-s2-english-K035",
+   "topic_name": "Does he often play the violin?",
+   "stem": "Lily是女孩，经常拉小提琴。对“Does Lily often play the violin?”作肯定简短回答，选哪一句？",
+   "options": [
+    "Yes, she doesn’t.",
+    "Yes, she does.",
+    "Yes, she is.",
+    "Yes, she do."
+   ],
+   "answer": "B",
+   "explanation": "Lily用she指代，Does问句用does作肯定简短回答。do和is不匹配，Yes, she doesn’t.肯否搭配错误。",
+   "difficulty": 2,
+   "bloom": "理解",
+   "type": "single_choice",
+   "id": "pohw-CC06511"
+  },
+  {
+   "topic_id": "primary-g4-s2-english-K053",
+   "topic_name": "Try yourself.",
+   "stem": "一个孩子邀请爸爸这个周末一起玩，爸爸回答“Sorry. Next weekend.”。其中next weekend表示什么？",
+   "options": [
+    "这个周末",
+    "每天",
+    "下一个周末",
+    "一天"
+   ],
+   "answer": "C",
+   "explanation": "next表示下一个的，所以next weekend是下一个周末；不是这个周末、每天或一天。",
+   "difficulty": 2,
+   "bloom": "理解",
+   "type": "single_choice",
+   "id": "pohw-CC06512"
+  },
+  {
+   "topic_id": "primary-g4-s2-english-K031",
+   "topic_name": "Again, please!",
+   "stem": "一则故事的结尾写着：“Oh! He’s dancing on the drums!” 结尾中的人物正在做什么？",
+   "options": [
+    "He is playing the drums.",
+    "He is climbing the hill.",
+    "He is dancing on the drums.",
+    "He is going fishing."
+   ],
+   "answer": "C",
+   "explanation": "给出的结尾明确说他在鼓上跳舞；其他选项分别是打鼓、爬山和钓鱼，都不是结尾描述的动作。",
+   "difficulty": 3,
+   "bloom": "应用",
+   "type": "single_choice",
+   "id": "pohw-CC06513"
+  },
+  {
+   "topic_id": "primary-g4-s2-english-K053",
+   "topic_name": "Try yourself.",
+   "stem": "一张虚构的爸爸周末记录卡上，鱼竿简图代表“钓鱼”，旁边写着often。根据记录，哪句话准确介绍爸爸的活动？",
+   "options": [
+    "He sometimes goes fishing.",
+    "He often reads books.",
+    "He often goes fishing.",
+    "I often go fishing."
+   ],
+   "answer": "C",
+   "explanation": "题目规定鱼竿代表钓鱼，且标注often，人物是爸爸，应说He often goes fishing.。其他选项改变了频率、活动或人称。",
+   "difficulty": 3,
+   "bloom": "应用",
+   "type": "single_choice",
+   "id": "pohw-CC06514"
+  },
+  {
+   "topic_id": "primary-g4-s2-english-K031",
+   "topic_name": "Again, please!",
+   "stem": "下面哪个词的开头发音与blue的开头/bl/相同？",
+   "options": [
+    "black",
+    "clean",
+    "cloudy",
+    "class"
+   ],
+   "answer": "A",
+   "explanation": "black以/bl/开头；class、clean和cloudy均以/kl/开头。",
+   "difficulty": 1,
+   "bloom": "记忆",
+   "type": "single_choice",
+   "id": "pohw-CC06515"
+  },
+  {
+   "topic_id": "primary-g4-s2-english-K036",
+   "topic_name": "He often plays football.",
+   "stem": "你的妹妹说：“Sometimes I go to the cinema.” 你向朋友介绍妹妹的这项活动，哪一句准确保留了人物、活动和频率？",
+   "options": [
+    "She sometimes goes to the cinema.",
+    "She often goes to the cinema.",
+    "He sometimes goes to the cinema.",
+    "She sometimes goes fishing."
+   ],
+   "answer": "A",
+   "explanation": "题目要求转述妹妹有时去电影院，应用she、sometimes和goes。其他选项分别改变了频率、主语或活动。",
+   "difficulty": 3,
+   "bloom": "应用",
+   "type": "single_choice",
+   "id": "pohw-CC06516"
+  },
+  {
+   "topic_id": "primary-g4-s2-english-K031",
+   "topic_name": "Again, please!",
+   "stem": "哪个词含有读/eɪ/的字母组合ai？",
+   "options": [
+    "blood",
+    "climb",
+    "blow",
+    "rain"
+   ],
+   "answer": "D",
+   "explanation": "rain中的ai读/eɪ/；其余三个词都没有字母组合ai。",
+   "difficulty": 2,
+   "bloom": "理解",
+   "type": "single_choice",
+   "id": "pohw-CC06517"
+  },
+  {
+   "topic_id": "primary-g4-s2-english-K053",
+   "topic_name": "Try yourself.",
+   "stem": "在“Can you play with me?”中，哪个词表示“和……一起”？",
+   "options": [
+    "earn",
+    "busy",
+    "next",
+    "with"
+   ],
+   "answer": "D",
+   "explanation": "play with me表示和我一起玩，其中with表示和……一起；next、busy和earn都不符合这一含义。",
+   "difficulty": 2,
+   "bloom": "理解",
+   "type": "single_choice",
+   "id": "pohw-CC06518"
+  },
+  {
+   "topic_id": "primary-g4-s2-english-K053",
+   "topic_name": "Try yourself.",
+   "stem": "孩子对爸爸说：“Dad, I have 200 dollars for you.” 孩子说他有多少钱可以给爸爸？",
+   "options": [
+    "2 dollars.",
+    "200 dollars.",
+    "100 dollars.",
+    "20 dollars."
+   ],
+   "answer": "B",
+   "explanation": "孩子明确说I have 200 dollars for you.，数额是200美元；其他数额与给出的句子不符。",
+   "difficulty": 2,
+   "bloom": "理解",
+   "type": "single_choice",
+   "id": "pohw-CC06519"
+  },
+  {
+   "topic_id": "primary-g4-s2-english-K053",
+   "topic_name": "Try yourself.",
+   "stem": "孩子问爸爸能不能陪他玩，爸爸回答：“Sorry. I’m very busy. Next weekend.” 哪一项准确说明爸爸给出的理由？",
+   "options": [
+    "爸爸说自己没钱。",
+    "爸爸说自己正在踢足球。",
+    "爸爸说自己要去购物。",
+    "爸爸说自己很忙。"
+   ],
+   "answer": "D",
+   "explanation": "I’m very busy.明确表示爸爸很忙；其余三项均未由所给回答说明。",
+   "difficulty": 2,
+   "bloom": "理解",
+   "type": "single_choice",
+   "id": "pohw-CC06520"
+  },
+  {
+   "topic_id": "primary-g4-s2-english-K052",
+   "topic_name": "Sometimes I do housework.",
+   "stem": "对“Do you often help your mum?”作肯定简短回答，应选哪一句？",
+   "options": [
+    "Yes, I does.",
+    "Yes, I do.",
+    "Yes, I often.",
+    "Yes, I am."
+   ],
+   "answer": "B",
+   "explanation": "Do you…?的肯定简短回答用Yes, I do.。does与I不匹配，am不是对应助动词，often不能代替do。",
+   "difficulty": 2,
+   "bloom": "理解",
+   "type": "single_choice",
+   "id": "pohw-CC06521"
+  },
+  {
+   "topic_id": "primary-g4-s2-english-K052",
+   "topic_name": "Sometimes I do housework.",
+   "stem": "对“Do you often read books at the weekend?”作否定简短回答，应选哪一句？",
+   "options": [
+    "No, I don’t.",
+    "No, I am not.",
+    "No, I do.",
+    "No, I doesn’t."
+   ],
+   "answer": "A",
+   "explanation": "Do you…?的否定简短回答用No, I don’t.。doesn’t与I不匹配，am not不对应Do，No, I do.肯否搭配错误。",
+   "difficulty": 3,
+   "bloom": "应用",
+   "type": "single_choice",
+   "id": "pohw-CC06522"
+  },
+  {
+   "topic_id": "primary-g4-s2-english-K035",
+   "topic_name": "Does he often play the violin?",
+   "stem": "想询问Ben是否经常玩电脑游戏，哪个问句正确？",
+   "options": [
+    "Does Ben often play computer games?",
+    "Do Ben often play computer games?",
+    "Does Ben often plays computer games?",
+    "Does Ben often playing computer games?"
+   ],
+   "answer": "A",
+   "explanation": "Ben是第三人称单数，使用Does，后接play。其他选项分别误用Do、误用plays或误用playing。",
+   "difficulty": 1,
+   "bloom": "记忆",
+   "type": "single_choice",
+   "id": "pohw-CC06523"
+  },
+  {
+   "topic_id": "primary-g4-s2-english-K036",
+   "topic_name": "He often plays football.",
+   "stem": "想询问对方爸爸周末做什么，哪个问句正确？",
+   "options": [
+    "What do your father do at the weekend?",
+    "What does your father does at the weekend?",
+    "What does your father do at the weekend?",
+    "What is your father do at the weekend?"
+   ],
+   "answer": "C",
+   "explanation": "your father是第三人称单数，使用does，后面的do保持原形。其他选项误用了do、does或is。",
+   "difficulty": 2,
+   "bloom": "理解",
+   "type": "single_choice",
+   "id": "pohw-CC06524"
+  },
+  {
+   "topic_id": "primary-g4-s2-english-K052",
+   "topic_name": "Sometimes I do housework.",
+   "stem": "朋友说“Have a nice weekend!”。你想回答“你也一样！”，应选哪一句？",
+   "options": [
+    "You, too!",
+    "Sorry.",
+    "No, I don’t.",
+    "What do you do?"
+   ],
+   "answer": "A",
+   "explanation": "对别人说的周末祝愿表示“你也一样”，用You, too!；其余三项分别表示道歉、否定回答和询问活动，不符合指定意思。",
+   "difficulty": 2,
+   "bloom": "理解",
+   "type": "single_choice",
+   "id": "pohw-CC06525"
+  },
+  {
+   "topic_id": "primary-g4-s2-english-K031",
+   "topic_name": "Again, please!",
+   "stem": "选择准确表达“她有时玩电脑游戏”的句子。",
+   "options": [
+    "She sometimes plays computer games.",
+    "She sometimes play computer games.",
+    "She often plays computer games.",
+    "She sometimes takes pictures."
+   ],
+   "answer": "A",
+   "explanation": "she作主语时用plays，sometimes表示有时。其余选项分别缺少动词词尾、改变频率或改变活动。",
+   "difficulty": 1,
+   "bloom": "记忆",
+   "type": "single_choice",
+   "id": "pohw-CC06526"
+  },
+  {
+   "topic_id": "primary-g4-s2-english-K052",
+   "topic_name": "Sometimes I do housework.",
+   "stem": "选择准确表达“我有时去博物馆”的句子。",
+   "options": [
+    "Sometimes I go to the museum.",
+    "Sometimes I goes to the museum.",
+    "I often go to the museum.",
+    "Sometimes I watch TV."
+   ],
+   "answer": "A",
+   "explanation": "Sometimes表示有时，I后用go。第二项误用goes，第三项改变频率，第四项改变活动；四项中只有第一项准确。",
+   "difficulty": 1,
+   "bloom": "记忆",
+   "type": "single_choice",
+   "id": "pohw-CC06527"
+  },
+  {
+   "topic_id": "primary-g4-s2-english-K052",
+   "topic_name": "Sometimes I do housework.",
+   "stem": "选择准确表达“我有时看电视”的句子。",
+   "options": [
+    "I sometimes watches TV.",
+    "I often watch TV.",
+    "I sometimes watch TV.",
+    "I sometimes do housework."
+   ],
+   "answer": "C",
+   "explanation": "I sometimes watch TV.正确表达我有时看电视。其他选项分别误用watches、改成经常或改为做家务。",
+   "difficulty": 2,
+   "bloom": "理解",
+   "type": "single_choice",
+   "id": "pohw-CC06528"
+  },
+  {
+   "topic_id": "primary-g4-s2-english-K036",
+   "topic_name": "He often plays football.",
+   "stem": "选择正确表达“她经常去电影院”的句子。",
+   "options": [
+    "She often go to the cinema.",
+    "She often goes to the cinema.",
+    "She often goes to cinema.",
+    "She often going to the cinema."
+   ],
+   "answer": "B",
+   "explanation": "She对应goes，“去电影院”用go to the cinema。其他选项分别误用go、漏the或用going代替谓语。",
+   "difficulty": 1,
+   "bloom": "记忆",
+   "type": "single_choice",
+   "id": "pohw-CC06529"
+  },
+  {
+   "topic_id": "primary-g4-s2-english-K036",
+   "topic_name": "He often plays football.",
+   "stem": "选择表示“通常”的英语单词。",
+   "options": [
+    "usually",
+    "sometimes",
+    "weekend",
+    "often"
+   ],
+   "answer": "A",
+   "explanation": "usually表示通常；sometimes表示有时，often表示经常，weekend表示周末。",
+   "difficulty": 1,
+   "bloom": "记忆",
+   "type": "single_choice",
+   "id": "pohw-CC06530"
+  },
+  {
+   "topic_id": "primary-g4-s2-english-K031",
+   "topic_name": "Again, please!",
+   "stem": "please和plane开头相同的字母组合是哪一个？",
+   "options": [
+    "oo",
+    "fl",
+    "ea",
+    "pl"
+   ],
+   "answer": "D",
+   "explanation": "please与plane开头都有pl，读/pl/。",
+   "difficulty": 1,
+   "bloom": "记忆",
+   "type": "single_choice",
+   "id": "pohw-CC06531"
+  },
+  {
+   "topic_id": "primary-g4-s2-english-K038",
+   "topic_name": "How much is this shirt?",
+   "stem": "一件衬衫标价40元。顾客问“How much is this shirt?”，正确回答是哪一句？",
+   "options": [
+    "It’s fifty yuan.",
+    "It’s forty yuan.",
+    "They’re forty yuan.",
+    "Yes, we do."
+   ],
+   "answer": "B",
+   "explanation": "shirt是单数，回答用It’s；40用forty表达。",
+   "difficulty": 2,
+   "bloom": "理解",
+   "type": "single_choice",
+   "id": "pohw-CC06532"
+  },
+  {
+   "topic_id": "primary-g4-s2-english-K038",
+   "topic_name": "How much is this shirt?",
+   "stem": "一位妈妈想说孩子试穿的衬衫“很合你身”，应选哪一句？",
+   "options": [
+    "It fits you well.",
+    "I like the colour.",
+    "It’s fifty yuan.",
+    "I’ll take it."
+   ],
+   "answer": "A",
+   "explanation": "It fits you well.表示衣物很合身；其余选项分别说明颜色喜好、价格和购买决定。",
+   "difficulty": 1,
+   "bloom": "记忆",
+   "type": "single_choice",
+   "id": "pohw-CC06533"
+  },
+  {
+   "topic_id": "primary-g4-s2-english-K032",
+   "topic_name": "Can I help you?",
+   "stem": "一位顾客选中了一支笔，想明确表示“我要买下它”，应说哪一句？",
+   "options": [
+    "I’ll take it.",
+    "Can I help you?",
+    "How about this one?",
+    "It’s too big."
+   ],
+   "answer": "A",
+   "explanation": "I’ll take it.表示“我要买下它”。其他三项都没有表达决定购买。",
+   "difficulty": 1,
+   "bloom": "记忆",
+   "type": "single_choice",
+   "id": "pohw-CC06534"
+  },
+  {
+   "topic_id": "primary-g4-s2-english-K038",
+   "topic_name": "How much is this shirt?",
+   "stem": "一双鞋标价50元。顾客问“How much are the shoes?”，店员应选哪句回答？",
+   "options": [
+    "They’re fifty yuan.",
+    "They’re forty yuan.",
+    "It’s fifty yuan.",
+    "It’s forty yuan."
+   ],
+   "answer": "A",
+   "explanation": "shoes用复数形式，回答用They’re；50是fifty。",
+   "difficulty": 3,
+   "bloom": "应用",
+   "type": "single_choice",
+   "id": "pohw-CC06535"
+  },
+  {
+   "topic_id": "primary-g4-s2-english-K031",
+   "topic_name": "Again, please!",
+   "stem": "两位顾客要表达“我们想要一个蛋糕”，应选哪一句？",
+   "options": [
+    "We’d like a cake.",
+    "I’d like a cake.",
+    "Do you have cakes?",
+    "How much is the cake?"
+   ],
+   "answer": "A",
+   "explanation": "We’d like…表示“我们想要……”。其余三句分别是个人想要、询问有无和询价。",
+   "difficulty": 1,
+   "bloom": "记忆",
+   "type": "single_choice",
+   "id": "pohw-CC06536"
+  },
+  {
+   "topic_id": "primary-g4-s2-english-K038",
+   "topic_name": "How much is this shirt?",
+   "stem": "两位顾客选好一条裤子，要用We’ll开头说“我们买下它”，应选哪一句？",
+   "options": [
+    "How much are they?",
+    "I’ll take it.",
+    "We’ll take them.",
+    "We’ll take it."
+   ],
+   "answer": "C",
+   "explanation": "题目指定用We’ll表示“我们将”，trousers是复数形式，用them指代。",
+   "difficulty": 3,
+   "bloom": "应用",
+   "type": "single_choice",
+   "id": "pohw-CC06537"
+  },
+  {
+   "topic_id": "primary-g4-s2-english-K032",
+   "topic_name": "Can I help you?",
+   "stem": "介绍一件玩具“价格便宜”时，应使用哪个单词？",
+   "options": [
+    "cheap",
+    "fast",
+    "big",
+    "blue"
+   ],
+   "answer": "A",
+   "explanation": "cheap表示“便宜的”；fast、big、blue分别表示快、大和蓝色。",
+   "difficulty": 1,
+   "bloom": "记忆",
+   "type": "single_choice",
+   "id": "pohw-CC06538"
+  },
+  {
+   "topic_id": "primary-g4-s2-english-K032",
+   "topic_name": "Can I help you?",
+   "stem": "介绍一辆玩具汽车时，哪句话表示“它跑得快”？",
+   "options": [
+    "It goes fast.",
+    "It’s too big.",
+    "It fits you well.",
+    "It’s cheap."
+   ],
+   "answer": "A",
+   "explanation": "fast表示“快”；It goes fast.表示“它跑得快”。其余选项分别表示太大、合身和便宜。",
+   "difficulty": 1,
+   "bloom": "记忆",
+   "type": "single_choice",
+   "id": "pohw-CC06539"
+  },
+  {
+   "topic_id": "primary-g4-s2-english-K038",
+   "topic_name": "How much is this shirt?",
+   "stem": "价格标签写着58元，其中数字58对应哪个英语表达？",
+   "options": [
+    "fifty-eight",
+    "fifty",
+    "forty",
+    "one hundred"
+   ],
+   "answer": "A",
+   "explanation": "fifty-eight是58；fifty、forty、one hundred分别是50、40、100。",
+   "difficulty": 1,
+   "bloom": "记忆",
+   "type": "single_choice",
+   "id": "pohw-CC06540"
+  },
+  {
+   "topic_id": "primary-g4-s2-english-K038",
+   "topic_name": "How much is this shirt?",
+   "stem": "你想问一条裤子的价格，哪一句既表达询价又符合语法？",
+   "options": [
+    "How much is the trousers?",
+    "Do you like the trousers?",
+    "How much are the trousers?",
+    "Do you have trousers?"
+   ],
+   "answer": "C",
+   "explanation": "询问价格用How much；trousers是复数形式，配are。",
+   "difficulty": 3,
+   "bloom": "应用",
+   "type": "single_choice",
+   "id": "pohw-CC06541"
+  },
+  {
+   "topic_id": "primary-g4-s2-english-K031",
+   "topic_name": "Again, please!",
+   "stem": "哪个单词开头的字母组合发/fl/音？",
+   "options": [
+    "please",
+    "flower",
+    "play",
+    "cheap"
+   ],
+   "answer": "B",
+   "explanation": "flower开头的fl读/fl/；play、please开头是/pl/，cheap没有/fl/。",
+   "difficulty": 2,
+   "bloom": "理解",
+   "type": "single_choice",
+   "id": "pohw-CC06542"
+  },
+  {
+   "topic_id": "primary-g4-s2-english-K032",
+   "topic_name": "Can I help you?",
+   "stem": "小朋友要买一辆“玩具公共汽车”，对应的英语是哪一项？",
+   "options": [
+    "pen",
+    "toy car",
+    "schoolbag",
+    "toy bus"
+   ],
+   "answer": "D",
+   "explanation": "toy bus表示玩具公共汽车；toy car表示玩具小汽车。",
+   "difficulty": 1,
+   "bloom": "记忆",
+   "type": "single_choice",
+   "id": "pohw-CC06543"
+  },
+  {
+   "topic_id": "primary-g4-s2-english-K034",
+   "topic_name": "Do you have schoolbags?",
+   "stem": "店员想请顾客跟着自己到书包货架前，应怎样说“这边请”？",
+   "options": [
+    "I’ll take it.",
+    "It’s forty yuan.",
+    "Sorry, we don’t.",
+    "This way, please."
+   ],
+   "answer": "D",
+   "explanation": "This way, please.表示“这边请”，用于引导顾客。",
+   "difficulty": 1,
+   "bloom": "记忆",
+   "type": "single_choice",
+   "id": "pohw-CC06544"
+  },
+  {
+   "topic_id": "primary-g4-s2-english-K031",
+   "topic_name": "Again, please!",
+   "stem": "店员拿起另一个蛋糕，想说“这个蛋糕怎么样？”，应选哪一句？",
+   "options": [
+    "How about this cake?",
+    "How much is this cake?",
+    "We’d like a cake.",
+    "Do you have cakes?"
+   ],
+   "answer": "A",
+   "explanation": "How about…?可用于推荐商品；其他选项分别询价、表达购买意愿和询问商品有无。",
+   "difficulty": 3,
+   "bloom": "应用",
+   "type": "single_choice",
+   "id": "pohw-CC06545"
+  },
+  {
+   "topic_id": "primary-g4-s2-english-K032",
+   "topic_name": "Can I help you?",
+   "stem": "店员要推荐一把尺子，并说“它好看又便宜”，哪一句完整符合要求？",
+   "options": [
+    "How about this ruler? It’s nice and cheap.",
+    "How about this pen? It’s nice and cheap.",
+    "How about this ruler? It’s too big.",
+    "I’d like a ruler."
+   ],
+   "answer": "A",
+   "explanation": "正确选项先推荐尺子，再评价它好看又便宜；其余选项的商品或评价不符合题意。",
+   "difficulty": 3,
+   "bloom": "应用",
+   "type": "single_choice",
+   "id": "pohw-CC06546"
+  },
+  {
+   "topic_id": "primary-g4-s2-english-K031",
+   "topic_name": "Again, please!",
+   "stem": "模拟商店的一只篮球标价40元。顾客问“How much is the basketball?”，应怎样回答？",
+   "options": [
+    "Yes, we do.",
+    "They’re forty yuan.",
+    "It’s forty yuan.",
+    "It’s fifty yuan."
+   ],
+   "answer": "C",
+   "explanation": "basketball是单数，回答用It’s；forty表示40。",
+   "difficulty": 2,
+   "bloom": "理解",
+   "type": "single_choice",
+   "id": "pohw-CC06547"
+  },
+  {
+   "topic_id": "primary-g4-s2-english-K053",
+   "topic_name": "Try yourself.",
+   "stem": "模拟服装店中，一件毛衣标价58元。顾客问“How much is the sweater?”，请选出用英语单词准确回答价格的一句。",
+   "options": [
+    "It’s fifty yuan.",
+    "They’re fifty-eight yuan.",
+    "It’s one hundred yuan.",
+    "It’s fifty-eight yuan."
+   ],
+   "answer": "D",
+   "explanation": "sweater是单数，用It’s回答；58用fifty-eight表达。题目指定用英语单词表达价格，因此不能选数字形式以外的其他数值。",
+   "difficulty": 3,
+   "bloom": "应用",
+   "type": "single_choice",
+   "id": "pohw-CC06548"
+  },
+  {
+   "topic_id": "primary-g4-s2-english-K053",
+   "topic_name": "Try yourself.",
+   "stem": "模拟购物清单中需要写“一把红色尺子”，应选哪一项？",
+   "options": [
+    "a red ruler",
+    "a blue ruler",
+    "a red pen",
+    "a green schoolbag"
+   ],
+   "answer": "A",
+   "explanation": "red表示红色，ruler表示尺子；a red ruler是“一把红色尺子”。",
+   "difficulty": 3,
+   "bloom": "应用",
+   "type": "single_choice",
+   "id": "pohw-CC06549"
+  },
+  {
+   "topic_id": "primary-g4-s2-english-K034",
+   "topic_name": "Do you have schoolbags?",
+   "stem": "购物清单要写“一个蓝色铅笔盒”，应选哪一项？",
+   "options": [
+    "a green pencil-case",
+    "a blue pencil-case",
+    "a black pen",
+    "a blue schoolbag"
+   ],
+   "answer": "B",
+   "explanation": "blue表示蓝色，pencil-case表示铅笔盒。",
+   "difficulty": 1,
+   "bloom": "记忆",
+   "type": "single_choice",
+   "id": "pohw-CC06550"
+  },
+  {
+   "topic_id": "primary-g4-s2-english-K053",
+   "topic_name": "Try yourself.",
+   "stem": "阅读原句：Mrs Green likes shopping. Mrs Green喜欢做什么？",
+   "options": [
+    "踢球",
+    "游泳",
+    "购物",
+    "唱歌"
+   ],
+   "answer": "C",
+   "explanation": "likes shopping表示“喜欢购物”，原句直接给出了Mrs Green的喜好。",
+   "difficulty": 2,
+   "bloom": "理解",
+   "type": "single_choice",
+   "id": "pohw-CC06551"
+  },
+  {
+   "topic_id": "primary-g4-s2-english-K053",
+   "topic_name": "Try yourself.",
+   "stem": "阅读原句：“All right. How much is it?” Mr Green says and he pays for it. 谁为商品付款？",
+   "options": [
+    "Mr Green",
+    "店员",
+    "孩子",
+    "Mrs Green"
+   ],
+   "answer": "A",
+   "explanation": "he承接前面的Mr Green，因此是Mr Green付款。",
+   "difficulty": 2,
+   "bloom": "理解",
+   "type": "single_choice",
+   "id": "pohw-CC06552"
+  },
+  {
+   "topic_id": "primary-g4-s2-english-K053",
+   "topic_name": "Try yourself.",
+   "stem": "阅读句子：“Look at the beautiful moon,” Mrs Green says. 其中moon是什么意思？",
+   "options": [
+    "书包",
+    "商店",
+    "月亮",
+    "衣服"
+   ],
+   "answer": "C",
+   "explanation": "moon表示“月亮”；这里说的是美丽的月亮。",
+   "difficulty": 2,
+   "bloom": "理解",
+   "type": "single_choice",
+   "id": "pohw-CC06553"
+  },
+  {
+   "topic_id": "primary-g4-s2-english-K032",
+   "topic_name": "Can I help you?",
+   "stem": "顾客刚走进文具店，店员想主动询问“我能帮你吗？”，应选哪一句？",
+   "options": [
+    "Can I help you?",
+    "I’d like a ruler.",
+    "I’ll take it.",
+    "I want a toy car."
+   ],
+   "answer": "A",
+   "explanation": "Can I help you?是店员主动询问顾客需求的表达；其余选项都是顾客可能使用的话。",
+   "difficulty": 1,
+   "bloom": "记忆",
+   "type": "single_choice",
+   "id": "pohw-CC06554"
+  },
+  {
+   "topic_id": "primary-g4-s2-english-K034",
+   "topic_name": "Do you have schoolbags?",
+   "stem": "顾客和店员正在挑书包。顾客说“I’d like a green one.”，这里one代替什么物品？",
+   "options": [
+    "颜色",
+    "商店",
+    "价格",
+    "书包"
+   ],
+   "answer": "D",
+   "explanation": "对话一直在谈书包，因此a green one中的one代替schoolbag。",
+   "difficulty": 3,
+   "bloom": "应用",
+   "type": "single_choice",
+   "id": "pohw-CC06555"
+  },
+  {
+   "topic_id": "primary-g4-s2-english-K034",
+   "topic_name": "Do you have schoolbags?",
+   "stem": "顾客想礼貌地问“请问，你们有尺子吗？”，应选哪一句？",
+   "options": [
+    "Excuse me. Do you have rulers?",
+    "How much is the ruler?",
+    "I’d like a ruler.",
+    "Do you like this ruler?"
+   ],
+   "answer": "A",
+   "explanation": "Do you have rulers?询问有没有尺子；其他选项分别询价、表达需求和询问喜好。",
+   "difficulty": 1,
+   "bloom": "记忆",
+   "type": "single_choice",
+   "id": "pohw-CC06556"
+  },
+  {
+   "topic_id": "primary-g4-s2-english-K034",
+   "topic_name": "Do you have schoolbags?",
+   "stem": "顾客问“Do you have a green schoolbag?”，店里没有绿色书包。店员应怎样直接回答商品有无？",
+   "options": [
+    "I’ll take it.",
+    "Yes, we do.",
+    "It’s forty yuan.",
+    "Sorry, we don’t."
+   ],
+   "answer": "D",
+   "explanation": "店里没有所问的商品，用Sorry, we don’t.作否定回答。",
+   "difficulty": 2,
+   "bloom": "理解",
+   "type": "single_choice",
+   "id": "pohw-CC06557"
+  },
+  {
+   "topic_id": "primary-g4-s2-english-K034",
+   "topic_name": "Do you have schoolbags?",
+   "stem": "顾客问“Do you have red pens?”，商店有红色钢笔。店员应怎样直接作肯定回答？",
+   "options": [
+    "Yes, it is.",
+    "They’re forty yuan.",
+    "Sorry, we don’t.",
+    "Yes, we do."
+   ],
+   "answer": "D",
+   "explanation": "店员代表商店，对Do you have…?作肯定回答用Yes, we do.。",
+   "difficulty": 2,
+   "bloom": "理解",
+   "type": "single_choice",
+   "id": "pohw-CC06558"
+  },
+  {
+   "topic_id": "primary-g4-s2-english-K053",
+   "topic_name": "Try yourself.",
+   "stem": "一个人乘马车旅行，说“I have a good driver.”。结合马车旅行的背景，这里的driver指什么？",
+   "options": [
+    "马车夫",
+    "王国",
+    "南方",
+    "担心"
+   ],
+   "answer": "A",
+   "explanation": "在马车旅行的背景中，driver指马车夫；王国、南方、担心分别对应kingdom、south、worry。",
+   "difficulty": 2,
+   "bloom": "理解",
+   "type": "single_choice",
+   "id": "pohw-CC06559"
+  },
+  {
+   "topic_id": "primary-g4-s2-english-K053",
+   "topic_name": "Try yourself.",
+   "stem": "一个人说“I'm going to Kingdom Chu.”。他想去哪里？",
+   "options": [
+    "Canada",
+    "London",
+    "Kingdom Chu",
+    "Dalian"
+   ],
+   "answer": "C",
+   "explanation": "句中to后的Kingdom Chu是目的地。其他地点没有出现在这句话中。",
+   "difficulty": 1,
+   "bloom": "记忆",
+   "type": "single_choice",
+   "id": "pohw-CC06560"
+  },
+  {
+   "topic_id": "primary-g4-s2-english-K041",
+   "topic_name": "I'm going to Mount Taishan.",
+   "stem": "你今年夏天计划去海南。要用完整英语句子告诉同学目的地，应选哪一句？",
+   "options": [
+    "I'm going to Hainan.",
+    "By ship.",
+    "I'm going to learn kung fu.",
+    "Have a good time!"
+   ],
+   "answer": "A",
+   "explanation": "题目要求表达目的地海南，只有该句符合。其余分别表达交通方式、活动和祝愿。",
+   "difficulty": 1,
+   "bloom": "记忆",
+   "type": "single_choice",
+   "id": "pohw-CC06561"
+  },
+  {
+   "topic_id": "primary-g4-s2-english-K041",
+   "topic_name": "I'm going to Mount Taishan.",
+   "stem": "你已经决定暑假去旅行。朋友问“Are you going to travel?”，你要作肯定回答，应选哪句？",
+   "options": [
+    "Yes, I am.",
+    "No, I'm not.",
+    "It's June now.",
+    "Have a good time!"
+   ],
+   "answer": "A",
+   "explanation": "问句用Are you开头，肯定回答用Yes, I am。其余分别是否定回答、月份陈述和祝愿。",
+   "difficulty": 2,
+   "bloom": "理解",
+   "type": "single_choice",
+   "id": "pohw-CC06562"
+  },
+  {
+   "topic_id": "primary-g4-s2-english-K055",
+   "topic_name": "What are you going to do there?",
+   "stem": "你想询问对方到达目的地后打算做什么。补全问句：“____ are you going to do there?”",
+   "options": [
+    "How",
+    "Where",
+    "What",
+    "Who"
+   ],
+   "answer": "C",
+   "explanation": "What are you going to do用于询问打算做什么；其余疑问词不能构成题目需要的活动问句。",
+   "difficulty": 2,
+   "bloom": "理解",
+   "type": "single_choice",
+   "id": "pohw-CC06563"
+  },
+  {
+   "topic_id": "primary-g4-s2-english-K037",
+   "topic_name": "How are you going there?",
+   "stem": "你想问对方打算怎样去已经提到的地方。补全问句：“____ are you going there?”",
+   "options": [
+    "What",
+    "Where",
+    "Who",
+    "How"
+   ],
+   "answer": "D",
+   "explanation": "询问出行方式用How；Where问地点，What问什么，Who问谁。",
+   "difficulty": 2,
+   "bloom": "理解",
+   "type": "single_choice",
+   "id": "pohw-CC06564"
+  },
+  {
+   "topic_id": "primary-g4-s2-english-K055",
+   "topic_name": "What are you going to do there?",
+   "stem": "你计划去大连，在海里游泳。朋友问“What are you going to do there?”，哪句准确回答活动安排？",
+   "options": [
+    "I'm going to Dalian.",
+    "I'm going there by plane.",
+    "I'm going to swim in the sea.",
+    "Have a good time!"
+   ],
+   "answer": "C",
+   "explanation": "问题询问计划开展的活动。该句表达在海里游泳；其余分别表达目的地、交通方式和祝愿。",
+   "difficulty": 3,
+   "bloom": "应用",
+   "type": "single_choice",
+   "id": "pohw-CC06565"
+  },
+  {
+   "topic_id": "primary-g4-s2-english-K053",
+   "topic_name": "Try yourself.",
+   "stem": "制作旅行滑动卡片时，你选定的目的地是北京，交通方式是火车。哪组句子与这两项选择完全一致？",
+   "options": [
+    "I'm going to Beijing. I'm going there by train.",
+    "I'm going to Beijing. I'm going there by plane.",
+    "I'm going to Shanghai. I'm going there by train.",
+    "I'm going to Beijing. I'm going there by bike."
+   ],
+   "answer": "A",
+   "explanation": "第一项同时准确表达北京和乘火车。其余三项分别把交通方式改成飞机、把目的地改成上海、把交通方式改成自行车。",
+   "difficulty": 3,
+   "bloom": "应用",
+   "type": "single_choice",
+   "id": "pohw-CC06566"
+  },
+  {
+   "topic_id": "primary-g4-s2-english-K055",
+   "topic_name": "What are you going to do there?",
+   "stem": "同学即将出发旅行。你想祝他玩得愉快，应选哪一句？",
+   "options": [
+    "Have a good time!",
+    "How are you going there?",
+    "Where are you going this summer?",
+    "What are you going to do there?"
+   ],
+   "answer": "A",
+   "explanation": "该句祝愿别人玩得愉快。其他三项分别询问交通方式、目的地和计划活动，都不是祝愿。",
+   "difficulty": 1,
+   "bloom": "记忆",
+   "type": "single_choice",
+   "id": "pohw-CC06567"
+  },
+  {
+   "topic_id": "primary-g4-s2-english-K031",
+   "topic_name": "Again, please!",
+   "stem": "哪一个单词含有读/iː/的字母组合ee？",
+   "options": [
+    "tree",
+    "brown",
+    "breakfast",
+    "drum"
+   ],
+   "answer": "A",
+   "explanation": "tree中的ee读/iː/。brown、drum、breakfast均不含该字母组合。",
+   "difficulty": 1,
+   "bloom": "记忆",
+   "type": "single_choice",
+   "id": "pohw-CC06568"
+  },
+  {
+   "topic_id": "primary-g4-s2-english-K031",
+   "topic_name": "Again, please!",
+   "stem": "哪一个单词开头的字母组合读/br/？",
+   "options": [
+    "driver",
+    "drink",
+    "bread",
+    "draw"
+   ],
+   "answer": "C",
+   "explanation": "bread开头的br读/br/；draw、driver和drink开头都是dr，不属于br一组。",
+   "difficulty": 1,
+   "bloom": "记忆",
+   "type": "single_choice",
+   "id": "pohw-CC06569"
+  },
+  {
+   "topic_id": "primary-g4-s2-english-K037",
+   "topic_name": "How are you going there?",
+   "stem": "哪一个短语表示“乘船”？",
+   "options": [
+    "by ship",
+    "by bike",
+    "by train",
+    "by plane"
+   ],
+   "answer": "A",
+   "explanation": "ship表示船，by ship表示乘船；其他三项的交通工具不符合中文意思。",
+   "difficulty": 1,
+   "bloom": "记忆",
+   "type": "single_choice",
+   "id": "pohw-CC06570"
+  },
+  {
+   "topic_id": "primary-g4-s2-english-K037",
+   "topic_name": "How are you going there?",
+   "stem": "小兰计划乘飞机去海南。朋友问“How are you going there?”，她应按计划选择哪项？",
+   "options": [
+    "By plane.",
+    "By ship.",
+    "By train.",
+    "By bike."
+   ],
+   "answer": "A",
+   "explanation": "计划指定乘飞机，只有By plane符合；其余分别是乘船、乘火车和骑自行车。",
+   "difficulty": 2,
+   "bloom": "理解",
+   "type": "single_choice",
+   "id": "pohw-CC06571"
+  },
+  {
+   "topic_id": "primary-g4-s2-english-K037",
+   "topic_name": "How are you going there?",
+   "stem": "小华计划乘火车去上海。朋友问“How are you going there?”，哪项符合小华的计划？",
+   "options": [
+    "By plane.",
+    "By ship.",
+    "By train.",
+    "By bike."
+   ],
+   "answer": "C",
+   "explanation": "train表示火车。plane、ship、bike分别表示飞机、船和自行车，均不符合指定计划。",
+   "difficulty": 2,
+   "bloom": "理解",
+   "type": "single_choice",
+   "id": "pohw-CC06572"
+  },
+  {
+   "topic_id": "primary-g4-s2-english-K055",
+   "topic_name": "What are you going to do there?",
+   "stem": "小宁说“I'm going to see the sunrise.”。她打算做什么？",
+   "options": [
+    "参观大连",
+    "看日出",
+    "在海里游泳",
+    "学习功夫"
+   ],
+   "answer": "B",
+   "explanation": "see the sunrise表示看日出，不是学习功夫、在海里游泳或参观大连。",
+   "difficulty": 2,
+   "bloom": "理解",
+   "type": "single_choice",
+   "id": "pohw-CC06573"
+  },
+  {
+   "topic_id": "primary-g4-s2-english-K031",
+   "topic_name": "Again, please!",
+   "stem": "小文计划去大连，乘船前往。调查表的“How”一栏需要记录交通方式，哪句话提供了这项信息？",
+   "options": [
+    "I'm going there by ship.",
+    "I'm going to see the sunrise.",
+    "I'm going to Dalian.",
+    "Thank you!"
+   ],
+   "answer": "A",
+   "explanation": "by ship表示乘船，完整句说明交通方式。其余分别说明活动、目的地或表示感谢。",
+   "difficulty": 3,
+   "bloom": "应用",
+   "type": "single_choice",
+   "id": "pohw-CC06574"
+  },
+  {
+   "topic_id": "primary-g4-s2-english-K055",
+   "topic_name": "What are you going to do there?",
+   "stem": "小杰计划在少林寺学习功夫。别人问“What are you going to do there?”，哪句符合他的活动计划？",
+   "options": [
+    "I'm going to learn kung fu.",
+    "I'm going to Mount Taishan.",
+    "By train.",
+    "I'm going back to Canada."
+   ],
+   "answer": "A",
+   "explanation": "learn kung fu表示学习功夫。其余分别说目的地、交通方式或返回某地，不是指定活动。",
+   "difficulty": 2,
+   "bloom": "理解",
+   "type": "single_choice",
+   "id": "pohw-CC06575"
+  },
+  {
+   "topic_id": "primary-g4-s2-english-K041",
+   "topic_name": "I'm going to Mount Taishan.",
+   "stem": "小美计划去上海。朋友询问她的目的地，她应选哪句话回答？",
+   "options": [
+    "I'm going to Shanghai.",
+    "By plane.",
+    "I'm going to learn kung fu.",
+    "It's June now."
+   ],
+   "answer": "A",
+   "explanation": "该句表达去上海。其余分别表达交通方式、活动和当前月份，不能回答指定目的地。",
+   "difficulty": 1,
+   "bloom": "记忆",
+   "type": "single_choice",
+   "id": "pohw-CC06576"
+  },
+  {
+   "topic_id": "primary-g4-s2-english-K041",
+   "topic_name": "I'm going to Mount Taishan.",
+   "stem": "按“六月、七月、八月”的顺序排列英语月份，哪一项正确？",
+   "options": [
+    "June—July—August",
+    "July—June—August",
+    "August—July—June",
+    "June—August—July"
+   ],
+   "answer": "A",
+   "explanation": "June、July、August依次表示六月、七月、八月，其余选项的月份顺序不符合题意。",
+   "difficulty": 3,
+   "bloom": "应用",
+   "type": "single_choice",
+   "id": "pohw-CC06577"
+  },
+  {
+   "topic_id": "primary-g4-s2-english-K031",
+   "topic_name": "Again, please!",
+   "stem": "故事角色先说“We're going to London.”，其中一个接着说“I'm going there by bike!”。它打算怎样去伦敦？",
+   "options": [
+    "骑自行车",
+    "乘飞机",
+    "乘火车",
+    "乘船"
+   ],
+   "answer": "A",
+   "explanation": "by bike表示骑自行车，不是乘船、乘火车或乘飞机。",
+   "difficulty": 2,
+   "bloom": "理解",
+   "type": "single_choice",
+   "id": "pohw-CC06578"
+  },
+  {
+   "topic_id": "primary-g4-s2-english-K053",
+   "topic_name": "Try yourself.",
+   "stem": "旅行者说“My horse runs fast.”。这句话说明什么？",
+   "options": [
+    "他的马跑得快。",
+    "他的马跑得慢。",
+    "他已经到达目的地。",
+    "目的地在北方。"
+   ],
+   "answer": "A",
+   "explanation": "My horse runs fast说明他的马跑得快，没有说马很慢、目的地在北方或已经到达。",
+   "difficulty": 1,
+   "bloom": "记忆",
+   "type": "single_choice",
+   "id": "pohw-CC06579"
+  },
+  {
+   "topic_id": "primary-g4-s2-english-K041",
+   "topic_name": "I'm going to Mount Taishan.",
+   "stem": "旅行计划写着“I'm going back to Canada in July.”。这位旅行者计划在几月返回加拿大？",
+   "options": [
+    "六月",
+    "八月",
+    "五月",
+    "七月"
+   ],
+   "answer": "D",
+   "explanation": "July表示七月；六月为June，八月为August。",
+   "difficulty": 2,
+   "bloom": "理解",
+   "type": "single_choice",
+   "id": "pohw-CC06580"
+  },
+  {
+   "topic_id": "primary-g4-s2-english-K037",
+   "topic_name": "How are you going there?",
+   "stem": "旅行记录表设有“目的地、交通方式、出行月份、计划开展的活动”四栏。短语“by plane”应填入哪一栏？",
+   "options": [
+    "出行月份",
+    "计划开展的活动",
+    "交通方式",
+    "目的地"
+   ],
+   "answer": "C",
+   "explanation": "by plane说明怎样出行，不说明目的地、月份或计划活动。",
+   "difficulty": 3,
+   "bloom": "应用",
+   "type": "single_choice",
+   "id": "pohw-CC06581"
+  },
+  {
+   "topic_id": "primary-g4-s2-english-K031",
+   "topic_name": "Again, please!",
+   "stem": "旅行调查表中，小丽的“目的地”一栏还没有填写。你要询问她今年夏天去哪里，应选哪句？",
+   "options": [
+    "Where are you going this summer?",
+    "How are you going there?",
+    "What are you going to do there?",
+    "Have a good time!"
+   ],
+   "answer": "A",
+   "explanation": "要询问暑假目的地应使用where。其余分别询问交通方式、活动或表达祝愿。",
+   "difficulty": 3,
+   "bloom": "应用",
+   "type": "single_choice",
+   "id": "pohw-CC06582"
+  },
+  {
+   "topic_id": "primary-g4-s2-english-K053",
+   "topic_name": "Try yourself.",
+   "stem": "朋友说“Kingdom Chu is in the south, but you're going to the north.”。被提醒的人实际正向哪个方向走？",
+   "options": [
+    "南方",
+    "东方",
+    "北方",
+    "西方"
+   ],
+   "answer": "C",
+   "explanation": "you're going to the north表示你正向北方走；south才表示南方。",
+   "difficulty": 2,
+   "bloom": "理解",
+   "type": "single_choice",
+   "id": "pohw-CC06583"
+  },
+  {
+   "topic_id": "primary-g4-s2-english-K037",
+   "topic_name": "How are you going there?",
+   "stem": "目的地已经说过了。要规范表达“我打算骑自行车去那里”，哪一句正确？",
+   "options": [
+    "I'm going there by bike.",
+    "I'm going to there by bike.",
+    "I'm going there by a bike.",
+    "I'm go going there by bike."
+   ],
+   "answer": "A",
+   "explanation": "there前不加to，by bike中不加a。其余三项分别在there前、bike前或going前多加了词。",
+   "difficulty": 3,
+   "bloom": "应用",
+   "type": "single_choice",
+   "id": "pohw-CC06584"
+  },
+  {
+   "topic_id": "primary-g4-s2-english-K041",
+   "topic_name": "I'm going to Mount Taishan.",
+   "stem": "要明确表达“我打算返回加拿大”，地点和“返回”的意思都必须保留，应选哪句？",
+   "options": [
+    "I'm going back to Canada.",
+    "I'm going to Dalian.",
+    "I'm going to Canada.",
+    "I'm going back to Dalian."
+   ],
+   "answer": "A",
+   "explanation": "back to表示返回。其余句子分别表示去大连、去加拿大和返回大连，都没有准确表达指定信息。",
+   "difficulty": 3,
+   "bloom": "应用",
+   "type": "single_choice",
+   "id": "pohw-CC06585"
+  },
+  {
+   "topic_id": "primary-g4-s2-english-K041",
+   "topic_name": "I'm going to Mount Taishan.",
+   "stem": "要询问今年夏天的目的地，补全问句：“____ are you going this summer?”",
+   "options": [
+    "Where",
+    "How",
+    "What",
+    "Who"
+   ],
+   "answer": "A",
+   "explanation": "Where询问去哪里；How、What、Who分别询问怎样、什么、谁。",
+   "difficulty": 2,
+   "bloom": "理解",
+   "type": "single_choice",
+   "id": "pohw-CC06586"
+  },
+  {
+   "topic_id": "primary-g4-s2-english-K055",
+   "topic_name": "What are you going to do there?",
+   "stem": "计划写着“I'm going to visit Dalian in August.”。出行月份是几月？",
+   "options": [
+    "六月",
+    "七月",
+    "八月",
+    "五月"
+   ],
+   "answer": "C",
+   "explanation": "August表示八月。June和July分别表示六月和七月。",
+   "difficulty": 2,
+   "bloom": "理解",
+   "type": "single_choice",
+   "id": "pohw-CC06587"
+  },
+  {
+   "topic_id": "primary-g4-s2-english-K048",
+   "topic_name": "Review：文具购物与价格",
+   "stem": "一个铅笔盒的标价是18元。顾客问“How much is it?”店员应怎样回答？",
+   "options": [
+    "It’s eighteen yuan.",
+    "It’s eight yuan.",
+    "It’s eighty yuan.",
+    "It’s two yuan."
+   ],
+   "answer": "A",
+   "explanation": "题干明确给出价格为18元，eighteen表示18；其他三个选项的数值不同。",
+   "difficulty": 2,
+   "bloom": "理解",
+   "type": "single_choice",
+   "id": "pohw-CC06588"
+  },
+  {
+   "topic_id": "primary-g4-s2-english-K049",
+   "topic_name": "Review：旅行计划与综合交际",
+   "stem": "一份新旅行计划写着：“I’m going to Beijing this summer.”计划中的旅行时间是什么？",
+   "options": [
+    "now",
+    "this weekend",
+    "this summer",
+    "every weekend"
+   ],
+   "answer": "C",
+   "explanation": "句末的this summer说明旅行时间是今年夏天。",
+   "difficulty": 2,
+   "bloom": "理解",
+   "type": "single_choice",
+   "id": "pohw-CC06589"
+  },
+  {
+   "topic_id": "primary-g4-s2-english-K051",
+   "topic_name": "Review：饮食需求与餐馆选择",
+   "stem": "一段用餐介绍写道：“My brother wants to have jiaozi.”哥哥想吃什么？",
+   "options": [
+    "fish",
+    "jiaozi",
+    "chicken",
+    "tomato soup"
+   ],
+   "answer": "B",
+   "explanation": "wants to have jiaozi明确表示想吃饺子。",
+   "difficulty": 2,
+   "bloom": "理解",
+   "type": "single_choice",
+   "id": "pohw-CC06590"
+  },
+  {
+   "topic_id": "primary-g4-s2-english-K051",
+   "topic_name": "Review：饮食需求与餐馆选择",
+   "stem": "两人午餐分别要鱼和番茄汤。四家餐馆的全部菜品为：A餐馆有鱼、面条；B餐馆有鱼、番茄汤；C餐馆有鸡肉、番茄汤；D餐馆有饺子、面条。哪家同时满足两人的需求？",
+   "options": [
+    "A餐馆",
+    "B餐馆",
+    "C餐馆",
+    "D餐馆"
+   ],
+   "answer": "B",
+   "explanation": "B餐馆同时有鱼和番茄汤；A、C只满足其中一项，D两项都不满足。",
+   "difficulty": 3,
+   "bloom": "应用",
+   "type": "single_choice",
+   "id": "pohw-CC06591"
+  },
+  {
+   "topic_id": "primary-g4-s2-english-K049",
+   "topic_name": "Review：旅行计划与综合交际",
+   "stem": "你想通过电话问朋友“你现在正在做什么？”而不是问将来计划，应选哪句？",
+   "options": [
+    "Where are you from?",
+    "What are you going to do?",
+    "Where are you going this summer?",
+    "What are you doing?"
+   ],
+   "answer": "D",
+   "explanation": "该问句询问此刻正在进行的动作；带going to do的问句询问计划。",
+   "difficulty": 3,
+   "bloom": "应用",
+   "type": "single_choice",
+   "id": "pohw-CC06592"
+  },
+  {
+   "topic_id": "primary-g4-s2-english-K047",
+   "topic_name": "Review：家务能力与助老计划",
+   "stem": "助老调查记录：Ben会浇花，Amy会做饭，Sam会洗衣服，Lucy会擦窗户。现在只需选一名已确认会浇花的同学负责浇花，应选谁？",
+   "options": [
+    "Ben",
+    "Sam",
+    "Amy",
+    "Lucy"
+   ],
+   "answer": "A",
+   "explanation": "任务只需浇花；记录明确指出Ben会浇花。其他三人会做的是不同的家务。",
+   "difficulty": 3,
+   "bloom": "应用",
+   "type": "single_choice",
+   "id": "pohw-CC06593"
+  },
+  {
+   "topic_id": "primary-g4-s2-english-K051",
+   "topic_name": "Review：饮食需求与餐馆选择",
+   "stem": "午餐介绍写道：“My sister likes fish. She wants to have noodles today.”姐姐喜欢什么食物？",
+   "options": [
+    "fish",
+    "noodles",
+    "chicken",
+    "jiaozi"
+   ],
+   "answer": "A",
+   "explanation": "likes fish说明喜欢鱼；wants to have noodles说明想吃面条，不能混淆。",
+   "difficulty": 2,
+   "bloom": "理解",
+   "type": "single_choice",
+   "id": "pohw-CC06594"
+  },
+  {
+   "topic_id": "primary-g4-s2-english-K046",
+   "topic_name": "Review：元音辨音与归类",
+   "stem": "哪一个词中标示元音的字母或字母组合与up中的u发音相同？比较bus的u、home的o、cheap的ea、red的e。",
+   "options": [
+    "bus",
+    "home",
+    "cheap",
+    "red"
+   ],
+   "answer": "A",
+   "explanation": "bus中的u与up中的u均发/ʌ/；其他三个选项的目标元音不同。",
+   "difficulty": 2,
+   "bloom": "理解",
+   "type": "single_choice",
+   "id": "pohw-CC06595"
+  },
+  {
+   "topic_id": "primary-g4-s2-english-K046",
+   "topic_name": "Review：元音辨音与归类",
+   "stem": "哪一个词的目标元音与sea中的ea相同？比较eat的ea、bread的ea、hot的o、up的u。",
+   "options": [
+    "eat",
+    "up",
+    "bread",
+    "hot"
+   ],
+   "answer": "A",
+   "explanation": "eat和sea中的ea均发/iː/；bread中的ea发/e/。",
+   "difficulty": 2,
+   "bloom": "理解",
+   "type": "single_choice",
+   "id": "pohw-CC06596"
+  },
+  {
+   "topic_id": "primary-g4-s2-english-K050",
+   "topic_name": "Review：日常活动与时间表达",
+   "stem": "哪一句明确表示“他此刻正在游泳”，而不是习惯、计划或能力？",
+   "options": [
+    "He often swims at the weekend.",
+    "He is going to swim this summer.",
+    "He is swimming now.",
+    "He can swim."
+   ],
+   "answer": "C",
+   "explanation": "is swimming表示正在游泳；其他正确完整的句子表达习惯或计划，不符合题意。",
+   "difficulty": 3,
+   "bloom": "应用",
+   "type": "single_choice",
+   "id": "pohw-CC06597"
+  },
+  {
+   "topic_id": "primary-g4-s2-english-K047",
+   "topic_name": "Review：家务能力与助老计划",
+   "stem": "安排助老任务前，你想问同伴“你会做什么？”应使用哪一句？",
+   "options": [
+    "What can you do?",
+    "Where are you from?",
+    "How much is it?",
+    "What are you doing?"
+   ],
+   "answer": "A",
+   "explanation": "What can you do?询问会做的事；其他选项分别询问来源、价格和正在做什么。",
+   "difficulty": 1,
+   "bloom": "记忆",
+   "type": "single_choice",
+   "id": "pohw-CC06598"
+  },
+  {
+   "topic_id": "primary-g4-s2-english-K048",
+   "topic_name": "Review：文具购物与价格",
+   "stem": "小林已有书包和铅笔盒，这次只需要买一支钢笔和一把尺子。哪份英文购物清单符合他的需求？",
+   "options": [
+    "a schoolbag, a ruler",
+    "a pen, a pencil case",
+    "a pen, a ruler",
+    "a schoolbag, a pencil case"
+   ],
+   "answer": "C",
+   "explanation": "购物清单只应列需要购买的物品，即钢笔和尺子；已经有且不需购买的物品不列入。",
+   "difficulty": 3,
+   "bloom": "应用",
+   "type": "single_choice",
+   "id": "pohw-CC06599"
+  },
+  {
+   "topic_id": "primary-g4-s2-english-K048",
+   "topic_name": "Review：文具购物与价格",
+   "stem": "店员正向顾客介绍书包，顾客说：“I’d like a blue one.”这里的a blue one指什么？",
+   "options": [
+    "a blue schoolbag",
+    "a blue pen",
+    "a blue ruler",
+    "a blue pencil case"
+   ],
+   "answer": "A",
+   "explanation": "顾客正在挑选书包，a blue one中的one代替schoolbag，不是其他文具。",
+   "difficulty": 3,
+   "bloom": "应用",
+   "type": "single_choice",
+   "id": "pohw-CC06600"
+  },
+  {
+   "topic_id": "primary-g4-s2-english-K049",
+   "topic_name": "Review：旅行计划与综合交际",
+   "stem": "想询问同伴今年夏天的旅行目的地，应选哪一个问句？",
+   "options": [
+    "Where are you going this summer?",
+    "Where are you from?",
+    "How are you going there?",
+    "How much is it?"
+   ],
+   "answer": "A",
+   "explanation": "该问句询问今年夏天打算去哪里；其他选项分别询问来源、交通方式和价格。",
+   "difficulty": 1,
+   "bloom": "记忆",
+   "type": "single_choice",
+   "id": "pohw-CC06601"
+  },
+  {
+   "topic_id": "primary-g4-s2-english-K046",
+   "topic_name": "Review：元音辨音与归类",
+   "stem": "按教材常用读音，哪一个词的指定元音与box中的o相同？比较office的第一个o、home的o、bread的ea、sunny的u。",
+   "options": [
+    "office",
+    "home",
+    "bread",
+    "sunny"
+   ],
+   "answer": "A",
+   "explanation": "按教材常用读音，office中第一个o与box中的o同音；其他选项的指定元音不同。",
+   "difficulty": 3,
+   "bloom": "应用",
+   "type": "single_choice",
+   "id": "pohw-CC06602"
+  },
+  {
+   "topic_id": "primary-g4-s2-english-K049",
+   "topic_name": "Review：旅行计划与综合交际",
+   "stem": "旅行结束，你要与朋友告别，说“再见！”应选哪一句？",
+   "options": [
+    "Goodbye!",
+    "How much is it?",
+    "Where are you from?",
+    "What do you want to eat?"
+   ],
+   "answer": "A",
+   "explanation": "Goodbye!用于告别；其他选项不表达再见。",
+   "difficulty": 1,
+   "bloom": "记忆",
+   "type": "single_choice",
+   "id": "pohw-CC06603"
+  },
+  {
+   "topic_id": "primary-g4-s2-english-K049",
+   "topic_name": "Review：旅行计划与综合交际",
+   "stem": "旅行途中，朋友想问你“你想吃什么？”应使用哪一个问句？",
+   "options": [
+    "How much is it?",
+    "What do you want to eat?",
+    "How are you going there?",
+    "Where are you from?"
+   ],
+   "answer": "B",
+   "explanation": "want to eat表示想吃，符合询问饮食意愿的目的。",
+   "difficulty": 1,
+   "bloom": "记忆",
+   "type": "single_choice",
+   "id": "pohw-CC06604"
+  },
+  {
+   "topic_id": "primary-g4-s2-english-K047",
+   "topic_name": "Review：家务能力与助老计划",
+   "stem": "朋友问“Can you clean the door?”你要表示自己不会擦门，应选哪句？",
+   "options": [
+    "No, I’m not.",
+    "No, I can’t.",
+    "Yes, I can.",
+    "No, I don’t."
+   ],
+   "answer": "B",
+   "explanation": "题目要求否定回答能力问句，应使用No, I can’t.。",
+   "difficulty": 2,
+   "bloom": "理解",
+   "type": "single_choice",
+   "id": "pohw-CC06605"
+  },
+  {
+   "topic_id": "primary-g4-s2-english-K049",
+   "topic_name": "Review：旅行计划与综合交际",
+   "stem": "朋友问“How are you going there?”你计划乘火车去，应选哪一句？",
+   "options": [
+    "I’m going there by train.",
+    "I’m going there this summer.",
+    "I’m going to swim.",
+    "I’m going to Beijing."
+   ],
+   "answer": "A",
+   "explanation": "by train表示乘火车，直接回答交通方式；其他选项回答的是时间、活动或地点。",
+   "difficulty": 2,
+   "bloom": "理解",
+   "type": "single_choice",
+   "id": "pohw-CC06606"
+  },
+  {
+   "topic_id": "primary-g4-s2-english-K051",
+   "topic_name": "Review：饮食需求与餐馆选择",
+   "stem": "表达“我们喜欢面条”，选词填空：We ____ noodles.",
+   "options": [
+    "like",
+    "likes",
+    "liking",
+    "is like"
+   ],
+   "answer": "A",
+   "explanation": "主语We不是第三人称单数，表达喜好用like。",
+   "difficulty": 1,
+   "bloom": "记忆",
+   "type": "single_choice",
+   "id": "pohw-CC06607"
+  },
+  {
+   "topic_id": "primary-g4-s2-english-K051",
+   "topic_name": "Review：饮食需求与餐馆选择",
+   "stem": "表达“我想吃鱼”，选择正确词组：I want ____ fish.",
+   "options": [
+    "to have",
+    "having",
+    "have",
+    "has"
+   ],
+   "answer": "A",
+   "explanation": "表达想吃某种食物用want to have，不能省略to或改用having。",
+   "difficulty": 3,
+   "bloom": "应用",
+   "type": "single_choice",
+   "id": "pohw-CC06608"
+  },
+  {
+   "topic_id": "primary-g4-s2-english-K050",
+   "topic_name": "Review：日常活动与时间表达",
+   "stem": "表达他打算在暑假踢足球，选词填空：He is going to ____ football in the summer vacation.",
+   "options": [
+    "playing",
+    "play",
+    "played",
+    "plays"
+   ],
+   "answer": "B",
+   "explanation": "be going to后接动词原形play。",
+   "difficulty": 2,
+   "bloom": "理解",
+   "type": "single_choice",
+   "id": "pohw-CC06609"
+  },
+  {
+   "topic_id": "primary-g4-s2-english-K050",
+   "topic_name": "Review：日常活动与时间表达",
+   "stem": "表达她经常在周末做饭，选词填空：She often ____ at the weekend.",
+   "options": [
+    "cooks",
+    "cook",
+    "cooking",
+    "to cook"
+   ],
+   "answer": "A",
+   "explanation": "主语She是第三人称单数，表达习惯时cook变为cooks。",
+   "difficulty": 2,
+   "bloom": "理解",
+   "type": "single_choice",
+   "id": "pohw-CC06610"
+  },
+  {
+   "topic_id": "primary-g4-s2-english-K050",
+   "topic_name": "Review：日常活动与时间表达",
+   "stem": "表达我们此刻正在读书，选词组填空：We ____ books now.",
+   "options": [
+    "are read",
+    "reading",
+    "are reading",
+    "is reading"
+   ],
+   "answer": "C",
+   "explanation": "表示此刻正在读书用现在进行时，主语We搭配are。",
+   "difficulty": 1,
+   "bloom": "记忆",
+   "type": "single_choice",
+   "id": "pohw-CC06611"
+  },
+  {
+   "topic_id": "primary-g4-s2-english-K047",
+   "topic_name": "Review：家务能力与助老计划",
+   "stem": "选择正确的词：Amy ____ going to water the flowers this weekend.",
+   "options": [
+    "is",
+    "am",
+    "are",
+    "be"
+   ],
+   "answer": "A",
+   "explanation": "Amy是第三人称单数，be动词用is，构成is going to。",
+   "difficulty": 3,
+   "bloom": "应用",
+   "type": "single_choice",
+   "id": "pohw-CC06612"
+  },
+  {
+   "topic_id": "primary-g4-s2-english-K047",
+   "topic_name": "Review：家务能力与助老计划",
+   "stem": "选择语法正确、表示“你会洗衣服吗？”的句子。",
+   "options": [
+    "Can you washing clothes?",
+    "Are you can wash clothes?",
+    "Can you wash clothes?",
+    "Can you washes clothes?"
+   ],
+   "answer": "C",
+   "explanation": "询问能力用Can you，后接动词原形wash。",
+   "difficulty": 1,
+   "bloom": "记忆",
+   "type": "single_choice",
+   "id": "pohw-CC06613"
+  },
+  {
+   "topic_id": "primary-g4-s2-english-K047",
+   "topic_name": "Review：家务能力与助老计划",
+   "stem": "选择语法正确、表示“她会擦窗户”的句子。",
+   "options": [
+    "She can clean the windows.",
+    "She can cleans the windows.",
+    "She can cleaning the windows.",
+    "She is can clean the windows."
+   ],
+   "answer": "A",
+   "explanation": "can后接动词原形，不随主语变为第三人称单数形式。",
+   "difficulty": 1,
+   "bloom": "记忆",
+   "type": "single_choice",
+   "id": "pohw-CC06614"
+  },
+  {
+   "topic_id": "primary-g4-s2-english-K048",
+   "topic_name": "Review：文具购物与价格",
+   "stem": "顾客不喜欢店员先拿出的书包。店员拿起另一个，想问“这个怎么样？”应说哪一句？",
+   "options": [
+    "Can you cook a meal?",
+    "How about this one?",
+    "What are you doing?",
+    "Where are you from?"
+   ],
+   "answer": "B",
+   "explanation": "How about this one?用于向顾客推荐眼前的另一件商品。",
+   "difficulty": 1,
+   "bloom": "记忆",
+   "type": "single_choice",
+   "id": "pohw-CC06615"
+  },
+  {
+   "topic_id": "primary-g4-s2-english-K048",
+   "topic_name": "Review：文具购物与价格",
+   "stem": "顾客正在挑选一个书包。选词填空：I’d like a blue ____.",
+   "options": [
+    "one",
+    "ones",
+    "is",
+    "do"
+   ],
+   "answer": "A",
+   "explanation": "one代替一个书包；a blue one表示一个蓝色的书包。",
+   "difficulty": 1,
+   "bloom": "记忆",
+   "type": "single_choice",
+   "id": "pohw-CC06616"
+  },
+  {
+   "topic_id": "primary-g4-s2-english-K048",
+   "topic_name": "Review：文具购物与价格",
+   "stem": "顾客问店员“Do you have pencil cases?”店里有铅笔盒。店员代表商店作肯定回答，应选哪句？",
+   "options": [
+    "Yes, we do.",
+    "Yes, we are.",
+    "Yes, we have schoolbag is.",
+    "Yes, we can."
+   ],
+   "answer": "A",
+   "explanation": "Do you have引导的一般疑问句用do作简略回答；题目要求以店方身份肯定回答。",
+   "difficulty": 2,
+   "bloom": "理解",
+   "type": "single_choice",
+   "id": "pohw-CC06617"
+  },
+  {
+   "topic_id": "primary-g4-s1-english-K023",
+   "topic_name": "What’s your favourite subject?",
+   "stem": "Eva说：“My favourite subject is science.”她表达了什么？",
+   "options": [
+    "不喜欢科学",
+    "最喜欢体育",
+    "最喜欢科学",
+    "今天只有科学课"
+   ],
+   "answer": "C",
+   "explanation": "favourite明确表示“最喜欢的”，不能理解成不喜欢或当天有该课程。",
+   "difficulty": 2,
+   "bloom": "理解",
+   "type": "single_choice",
+   "id": "pohw-CC06618"
+  },
+  {
+   "topic_id": "primary-g4-s1-english-K018",
+   "topic_name": "We have Chinese.",
+   "stem": "Mia喜欢语文。别人问她：“Do you like Chinese?”她应选哪项作肯定简答？",
+   "options": [
+    "Yes, I do.",
+    "No, I don’t.",
+    "It’s Chinese.",
+    "We have art."
+   ],
+   "answer": "A",
+   "explanation": "Do you like...?的肯定简答用Yes, I do.；否定项与题设不符，其他两项没有按要求作肯定简答。",
+   "difficulty": 2,
+   "bloom": "理解",
+   "type": "single_choice",
+   "id": "pohw-CC06619"
+  },
+  {
+   "topic_id": "primary-g4-s1-english-K017",
+   "topic_name": "Try yourself.",
+   "stem": "Pool说：“My school and friends are cool.”这句话中，他认为哪些事物很棒？",
+   "options": [
+    "学校和朋友",
+    "电影和礼物",
+    "聚会和蛋糕",
+    "操场和篮球"
+   ],
+   "answer": "A",
+   "explanation": "My school and friends直接点明学校和朋友；其他选项均不是该句所说的对象。",
+   "difficulty": 2,
+   "bloom": "理解",
+   "type": "single_choice",
+   "id": "pohw-CC06620"
+  },
+  {
+   "topic_id": "primary-g4-s1-english-K017",
+   "topic_name": "Try yourself.",
+   "stem": "Pool邀请猴子玩，猴子回答：“I can’t play. I can’t be late for the movie.”是谁担心看电影迟到？",
+   "options": [
+    "Tom",
+    "Pool",
+    "猴子",
+    "青蛙"
+   ],
+   "answer": "C",
+   "explanation": "题干明确这句话由猴子回答，原因是不能为电影迟到；不是青蛙、Pool或Tom。",
+   "difficulty": 2,
+   "bloom": "理解",
+   "type": "single_choice",
+   "id": "pohw-CC06621"
+  },
+  {
+   "topic_id": "primary-g4-s1-english-K001",
+   "topic_name": "Again, please!",
+   "stem": "Sam想了解新朋友所在学校开设哪些课程，不是询问个人偏好。他应说哪一句？",
+   "options": [
+    "What subjects do you have at school?",
+    "What’s your favourite subject?",
+    "Do you like art?",
+    "This is our playground."
+   ],
+   "answer": "A",
+   "explanation": "该句询问在学校有哪些课程；其他三项分别询问偏好、是否喜欢美术和介绍操场。",
+   "difficulty": 1,
+   "bloom": "记忆",
+   "type": "single_choice",
+   "id": "pohw-CC06622"
+  },
+  {
+   "topic_id": "primary-g4-s1-english-K001",
+   "topic_name": "Again, please!",
+   "stem": "cake中的字母a读/eɪ/。下面哪个词中的字母a也读这个音？",
+   "options": [
+    "tell",
+    "door",
+    "face",
+    "red"
+   ],
+   "answer": "C",
+   "explanation": "cake和face中的a都读/eɪ/；其余三个词没有字母a，也不属于这一发音组。",
+   "difficulty": 3,
+   "bloom": "应用",
+   "type": "single_choice",
+   "id": "pohw-CC06623"
+  },
+  {
+   "topic_id": "primary-g4-s1-english-K018",
+   "topic_name": "We have Chinese.",
+   "stem": "今天上午安排英语和美术。朋友问：“What subjects do we have this morning?”哪项回答符合安排？",
+   "options": [
+    "We have English and art.",
+    "We have Chinese and art.",
+    "We have English and PE.",
+    "We have Chinese and PE."
+   ],
+   "answer": "A",
+   "explanation": "题设上午是英语和美术，只有该项准确列出这两门课；其余三项各换掉了一门课程。",
+   "difficulty": 2,
+   "bloom": "理解",
+   "type": "single_choice",
+   "id": "pohw-CC06624"
+  },
+  {
+   "topic_id": "primary-g4-s1-english-K019",
+   "topic_name": "We sing here.",
+   "stem": "介绍远处的操场时，想说“我们经常在那里打篮球”。空格应填哪个表示“那里”的词？We often play basketball ____.",
+   "options": [
+    "often",
+    "today",
+    "there",
+    "here"
+   ],
+   "answer": "C",
+   "explanation": "题目要求表示“那里”，应选there；here是这里，often是经常，today是今天。",
+   "difficulty": 3,
+   "bloom": "应用",
+   "type": "single_choice",
+   "id": "pohw-CC06625"
+  },
+  {
+   "topic_id": "primary-g4-s1-english-K017",
+   "topic_name": "Try yourself.",
+   "stem": "介绍青蛙的句子是：“Why is he so happy? He is going to a birthday party.”青蛙要去参加什么？",
+   "options": [
+    "生日聚会",
+    "篮球比赛",
+    "美术课",
+    "电影"
+   ],
+   "answer": "A",
+   "explanation": "a birthday party意为生日聚会；题目已明确he指青蛙。",
+   "difficulty": 2,
+   "bloom": "理解",
+   "type": "single_choice",
+   "id": "pohw-CC06626"
+  },
+  {
+   "topic_id": "primary-g4-s1-english-K023",
+   "topic_name": "What’s your favourite subject?",
+   "stem": "你想知道同伴最喜欢哪门学科，而不只是问他喜不喜欢科学。应选哪句话？",
+   "options": [
+    "What’s your favourite subject?",
+    "What subjects do we have today?",
+    "Do you like science?",
+    "This is the music room."
+   ],
+   "answer": "A",
+   "explanation": "该句直接询问最喜欢的学科；其余分别询问今天的课程、是否喜欢科学或介绍音乐教室。",
+   "difficulty": 1,
+   "bloom": "记忆",
+   "type": "single_choice",
+   "id": "pohw-CC06627"
+  },
+  {
+   "topic_id": "primary-g4-s1-english-K001",
+   "topic_name": "Again, please!",
+   "stem": "你设计的课程表写着：上午上英语和音乐。哪句话准确介绍你的这项安排？",
+   "options": [
+    "I have English and music in the morning.",
+    "I have English and music in the afternoon.",
+    "I have Chinese and music in the morning.",
+    "I play basketball in the morning."
+   ],
+   "answer": "A",
+   "explanation": "该项用I介绍自己的安排，同时准确包含上午、英语和音乐；其他项改变了时段、课程或活动。",
+   "difficulty": 3,
+   "bloom": "应用",
+   "type": "single_choice",
+   "id": "pohw-CC06628"
+  },
+  {
+   "topic_id": "primary-g4-s1-english-K017",
+   "topic_name": "Try yourself.",
+   "stem": "做课程名称单词卡时，哪种练习方法符合“写词—猜读—记忆”的学习步骤？",
+   "options": [
+    "写出单词，再遮挡猜读，最后查看并记忆",
+    "只画装饰，不写单词",
+    "只记首字母，不核对完整单词",
+    "猜完就丢掉卡片，始终不核对"
+   ],
+   "answer": "A",
+   "explanation": "该项符合写词、猜读、记忆的活动顺序；其余做法都不能完成完整单词的核对和记忆。",
+   "difficulty": 3,
+   "bloom": "应用",
+   "type": "single_choice",
+   "id": "pohw-CC06629"
+  },
+  {
+   "topic_id": "primary-g4-s1-english-K019",
+   "topic_name": "We sing here.",
+   "stem": "同学们正在音乐教室唱歌。哪句话准确描述这项活动及地点？",
+   "options": [
+    "We sing in the music room.",
+    "We read in the music room.",
+    "We sing in the art room.",
+    "We play basketball on the playground."
+   ],
+   "answer": "A",
+   "explanation": "题设是音乐教室里唱歌；其余三项分别改变了活动或地点。",
+   "difficulty": 1,
+   "bloom": "记忆",
+   "type": "single_choice",
+   "id": "pohw-CC06630"
+  },
+  {
+   "topic_id": "primary-g4-s1-english-K001",
+   "topic_name": "Again, please!",
+   "stem": "哪一组的两个单词都含有读/d/的字母d？",
+   "options": [
+    "red和dance",
+    "let和tell",
+    "make和name",
+    "ten和at"
+   ],
+   "answer": "A",
+   "explanation": "red和dance中的d都读/d/；其余三组分别是t、a、t的练读词。",
+   "difficulty": 2,
+   "bloom": "理解",
+   "type": "single_choice",
+   "id": "pohw-CC06631"
+  },
+  {
+   "topic_id": "primary-g4-s1-english-K001",
+   "topic_name": "Again, please!",
+   "stem": "哪个单词以字母t开头，且这个字母读/t/？",
+   "options": [
+    "red",
+    "ten",
+    "door",
+    "name"
+   ],
+   "answer": "B",
+   "explanation": "ten以字母t开头，t读/t/；red和door以d开头，name以n开头。",
+   "difficulty": 1,
+   "bloom": "记忆",
+   "type": "single_choice",
+   "id": "pohw-CC06632"
+  },
+  {
+   "topic_id": "primary-g4-s1-english-K023",
+   "topic_name": "What’s your favourite subject?",
+   "stem": "哪句话准确表达“我最喜欢的学科是体育”？",
+   "options": [
+    "My favourite subject is PE.",
+    "I like PE.",
+    "We have PE.",
+    "My favourite subject is art."
+   ],
+   "answer": "A",
+   "explanation": "只有该项准确表达最喜欢体育；第二项仅表示喜欢，第三项是有体育课，第四项换成了美术。",
+   "difficulty": 1,
+   "bloom": "记忆",
+   "type": "single_choice",
+   "id": "pohw-CC06633"
+  },
+  {
+   "topic_id": "primary-g4-s1-english-K019",
+   "topic_name": "We sing here.",
+   "stem": "在句中书写“英语”和“语文”这两个学科名称时，哪一组大小写都正确？",
+   "options": [
+    "english和chinese",
+    "english和Chinese",
+    "English和Chinese",
+    "English和chinese"
+   ],
+   "answer": "C",
+   "explanation": "English和Chinese在句中也保留大写首字母；art和music一般不因学科名称而大写。",
+   "difficulty": 3,
+   "bloom": "应用",
+   "type": "single_choice",
+   "id": "pohw-CC06634"
+  },
+  {
+   "topic_id": "primary-g4-s1-english-K023",
+   "topic_name": "What’s your favourite subject?",
+   "stem": "填入学科名称，使句子表示“我喜欢数学”：I like ____.",
+   "options": [
+    "maths",
+    "English",
+    "science",
+    "computer studies"
+   ],
+   "answer": "A",
+   "explanation": "maths表示数学；science是科学，English是英语，computer studies是计算机课。",
+   "difficulty": 1,
+   "bloom": "记忆",
+   "type": "single_choice",
+   "id": "pohw-CC06635"
+  },
+  {
+   "topic_id": "primary-g4-s1-english-K023",
+   "topic_name": "What’s your favourite subject?",
+   "stem": "按最喜欢的学科分组。虚构学生Leo的调查记录是“最喜欢数学”。他应加入哪一组？",
+   "options": [
+    "Maths club",
+    "Music club",
+    "Art club",
+    "PE club"
+   ],
+   "answer": "A",
+   "explanation": "调查结果明确最喜欢数学，所以应加入Maths club；其他三个组别与这项偏好不符。",
+   "difficulty": 3,
+   "bloom": "应用",
+   "type": "single_choice",
+   "id": "pohw-CC06636"
+  },
+  {
+   "topic_id": "primary-g4-s1-english-K018",
+   "topic_name": "We have Chinese.",
+   "stem": "新同学向你说“Hi!”。以下哪项适合用作招呼语回应？",
+   "options": [
+    "Hello!",
+    "Chinese.",
+    "Today.",
+    "Make things."
+   ],
+   "answer": "A",
+   "explanation": "Hello!是问候语；其他选项是学科名、时间词或活动短语，不是招呼语。",
+   "difficulty": 1,
+   "bloom": "记忆",
+   "type": "single_choice",
+   "id": "pohw-CC06637"
+  },
+  {
+   "topic_id": "primary-g4-s1-english-K023",
+   "topic_name": "What’s your favourite subject?",
+   "stem": "班级按最喜欢的学科分组。虚构学生May说：“My favourite subject is Chinese.”她应加入哪一组？",
+   "options": [
+    "Maths club",
+    "English club",
+    "Chinese club",
+    "Science club"
+   ],
+   "answer": "C",
+   "explanation": "按最喜欢的学科分组，最喜欢语文的学生加入Chinese club；其余组名与该偏好不一致。",
+   "difficulty": 3,
+   "bloom": "应用",
+   "type": "single_choice",
+   "id": "pohw-CC06638"
+  },
+  {
+   "topic_id": "primary-g4-s1-english-K018",
+   "topic_name": "We have Chinese.",
+   "stem": "老师要向全班介绍新同学Lucy，应选择哪句话？",
+   "options": [
+    "This is Lucy, your new classmate.",
+    "I am Lucy.",
+    "I like art.",
+    "We have PE."
+   ],
+   "answer": "A",
+   "explanation": "This is...用于介绍别人，只有该项介绍了新同学Lucy；其余项分别介绍自己、表达喜好或课程。",
+   "difficulty": 1,
+   "bloom": "记忆",
+   "type": "single_choice",
+   "id": "pohw-CC06639"
+  },
+  {
+   "topic_id": "primary-g4-s1-english-K018",
+   "topic_name": "We have Chinese.",
+   "stem": "补全句子，使它表示“我们今天有体育课”：We have ____ today.",
+   "options": [
+    "PE",
+    "art",
+    "Chinese",
+    "computer studies"
+   ],
+   "answer": "A",
+   "explanation": "PE表示体育；art是美术，Chinese是语文，computer studies是计算机课。",
+   "difficulty": 2,
+   "bloom": "理解",
+   "type": "single_choice",
+   "id": "pohw-CC06640"
+  },
+  {
+   "topic_id": "primary-g4-s1-english-K019",
+   "topic_name": "We sing here.",
+   "stem": "补全句子，使它表示“我们在美术教室制作物品”：We ____ in the art room.",
+   "options": [
+    "make things",
+    "sing",
+    "read",
+    "play basketball"
+   ],
+   "answer": "A",
+   "explanation": "make things表示制作物品；其余选项分别表示唱歌、阅读、打篮球。",
+   "difficulty": 2,
+   "bloom": "理解",
+   "type": "single_choice",
+   "id": "pohw-CC06641"
+  },
+  {
+   "topic_id": "primary-g4-s1-english-K023",
+   "topic_name": "What’s your favourite subject?",
+   "stem": "要询问“你最喜欢的一门学科是什么”，补全问句：What’s your favourite ____?",
+   "options": [
+    "subject",
+    "subjects",
+    "classmate",
+    "playground"
+   ],
+   "answer": "A",
+   "explanation": "询问最喜欢的一门学科时用单数subject；subjects是复数，另外两项不是学科这一类别。",
+   "difficulty": 2,
+   "bloom": "理解",
+   "type": "single_choice",
+   "id": "pohw-CC06642"
+  },
+  {
+   "topic_id": "primary-g4-s1-english-K017",
+   "topic_name": "Try yourself.",
+   "stem": "读句子：“Then comes a boy, Pool. He is going to school.”男孩Pool要去哪里？",
+   "options": [
+    "学校",
+    "音乐教室",
+    "生日聚会",
+    "电影院"
+   ],
+   "answer": "A",
+   "explanation": "He紧接男孩Pool，going to school说明他要去学校；其他地点均不符合这两句。",
+   "difficulty": 2,
+   "bloom": "理解",
+   "type": "single_choice",
+   "id": "pohw-CC06643"
+  },
+  {
+   "topic_id": "primary-g4-s1-english-K018",
+   "topic_name": "We have Chinese.",
+   "stem": "课程表显示：今天上午有语文、英语，下午有美术、体育。哪句话准确介绍今天下午的课程？",
+   "options": [
+    "We have art and PE this afternoon.",
+    "We have art and English this afternoon.",
+    "We have art and PE this morning.",
+    "We have Chinese and PE this afternoon."
+   ],
+   "answer": "A",
+   "explanation": "题目明确下午有美术和体育，只有该项同时符合课程和时间；其余三项分别改变了课程或时间。",
+   "difficulty": 3,
+   "bloom": "应用",
+   "type": "single_choice",
+   "id": "pohw-CC06644"
+  },
+  {
+   "topic_id": "primary-g4-s1-english-K019",
+   "topic_name": "We sing here.",
+   "stem": "选择表示“在操场上”的短语补全句子：We play basketball ____.",
+   "options": [
+    "on the playground",
+    "in the music room",
+    "in the art room",
+    "this afternoon"
+   ],
+   "answer": "A",
+   "explanation": "on the playground表示在操场上；其余分别指音乐教室、美术教室和今天下午。",
+   "difficulty": 2,
+   "bloom": "理解",
+   "type": "single_choice",
+   "id": "pohw-CC06645"
+  },
+  {
+   "topic_id": "primary-g4-s1-english-K014",
+   "topic_name": "She likes dancing.",
+   "stem": "Amy喜欢打鼓。哪一句能正确表达这条信息？",
+   "options": [
+    "Amy like playing the drums.",
+    "Amy likes play the drums.",
+    "Amy is likes playing the drums.",
+    "Amy likes playing the drums."
+   ],
+   "answer": "D",
+   "explanation": "Amy是一个人的姓名，介绍其爱好用likes；打鼓用playing the drums。其余选项分别误用like、play或多加is。",
+   "difficulty": 2,
+   "bloom": "理解",
+   "type": "single_choice",
+   "id": "pohw-CC06646"
+  },
+  {
+   "topic_id": "primary-g4-s1-english-K017",
+   "topic_name": "Try yourself.",
+   "stem": "Ben是男孩，喜欢踢足球。你用爱好图介绍Ben时，应选择哪一句？",
+   "options": [
+    "He like playing football.",
+    "He likes playing the football.",
+    "He likes playing football.",
+    "She likes playing football."
+   ],
+   "answer": "C",
+   "explanation": "介绍男孩的爱好用He likes；踢足球用playing football。其余选项分别误用like、在football前多加the或将He误换为She。",
+   "difficulty": 3,
+   "bloom": "应用",
+   "type": "single_choice",
+   "id": "pohw-CC06647"
+  },
+  {
+   "topic_id": "primary-g4-s1-english-K014",
+   "topic_name": "She likes dancing.",
+   "stem": "Leo是男孩，喜欢跳舞。哪一句正确介绍了他的爱好？",
+   "options": [
+    "He like dancing.",
+    "She likes dancing.",
+    "He likes dancing.",
+    "He likes dance."
+   ],
+   "answer": "C",
+   "explanation": "Leo是男孩，用He；介绍一个人的喜好用likes，跳舞用dancing。其余选项分别误用like、She或dance。",
+   "difficulty": 1,
+   "bloom": "记忆",
+   "type": "single_choice",
+   "id": "pohw-CC06648"
+  },
+  {
+   "topic_id": "primary-g4-s1-english-K014",
+   "topic_name": "She likes dancing.",
+   "stem": "Lily是女孩，喜欢弹钢琴。应怎样介绍她的爱好？",
+   "options": [
+    "She likes playing the piano.",
+    "She like playing the piano.",
+    "He likes playing the piano.",
+    "She likes play the piano."
+   ],
+   "answer": "A",
+   "explanation": "Lily是女孩，用She likes；弹钢琴用playing the piano。其余选项的主语、动词或活动形式不正确。",
+   "difficulty": 1,
+   "bloom": "记忆",
+   "type": "single_choice",
+   "id": "pohw-CC06649"
+  },
+  {
+   "topic_id": "primary-g4-s1-english-K014",
+   "topic_name": "She likes dancing.",
+   "stem": "Sam喜欢拉二胡。请选择正确的英文介绍。",
+   "options": [
+    "Sam like playing the erhu.",
+    "Sam likes play the erhu.",
+    "Sam is likes playing the erhu.",
+    "Sam likes playing the erhu."
+   ],
+   "answer": "D",
+   "explanation": "Sam是一个人的姓名，后面用likes；拉二胡用playing the erhu。其余选项分别误用like、play或多加is。",
+   "difficulty": 2,
+   "bloom": "理解",
+   "type": "single_choice",
+   "id": "pohw-CC06650"
+  },
+  {
+   "topic_id": "primary-g4-s1-english-K001",
+   "topic_name": "Again, please!",
+   "stem": "一份采访记录写着：“Mr Brown likes singing.”Mr Brown的爱好是什么？",
+   "options": [
+    "唱歌",
+    "跑步",
+    "打鼓",
+    "跳绳"
+   ],
+   "answer": "A",
+   "explanation": "likes singing表示喜欢唱歌；其余活动均与所给句子不符。",
+   "difficulty": 2,
+   "bloom": "理解",
+   "type": "single_choice",
+   "id": "pohw-CC06651"
+  },
+  {
+   "topic_id": "primary-g4-s1-english-K024",
+   "topic_name": "What’s your hobby?",
+   "stem": "一位同学说：“My hobby is playing the erhu.”这位同学的爱好是什么？",
+   "options": [
+    "剪纸",
+    "唱歌",
+    "弹钢琴",
+    "拉二胡"
+   ],
+   "answer": "D",
+   "explanation": "playing the erhu表示拉二胡，不是弹钢琴、唱歌或剪纸。",
+   "difficulty": 2,
+   "bloom": "理解",
+   "type": "single_choice",
+   "id": "pohw-CC06652"
+  },
+  {
+   "topic_id": "primary-g4-s1-english-K014",
+   "topic_name": "She likes dancing.",
+   "stem": "一位女孩弹完钢琴后，同伴评价：“She plays well.”这句话是什么意思？",
+   "options": [
+    "她演奏得好",
+    "她不喜欢唱歌",
+    "她跑得快",
+    "她喜欢打鼓"
+   ],
+   "answer": "A",
+   "explanation": "在演奏情境中，She plays well.表示她演奏得好；没有表达跑步、喜欢打鼓或不喜欢唱歌。",
+   "difficulty": 2,
+   "bloom": "理解",
+   "type": "single_choice",
+   "id": "pohw-CC06653"
+  },
+  {
+   "topic_id": "primary-g4-s1-english-K002",
+   "topic_name": "Do you like running?",
+   "stem": "你希望同伴说出自己喜欢什么，而不只是回答“是”或“不是”。哪一句表示“你喜欢什么？”",
+   "options": [
+    "Come and skip!",
+    "I like drawing.",
+    "What do you like?",
+    "Do you like singing?"
+   ],
+   "answer": "C",
+   "explanation": "What do you like?询问喜欢什么；其余三项分别是邀请、陈述自己的喜好和询问是否喜欢唱歌。",
+   "difficulty": 2,
+   "bloom": "理解",
+   "type": "single_choice",
+   "id": "pohw-CC06654"
+  },
+  {
+   "topic_id": "primary-g4-s1-english-K024",
+   "topic_name": "What’s your hobby?",
+   "stem": "你想用My hobby开头表达“我的爱好是唱歌”。哪一句正确？",
+   "options": [
+    "My hobby singing.",
+    "My hobby is singing.",
+    "I hobby is singing.",
+    "My hobbies is singing."
+   ],
+   "answer": "B",
+   "explanation": "表达我的爱好是唱歌，用My hobby is singing.；其余选项分别漏掉is、误用I或误用复数hobbies与is搭配。",
+   "difficulty": 1,
+   "bloom": "记忆",
+   "type": "single_choice",
+   "id": "pohw-CC06655"
+  },
+  {
+   "topic_id": "primary-g4-s1-english-K002",
+   "topic_name": "Do you like running?",
+   "stem": "你想问同伴“你喜欢画画吗？”，应选择哪一句？",
+   "options": [
+    "I like drawing.",
+    "She likes drawing.",
+    "Do you like drawing?",
+    "What’s your hobby?"
+   ],
+   "answer": "C",
+   "explanation": "询问对方是否喜欢画画，用Do you like drawing?；其余选项分别是陈述自己、陈述她的喜好和询问爱好，均不符合指定意思。",
+   "difficulty": 1,
+   "bloom": "记忆",
+   "type": "single_choice",
+   "id": "pohw-CC06656"
+  },
+  {
+   "topic_id": "primary-g4-s1-english-K017",
+   "topic_name": "Try yourself.",
+   "stem": "你演奏后，一位长辈说：“You play well. I like it.”你想表示感谢，应选择哪一句？",
+   "options": [
+    "What’s your hobby?",
+    "Thank you!",
+    "No, I don’t.",
+    "Come and skip!"
+   ],
+   "answer": "B",
+   "explanation": "得到赞美后表示感谢，用Thank you!；其余选项分别是询问爱好、否定简答和邀请跳绳，不表示感谢。",
+   "difficulty": 2,
+   "bloom": "理解",
+   "type": "single_choice",
+   "id": "pohw-CC06657"
+  },
+  {
+   "topic_id": "primary-g4-s1-english-K024",
+   "topic_name": "What’s your hobby?",
+   "stem": "制作活动词卡时，需要写表示“烹饪”的英语动词原形。应选哪一个词？",
+   "options": [
+    "cooking",
+    "cook",
+    "cooks",
+    "cooked"
+   ],
+   "answer": "B",
+   "explanation": "表示烹饪的原形词是cook；cooking、cooks和cooked都不是题目要求的原形。",
+   "difficulty": 1,
+   "bloom": "记忆",
+   "type": "single_choice",
+   "id": "pohw-CC06658"
+  },
+  {
+   "topic_id": "primary-g4-s1-english-K017",
+   "topic_name": "Try yourself.",
+   "stem": "句子“He plays the violin every day.”中的every day表示什么？",
+   "options": [
+    "每天",
+    "每年",
+    "每月",
+    "每周"
+   ],
+   "answer": "A",
+   "explanation": "every day的意思是每天，不是每周、每月或每年。",
+   "difficulty": 2,
+   "bloom": "理解",
+   "type": "single_choice",
+   "id": "pohw-CC06659"
+  },
+  {
+   "topic_id": "primary-g4-s1-english-K024",
+   "topic_name": "What’s your hobby?",
+   "stem": "同伴展示一件剪纸作品，你赞叹“How beautiful!”。你是在称赞这件作品怎样？",
+   "options": [
+    "漂亮",
+    "很饿",
+    "很累",
+    "很冷"
+   ],
+   "answer": "A",
+   "explanation": "How beautiful!表达对事物漂亮的赞美；其余选项不是这句话的意思。",
+   "difficulty": 2,
+   "bloom": "理解",
+   "type": "single_choice",
+   "id": "pohw-CC06660"
+  },
+  {
+   "topic_id": "primary-g4-s1-english-K002",
+   "topic_name": "Do you like running?",
+   "stem": "同伴问：“Do you like drawing?”你不喜欢画画。请选择正确的否定简短回答。",
+   "options": [
+    "No, I’m not.",
+    "No, I can’t.",
+    "No, I don’t.",
+    "No, it isn’t."
+   ],
+   "answer": "C",
+   "explanation": "不喜欢所问活动时，使用No, I don’t.；其余选项不是这个问句的正确否定简答。",
+   "difficulty": 2,
+   "bloom": "理解",
+   "type": "single_choice",
+   "id": "pohw-CC06661"
+  },
+  {
+   "topic_id": "primary-g4-s1-english-K001",
+   "topic_name": "Again, please!",
+   "stem": "同伴问：“Do you like playing the piano?”你不喜欢弹钢琴。请选择正确的否定简短回答。",
+   "options": [
+    "No, I’m not.",
+    "No, I can’t.",
+    "No, it isn’t.",
+    "No, I don’t."
+   ],
+   "answer": "D",
+   "explanation": "问句以Do you like开头，否定的简短回答用No, I don’t.；其余三项所用的am、can、is与该问句不匹配。",
+   "difficulty": 2,
+   "bloom": "理解",
+   "type": "single_choice",
+   "id": "pohw-CC06662"
+  },
+  {
+   "topic_id": "primary-g4-s1-english-K002",
+   "topic_name": "Do you like running?",
+   "stem": "同伴问：“Do you like singing?”你喜欢唱歌。请选择正确的肯定简短回答。",
+   "options": [
+    "Yes, I am.",
+    "Yes, I do.",
+    "Yes, I can.",
+    "Yes, it is."
+   ],
+   "answer": "B",
+   "explanation": "Do you like...?的肯定简答用Yes, I do.；am、can和is均不能替换这里的do。",
+   "difficulty": 2,
+   "bloom": "理解",
+   "type": "single_choice",
+   "id": "pohw-CC06663"
+  },
+  {
+   "topic_id": "primary-g4-s1-english-K002",
+   "topic_name": "Do you like running?",
+   "stem": "喜好调查中，你要表达“我喜欢跳绳”。哪一句正确？",
+   "options": [
+    "I likes skipping.",
+    "I like skip.",
+    "I am like skipping.",
+    "I like skipping."
+   ],
+   "answer": "D",
+   "explanation": "主语I后用like，跳绳的活动表达是skipping；其余选项分别误用likes、skip或多加am。",
+   "difficulty": 1,
+   "bloom": "记忆",
+   "type": "single_choice",
+   "id": "pohw-CC06664"
+  },
+  {
+   "topic_id": "primary-g4-s1-english-K014",
+   "topic_name": "She likes dancing.",
+   "stem": "四位女孩的爱好分别是：Rose喜欢跳舞，Anna喜欢拉二胡，May喜欢唱歌，Lucy喜欢打鼓。猜人物的线索是“She likes singing.”，说的是谁？",
+   "options": [
+    "Lucy",
+    "Anna",
+    "Rose",
+    "May"
+   ],
+   "answer": "D",
+   "explanation": "线索She likes singing.指向喜欢唱歌的人，即May；Rose喜欢跳舞、Anna喜欢拉二胡、Lucy喜欢打鼓，都不符合。",
+   "difficulty": 3,
+   "bloom": "应用",
+   "type": "single_choice",
+   "id": "pohw-CC06665"
+  },
+  {
+   "topic_id": "primary-g4-s1-english-K017",
+   "topic_name": "Try yourself.",
+   "stem": "故事结尾有一句：“Dear me! But she can’t hear at all!”其中“But she can’t hear at all!”说明什么？",
+   "options": [
+    "她每天演奏",
+    "她不喜欢音乐",
+    "她一点儿也听不见",
+    "她听得很清楚"
+   ],
+   "answer": "C",
+   "explanation": "can’t hear at all表示一点儿也听不见；不能理解为听得清楚、不喜欢音乐或每天演奏。",
+   "difficulty": 2,
+   "bloom": "理解",
+   "type": "single_choice",
+   "id": "pohw-CC06666"
+  },
+  {
+   "topic_id": "primary-g4-s1-english-K001",
+   "topic_name": "Again, please!",
+   "stem": "比较指定字母的发音：kite中的k与下面哪个单词中的指定字母发音相同？选项中的指定字母依次是bag的g、me的e、book的k、she的e。",
+   "options": [
+    "bag",
+    "she",
+    "me",
+    "book"
+   ],
+   "answer": "D",
+   "explanation": "book中的k与kite中的k都读/k/；bag中的g读/ɡ/，me和she中的e读/iː/。",
+   "difficulty": 2,
+   "bloom": "理解",
+   "type": "single_choice",
+   "id": "pohw-CC06667"
+  },
+  {
+   "topic_id": "primary-g4-s1-english-K001",
+   "topic_name": "Again, please!",
+   "stem": "采访时，Miss Green说：“My hobby is cooking.”你应怎样向同学正确汇报她的爱好？",
+   "options": [
+    "Miss Green like cooking.",
+    "Miss Green likes cooking.",
+    "Miss Green likes cook.",
+    "Miss Green is likes cooking."
+   ],
+   "answer": "B",
+   "explanation": "Miss Green是一个人的称呼，后用likes；cooking表示烹饪。其余三项分别误用like、cook或多加is。",
+   "difficulty": 3,
+   "bloom": "应用",
+   "type": "single_choice",
+   "id": "pohw-CC06668"
+  },
+  {
+   "topic_id": "primary-g4-s1-english-K017",
+   "topic_name": "Try yourself.",
+   "stem": "阅读句子“The boy likes playing the violin.”。这个男孩喜欢什么活动？",
+   "options": [
+    "弹钢琴",
+    "拉二胡",
+    "打鼓",
+    "拉小提琴"
+   ],
+   "answer": "D",
+   "explanation": "playing the violin表示拉小提琴，与其他三种乐器不符。",
+   "difficulty": 2,
+   "bloom": "理解",
+   "type": "single_choice",
+   "id": "pohw-CC06669"
+  },
+  {
+   "topic_id": "primary-g4-s1-english-K020",
+   "topic_name": "What day is today?",
+   "stem": "“星期四”对应哪个英语单词？",
+   "options": [
+    "Tuesday",
+    "Wednesday",
+    "Thursday",
+    "Friday"
+   ],
+   "answer": "C",
+   "explanation": "Thursday是星期四；Tuesday是星期二，Wednesday是星期三，Friday是星期五。",
+   "difficulty": 1,
+   "bloom": "记忆",
+   "type": "single_choice",
+   "id": "pohw-CC06670"
+  },
+  {
+   "topic_id": "primary-g4-s1-english-K004",
+   "topic_name": "I can dance on Friday.",
+   "stem": "一份新活动安排写着：我，星期五，弹钢琴。选择与这份安排完全一致的句子。",
+   "options": [
+    "We can play the piano on Friday.",
+    "I can play the piano on Friday.",
+    "I can draw pictures on Friday.",
+    "I can play the piano on Monday."
+   ],
+   "answer": "B",
+   "explanation": "只有该句同时符合我、星期五和弹钢琴三个信息；其他选项改变了主语、活动或星期。",
+   "difficulty": 3,
+   "bloom": "应用",
+   "type": "single_choice",
+   "id": "pohw-CC06671"
+  },
+  {
+   "topic_id": "primary-g4-s1-english-K020",
+   "topic_name": "What day is today?",
+   "stem": "一张新课程表注明：我们星期五有科学课。哪句英语与这一信息一致？",
+   "options": [
+    "We have music on Friday.",
+    "We have science on Monday.",
+    "I like Friday.",
+    "We have science on Friday."
+   ],
+   "answer": "D",
+   "explanation": "只有该句同时表达我们、星期五和科学课；其他选项分别改变了学科、星期或句意。",
+   "difficulty": 3,
+   "bloom": "应用",
+   "type": "single_choice",
+   "id": "pohw-CC06672"
+  },
+  {
+   "topic_id": "primary-g4-s1-english-K020",
+   "topic_name": "What day is today?",
+   "stem": "一张新课程表的第2节课安排为：星期一Chinese，星期二maths，星期三English，星期四art。哪一天第2节是英语课？",
+   "options": [
+    "Monday",
+    "Tuesday",
+    "Wednesday",
+    "Thursday"
+   ],
+   "answer": "C",
+   "explanation": "题干明确给出星期三第2节是English，其他三个星期第2节均为别的学科。",
+   "difficulty": 3,
+   "bloom": "应用",
+   "type": "single_choice",
+   "id": "pohw-CC06673"
+  },
+  {
+   "topic_id": "primary-g4-s1-english-K021",
+   "topic_name": "What do you do on Saturday?",
+   "stem": "一段新对话是：“What do you do on Sunday?”“I often draw pictures.” 问话者询问的是哪一天的活动？",
+   "options": [
+    "Saturday",
+    "Sunday",
+    "Friday",
+    "Monday"
+   ],
+   "answer": "B",
+   "explanation": "问句中的on Sunday明确询问星期日，不能根据回答中的活动改判为其他星期。",
+   "difficulty": 3,
+   "bloom": "应用",
+   "type": "single_choice",
+   "id": "pohw-CC06674"
+  },
+  {
+   "topic_id": "primary-g4-s1-english-K001",
+   "topic_name": "Again, please!",
+   "stem": "下面哪个单词中的元音字母与time中的i发音相同？",
+   "options": [
+    "like",
+    "big",
+    "pen",
+    "bed"
+   ],
+   "answer": "A",
+   "explanation": "like中的i与time中的i都读/aɪ/；big中的i读/ɪ/，pen和bed中的e读/e/。",
+   "difficulty": 3,
+   "bloom": "应用",
+   "type": "single_choice",
+   "id": "pohw-CC06675"
+  },
+  {
+   "topic_id": "primary-g4-s1-english-K021",
+   "topic_name": "What do you do on Saturday?",
+   "stem": "下面哪个选项是“图画”的正确英语拼写？",
+   "options": [
+    "pictrue",
+    "pictur",
+    "picture",
+    "pitcure"
+   ],
+   "answer": "C",
+   "explanation": "picture的规范拼写是p-i-c-t-u-r-e；其余选项有字母遗漏或顺序错误。",
+   "difficulty": 1,
+   "bloom": "记忆",
+   "type": "single_choice",
+   "id": "pohw-CC06676"
+  },
+  {
+   "topic_id": "primary-g4-s1-english-K017",
+   "topic_name": "Try yourself.",
+   "stem": "两名同学用星期翻牌练习。甲想问乙“今天是星期几”，乙准备根据翻牌回答“It’s Tuesday.”。甲应问哪一句？",
+   "options": [
+    "What day is today?",
+    "What colour would you like?",
+    "What do you do on Saturday?",
+    "What subjects do we have on Tuesday?"
+   ],
+   "answer": "A",
+   "explanation": "星期翻牌显示的是当天星期，应询问What day is today；其他问句询问活动、课程或颜色。",
+   "difficulty": 3,
+   "bloom": "应用",
+   "type": "single_choice",
+   "id": "pohw-CC06677"
+  },
+  {
+   "topic_id": "primary-g4-s1-english-K020",
+   "topic_name": "What day is today?",
+   "stem": "今天是星期一。有人问“What day is today?”，应选哪句回答？",
+   "options": [
+    "I like Monday.",
+    "We have maths on Monday.",
+    "It’s Monday.",
+    "I can dance on Monday."
+   ],
+   "answer": "C",
+   "explanation": "已知今天是星期一，询问星期应回答It’s Monday；其余选项分别表达喜好、课程和活动。",
+   "difficulty": 1,
+   "bloom": "记忆",
+   "type": "single_choice",
+   "id": "pohw-CC06678"
+  },
+  {
+   "topic_id": "primary-g4-s1-english-K020",
+   "topic_name": "What day is today?",
+   "stem": "今天是星期二。选择正确的词补全问答：“What day is today?”“____ Tuesday.”",
+   "options": [
+    "I",
+    "We",
+    "It’s",
+    "Have"
+   ],
+   "answer": "C",
+   "explanation": "完整回答为It’s Tuesday，即It is Tuesday；其余选项不构成正确回答。",
+   "difficulty": 2,
+   "bloom": "理解",
+   "type": "single_choice",
+   "id": "pohw-CC06679"
+  },
+  {
+   "topic_id": "primary-g4-s1-english-K001",
+   "topic_name": "Again, please!",
+   "stem": "小华说：“I can dance on Friday.” 小华说自己哪一天可以跳舞？",
+   "options": [
+    "Sunday",
+    "Monday",
+    "Saturday",
+    "Friday"
+   ],
+   "answer": "D",
+   "explanation": "on Friday说明可以跳舞的时间是星期五，其他三个星期与给定句子不符。",
+   "difficulty": 2,
+   "bloom": "理解",
+   "type": "single_choice",
+   "id": "pohw-CC06680"
+  },
+  {
+   "topic_id": "primary-g4-s1-english-K021",
+   "topic_name": "What do you do on Saturday?",
+   "stem": "小明纠正同伴说：“No! It’s Saturday today.” 这句话说明今天是星期几？",
+   "options": [
+    "星期五",
+    "星期一",
+    "星期日",
+    "星期六"
+   ],
+   "answer": "D",
+   "explanation": "Saturday表示星期六，不是星期日、星期一或星期五。",
+   "difficulty": 2,
+   "bloom": "理解",
+   "type": "single_choice",
+   "id": "pohw-CC06681"
+  },
+  {
+   "topic_id": "primary-g4-s1-english-K004",
+   "topic_name": "I can dance on Friday.",
+   "stem": "小林的新活动记录是：“I can make things on Thursday.” 制作物品安排在哪一天？",
+   "options": [
+    "Friday",
+    "Tuesday",
+    "Thursday",
+    "Monday"
+   ],
+   "answer": "C",
+   "explanation": "给定记录中make things与Thursday对应，其他三个星期均不符合。",
+   "difficulty": 3,
+   "bloom": "应用",
+   "type": "single_choice",
+   "id": "pohw-CC06682"
+  },
+  {
+   "topic_id": "primary-g4-s1-english-K017",
+   "topic_name": "Try yourself.",
+   "stem": "巴依说：“Avanti, make a coat for me.” 他请阿凡提制作什么？",
+   "options": [
+    "一幅画",
+    "一架钢琴",
+    "一件外套",
+    "一个足球"
+   ],
+   "answer": "C",
+   "explanation": "a coat表示一件外套；其余选项都不是coat的含义。",
+   "difficulty": 2,
+   "bloom": "理解",
+   "type": "single_choice",
+   "id": "pohw-CC06683"
+  },
+  {
+   "topic_id": "primary-g4-s1-english-K017",
+   "topic_name": "Try yourself.",
+   "stem": "巴依说：“Oh, I can get it after Sunday.” 其中after Sunday是什么意思？",
+   "options": [
+    "星期五下午",
+    "星期日当天",
+    "星期日之后",
+    "星期日之前"
+   ],
+   "answer": "C",
+   "explanation": "after Sunday表示星期日之后，不是星期日当天或之前；句中也未指定星期五。",
+   "difficulty": 3,
+   "bloom": "应用",
+   "type": "single_choice",
+   "id": "pohw-CC06684"
+  },
+  {
+   "topic_id": "primary-g4-s1-english-K017",
+   "topic_name": "Try yourself.",
+   "stem": "巴依请阿凡提做外套，随后问“When can I get it?”。他这句话想问什么？",
+   "options": [
+    "什么时候可以取衣服",
+    "星期六做什么活动",
+    "外套是什么颜色",
+    "星期二有什么课"
+   ],
+   "answer": "A",
+   "explanation": "when询问时间；结合制作外套的背景，get it指取衣服，不是询问颜色、课程或活动。",
+   "difficulty": 3,
+   "bloom": "应用",
+   "type": "single_choice",
+   "id": "pohw-CC06685"
+  },
+  {
+   "topic_id": "primary-g4-s1-english-K021",
+   "topic_name": "What do you do on Saturday?",
+   "stem": "想问同伴“你星期日做什么”，应选哪个问句？",
+   "options": [
+    "What day is today?",
+    "What do you do on Saturday?",
+    "What do you do on Sunday?",
+    "What subjects do we have on Tuesday?"
+   ],
+   "answer": "C",
+   "explanation": "该句询问星期日做什么；其余问句分别询问当天星期、星期六活动和星期二课程。",
+   "difficulty": 1,
+   "bloom": "记忆",
+   "type": "single_choice",
+   "id": "pohw-CC06686"
+  },
+  {
+   "topic_id": "primary-g4-s1-english-K017",
+   "topic_name": "Try yourself.",
+   "stem": "要制作一本用于练习本单元英语的一周活动小书，下面哪项最应该作为记录内容？",
+   "options": [
+    "真实家庭住址",
+    "私人电话号码",
+    "星期与活动",
+    "衣服价格"
+   ],
+   "answer": "C",
+   "explanation": "一周活动小书应记录哪一天开展什么活动；其余三项与这一学习任务无关。",
+   "difficulty": 1,
+   "bloom": "记忆",
+   "type": "single_choice",
+   "id": "pohw-CC06687"
+  },
+  {
+   "topic_id": "primary-g4-s1-english-K004",
+   "topic_name": "I can dance on Friday.",
+   "stem": "要表达“我们星期一可以画画”，应填哪个词？“____ can draw pictures on Monday.”",
+   "options": [
+    "She",
+    "He",
+    "We",
+    "I"
+   ],
+   "answer": "C",
+   "explanation": "题目要求表达我们，应选We；I是我，He是他，She是她。",
+   "difficulty": 2,
+   "bloom": "理解",
+   "type": "single_choice",
+   "id": "pohw-CC06688"
+  },
+  {
+   "topic_id": "primary-g4-s1-english-K021",
+   "topic_name": "What do you do on Saturday?",
+   "stem": "要表达“我经常画画”，选择合适的词：“I ____ draw pictures.”",
+   "options": [
+    "Monday",
+    "picture",
+    "today",
+    "often"
+   ],
+   "answer": "D",
+   "explanation": "often意为经常；today是今天，Monday是星期一，picture是图画。",
+   "difficulty": 2,
+   "bloom": "理解",
+   "type": "single_choice",
+   "id": "pohw-CC06689"
+  },
+  {
+   "topic_id": "primary-g4-s1-english-K001",
+   "topic_name": "Again, please!",
+   "stem": "选择准确表达“我星期六经常拉二胡”的句子。",
+   "options": [
+    "I can play the erhu on Saturday.",
+    "I often play football on Saturday.",
+    "I often play the erhu on Sunday.",
+    "I often play the erhu on Saturday."
+   ],
+   "answer": "D",
+   "explanation": "often表示经常，play the erhu表示拉二胡，Saturday表示星期六；其他选项改变了频率表达、活动或星期。",
+   "difficulty": 3,
+   "bloom": "应用",
+   "type": "single_choice",
+   "id": "pohw-CC06690"
+  },
+  {
+   "topic_id": "primary-g4-s1-english-K021",
+   "topic_name": "What do you do on Saturday?",
+   "stem": "选择准确表达“我经常打篮球”的句子。",
+   "options": [
+    "I often play football.",
+    "I often play basketball.",
+    "I can play basketball.",
+    "I often play the piano."
+   ],
+   "answer": "B",
+   "explanation": "often表示经常，play basketball表示打篮球；其他选项改变了活动或表达的含义。",
+   "difficulty": 1,
+   "bloom": "记忆",
+   "type": "single_choice",
+   "id": "pohw-CC06691"
+  },
+  {
+   "topic_id": "primary-g4-s1-english-K004",
+   "topic_name": "I can dance on Friday.",
+   "stem": "选择正确形式填空：“I can ____ on Tuesday.”",
+   "options": [
+    "danced",
+    "dances",
+    "dance",
+    "dancing"
+   ],
+   "answer": "C",
+   "explanation": "can后接动词原形dance，不用dances、dancing或danced。",
+   "difficulty": 1,
+   "bloom": "记忆",
+   "type": "single_choice",
+   "id": "pohw-CC06692"
+  },
+  {
+   "topic_id": "primary-g4-s1-english-K004",
+   "topic_name": "I can dance on Friday.",
+   "stem": "选择正确的词填空：“We can play football ____ Thursday.”",
+   "options": [
+    "on",
+    "in",
+    "at",
+    "to"
+   ],
+   "answer": "A",
+   "explanation": "表示在具体星期几做某事，使用on加星期；这里不用in、at或to。",
+   "difficulty": 2,
+   "bloom": "理解",
+   "type": "single_choice",
+   "id": "pohw-CC06693"
+  },
+  {
+   "topic_id": "primary-g4-s1-english-K001",
+   "topic_name": "Again, please!",
+   "stem": "选择表达“我们今天有音乐课”的句子。",
+   "options": [
+    "I like music.",
+    "It’s Wednesday.",
+    "We have music today.",
+    "I can play the piano."
+   ],
+   "answer": "C",
+   "explanation": "have music表示有音乐课；其他选项分别表示喜欢音乐、今天星期三和弹钢琴。",
+   "difficulty": 1,
+   "bloom": "记忆",
+   "type": "single_choice",
+   "id": "pohw-CC06694"
+  },
+  {
+   "topic_id": "primary-g4-s1-english-K004",
+   "topic_name": "I can dance on Friday.",
+   "stem": "选择表达“我们星期四可以制作物品”的句子。",
+   "options": [
+    "I can make things on Thursday.",
+    "We can make things on Tuesday.",
+    "We can draw pictures on Thursday.",
+    "We can make things on Thursday."
+   ],
+   "answer": "D",
+   "explanation": "We表示我们，can表示可以，make things表示制作物品，on Thursday表示在星期四；其余选项改变了人物、活动或星期。",
+   "difficulty": 3,
+   "bloom": "应用",
+   "type": "single_choice",
+   "id": "pohw-CC06695"
+  },
+  {
+   "topic_id": "primary-g4-s1-english-K020",
+   "topic_name": "What day is today?",
+   "stem": "选择表达“我喜欢星期二”的句子。",
+   "options": [
+    "It’s Tuesday.",
+    "I like Tuesday.",
+    "We have English on Tuesday.",
+    "We have science on Thursday."
+   ],
+   "answer": "B",
+   "explanation": "I like Tuesday表示我喜欢星期二；其余选项分别表示当天星期、课程和星期四的课程。",
+   "difficulty": 1,
+   "bloom": "记忆",
+   "type": "single_choice",
+   "id": "pohw-CC06696"
+  },
+  {
+   "topic_id": "primary-g4-s1-english-K011",
+   "topic_name": "Lesson 3 What season do you like?",
+   "stem": "书写表示“秋天”的英语单词时，哪个拼写正确？",
+   "options": [
+    "autumn",
+    "autum",
+    "autmun",
+    "atum"
+   ],
+   "answer": "A",
+   "explanation": "秋天的规范拼写是autumn，其他选项均有拼写错误。",
+   "difficulty": 1,
+   "bloom": "记忆",
+   "type": "single_choice",
+   "id": "pohw-CC06697"
+  },
+  {
+   "topic_id": "primary-g4-s1-english-K006",
+   "topic_name": "Lesson 1 It's spring.",
+   "stem": "你想询问“这是什么季节？”，应使用哪一句？",
+   "options": [
+    "What season do you like?",
+    "What season is it?",
+    "I like summer.",
+    "It's spring."
+   ],
+   "answer": "B",
+   "explanation": "询问是什么季节用“What season is it?”；另一个问句询问喜欢的季节，其余是陈述句。",
+   "difficulty": 2,
+   "bloom": "理解",
+   "type": "single_choice",
+   "id": "pohw-CC06698"
+  },
+  {
+   "topic_id": "primary-g4-s1-english-K011",
+   "topic_name": "Lesson 3 What season do you like?",
+   "stem": "哪一句准确表达“我经常放风筝”？",
+   "options": [
+    "I often go swimming.",
+    "I like winter.",
+    "I can fly my kite.",
+    "I often fly my kite."
+   ],
+   "answer": "D",
+   "explanation": "often表示经常，fly my kite表示放我的风筝；can不能替代“经常”的意思。",
+   "difficulty": 2,
+   "bloom": "理解",
+   "type": "single_choice",
+   "id": "pohw-CC06699"
+  },
+  {
+   "topic_id": "primary-g4-s1-english-K012",
+   "topic_name": "Lesson 4 Again, please!",
+   "stem": "哪个单词含有与very中字母v相同的辅音？",
+   "options": [
+    "roof",
+    "five",
+    "four",
+    "fish"
+   ],
+   "answer": "B",
+   "explanation": "five中的v与very中的v发音相同；fish、four、roof含f音。",
+   "difficulty": 2,
+   "bloom": "理解",
+   "type": "single_choice",
+   "id": "pohw-CC06700"
+  },
+  {
+   "topic_id": "primary-g4-s1-english-K017",
+   "topic_name": "Try yourself.",
+   "stem": "哪个英语单词表示“工作”？",
+   "options": [
+    "sorry",
+    "eat",
+    "job",
+    "peanut"
+   ],
+   "answer": "C",
+   "explanation": "job表示工作；eat表示吃，sorry表示对不起，peanut表示花生。",
+   "difficulty": 1,
+   "bloom": "记忆",
+   "type": "single_choice",
+   "id": "pohw-CC06701"
+  },
+  {
+   "topic_id": "primary-g4-s1-english-K006",
+   "topic_name": "Lesson 1 It's spring.",
+   "stem": "哪个英语单词表示“春天”？",
+   "options": [
+    "spring",
+    "summer",
+    "autumn",
+    "winter"
+   ],
+   "answer": "A",
+   "explanation": "spring是春天；summer、autumn、winter分别是夏天、秋天、冬天。",
+   "difficulty": 1,
+   "bloom": "记忆",
+   "type": "single_choice",
+   "id": "pohw-CC06702"
+  },
+  {
+   "topic_id": "primary-g4-s1-english-K006",
+   "topic_name": "Lesson 1 It's spring.",
+   "stem": "哪句话准确表达“我不喜欢冬天”？",
+   "options": [
+    "It's winter.",
+    "I don't like winter.",
+    "I like winter.",
+    "I don't like summer."
+   ],
+   "answer": "B",
+   "explanation": "don't like表示不喜欢，winter表示冬天。",
+   "difficulty": 2,
+   "bloom": "理解",
+   "type": "single_choice",
+   "id": "pohw-CC06703"
+  },
+  {
+   "topic_id": "primary-g4-s1-english-K006",
+   "topic_name": "Lesson 1 It's spring.",
+   "stem": "在英语季节标签中，“夏天”应写成哪个词？",
+   "options": [
+    "winter",
+    "autumn",
+    "summer",
+    "spring"
+   ],
+   "answer": "C",
+   "explanation": "summer表示夏天，其他选项不是夏天。",
+   "difficulty": 1,
+   "bloom": "记忆",
+   "type": "single_choice",
+   "id": "pohw-CC06704"
+  },
+  {
+   "topic_id": "primary-g4-s1-english-K006",
+   "topic_name": "Lesson 1 It's spring.",
+   "stem": "季节卡片上写着“秋天”。你要用英语说出卡片上的季节，应选哪句？",
+   "options": [
+    "It's spring.",
+    "It's summer.",
+    "It's autumn.",
+    "It's winter."
+   ],
+   "answer": "C",
+   "explanation": "autumn表示秋天；其余三项分别表示春天、夏天和冬天。",
+   "difficulty": 3,
+   "bloom": "应用",
+   "type": "single_choice",
+   "id": "pohw-CC06705"
+  },
+  {
+   "topic_id": "primary-g4-s1-english-K008",
+   "topic_name": "Lesson 2 It's warm in spring.",
+   "stem": "小朋友想说“我通常穿我的毛衣”，应选哪句？",
+   "options": [
+    "I often wear my sweater.",
+    "We often wear sweaters.",
+    "I often wear my coat.",
+    "We often wear T-shirts."
+   ],
+   "answer": "A",
+   "explanation": "I表示我，my sweater表示我的毛衣；其余选项改变了人物或衣物。",
+   "difficulty": 2,
+   "bloom": "理解",
+   "type": "single_choice",
+   "id": "pohw-CC06706"
+  },
+  {
+   "topic_id": "primary-g4-s1-english-K012",
+   "topic_name": "Lesson 4 Again, please!",
+   "stem": "按春、夏、秋、冬的顺序补全：spring, summer, ____, winter。",
+   "options": [
+    "autumn",
+    "winter",
+    "spring",
+    "summer"
+   ],
+   "answer": "A",
+   "explanation": "按春、夏、秋、冬排列，第三个是autumn。",
+   "difficulty": 2,
+   "bloom": "理解",
+   "type": "single_choice",
+   "id": "pohw-CC06707"
+  },
+  {
+   "topic_id": "primary-g4-s1-english-K017",
+   "topic_name": "Try yourself.",
+   "stem": "故事结尾的句子“It's not your job.”是什么意思？",
+   "options": [
+    "这是你的工作。",
+    "这不是你的工作。",
+    "这不是我的工作。",
+    "我们一起种花生吧。"
+   ],
+   "answer": "B",
+   "explanation": "your表示你的，not表示否定；不是“我的工作”，也不是肯定句。",
+   "difficulty": 3,
+   "bloom": "应用",
+   "type": "single_choice",
+   "id": "pohw-CC06708"
+  },
+  {
+   "topic_id": "primary-g4-s1-english-K011",
+   "topic_name": "Lesson 3 What season do you like?",
+   "stem": "有人问“What season do you like?”，你想回答“我喜欢春天”，应选哪句？",
+   "options": [
+    "I like spring.",
+    "It's spring.",
+    "It's warm.",
+    "I often fly my kite."
+   ],
+   "answer": "A",
+   "explanation": "只有这一项直接表达喜欢春天；其余分别说明季节、冷暖和活动。",
+   "difficulty": 2,
+   "bloom": "理解",
+   "type": "single_choice",
+   "id": "pohw-CC06709"
+  },
+  {
+   "topic_id": "primary-g4-s1-english-K008",
+   "topic_name": "Lesson 2 It's warm in spring.",
+   "stem": "要表达“我们通常穿T恤衫”，补全句子：We often wear ____.",
+   "options": [
+    "T-shirts",
+    "coats",
+    "jackets",
+    "sweaters"
+   ],
+   "answer": "A",
+   "explanation": "T-shirts表示T恤衫；其余分别表示外套、夹克衫和毛衣。",
+   "difficulty": 1,
+   "bloom": "记忆",
+   "type": "single_choice",
+   "id": "pohw-CC06710"
+  },
+  {
+   "topic_id": "primary-g4-s1-english-K011",
+   "topic_name": "Lesson 3 What season do you like?",
+   "stem": "要表达“我夏天可以去游泳”，补全句子：I can ____ in summer.",
+   "options": [
+    "fly my kite",
+    "go skating",
+    "wear jackets",
+    "go swimming"
+   ],
+   "answer": "D",
+   "explanation": "go swimming表示去游泳；其余表示去滑冰、放风筝、穿夹克衫。",
+   "difficulty": 2,
+   "bloom": "理解",
+   "type": "single_choice",
+   "id": "pohw-CC06711"
+  },
+  {
+   "topic_id": "primary-g4-s1-english-K008",
+   "topic_name": "Lesson 2 It's warm in spring.",
+   "stem": "要表达“春天暖和”，补全句子：It's ____ in spring.",
+   "options": [
+    "cool",
+    "warm",
+    "hot",
+    "cold"
+   ],
+   "answer": "B",
+   "explanation": "题目明确要求表达暖和，因此选warm；其余三个词表示热、凉爽、寒冷。",
+   "difficulty": 1,
+   "bloom": "记忆",
+   "type": "single_choice",
+   "id": "pohw-CC06712"
+  },
+  {
+   "topic_id": "primary-g4-s1-english-K012",
+   "topic_name": "Lesson 4 Again, please!",
+   "stem": "读句子“Winter is cold and the year is gone.”，其中表示“寒冷”的词是哪一个？",
+   "options": [
+    "warm",
+    "hot",
+    "cool",
+    "cold"
+   ],
+   "answer": "D",
+   "explanation": "原句中的cold表示寒冷；warm、hot、cool分别表示暖和、热、凉爽。",
+   "difficulty": 3,
+   "bloom": "应用",
+   "type": "single_choice",
+   "id": "pohw-CC06713"
+  },
+  {
+   "topic_id": "primary-g4-s1-english-K011",
+   "topic_name": "Lesson 3 What season do you like?",
+   "stem": "选择“我喜欢冬天。我冬天可以去滑冰”的准确表达。",
+   "options": [
+    "I like winter. I can go skating in winter.",
+    "I like summer. I can go swimming in summer.",
+    "I like winter. I can fly my kite.",
+    "I don't like winter. It's cold."
+   ],
+   "answer": "A",
+   "explanation": "winter表示冬天，go skating表示去滑冰；其余选项改变了喜好、活动或季节。",
+   "difficulty": 3,
+   "bloom": "应用",
+   "type": "single_choice",
+   "id": "pohw-CC06714"
+  },
+  {
+   "topic_id": "primary-g4-s1-english-K008",
+   "topic_name": "Lesson 2 It's warm in spring.",
+   "stem": "选择“秋天凉爽”的准确英语表达。",
+   "options": [
+    "It's cool in autumn.",
+    "It's hot in autumn.",
+    "It's cool in summer.",
+    "It's cold in winter."
+   ],
+   "answer": "A",
+   "explanation": "秋天是autumn，凉爽是cool；其余选项改变了季节或冷暖。",
+   "difficulty": 2,
+   "bloom": "理解",
+   "type": "single_choice",
+   "id": "pohw-CC06715"
+  },
+  {
+   "topic_id": "primary-g4-s1-english-K008",
+   "topic_name": "Lesson 2 It's warm in spring.",
+   "stem": "选择与“我们通常穿夹克衫”意思一致的句子。",
+   "options": [
+    "We often wear sweaters.",
+    "We often wear T-shirts.",
+    "We often wear jackets.",
+    "We often wear coats."
+   ],
+   "answer": "C",
+   "explanation": "jackets表示夹克衫；其余三项分别表示毛衣、T恤衫和外套。",
+   "difficulty": 3,
+   "bloom": "应用",
+   "type": "single_choice",
+   "id": "pohw-CC06716"
+  },
+  {
+   "topic_id": "primary-g4-s1-english-K012",
+   "topic_name": "Lesson 4 Again, please!",
+   "stem": "一份练习用天气预报注明“星期一多云”。选择准确的英语播报。",
+   "options": [
+    "It will rain on Monday.",
+    "It will be cloudy on Sunday.",
+    "It will be sunny on Monday.",
+    "It will be cloudy on Monday."
+   ],
+   "answer": "D",
+   "explanation": "cloudy表示多云，on Monday表示在星期一。其余选项改变了天气或日期。",
+   "difficulty": 3,
+   "bloom": "应用",
+   "type": "single_choice",
+   "id": "pohw-CC06717"
+  },
+  {
+   "topic_id": "primary-g4-s1-english-K009",
+   "topic_name": "Lesson 2 It’s snowing.",
+   "stem": "一份课堂练习记录注明：济南当前正在下雪。选择与这份记录一致的句子。",
+   "options": [
+    "It’s raining in Jinan.",
+    "It’s snowing in Shanghai.",
+    "It’s snowing in Jinan.",
+    "It’s sunny in Jinan."
+   ],
+   "answer": "C",
+   "explanation": "记录明确说明济南当前下雪，因此只有含snowing且城市为Jinan的选项符合；另外三项改变了天气或城市。",
+   "difficulty": 3,
+   "bloom": "应用",
+   "type": "single_choice",
+   "id": "pohw-CC06718"
+  },
+  {
+   "topic_id": "primary-g4-s1-english-K009",
+   "topic_name": "Lesson 2 It’s snowing.",
+   "stem": "你正在制作“北京今日天气”记录卡，需要向朋友询问天气。选择意思准确的问题。",
+   "options": [
+    "How’s the weather in Beijing tomorrow?",
+    "Where is Beijing?",
+    "Is it time for school?",
+    "How’s the weather in Beijing today?"
+   ],
+   "answer": "D",
+   "explanation": "正确选项明确询问北京今天的天气；其余选项分别询问明天天气、北京的位置或上学时间。",
+   "difficulty": 3,
+   "bloom": "应用",
+   "type": "single_choice",
+   "id": "pohw-CC06719"
+  },
+  {
+   "topic_id": "primary-g4-s1-english-K010",
+   "topic_name": "Lesson 3 It will snow.",
+   "stem": "你要转述预报“明天将下雪”。选择意思准确的句子。",
+   "options": [
+    "It’s snowing now.",
+    "It will rain tomorrow.",
+    "It will snow tomorrow.",
+    "It will be windy tomorrow."
+   ],
+   "answer": "C",
+   "explanation": "will snow表示将下雪，tomorrow表示明天。其余三项分别表示现在下雪、明天下雨和明天多风。",
+   "difficulty": 3,
+   "bloom": "应用",
+   "type": "single_choice",
+   "id": "pohw-CC06720"
+  },
+  {
+   "topic_id": "primary-g4-s1-english-K012",
+   "topic_name": "Lesson 4 Again, please!",
+   "stem": "单词look中，开头字母l的发音是哪一个？",
+   "options": [
+    "/ʌ/",
+    "/z/",
+    "/l/",
+    "/s/"
+   ],
+   "answer": "C",
+   "explanation": "look开头的l读/l/；其他三个音均不是该字母在look中的发音。",
+   "difficulty": 2,
+   "bloom": "理解",
+   "type": "single_choice",
+   "id": "pohw-CC06721"
+  },
+  {
+   "topic_id": "primary-g4-s1-english-K012",
+   "topic_name": "Lesson 4 Again, please!",
+   "stem": "单词run中，字母u的发音是哪一个？",
+   "options": [
+    "/ʌ/",
+    "/l/",
+    "/s/",
+    "/juː/"
+   ],
+   "answer": "A",
+   "explanation": "run中的u读/ʌ/，不读字母名称音/juː/，也不读/s/或/l/。",
+   "difficulty": 2,
+   "bloom": "理解",
+   "type": "single_choice",
+   "id": "pohw-CC06722"
+  },
+  {
+   "topic_id": "primary-g4-s1-english-K012",
+   "topic_name": "Lesson 4 Again, please!",
+   "stem": "单词yes中，字母s的发音是哪一个？",
+   "options": [
+    "/s/",
+    "/ʌ/",
+    "/z/",
+    "/l/"
+   ],
+   "answer": "A",
+   "explanation": "yes末尾的s读/s/，不读/z/、/l/或/ʌ/。",
+   "difficulty": 2,
+   "bloom": "理解",
+   "type": "single_choice",
+   "id": "pohw-CC06723"
+  },
+  {
+   "topic_id": "primary-g4-s1-english-K007",
+   "topic_name": "Lesson 1 It’s sunny.",
+   "stem": "听到天气描述“It’s cool.”，其中cool表示什么？",
+   "options": [
+    "寒冷",
+    "凉爽",
+    "正在下雨",
+    "多云"
+   ],
+   "answer": "B",
+   "explanation": "cool在天气表达中表示凉爽，不表示寒冷、下雨或多云。",
+   "difficulty": 1,
+   "bloom": "记忆",
+   "type": "single_choice",
+   "id": "pohw-CC06724"
+  },
+  {
+   "topic_id": "primary-g4-s1-english-K010",
+   "topic_name": "Lesson 3 It will snow.",
+   "stem": "在天气询问“How’s the weather tomorrow?”中，tomorrow指什么时间？",
+   "options": [
+    "今天",
+    "早晨",
+    "明天",
+    "中午"
+   ],
+   "answer": "C",
+   "explanation": "tomorrow表示明天，不是今天、早晨或中午。",
+   "difficulty": 2,
+   "bloom": "理解",
+   "type": "single_choice",
+   "id": "pohw-CC06725"
+  },
+  {
+   "topic_id": "primary-g4-s1-english-K009",
+   "topic_name": "Lesson 2 It’s snowing.",
+   "stem": "在提醒“Put on your raincoat.”中，raincoat指哪一种衣物？",
+   "options": [
+    "毛衣",
+    "夹克",
+    "雨衣",
+    "衬衫"
+   ],
+   "answer": "C",
+   "explanation": "raincoat表示雨衣，不是夹克、衬衫或毛衣。",
+   "difficulty": 2,
+   "bloom": "理解",
+   "type": "single_choice",
+   "id": "pohw-CC06726"
+  },
+  {
+   "topic_id": "primary-g4-s1-english-K007",
+   "topic_name": "Lesson 1 It’s sunny.",
+   "stem": "天气记录写着“今天多云”。选择对应的英语天气词。",
+   "options": [
+    "sunny",
+    "cloudy",
+    "windy",
+    "cold"
+   ],
+   "answer": "B",
+   "explanation": "cloudy表示多云；sunny表示晴朗，windy表示有风，cold表示冷，后三项均不符合指定意思。",
+   "difficulty": 1,
+   "bloom": "记忆",
+   "type": "single_choice",
+   "id": "pohw-CC06727"
+  },
+  {
+   "topic_id": "primary-g4-s1-english-K007",
+   "topic_name": "Lesson 1 It’s sunny.",
+   "stem": "给英语天气卡选择“晴朗”的对应词。",
+   "options": [
+    "cloudy",
+    "sunny",
+    "windy",
+    "cool"
+   ],
+   "answer": "B",
+   "explanation": "sunny表示晴朗；cloudy表示多云，windy表示有风，cool表示凉爽，均不符合“晴朗”。",
+   "difficulty": 1,
+   "bloom": "记忆",
+   "type": "single_choice",
+   "id": "pohw-CC06728"
+  },
+  {
+   "topic_id": "primary-g4-s1-english-K010",
+   "topic_name": "Lesson 3 It will snow.",
+   "stem": "要在天气词卡上写“晴朗的”，选择拼写正确的单词。",
+   "options": [
+    "suny",
+    "sunny",
+    "sunney",
+    "sunn"
+   ],
+   "answer": "B",
+   "explanation": "晴朗的正确拼写是sunny，有两个n；其余三项均拼写错误。",
+   "difficulty": 1,
+   "bloom": "记忆",
+   "type": "single_choice",
+   "id": "pohw-CC06729"
+  },
+  {
+   "topic_id": "primary-g4-s1-english-K017",
+   "topic_name": "Try yourself.",
+   "stem": "要完成“了解天气信息并用英语谈论天气”的学习任务，下面哪种做法符合要求？",
+   "options": [
+    "忽略今天和明天的区别。",
+    "先获取天气信息，再用英语转述。",
+    "不查信息，随意猜一种天气。",
+    "只背城市名称，不说天气。"
+   ],
+   "answer": "B",
+   "explanation": "获取天气信息并用英语谈论天气符合本页学习目标。随意猜测、忽略时间或只背城市名称，都不能完成准确转述。",
+   "difficulty": 3,
+   "bloom": "应用",
+   "type": "single_choice",
+   "id": "pohw-CC06730"
+  },
+  {
+   "topic_id": "primary-g4-s1-english-K017",
+   "topic_name": "Try yourself.",
+   "stem": "阅读原句：“It is a sunny day in autumn.”问：Which season is it?",
+   "options": [
+    "Summer.",
+    "Winter.",
+    "Spring.",
+    "Autumn."
+   ],
+   "answer": "D",
+   "explanation": "原句直接说明in autumn，即在秋天；其他三个季节不符合原句。",
+   "difficulty": 2,
+   "bloom": "理解",
+   "type": "single_choice",
+   "id": "pohw-CC06731"
+  },
+  {
+   "topic_id": "primary-g4-s1-english-K017",
+   "topic_name": "Try yourself.",
+   "stem": "阅读原句：“It is very hot at noon.”问：How is the weather at noon?",
+   "options": [
+    "Cold.",
+    "Hot.",
+    "Cool.",
+    "Windy."
+   ],
+   "answer": "B",
+   "explanation": "原句中的very hot说明中午很热；cold、cool、windy分别表示冷、凉爽和有风。",
+   "difficulty": 2,
+   "bloom": "理解",
+   "type": "single_choice",
+   "id": "pohw-CC06732"
+  },
+  {
+   "topic_id": "primary-g4-s1-english-K017",
+   "topic_name": "Try yourself.",
+   "stem": "阅读原句：“They are eating grapes and watermelons.”其中They指Alim和Hana。问：What are they eating?",
+   "options": [
+    "Bananas and watermelons.",
+    "Grapes and watermelons.",
+    "Apples and bananas.",
+    "Apples and grapes."
+   ],
+   "answer": "B",
+   "explanation": "给出的原句明确写着grapes and watermelons，即葡萄和西瓜；其余组合都改变了水果信息。",
+   "difficulty": 2,
+   "bloom": "理解",
+   "type": "single_choice",
+   "id": "pohw-CC06733"
+  },
+  {
+   "topic_id": "primary-g4-s1-english-K015",
+   "topic_name": "She works in a hospital.",
+   "stem": "一位爷爷是一名园丁，已知他在公园工作。选择语法正确且符合这一地点信息的句子。",
+   "options": [
+    "He works in a park.",
+    "She works in a park.",
+    "He work in a park.",
+    "He is works in a park."
+   ],
+   "answer": "A",
+   "explanation": "男性人物用 he，在公园工作用 works in a park。第二项人称不符，第三项缺少动词词尾，第四项多用了 is。",
+   "difficulty": 3,
+   "bloom": "应用",
+   "type": "single_choice",
+   "id": "pohw-CC06734"
+  },
+  {
+   "topic_id": "primary-g4-s1-english-K017",
+   "topic_name": "Try yourself.",
+   "stem": "一棵树被砍倒后，乔治对父亲说：“I’m sorry, dad. I cut it down with my new hatchet.” 哪一项正确概括了这句话？",
+   "options": [
+    "乔治说自己没有碰过树。",
+    "父亲承认自己砍倒了树。",
+    "乔治承认自己用新斧头砍倒了树。",
+    "乔治请求父亲送一本书。"
+   ],
+   "answer": "C",
+   "explanation": "题中说话人是乔治，I cut it down 表示他承认砍倒了树，with my new hatchet 说明使用了新斧头。其余选项均与给定发言不符。",
+   "difficulty": 3,
+   "bloom": "应用",
+   "type": "single_choice",
+   "id": "pohw-CC06735"
+  },
+  {
+   "topic_id": "primary-g4-s1-english-K022",
+   "topic_name": "What does your mother do?",
+   "stem": "你想询问同伴“你妈妈是做什么工作的？”，应选择哪一句？",
+   "options": [
+    "What does your mother do?",
+    "What does your father do?",
+    "Is that your mother?",
+    "Does your mother have long hair?"
+   ],
+   "answer": "A",
+   "explanation": "询问母亲职业用 What does your mother do?；其余三项分别询问父亲职业、辨认母亲、描述母亲头发，不符合题意。",
+   "difficulty": 1,
+   "bloom": "记忆",
+   "type": "single_choice",
+   "id": "pohw-CC06736"
+  },
+  {
+   "topic_id": "primary-g4-s1-english-K001",
+   "topic_name": "Again, please!",
+   "stem": "小丽介绍虚构人物：“她是一名护士，在医院工作。”哪一项完整、正确地表达了这两条信息？",
+   "options": [
+    "She’s a doctor. She works in a hospital.",
+    "She’s a nurse. She works in a park.",
+    "She’s a nurse. She works in a hospital.",
+    "She’s nurse. She work in a hospital."
+   ],
+   "answer": "C",
+   "explanation": "nurse 是护士，hospital 是医院。其余选项分别改成医生、改成公园或存在漏冠词及动词形式错误。",
+   "difficulty": 3,
+   "bloom": "应用",
+   "type": "single_choice",
+   "id": "pohw-CC06737"
+  },
+  {
+   "topic_id": "primary-g4-s1-english-K017",
+   "topic_name": "Try yourself.",
+   "stem": "父亲对乔治说：“Here’s a hatchet for you.” 已知 hatchet 表示短柄小斧。父亲给乔治的是什么？",
+   "options": [
+    "一本书",
+    "一把短柄小斧",
+    "一朵花",
+    "一件外套"
+   ],
+   "answer": "B",
+   "explanation": "hatchet 表示短柄小斧。其余三个选项都不是这个词的意思。",
+   "difficulty": 2,
+   "bloom": "理解",
+   "type": "single_choice",
+   "id": "pohw-CC06738"
+  },
+  {
+   "topic_id": "primary-g4-s1-english-K013",
+   "topic_name": "My father has short hair.",
+   "stem": "选择正确的句子，表示“他有一双大眼睛”。",
+   "options": [
+    "He have big eyes.",
+    "He is big eyes.",
+    "He has big eyes.",
+    "He has big eye."
+   ],
+   "answer": "C",
+   "explanation": "He 后用 has，一双大眼睛用 big eyes。其余选项分别误用 have、误用 is 或把 eyes 写成单数。",
+   "difficulty": 2,
+   "bloom": "理解",
+   "type": "single_choice",
+   "id": "pohw-CC06739"
+  },
+  {
+   "topic_id": "primary-g4-s1-english-K015",
+   "topic_name": "She works in a hospital.",
+   "stem": "选择正确的句子，表示“她是一名护士”。",
+   "options": [
+    "She’s nurse.",
+    "She’s a nurse.",
+    "He’s a nurse.",
+    "She’s a cook."
+   ],
+   "answer": "B",
+   "explanation": "She’s a nurse. 表示她是一名护士。第二项漏 a，第三项代词表示男性，第四项职业是厨师。",
+   "difficulty": 1,
+   "bloom": "记忆",
+   "type": "single_choice",
+   "id": "pohw-CC06740"
+  },
+  {
+   "topic_id": "primary-g4-s1-english-K013",
+   "topic_name": "My father has short hair.",
+   "stem": "选择正确的句子，表示“我爸爸个子高而且强壮”。",
+   "options": [
+    "My father has tall and strong.",
+    "My father is tall and strong.",
+    "My father are tall and strong.",
+    "My father is short hair."
+   ],
+   "answer": "B",
+   "explanation": "描述父亲个子高而且强壮用 is tall and strong。第二项误用 has，第三项误用 are，第四项不是正确的头发表达。",
+   "difficulty": 1,
+   "bloom": "记忆",
+   "type": "single_choice",
+   "id": "pohw-CC06741"
+  },
+  {
+   "topic_id": "primary-g4-s1-english-K022",
+   "topic_name": "What does your mother do?",
+   "stem": "选择正确的英语问句，询问“你爸爸是做什么工作的？”。",
+   "options": [
+    "What do your father do?",
+    "What is your father do?",
+    "What does your father do?",
+    "What does your father does?"
+   ],
+   "answer": "C",
+   "explanation": "询问父亲职业用 What does your father do?。其余选项分别误用 do、误用 is，或在 does 后又用了 does。",
+   "difficulty": 1,
+   "bloom": "记忆",
+   "type": "single_choice",
+   "id": "pohw-CC06742"
+  },
+  {
+   "topic_id": "primary-g4-s1-english-K013",
+   "topic_name": "My father has short hair.",
+   "stem": "选择正确的英语问句，询问“那是你妈妈吗？”。",
+   "options": [
+    "Is that your mother?",
+    "Does that your mother?",
+    "Is that you mother?",
+    "Are that your mother?"
+   ],
+   "answer": "A",
+   "explanation": "Is that your mother? 是正确问法。第二项误用 Does，第三项把 your 写成 you，第四项误用 Are。",
+   "difficulty": 1,
+   "bloom": "记忆",
+   "type": "single_choice",
+   "id": "pohw-CC06743"
+  },
+  {
+   "topic_id": "primary-g4-s1-english-K013",
+   "topic_name": "My father has short hair.",
+   "stem": "选择正确的词补全句子，表示“我妈妈有一双大眼睛”：My mother ____ big eyes.",
+   "options": [
+    "has",
+    "have",
+    "is",
+    "are"
+   ],
+   "answer": "A",
+   "explanation": "主语 My mother 是第三人称单数，描述她有大眼睛用 has；is、are 不能直接连接 big eyes，have 不符合这里的主语。",
+   "difficulty": 2,
+   "bloom": "理解",
+   "type": "single_choice",
+   "id": "pohw-CC06744"
+  },
+  {
+   "topic_id": "primary-g4-s1-english-K015",
+   "topic_name": "She works in a hospital.",
+   "stem": "选择表示“一名医生”的正确短语。",
+   "options": [
+    "an doctor",
+    "a doctors",
+    "doctor a",
+    "a doctor"
+   ],
+   "answer": "D",
+   "explanation": "doctor 的开头是辅音音素，用 a；an doctor 冠词不当，a doctors 单复数不匹配，doctor a 词序错误。",
+   "difficulty": 1,
+   "bloom": "记忆",
+   "type": "single_choice",
+   "id": "pohw-CC06745"
+  },
+  {
+   "topic_id": "primary-g4-s1-english-K022",
+   "topic_name": "What does your mother do?",
+   "stem": "选择语法正确且表示“他是一名商人”的句子。",
+   "options": [
+    "He’s an businessman.",
+    "She’s a businessman.",
+    "He’s businessman.",
+    "He’s a businessman."
+   ],
+   "answer": "D",
+   "explanation": "businessman 表示商人，前面用 a，男性用 he。其余选项分别冠词不当、代词不符或漏冠词。",
+   "difficulty": 3,
+   "bloom": "应用",
+   "type": "single_choice",
+   "id": "pohw-CC06746"
+  },
+  {
+   "topic_id": "primary-g4-s1-english-K001",
+   "topic_name": "Again, please!",
+   "stem": "选择语法正确且表示“他是一名教师”的句子。",
+   "options": [
+    "He’s teacher.",
+    "She’s a teacher.",
+    "He’s a nurse.",
+    "He’s a teacher."
+   ],
+   "answer": "D",
+   "explanation": "He’s a teacher. 表示他是一名教师。其余选项分别漏冠词、性别代词不符或职业不符。",
+   "difficulty": 1,
+   "bloom": "记忆",
+   "type": "single_choice",
+   "id": "pohw-CC06747"
+  },
+  {
+   "topic_id": "primary-g4-s1-english-K015",
+   "topic_name": "She works in a hospital.",
+   "stem": "选择语法正确且表示“她在医院工作”的句子。",
+   "options": [
+    "She works in a hospital.",
+    "She work in a hospital.",
+    "She works in a park.",
+    "She is works in a hospital."
+   ],
+   "answer": "A",
+   "explanation": "She 后用 works，in a hospital 表示“在医院”。第二项缺少第三人称单数词尾，第三项的地点是公园，第四项多用了 is。",
+   "difficulty": 3,
+   "bloom": "应用",
+   "type": "single_choice",
+   "id": "pohw-CC06748"
+  },
+  {
+   "topic_id": "primary-g4-s1-english-K022",
+   "topic_name": "What does your mother do?",
+   "stem": "选择语法正确且表示“她是一名美术老师”的句子。",
+   "options": [
+    "She’s an art teacher.",
+    "She’s a art teacher.",
+    "He’s an art teacher.",
+    "She’s art teacher."
+   ],
+   "answer": "A",
+   "explanation": "art 以元音音素开头，用 an；女性用 she。其余选项分别冠词不当、代词不符或漏冠词。",
+   "difficulty": 1,
+   "bloom": "记忆",
+   "type": "single_choice",
+   "id": "pohw-CC06749"
+  },
+  {
+   "topic_id": "primary-g4-s1-english-K001",
+   "topic_name": "Again, please!",
+   "stem": "选择语法正确且表示“她留着长头发”的句子。",
+   "options": [
+    "She has long hair.",
+    "She is long hair.",
+    "She have long hair.",
+    "She has short hair."
+   ],
+   "answer": "A",
+   "explanation": "has long hair 表示留着长头发。第二项误用 is，第三项误用 have，第四项表示短头发。",
+   "difficulty": 1,
+   "bloom": "记忆",
+   "type": "single_choice",
+   "id": "pohw-CC06750"
+  },
+  {
+   "topic_id": "primary-g4-s1-english-K003",
+   "topic_name": "Guo Yang is running.",
+   "stem": "Amy是一名女孩，正在参加跳远。哪句话准确描述她的活动？",
+   "options": [
+    "He’s doing the long jump.",
+    "She’s doing the long jump.",
+    "She’s doing the high jump.",
+    "He’s doing the high jump."
+   ],
+   "answer": "B",
+   "explanation": "女孩用She’s，跳远用doing the long jump；其他选项改变了人物代词或运动项目。",
+   "difficulty": 1,
+   "bloom": "记忆",
+   "type": "single_choice",
+   "id": "pohw-CC06751"
+  },
+  {
+   "topic_id": "primary-g4-s1-english-K016",
+   "topic_name": "This is Jenny speaking.",
+   "stem": "Amy来电找Ben。你去叫Ben接电话，哪句话能准确转告“Amy来电话了”？",
+   "options": [
+    "Amy, Ben is calling.",
+    "Ben, Amy is calling.",
+    "Amy is running.",
+    "Ben is writing an email."
+   ],
+   "answer": "B",
+   "explanation": "该项叫Ben来接Amy的电话；第二项颠倒了两人的角色，另两项描述的是跑步或写邮件。",
+   "difficulty": 3,
+   "bloom": "应用",
+   "type": "single_choice",
+   "id": "pohw-CC06752"
+  },
+  {
+   "topic_id": "primary-g4-s1-english-K003",
+   "topic_name": "Guo Yang is running.",
+   "stem": "Ben是一名男孩，正在跳绳。你怎样向朋友描述他？",
+   "options": [
+    "She’s skipping.",
+    "He’s singing.",
+    "He’s skipping.",
+    "She’s dancing."
+   ],
+   "answer": "C",
+   "explanation": "男孩用He’s，正在跳绳用skipping；其余选项的代词或动作不符合条件。",
+   "difficulty": 1,
+   "bloom": "记忆",
+   "type": "single_choice",
+   "id": "pohw-CC06753"
+  },
+  {
+   "topic_id": "primary-g4-s1-english-K003",
+   "topic_name": "Guo Yang is running.",
+   "stem": "Ben正在比赛，你想喊“Ben，加油！”哪句话合适？",
+   "options": [
+    "Hold on, please.",
+    "This is Ben speaking.",
+    "May I speak to Ben?",
+    "Come on, Ben!"
+   ],
+   "answer": "D",
+   "explanation": "Come on在比赛情境中用于加油；其余选项是请稍候、自报身份和请求通话。",
+   "difficulty": 1,
+   "bloom": "记忆",
+   "type": "single_choice",
+   "id": "pohw-CC06754"
+  },
+  {
+   "topic_id": "primary-g4-s1-english-K016",
+   "topic_name": "This is Jenny speaking.",
+   "stem": "Lucy打电话时想先说明“我是Lucy”。她应该说什么？",
+   "options": [
+    "May I speak to Lucy?",
+    "Hold on, please.",
+    "This is Lucy speaking.",
+    "What are you doing?"
+   ],
+   "answer": "C",
+   "explanation": "电话中自报身份可用“This is … speaking.”；其余三项分别表示找人、稍候和询问活动，不能说明自己是Lucy。",
+   "difficulty": 1,
+   "bloom": "记忆",
+   "type": "single_choice",
+   "id": "pohw-CC06755"
+  },
+  {
+   "topic_id": "primary-g4-s1-english-K001",
+   "topic_name": "Again, please!",
+   "stem": "room中的字母m发/m/。下面哪个单词也含有这个辅音？",
+   "options": [
+    "ten",
+    "milk",
+    "six",
+    "nose"
+   ],
+   "answer": "B",
+   "explanation": "milk中的m与room中的m都发/m/；其余三个单词没有这个辅音。",
+   "difficulty": 3,
+   "bloom": "应用",
+   "type": "single_choice",
+   "id": "pohw-CC06756"
+  },
+  {
+   "topic_id": "primary-g4-s1-english-K001",
+   "topic_name": "Again, please!",
+   "stem": "ten和nose中，哪个相同的字母发/n/？",
+   "options": [
+    "m",
+    "i",
+    "s",
+    "n"
+   ],
+   "answer": "D",
+   "explanation": "ten和nose中的n发/n/；m、i、s均不是这两个单词共有的目标字母。",
+   "difficulty": 1,
+   "bloom": "记忆",
+   "type": "single_choice",
+   "id": "pohw-CC06757"
+  },
+  {
+   "topic_id": "primary-g4-s1-english-K017",
+   "topic_name": "Try yourself.",
+   "stem": "一句话是“Why are you running?”，说话者想做什么？",
+   "options": [
+    "邀请对方写邮件。",
+    "询问奔跑的原因。",
+    "说明自己是获胜者。",
+    "请对方稍候。"
+   ],
+   "answer": "B",
+   "explanation": "Why询问原因，running表示正在跑；其余选项都不是这个问句的交际目的。",
+   "difficulty": 1,
+   "bloom": "记忆",
+   "type": "single_choice",
+   "id": "pohw-CC06758"
+  },
+  {
+   "topic_id": "primary-g4-s1-english-K017",
+   "topic_name": "Try yourself.",
+   "stem": "一只动物喊“The forest is falling. Run!”。其中“Run!”的作用是什么？",
+   "options": [
+    "请求查看图片。",
+    "向同伴道别。",
+    "介绍自己的身份。",
+    "提醒同伴快跑。"
+   ],
+   "answer": "D",
+   "explanation": "Run!在这里是行动提醒，不是请求看图片、介绍身份或道别。",
+   "difficulty": 2,
+   "bloom": "理解",
+   "type": "single_choice",
+   "id": "pohw-CC06759"
+  },
+  {
+   "topic_id": "primary-g4-s1-english-K003",
+   "topic_name": "Guo Yang is running.",
+   "stem": "一名男孩正在参加跳高比赛。哪句话准确描述他的活动？",
+   "options": [
+    "She’s doing the long jump.",
+    "He’s doing the long jump.",
+    "She’s doing the high jump.",
+    "He’s doing the high jump."
+   ],
+   "answer": "D",
+   "explanation": "男孩用He’s，跳高用doing the high jump；跳远是doing the long jump。",
+   "difficulty": 3,
+   "bloom": "应用",
+   "type": "single_choice",
+   "id": "pohw-CC06760"
+  },
+  {
+   "topic_id": "primary-g4-s1-english-K017",
+   "topic_name": "Try yourself.",
+   "stem": "你听到一个消息，想追问“是谁这么说的？”，哪句话合适？",
+   "options": [
+    "What are you doing?",
+    "May I speak to Ben?",
+    "Who says that?",
+    "What about this afternoon?"
+   ],
+   "answer": "C",
+   "explanation": "Who says that?询问是谁说的；其他选项分别询问活动、请求通话和建议时间。",
+   "difficulty": 3,
+   "bloom": "应用",
+   "type": "single_choice",
+   "id": "pohw-CC06761"
+  },
+  {
+   "topic_id": "primary-g4-s1-english-K003",
+   "topic_name": "Guo Yang is running.",
+   "stem": "你想向同伴询问Amy此刻正在做什么，应该说哪句话？",
+   "options": [
+    "What are you doing?",
+    "May I speak to Amy?",
+    "What’s Amy doing?",
+    "Shall we go to the park?"
+   ],
+   "answer": "C",
+   "explanation": "询问Amy正在做什么，应把Amy放在“What’s … doing?”中；其余选项分别询问对方活动、请求通话和提出邀请。",
+   "difficulty": 1,
+   "bloom": "记忆",
+   "type": "single_choice",
+   "id": "pohw-CC06762"
+  },
+  {
+   "topic_id": "primary-g4-s1-english-K016",
+   "topic_name": "This is Jenny speaking.",
+   "stem": "你想提议“我们明天做些训练吧”，哪句话完整符合这个意思？",
+   "options": [
+    "Let’s go to the library tomorrow.",
+    "Let’s do some training this afternoon.",
+    "May I speak to Amy?",
+    "Let’s do some training tomorrow."
+   ],
+   "answer": "D",
+   "explanation": "只有该项同时表达一起训练和明天这个时间；其余选项分别改变了活动、时间或句子功能。",
+   "difficulty": 3,
+   "bloom": "应用",
+   "type": "single_choice",
+   "id": "pohw-CC06763"
+  },
+  {
+   "topic_id": "primary-g4-s1-english-K016",
+   "topic_name": "This is Jenny speaking.",
+   "stem": "你打电话找Ben，接电话的是他的家人。你想礼貌地请求与Ben通话，应该说什么？",
+   "options": [
+    "What’s Ben doing?",
+    "This is Ben speaking.",
+    "May I speak to Ben?",
+    "Shall we go to the park?"
+   ],
+   "answer": "C",
+   "explanation": "该项请求与Ben通话；其余选项分别询问Ben的活动、自报身份和提出活动邀请。",
+   "difficulty": 2,
+   "bloom": "理解",
+   "type": "single_choice",
+   "id": "pohw-CC06764"
+  },
+  {
+   "topic_id": "primary-g4-s1-english-K005",
+   "topic_name": "I’m writing an email.",
+   "stem": "你正在写邮件。下面哪句话语法正确且符合这个意思？",
+   "options": [
+    "I writing an email.",
+    "I’m write an email.",
+    "I’m writing an email.",
+    "I’m an email."
+   ],
+   "answer": "C",
+   "explanation": "只有该项同时使用I’m和writing，能规范表达自己正在写邮件；其他三项缺少必要成分或动词形式错误。",
+   "difficulty": 1,
+   "bloom": "记忆",
+   "type": "single_choice",
+   "id": "pohw-CC06765"
+  },
+  {
+   "topic_id": "primary-g4-s1-english-K005",
+   "topic_name": "I’m writing an email.",
+   "stem": "你正在唱歌，朋友问你正在做什么。哪句话符合你的活动？",
+   "options": [
+    "I’m dancing.",
+    "I’m singing.",
+    "I’m running.",
+    "I’m playing basketball."
+   ],
+   "answer": "B",
+   "explanation": "singing表示正在唱歌；其他三项分别表示跳舞、跑步和打篮球。",
+   "difficulty": 1,
+   "bloom": "记忆",
+   "type": "single_choice",
+   "id": "pohw-CC06766"
+  },
+  {
+   "topic_id": "primary-g4-s1-english-K001",
+   "topic_name": "Again, please!",
+   "stem": "你现在没有空，想建议朋友改到今天下午一起活动。哪句话符合这个意思？",
+   "options": [
+    "What’s the hurry?",
+    "What about this afternoon?",
+    "May I have a look?",
+    "What are you doing?"
+   ],
+   "answer": "B",
+   "explanation": "this afternoon是今天下午，符合另约时间的要求；其余三项没有提出这个时间。",
+   "difficulty": 1,
+   "bloom": "记忆",
+   "type": "single_choice",
+   "id": "pohw-CC06767"
+  },
+  {
+   "topic_id": "primary-g4-s1-english-K016",
+   "topic_name": "This is Jenny speaking.",
+   "stem": "家人叫你去接电话，你想说“我这就来”。哪句话合适？",
+   "options": [
+    "I’m calling.",
+    "I’m coming.",
+    "I’m singing.",
+    "I’m dancing."
+   ],
+   "answer": "B",
+   "explanation": "I’m coming.表示自己这就过去；其余选项分别表示打电话、唱歌和跳舞。",
+   "difficulty": 1,
+   "bloom": "记忆",
+   "type": "single_choice",
+   "id": "pohw-CC06768"
+  },
+  {
+   "topic_id": "primary-g4-s1-english-K005",
+   "topic_name": "I’m writing an email.",
+   "stem": "对问句“Can he see the pictures?”作肯定简答，哪一项正确？",
+   "options": [
+    "Yes, he is.",
+    "Yes, she can.",
+    "Yes, he can.",
+    "Yes, he does."
+   ],
+   "answer": "C",
+   "explanation": "问句使用Can he，肯定简答保留he和can；其余选项改变了主语或误用了is、does。",
+   "difficulty": 3,
+   "bloom": "应用",
+   "type": "single_choice",
+   "id": "pohw-CC06769"
+  },
+  {
+   "topic_id": "primary-g4-s1-english-K017",
+   "topic_name": "Try yourself.",
+   "stem": "故事结尾有一句“It’s just a branch.”，其中branch指什么？",
+   "options": [
+    "整片森林",
+    "树枝",
+    "电子邮件",
+    "篮球"
+   ],
+   "answer": "B",
+   "explanation": "branch表示树枝；其余选项都不是branch的含义。",
+   "difficulty": 2,
+   "bloom": "理解",
+   "type": "single_choice",
+   "id": "pohw-CC06770"
+  },
+  {
+   "topic_id": "primary-g4-s1-english-K017",
+   "topic_name": "Try yourself.",
+   "stem": "故事结尾说：“It’s just a branch. The forest is not falling.” 其中第二句说明什么？",
+   "options": [
+    "森林已经倒下。",
+    "森林没有倒下。",
+    "动物赢得了比赛。",
+    "动物正在写邮件。"
+   ],
+   "answer": "B",
+   "explanation": "not表示否定；树枝掉落不等于森林倒下，句中也没有动物获胜或写邮件的信息。",
+   "difficulty": 3,
+   "bloom": "应用",
+   "type": "single_choice",
+   "id": "pohw-CC06771"
+  },
+  {
+   "topic_id": "primary-g4-s1-english-K005",
+   "topic_name": "I’m writing an email.",
+   "stem": "朋友正在展示邮件里的照片。你想礼貌地问“我可以看一看吗？”，应该说什么？",
+   "options": [
+    "What are you doing?",
+    "May I have a look?",
+    "May I speak to Tom?",
+    "What about this afternoon?"
+   ],
+   "answer": "B",
+   "explanation": "have a look表示看一看；其他选项分别询问活动、请求通话和建议时间。",
+   "difficulty": 1,
+   "bloom": "记忆",
+   "type": "single_choice",
+   "id": "pohw-CC06772"
+  },
+  {
+   "topic_id": "primary-g4-s1-english-K016",
+   "topic_name": "This is Jenny speaking.",
+   "stem": "朋友说“Sports Day is coming.”，这句话是什么意思？",
+   "options": [
+    "我们正在写邮件。",
+    "运动日快到了。",
+    "运动员正在跑步。",
+    "运动日已经结束。"
+   ],
+   "answer": "B",
+   "explanation": "is coming在这里表示即将到来，不表示已经结束，也不是说某个人正在跑步。",
+   "difficulty": 1,
+   "bloom": "记忆",
+   "type": "single_choice",
+   "id": "pohw-CC06773"
+  },
+  {
+   "topic_id": "primary-g4-s1-english-K001",
+   "topic_name": "Again, please!",
+   "stem": "朋友邀请你现在出去玩。你想表达歉意，并说明自己正在写邮件，应该选择哪句话？",
+   "options": [
+    "OK. See you.",
+    "This is Tom speaking.",
+    "Sorry. I’m writing an email.",
+    "What are you doing?"
+   ],
+   "answer": "C",
+   "explanation": "该项先表达歉意，再说明正在写邮件；其余三项分别是接受、自报身份和询问活动。",
+   "difficulty": 3,
+   "bloom": "应用",
+   "type": "single_choice",
+   "id": "pohw-CC06774"
+  },
+  {
+   "topic_id": "primary-g4-s1-english-K005",
+   "topic_name": "I’m writing an email.",
+   "stem": "朋友问“May I have a look?”，你想直接表示同意，不提出其他要求。选择哪句话？",
+   "options": [
+    "No.",
+    "I’m singing.",
+    "Who says that?",
+    "Sure."
+   ],
+   "answer": "D",
+   "explanation": "Sure表示同意；No表示拒绝，其他两项并未直接表达同意查看。",
+   "difficulty": 2,
+   "bloom": "理解",
+   "type": "single_choice",
+   "id": "pohw-CC06775"
+  },
+  {
+   "topic_id": "primary-g4-s1-english-K005",
+   "topic_name": "I’m writing an email.",
+   "stem": "朋友问你正在做什么。你正在跳舞，应该怎样回答？",
+   "options": [
+    "I’m singing.",
+    "I’m playing basketball.",
+    "I’m writing an email.",
+    "I’m dancing."
+   ],
+   "answer": "D",
+   "explanation": "dancing表示正在跳舞；其余选项分别表示唱歌、打篮球和写邮件。",
+   "difficulty": 1,
+   "bloom": "记忆",
+   "type": "single_choice",
+   "id": "pohw-CC06776"
+  },
+  {
+   "topic_id": "primary-g4-s1-english-K003",
+   "topic_name": "Guo Yang is running.",
+   "stem": "比赛结束后有人说：“Amy is the winner.” winner在这里是什么意思？",
+   "options": [
+    "跳高",
+    "电子邮件",
+    "获胜者",
+    "电话"
+   ],
+   "answer": "C",
+   "explanation": "winner表示获胜者，不表示比赛项目或通讯物品。",
+   "difficulty": 2,
+   "bloom": "理解",
+   "type": "single_choice",
+   "id": "pohw-CC06777"
+  },
+  {
+   "topic_id": "primary-g4-s1-english-K001",
+   "topic_name": "Again, please!",
+   "stem": "老师请你转告：“We will go to the zoo this Saturday.” 哪条中文信息与这句话完全一致？",
+   "options": [
+    "明天去图书馆。",
+    "本周六去动物园。",
+    "今天下午去动物园。",
+    "本周六去公园。"
+   ],
+   "answer": "B",
+   "explanation": "zoo表示动物园，this Saturday表示本周六；其他选项改变了时间或地点。",
+   "difficulty": 3,
+   "bloom": "应用",
+   "type": "single_choice",
+   "id": "pohw-CC06778"
+  },
+  {
+   "topic_id": "primary-g4-s1-english-K029",
+   "topic_name": "词语认读与语音归类",
+   "stem": "paper、park、policeman 中的字母 p 都发 /p/。哪个选项也含有发 /p/ 的字母 p？",
+   "options": [
+    "piano",
+    "hill",
+    "winter",
+    "sunny"
+   ],
+   "answer": "A",
+   "explanation": "paper、park、policeman 中的 p 发 /p/；piano 开头的 p 也发 /p/，其他三个选项没有字母 p。",
+   "difficulty": 3,
+   "bloom": "应用",
+   "type": "single_choice",
+   "id": "pohw-CC06779"
+  },
+  {
+   "topic_id": "primary-g4-s1-english-K025",
+   "topic_name": "人物描述与职业辨认",
+   "stem": "一位女士此刻正在做饭。哪一句能正确描述她当前的动作？",
+   "options": [
+    "She likes cooking.",
+    "She’s cooking now.",
+    "She cooking now.",
+    "She’s cook now."
+   ],
+   "answer": "B",
+   "explanation": "is cooking 表示正在做饭；likes cooking 只表达爱好，另外两句没有正确使用现在进行时。",
+   "difficulty": 3,
+   "bloom": "应用",
+   "type": "single_choice",
+   "id": "pohw-CC06780"
+  },
+  {
+   "topic_id": "primary-g4-s1-english-K029",
+   "topic_name": "词语认读与语音归类",
+   "stem": "下面哪一个单词表示“医院”？",
+   "options": [
+    "policeman",
+    "hospital",
+    "picture",
+    "paper"
+   ],
+   "answer": "B",
+   "explanation": "hospital 表示医院；policeman、picture、paper 分别表示警察、图画和纸。",
+   "difficulty": 1,
+   "bloom": "记忆",
+   "type": "single_choice",
+   "id": "pohw-CC06781"
+  },
+  {
+   "topic_id": "primary-g4-s1-english-K029",
+   "topic_name": "词语认读与语音归类",
+   "stem": "下面哪一个单词表示“有风的”？",
+   "options": [
+    "windy",
+    "park",
+    "paper",
+    "piano"
+   ],
+   "answer": "A",
+   "explanation": "windy 表示有风的；park、paper、piano 分别表示公园、纸和钢琴。",
+   "difficulty": 1,
+   "bloom": "记忆",
+   "type": "single_choice",
+   "id": "pohw-CC06782"
+  },
+  {
+   "topic_id": "primary-g4-s1-english-K026",
+   "topic_name": "制作资料卡并介绍自己",
+   "stem": "为虚构人物制作资料卡时，“班级”应填写在哪个栏目？",
+   "options": [
+    "Class",
+    "Age",
+    "Name",
+    "Email"
+   ],
+   "answer": "A",
+   "explanation": "Class 表示班级；Age、Name、Email 分别表示年龄、姓名和电子邮箱。",
+   "difficulty": 1,
+   "bloom": "记忆",
+   "type": "single_choice",
+   "id": "pohw-CC06783"
+  },
+  {
+   "topic_id": "primary-g4-s1-english-K027",
+   "topic_name": "星期与课程问答",
+   "stem": "你想问“今天是星期几？”，应使用哪一个问句？",
+   "options": [
+    "What day is today?",
+    "What subjects do we have on Monday?",
+    "What’s your hobby?",
+    "How’s the weather?"
+   ],
+   "answer": "A",
+   "explanation": "What day is today? 询问今天是星期几；其余三个问句分别询问课程、爱好和天气。",
+   "difficulty": 1,
+   "bloom": "记忆",
+   "type": "single_choice",
+   "id": "pohw-CC06784"
+  },
+  {
+   "topic_id": "primary-g4-s1-english-K027",
+   "topic_name": "星期与课程问答",
+   "stem": "假设某班星期二有音乐和体育。回答“What subjects do we have on Tuesday?”应选哪一句？",
+   "options": [
+    "It’s Tuesday.",
+    "I like music.",
+    "We have music and PE.",
+    "It’s sunny."
+   ],
+   "answer": "C",
+   "explanation": "题目给定星期二有音乐和体育，因此用 We have 列出这两门课程；其余选项分别回答星期、喜好和天气。",
+   "difficulty": 3,
+   "bloom": "应用",
+   "type": "single_choice",
+   "id": "pohw-CC06785"
+  },
+  {
+   "topic_id": "primary-g4-s1-english-K027",
+   "topic_name": "星期与课程问答",
+   "stem": "假设某班星期五有美术和音乐。有人问“What subjects do we have on Friday?”，应怎样回答？",
+   "options": [
+    "We have Chinese and English.",
+    "We have English and PE.",
+    "We have art and music.",
+    "We have science and Chinese."
+   ],
+   "answer": "C",
+   "explanation": "给定课程是美术和音乐，对应 art and music；另外三项的课程都与给定安排不符。",
+   "difficulty": 3,
+   "bloom": "应用",
+   "type": "single_choice",
+   "id": "pohw-CC06786"
+  },
+  {
+   "topic_id": "primary-g4-s1-english-K025",
+   "topic_name": "人物描述与职业辨认",
+   "stem": "哪一句是在描述一个人的外貌，而不是爱好、当前动作或职业？",
+   "options": [
+    "He’s strong.",
+    "He likes cooking.",
+    "He’s cooking now.",
+    "He’s a cook."
+   ],
+   "answer": "A",
+   "explanation": "strong 表示强壮的，描述外貌；其他选项分别表达爱好、动作和职业。",
+   "difficulty": 1,
+   "bloom": "记忆",
+   "type": "single_choice",
+   "id": "pohw-CC06787"
+  },
+  {
+   "topic_id": "primary-g4-s1-english-K025",
+   "topic_name": "人物描述与职业辨认",
+   "stem": "哪一句表达“他喜欢画画”这一爱好？",
+   "options": [
+    "He’s drawing a picture.",
+    "He has short hair.",
+    "He’s an art teacher.",
+    "He likes drawing."
+   ],
+   "answer": "D",
+   "explanation": "likes drawing 表示喜欢画画；is drawing 表示正在画画，其余两句描述职业和头发。",
+   "difficulty": 1,
+   "bloom": "记忆",
+   "type": "single_choice",
+   "id": "pohw-CC06788"
+  },
+  {
+   "topic_id": "primary-g4-s1-english-K027",
+   "topic_name": "星期与课程问答",
+   "stem": "在“What subjects do we have on Monday?”中，subjects 是什么意思？",
+   "options": [
+    "星期",
+    "季节",
+    "运动",
+    "学科、课程"
+   ],
+   "answer": "D",
+   "explanation": "subjects 在这个问句中表示学科、课程，不表示星期、季节或运动。",
+   "difficulty": 2,
+   "bloom": "理解",
+   "type": "single_choice",
+   "id": "pohw-CC06789"
+  },
+  {
+   "topic_id": "primary-g4-s1-english-K028",
+   "topic_name": "综合问答闯关",
+   "stem": "已知一位女士的职业是农民。朋友问“What does she do?”，哪一句是正确回答？",
+   "options": [
+    "She’s a farmer.",
+    "She’s singing now.",
+    "She likes drawing.",
+    "It’s sunny."
+   ],
+   "answer": "A",
+   "explanation": "What does she do? 询问职业，farmer 是农民；其余选项分别描述当前动作、爱好和天气。",
+   "difficulty": 3,
+   "bloom": "应用",
+   "type": "single_choice",
+   "id": "pohw-CC06790"
+  },
+  {
+   "topic_id": "primary-g4-s1-english-K027",
+   "topic_name": "星期与课程问答",
+   "stem": "已知今天是星期五。回答“What day is today?”应选哪一句？",
+   "options": [
+    "It’s Friday.",
+    "We have English.",
+    "It’s windy.",
+    "I like music."
+   ],
+   "answer": "A",
+   "explanation": "已知今天是星期五，应回答 It’s Friday.；其他选项分别说课程、天气和喜好。",
+   "difficulty": 1,
+   "bloom": "记忆",
+   "type": "single_choice",
+   "id": "pohw-CC06791"
+  },
+  {
+   "topic_id": "primary-g4-s1-english-K028",
+   "topic_name": "综合问答闯关",
+   "stem": "朋友问“What season do you like?”，你要表达“我喜欢春天”。应选哪一句？",
+   "options": [
+    "I like singing.",
+    "It’s windy.",
+    "I’m drawing.",
+    "I like spring."
+   ],
+   "answer": "D",
+   "explanation": "season 询问季节，spring 是春天；其他选项分别表示爱好、天气和当前动作。",
+   "difficulty": 2,
+   "bloom": "理解",
+   "type": "single_choice",
+   "id": "pohw-CC06792"
+  },
+  {
+   "topic_id": "primary-g4-s1-english-K029",
+   "topic_name": "词语认读与语音归类",
+   "stem": "比较指定元音字母的读音：哪一个词中的元音字母与 hill 中的 i 发音相同？",
+   "options": [
+    "run",
+    "jump",
+    "will",
+    "drum"
+   ],
+   "answer": "C",
+   "explanation": "will 和 hill 中的 i 都发 /ɪ/；run、drum、jump 中的 u 都发 /ʌ/。",
+   "difficulty": 3,
+   "bloom": "应用",
+   "type": "single_choice",
+   "id": "pohw-CC06793"
+  },
+  {
+   "topic_id": "primary-g4-s1-english-K029",
+   "topic_name": "词语认读与语音归类",
+   "stem": "比较指定元音字母的读音：哪一个词中的元音字母与 sunny 中的 u 发音相同？",
+   "options": [
+    "skip",
+    "hill",
+    "jump",
+    "will"
+   ],
+   "answer": "C",
+   "explanation": "jump 和 sunny 中的 u 都发 /ʌ/；skip、hill、will 中的 i 都发 /ɪ/。",
+   "difficulty": 3,
+   "bloom": "应用",
+   "type": "single_choice",
+   "id": "pohw-CC06794"
+  },
+  {
+   "topic_id": "primary-g4-s1-english-K029",
+   "topic_name": "词语认读与语音归类",
+   "stem": "比较指定字母的读音：哪一个词中的元音字母与 run 中的 u 发音相同？",
+   "options": [
+    "hill",
+    "drum",
+    "will",
+    "skip"
+   ],
+   "answer": "B",
+   "explanation": "drum 中的 u 与 run 中的 u 都发 /ʌ/；hill、skip、will 中的 i 发 /ɪ/。",
+   "difficulty": 3,
+   "bloom": "应用",
+   "type": "single_choice",
+   "id": "pohw-CC06795"
+  },
+  {
+   "topic_id": "primary-g4-s1-english-K028",
+   "topic_name": "综合问答闯关",
+   "stem": "游戏要求“Name four subjects.”，即说出四门学科。哪一组完全符合要求？",
+   "options": [
+    "Chinese, English, music, PE.",
+    "Chinese, English, music.",
+    "Chinese, English, music, winter.",
+    "Football, basketball, swimming, running."
+   ],
+   "answer": "A",
+   "explanation": "这一组选项恰好列出四门学科；第二组只有三门，第三组混入季节，第四组是运动。",
+   "difficulty": 3,
+   "bloom": "应用",
+   "type": "single_choice",
+   "id": "pohw-CC06796"
+  },
+  {
+   "topic_id": "primary-g4-s1-english-K028",
+   "topic_name": "综合问答闯关",
+   "stem": "游戏要求“Name three sports.”，即说出三项运动。哪一组完全符合要求？",
+   "options": [
+    "Football, basketball, swimming, running.",
+    "Football, basketball, swimming.",
+    "Football, English, swimming.",
+    "Spring, summer, winter."
+   ],
+   "answer": "B",
+   "explanation": "这一组恰好有三项运动；第一组有四项，第三组混入学科，第四组是季节。",
+   "difficulty": 3,
+   "bloom": "应用",
+   "type": "single_choice",
+   "id": "pohw-CC06797"
+  },
+  {
+   "topic_id": "primary-g4-s1-english-K028",
+   "topic_name": "综合问答闯关",
+   "stem": "男孩 Tom 此刻正在游泳。朋友问“What’s he doing?”，你以旁观者身份回答，哪一句正确？",
+   "options": [
+    "I’m swimming.",
+    "He likes swimming.",
+    "He’s swimming.",
+    "He swims on Sunday."
+   ],
+   "answer": "C",
+   "explanation": "问句中的 he 要用 He 回答；is swimming 表示正在游泳。I’m swimming. 换成了第一人称，另外两句不表示当前动作。",
+   "difficulty": 3,
+   "bloom": "应用",
+   "type": "single_choice",
+   "id": "pohw-CC06798"
+  },
+  {
+   "topic_id": "primary-g4-s1-english-K028",
+   "topic_name": "综合问答闯关",
+   "stem": "虚构人物不喜欢唱歌。别人问他“Do you like singing?”，他应怎样作否定简短回答？",
+   "options": [
+    "No, I’m not.",
+    "No, I don’t.",
+    "It’s Monday.",
+    "He’s singing."
+   ],
+   "answer": "B",
+   "explanation": "Do you like...? 的否定简短回答是 No, I don’t.；其他选项不符合问句结构或不回答是否喜欢。",
+   "difficulty": 2,
+   "bloom": "理解",
+   "type": "single_choice",
+   "id": "pohw-CC06799"
+  },
+  {
+   "topic_id": "primary-g4-s1-english-K026",
+   "topic_name": "制作资料卡并介绍自己",
+   "stem": "虚构人物想介绍“我最喜欢的运动是篮球”。哪一句正确？",
+   "options": [
+    "My favourite season is basketball.",
+    "My favourite food is basketball.",
+    "My favourite sport is basketball.",
+    "My favourite colour is basketball."
+   ],
+   "answer": "C",
+   "explanation": "basketball 是篮球运动，与 sport 匹配，不属于食物、季节或颜色。",
+   "difficulty": 3,
+   "bloom": "应用",
+   "type": "single_choice",
+   "id": "pohw-CC06800"
+  },
+  {
+   "topic_id": "primary-g4-s1-english-K028",
+   "topic_name": "综合问答闯关",
+   "stem": "虚构人物每周日踢足球。别人问“What do you do on Sunday?”，他应怎样回答？",
+   "options": [
+    "I like winter.",
+    "It’s cloudy.",
+    "I play football on Sunday.",
+    "He’s a gardener."
+   ],
+   "answer": "C",
+   "explanation": "问句询问周日活动，只有这一项说明星期日踢足球；其余选项分别说季节、天气和职业。",
+   "difficulty": 2,
+   "bloom": "理解",
+   "type": "single_choice",
+   "id": "pohw-CC06801"
+  },
+  {
+   "topic_id": "primary-g4-s1-english-K026",
+   "topic_name": "制作资料卡并介绍自己",
+   "stem": "虚构人物的爱好是唱歌。哪一句自我介绍正确？",
+   "options": [
+    "My hobby are singing.",
+    "My hobby is sing.",
+    "My hobby is singing.",
+    "My hobby singing is."
+   ],
+   "answer": "C",
+   "explanation": "本句用 My hobby is singing. 表达爱好是唱歌；其余选项有主谓搭配、动词形式或语序错误。",
+   "difficulty": 1,
+   "bloom": "记忆",
+   "type": "single_choice",
+   "id": "pohw-CC06802"
+  },
+  {
+   "topic_id": "primary-g4-s1-english-K030",
+   "topic_name": "读懂天气预报",
+   "stem": "补全句子，表示“上海将多云”：It will ____ cloudy in Shanghai.",
+   "options": [
+    "am",
+    "be",
+    "are",
+    "is"
+   ],
+   "answer": "B",
+   "explanation": "will 后用动词原形 be，构成 will be cloudy；is、are、am 都不是此处所需的原形。",
+   "difficulty": 3,
+   "bloom": "应用",
+   "type": "single_choice",
+   "id": "pohw-CC06803"
+  },
+  {
+   "topic_id": "primary-g4-s1-english-K027",
+   "topic_name": "星期与课程问答",
+   "stem": "补全句子，表示“星期三我们有哪些课程”：What subjects do we have ____ Wednesday?",
+   "options": [
+    "at",
+    "in",
+    "on",
+    "to"
+   ],
+   "answer": "C",
+   "explanation": "表示在具体星期几时用 on，因此这里用 on Wednesday。",
+   "difficulty": 3,
+   "bloom": "应用",
+   "type": "single_choice",
+   "id": "pohw-CC06804"
+  },
+  {
+   "topic_id": "primary-g4-s1-english-K030",
+   "topic_name": "读懂天气预报",
+   "stem": "补全预报，表示“海口将下雨”：It will ____ in Haikou.",
+   "options": [
+    "cloudy",
+    "sunny",
+    "rain",
+    "windy"
+   ],
+   "answer": "C",
+   "explanation": "rain 在这里作动词，will rain 表示将下雨；其余三个词是形容词，不能直接填入这一结构表达下雨。",
+   "difficulty": 3,
+   "bloom": "应用",
+   "type": "single_choice",
+   "id": "pohw-CC06805"
+  },
+  {
+   "topic_id": "primary-g4-s1-english-K026",
+   "topic_name": "制作资料卡并介绍自己",
+   "stem": "资料卡中，哪个栏目用来填写“最喜欢的食物”？",
+   "options": [
+    "Favourite sport",
+    "Favourite food",
+    "Favourite colour",
+    "Favourite season"
+   ],
+   "answer": "B",
+   "explanation": "food 表示食物；sport、colour、season 分别表示运动、颜色和季节。",
+   "difficulty": 1,
+   "bloom": "记忆",
+   "type": "single_choice",
+   "id": "pohw-CC06806"
+  },
+  {
+   "topic_id": "primary-g4-s1-english-K026",
+   "topic_name": "制作资料卡并介绍自己",
+   "stem": "资料卡要表达“最喜欢的颜色：蓝色”。哪一项栏目与内容匹配？",
+   "options": [
+    "Favourite sport: blue.",
+    "Favourite colour: blue.",
+    "Favourite food: blue.",
+    "Favourite season: blue."
+   ],
+   "answer": "B",
+   "explanation": "blue 是颜色，应填在 Favourite colour 栏；其他三个栏目与颜色不匹配。",
+   "difficulty": 1,
+   "bloom": "记忆",
+   "type": "single_choice",
+   "id": "pohw-CC06807"
+  },
+  {
+   "topic_id": "primary-g4-s1-english-K025",
+   "topic_name": "人物描述与职业辨认",
+   "stem": "选择正确的词补全“他留着短发”：He ____ short hair.",
+   "options": [
+    "am",
+    "has",
+    "are",
+    "is"
+   ],
+   "answer": "B",
+   "explanation": "表达他有短发用 He has short hair.；is、are、am 都不能在这里直接连接 short hair。",
+   "difficulty": 3,
+   "bloom": "应用",
+   "type": "single_choice",
+   "id": "pohw-CC06808"
+  },
+  {
+   "topic_id": "primary-g4-s1-english-K025",
+   "topic_name": "人物描述与职业辨认",
+   "stem": "阅读新编人物介绍：“She has short hair. She likes singing. She’s an art teacher.”她的职业是什么？",
+   "options": [
+    "cook",
+    "art teacher",
+    "farmer",
+    "gardener"
+   ],
+   "answer": "B",
+   "explanation": "介绍最后一句明确说明她是美术老师；喜欢唱歌不改变这项职业信息。",
+   "difficulty": 2,
+   "bloom": "理解",
+   "type": "single_choice",
+   "id": "pohw-CC06809"
+  },
+  {
+   "topic_id": "primary-g4-s1-english-K030",
+   "topic_name": "读懂天气预报",
+   "stem": "预报说“It will be sunny in Zhengzhou.”，郑州将是什么天气？",
+   "options": [
+    "sunny",
+    "cloudy",
+    "windy",
+    "rain"
+   ],
+   "answer": "A",
+   "explanation": "给定句中的 sunny 表示晴朗；其他三个选项分别表示多云、有风和下雨。",
+   "difficulty": 2,
+   "bloom": "理解",
+   "type": "single_choice",
+   "id": "pohw-CC06810"
+  },
+  {
+   "topic_id": "primary-g4-s1-english-K030",
+   "topic_name": "读懂天气预报",
+   "stem": "预报说“It will be windy in Lanzhou.”。若用下列文字描述的符号表示兰州天气，应选哪一种？",
+   "options": [
+    "一个太阳",
+    "云下有雨滴",
+    "几条表示风的斜线",
+    "一片雪花"
+   ],
+   "answer": "C",
+   "explanation": "windy 表示有风，应选表示风的符号；太阳、雨滴和雪花分别表示其他天气。",
+   "difficulty": 2,
+   "bloom": "理解",
+   "type": "single_choice",
+   "id": "pohw-CC06811"
   }
  ]
 }

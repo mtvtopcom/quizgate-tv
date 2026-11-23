@@ -1,11 +1,12 @@
 {
- "version": 2,
+ "version": 3,
+ "schema": "k12-question-bank/v1",
  "subject": "英语",
  "grade": 1,
  "items": [
   {
-   "id": "e1-001",
-   "subject": "英语",
+   "topic_id": "primary-g1-s1-english-K900",
+   "topic_name": "字母、颜色与基础词汇",
    "stem": "字母 A 后面的字母是？",
    "options": [
     "B",
@@ -13,12 +14,16 @@
     "D",
     "E"
    ],
-   "answerIndex": 0,
-   "explanation": "字母表顺序 A、B、C…"
+   "answer": "A",
+   "explanation": "字母表顺序 A、B、C…",
+   "difficulty": 1,
+   "bloom": "记忆",
+   "type": "single_choice",
+   "id": "e1-001"
   },
   {
-   "id": "e1-002",
-   "subject": "英语",
+   "topic_id": "primary-g1-s1-english-K900",
+   "topic_name": "字母、颜色与基础词汇",
    "stem": "“红色”用英语怎么说？",
    "options": [
     "red",
@@ -26,12 +31,16 @@
     "green",
     "black"
    ],
-   "answerIndex": 0,
-   "explanation": "red 是红色"
+   "answer": "A",
+   "explanation": "red 是红色",
+   "difficulty": 1,
+   "bloom": "记忆",
+   "type": "single_choice",
+   "id": "e1-002"
   },
   {
-   "id": "e1-003",
-   "subject": "英语",
+   "topic_id": "primary-g1-s1-english-K900",
+   "topic_name": "字母、颜色与基础词汇",
    "stem": "“cat”是什么意思？",
    "options": [
     "狗",
@@ -39,12 +48,16 @@
     "鸟",
     "鱼"
    ],
-   "answerIndex": 1,
-   "explanation": "cat 是猫"
+   "answer": "B",
+   "explanation": "cat 是猫",
+   "difficulty": 1,
+   "bloom": "记忆",
+   "type": "single_choice",
+   "id": "e1-003"
   },
   {
-   "id": "e1-004",
-   "subject": "英语",
+   "topic_id": "primary-g1-s1-english-K900",
+   "topic_name": "字母、颜色与基础词汇",
    "stem": "英文数字 three 是几？",
    "options": [
     "2",
@@ -52,12 +65,16 @@
     "4",
     "5"
    ],
-   "answerIndex": 1,
-   "explanation": "three = 3"
+   "answer": "B",
+   "explanation": "three = 3",
+   "difficulty": 1,
+   "bloom": "记忆",
+   "type": "single_choice",
+   "id": "e1-004"
   },
   {
-   "id": "e1-005",
-   "subject": "英语",
+   "topic_id": "primary-g1-s1-english-K900",
+   "topic_name": "字母、颜色与基础词汇",
    "stem": "“apple”是什么意思？",
    "options": [
     "苹果",
@@ -65,12 +82,16 @@
     "橘子",
     "葡萄"
    ],
-   "answerIndex": 0,
-   "explanation": "apple 是苹果"
+   "answer": "A",
+   "explanation": "apple 是苹果",
+   "difficulty": 1,
+   "bloom": "记忆",
+   "type": "single_choice",
+   "id": "e1-005"
   },
   {
-   "id": "e1-006",
-   "subject": "英语",
+   "topic_id": "primary-g1-s1-english-K900",
+   "topic_name": "字母、颜色与基础词汇",
    "stem": "“Hello”的意思是？",
    "options": [
     "再见",
@@ -78,12 +99,16 @@
     "谢谢",
     "对不起"
    ],
-   "answerIndex": 1,
-   "explanation": "Hello 是打招呼"
+   "answer": "B",
+   "explanation": "Hello 是打招呼",
+   "difficulty": 1,
+   "bloom": "记忆",
+   "type": "single_choice",
+   "id": "e1-006"
   },
   {
-   "id": "e1-007",
-   "subject": "英语",
+   "topic_id": "primary-g1-s1-english-K900",
+   "topic_name": "字母、颜色与基础词汇",
    "stem": "英文字母一共有多少个？",
    "options": [
     "24 个",
@@ -91,12 +116,16 @@
     "26 个",
     "27 个"
    ],
-   "answerIndex": 2,
-   "explanation": "A 到 Z 共 26 个"
+   "answer": "C",
+   "explanation": "A 到 Z 共 26 个",
+   "difficulty": 1,
+   "bloom": "记忆",
+   "type": "single_choice",
+   "id": "e1-007"
   },
   {
-   "id": "e1-008",
-   "subject": "英语",
+   "topic_id": "primary-g1-s1-english-K900",
+   "topic_name": "字母、颜色与基础词汇",
    "stem": "“dog”是什么意思？",
    "options": [
     "狗",
@@ -104,8 +133,12 @@
     "马",
     "羊"
    ],
-   "answerIndex": 0,
-   "explanation": "dog 是狗"
+   "answer": "A",
+   "explanation": "dog 是狗",
+   "difficulty": 1,
+   "bloom": "记忆",
+   "type": "single_choice",
+   "id": "e1-008"
   }
  ]
 }

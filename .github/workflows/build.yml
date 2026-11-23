@@ -26,6 +26,10 @@ jobs:
           chmod +x build.sh
           ./build.sh
 
+      - name: 校验题库资产
+        # 默认题库随 APK 发布，改坏后真机只会静默出兜底题，必须在这里拦住。
+        run: python3 tools/check_quizbank.py
+
       # v1.2.0 起为了在线升级引入了 INTERNET，所以不再断言「没有 INTERNET」。
       # 改成白名单断言：清单里的权限必须逐条列在这里，多一条就红。
       # 白名单之外的一切（定位、电话状态、通讯录、短信、相机、麦克风、存储、

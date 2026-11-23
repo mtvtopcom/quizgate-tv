@@ -341,15 +341,22 @@ public class GateService extends Service implements MaskView.Host {
     }
 
     @Override public void onPinOk() {
-        Log.i(TAG, "pin ok -> 结束会话并回到应用首页");
-        // 1.3.0：口令对了不再只是退出到桌面，而是把应用首页打开，
-        // 由家长在首页决定「开始计时 / 结束本次会话」。本次运行标记为已解锁，
-        // 之后进设置不再重复要口令（开始计时时会重新上锁）。
+        // 家长在遮罩上输对口令 = 「我要进设置改东西」，不是「结束这一局」。
+        // 1.4.0 起会话继续计时：phase 从 LOCKED 切回 RUNNING，遮罩由 reconcile() 摘掉；
+        // 真正要结束会话走首页的「结束本次会话」，那里是独立的 PIN_CONFIRM 二次确认。
+        // 到点锁定时 remaining 已归零，直接切 RUNNING 会立刻再次 lock()，所以给一段
+        // 宽限时间继续计时，长度沿用「答对延长」的分钟数（家长接管等同授权续时）。
+        long grace = Math.max(1, prefs.extendMin()) * 60_000L;
+        remaining = Math.max(remaining, grace);
+        prefs.saveSnapshot(Prefs.RUNNING, remaining);
         App.parentUnlocked = true;
         prefs.setParentUnlocked(true);   // 进程被系统回收后仍免密，doStart() 会清掉
+        Log.i(TAG, "pin ok -> 会话继续 remaining=" + Core.fmt(remaining));
         // 正在按键分发过程中移除窗口会出问题，抛到下一帧再做
         h.post(() -> {
-            exitSession();
+            reconcile();
+            updateMini();
+            updateNotification();
             openApp();
         });
     }

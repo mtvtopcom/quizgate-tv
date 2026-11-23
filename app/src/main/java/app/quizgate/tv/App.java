@@ -40,6 +40,16 @@ public class App extends Application {
      */
     static volatile boolean parentUnlocked;
 
+    /**
+     * 题库上传服务的进程级句柄。
+     *
+     * <p>不能放在 {@link BankManagerView} 里随页面生死：二维码页一关、或焦点被系统
+     * 抢走导致页面重建，服务就没了，家长手上那张二维码随之失效（实测「过一阵连不上」）。
+     * 交给 Application 持有后，只要进程还活着，token 和端口就稳定，旧二维码一直可用；
+     * 只有进程被系统强停才会重建 —— 那种情况重进页面会显示新二维码。
+     */
+    static volatile BankHttpServer bankServer;
+
     @Override public void onCreate() {
         super.onCreate();
         final Context ctx = getApplicationContext();

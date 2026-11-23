@@ -1,11 +1,12 @@
 {
- "version": 2,
+ "version": 3,
+ "schema": "k12-question-bank/v1",
  "subject": "语文",
  "grade": 1,
  "items": [
   {
-   "id": "c1-001",
-   "subject": "语文",
+   "topic_id": "primary-g1-s1-chinese-K900",
+   "topic_name": "笔画、反义词与识字基础",
    "stem": "“日”字有几笔？",
    "options": [
     "3 笔",
@@ -13,12 +14,16 @@
     "5 笔",
     "6 笔"
    ],
-   "answerIndex": 1,
-   "explanation": "“日”是 4 笔"
+   "answer": "B",
+   "explanation": "“日”是 4 笔",
+   "difficulty": 2,
+   "bloom": "记忆",
+   "type": "single_choice",
+   "id": "c1-001"
   },
   {
-   "id": "c1-002",
-   "subject": "语文",
+   "topic_id": "primary-g1-s1-chinese-K900",
+   "topic_name": "笔画、反义词与识字基础",
    "stem": "“山”字有几笔？",
    "options": [
     "2 笔",
@@ -26,12 +31,16 @@
     "4 笔",
     "5 笔"
    ],
-   "answerIndex": 1,
-   "explanation": "“山”是 3 笔"
+   "answer": "B",
+   "explanation": "“山”是 3 笔",
+   "difficulty": 2,
+   "bloom": "记忆",
+   "type": "single_choice",
+   "id": "c1-002"
   },
   {
-   "id": "c1-003",
-   "subject": "语文",
+   "topic_id": "primary-g1-s1-chinese-K900",
+   "topic_name": "笔画、反义词与识字基础",
    "stem": "“上”的反义词是什么？",
    "options": [
     "左",
@@ -39,12 +48,16 @@
     "前",
     "里"
    ],
-   "answerIndex": 1,
-   "explanation": "上与下相对"
+   "answer": "B",
+   "explanation": "上与下相对",
+   "difficulty": 2,
+   "bloom": "记忆",
+   "type": "single_choice",
+   "id": "c1-003"
   },
   {
-   "id": "c1-004",
-   "subject": "语文",
+   "topic_id": "primary-g1-s1-chinese-K900",
+   "topic_name": "笔画、反义词与识字基础",
    "stem": "一（ ）铅笔，括号里用什么量词？",
    "options": [
     "个",
@@ -52,12 +65,16 @@
     "支",
     "条"
    ],
-   "answerIndex": 2,
-   "explanation": "细长的笔用“支”"
+   "answer": "C",
+   "explanation": "细长的笔用“支”",
+   "difficulty": 2,
+   "bloom": "记忆",
+   "type": "single_choice",
+   "id": "c1-004"
   },
   {
-   "id": "c1-005",
-   "subject": "语文",
+   "topic_id": "primary-g1-s1-chinese-K900",
+   "topic_name": "笔画、反义词与识字基础",
    "stem": "“水”的拼音是？",
    "options": [
     "shuǐ",
@@ -65,12 +82,16 @@
     "shǔi",
     "shuī"
    ],
-   "answerIndex": 0,
-   "explanation": "水读 shuǐ，第三声"
+   "answer": "A",
+   "explanation": "水读 shuǐ，第三声",
+   "difficulty": 2,
+   "bloom": "记忆",
+   "type": "single_choice",
+   "id": "c1-005"
   },
   {
-   "id": "c1-006",
-   "subject": "语文",
+   "topic_id": "primary-g1-s1-chinese-K900",
+   "topic_name": "笔画、反义词与识字基础",
    "stem": "“大”的反义词是什么？",
    "options": [
     "多",
@@ -78,12 +99,16 @@
     "高",
     "长"
    ],
-   "answerIndex": 1,
-   "explanation": "大与小相对"
+   "answer": "B",
+   "explanation": "大与小相对",
+   "difficulty": 2,
+   "bloom": "记忆",
+   "type": "single_choice",
+   "id": "c1-006"
   },
   {
-   "id": "c1-007",
-   "subject": "语文",
+   "topic_id": "primary-g1-s1-chinese-K900",
+   "topic_name": "笔画、反义词与识字基础",
    "stem": "“人”字加一笔可以变成哪个字？",
    "options": [
     "大",
@@ -91,12 +116,16 @@
     "木",
     "水"
    ],
-   "answerIndex": 0,
-   "explanation": "人加一横就是“大”"
+   "answer": "A",
+   "explanation": "人加一横就是“大”",
+   "difficulty": 2,
+   "bloom": "记忆",
+   "type": "single_choice",
+   "id": "c1-007"
   },
   {
-   "id": "c1-008",
-   "subject": "语文",
+   "topic_id": "primary-g1-s1-chinese-K900",
+   "topic_name": "笔画、反义词与识字基础",
    "stem": "“月”字有几笔？",
    "options": [
     "3 笔",
@@ -104,8 +133,4789 @@
     "5 笔",
     "6 笔"
    ],
-   "answerIndex": 1,
-   "explanation": "“月”是 4 笔"
+   "answer": "B",
+   "explanation": "“月”是 4 笔",
+   "difficulty": 2,
+   "bloom": "记忆",
+   "type": "single_choice",
+   "id": "c1-008"
+  },
+  {
+   "topic_id": "primary-g1-s1-chinese-K029",
+   "topic_name": "语文学习行为素养",
+   "stem": "写字的时候，我们的胸口离桌子大约有多远？",
+   "options": [
+    "一寸",
+    "一拳",
+    "一尺",
+    "贴着桌子"
+   ],
+   "answer": "B",
+   "explanation": "“一拳、一尺、一寸”是基本的写字姿势规范。",
+   "difficulty": 2,
+   "bloom": "理解",
+   "type": "single_choice",
+   "id": "pohw-CC00973"
+  },
+  {
+   "topic_id": "primary-g1-s1-chinese-K031",
+   "topic_name": "身份认同与角色定位",
+   "stem": "太阳当空照，____对我笑。空格里应该填什么？",
+   "options": [
+    "小草",
+    "小鸟",
+    "花儿",
+    "蓝天"
+   ],
+   "answer": "C",
+   "explanation": "《上学歌》原文为“太阳当空照，花儿对我笑”。",
+   "difficulty": 1,
+   "bloom": "记忆",
+   "type": "single_choice",
+   "id": "pohw-CC00974"
+  },
+  {
+   "topic_id": "primary-g1-s1-chinese-K031",
+   "topic_name": "身份认同与角色定位",
+   "stem": "我是____小学生。括号里填哪个词最合适？",
+   "options": [
+    "一名",
+    "一个",
+    "一头",
+    "一只"
+   ],
+   "answer": "A",
+   "explanation": "“名”是形容人的常用量词，带有尊敬和正式感。",
+   "difficulty": 1,
+   "bloom": "记忆",
+   "type": "single_choice",
+   "id": "pohw-CC00975"
+  },
+  {
+   "topic_id": "primary-g1-s1-chinese-K032",
+   "topic_name": "身体部位识记与行为规范",
+   "stem": "“卧如弓”指的是睡觉时应该：",
+   "options": [
+    "直着身子",
+    "趴着睡",
+    "身体微弯",
+    "大字型睡"
+   ],
+   "answer": "C",
+   "explanation": "弓是弯曲的，形容睡觉时身体自然微弯，像弓一样。",
+   "difficulty": 2,
+   "bloom": "理解",
+   "type": "single_choice",
+   "id": "pohw-CC00976"
+  },
+  {
+   "topic_id": "primary-g1-s1-chinese-K030",
+   "topic_name": "象形字识记与图文匹配",
+   "stem": "“羊、鸟、兔”这些字的共同点是：",
+   "options": [
+    "都是数字",
+    "都是象形字",
+    "笔画都一样",
+    "读音都一样"
+   ],
+   "answer": "B",
+   "explanation": "这些字最初都是根据小动物的形状画出来的。",
+   "difficulty": 2,
+   "bloom": "理解",
+   "type": "single_choice",
+   "id": "pohw-CC00977"
+  },
+  {
+   "topic_id": "primary-g1-s1-chinese-K026",
+   "topic_name": "田字格基础与基本笔顺",
+   "stem": "下列哪个字的第一笔是“横”？",
+   "options": [
+    "十",
+    "口",
+    "上",
+    "八"
+   ],
+   "answer": "A",
+   "explanation": "答案是“十”。“十”的第一笔是横；“口”和“上”的第一笔是竖，“八”的第一笔是撇。",
+   "difficulty": 2,
+   "bloom": "理解",
+   "type": "single_choice",
+   "id": "pohw-CC00978"
+  },
+  {
+   "topic_id": "primary-g1-s1-chinese-K026",
+   "topic_name": "田字格基础与基本笔顺",
+   "stem": "写“三”字的三横，应该按什么顺序写？",
+   "options": [
+    "从上到下",
+    "从下到上",
+    "先写中间一横",
+    "先写竖"
+   ],
+   "answer": "A",
+   "explanation": "答案是“从上到下”。写“三”时，先写最上面的一横，再写中间的一横，最后写最下面的一横。",
+   "difficulty": 1,
+   "bloom": "记忆",
+   "type": "single_choice",
+   "id": "pohw-CC00979"
+  },
+  {
+   "topic_id": "primary-g1-s1-chinese-K026",
+   "topic_name": "田字格基础与基本笔顺",
+   "stem": "写“十”字时，应按哪种笔顺？",
+   "options": [
+    "先竖后横",
+    "先横后竖",
+    "从下到上",
+    "先写竖再写横"
+   ],
+   "answer": "B",
+   "explanation": "答案是“先横后竖”。“十”有一横和一竖，按笔顺应先写横，再写竖。",
+   "difficulty": 2,
+   "bloom": "理解",
+   "type": "single_choice",
+   "id": "pohw-CC00980"
+  },
+  {
+   "topic_id": "primary-g1-s1-chinese-K026",
+   "topic_name": "田字格基础与基本笔顺",
+   "stem": "田字格中，上下竖着穿过格子正中的线叫什么？",
+   "options": [
+    "横中线",
+    "左上格",
+    "竖中线",
+    "右下格"
+   ],
+   "answer": "C",
+   "explanation": "答案是“竖中线”。竖中线上下竖着穿过田字格正中；左右横着穿过格子正中的线叫横中线。",
+   "difficulty": 1,
+   "bloom": "记忆",
+   "type": "single_choice",
+   "id": "pohw-CC00981"
+  },
+  {
+   "topic_id": "primary-g1-s1-chinese-K018",
+   "topic_name": "对韵歌与反义词辨析",
+   "stem": "选出读音正确的一组：",
+   "options": [
+    "山(shān)",
+    "水(suǐ)",
+    "足(zhú)",
+    "手(sǒu)"
+   ],
+   "answer": "A",
+   "explanation": "“水”是shuǐ，“足”是zú，“手”是shǒu。",
+   "difficulty": 2,
+   "bloom": "理解",
+   "type": "single_choice",
+   "id": "pohw-CC00982"
+  },
+  {
+   "topic_id": "primary-g1-s1-chinese-K001",
+   "topic_name": "j、q、x与ü相拼规则",
+   "stem": "下列拼读书写完全正确的一项是：",
+   "options": [
+    "j-ü→jü",
+    "j-ü→ju",
+    "f-ü→fu",
+    "q-ü→qü"
+   ],
+   "answer": "B",
+   "explanation": "j 与 ü 相拼时，ü 去掉两点，写成 ju；读音仍是 ü。其余选项分别把 ü 的两点保留、把 ü 错写成 u，或把这条规则误用于 f。",
+   "difficulty": 2,
+   "bloom": "理解",
+   "type": "single_choice",
+   "id": "pohw-CC00983"
+  },
+  {
+   "topic_id": "primary-g1-s1-chinese-K001",
+   "topic_name": "j、q、x与ü相拼规则",
+   "stem": "下面哪个音节的韵母是u，而不是ü？",
+   "options": [
+    "jū",
+    "qǔ",
+    "xù",
+    "nǔ"
+   ],
+   "answer": "D",
+   "explanation": "j、q、x后面的u实际表示ü，所以jū、qǔ、xù的韵母是ü。nǔ由n和u拼成，韵母是u。它是合法音节，不能仅因为没有两点就说拼写错误。",
+   "difficulty": 2,
+   "bloom": "理解",
+   "type": "single_choice",
+   "id": "pohw-CC00984"
+  },
+  {
+   "topic_id": "primary-g1-s1-chinese-K002",
+   "topic_name": "两拼音节的拼读方法",
+   "stem": "下面哪组汉字与拼音不对应？",
+   "options": [
+    "bā（八）",
+    "tǎ（塔）",
+    "mǒ（木）",
+    "pú（葡）"
+   ],
+   "answer": "C",
+   "explanation": "“八”读bā，“塔”读tǎ，“木”读mù，“葡”读pú。“木”不能注成mǒ。mǒ本身可以用于“抹”等字，不是非法音节。",
+   "difficulty": 3,
+   "bloom": "应用",
+   "type": "single_choice",
+   "id": "pohw-CC00985"
+  },
+  {
+   "topic_id": "primary-g1-s1-chinese-K008",
+   "topic_name": "单韵母及其四声调认读",
+   "stem": "请选出下列四声调排列正确的一组：",
+   "options": [
+    "ā á ǎ à",
+    "á ā à ǎ",
+    "à ǎ á ā",
+    "ǎ à ā á"
+   ],
+   "answer": "A",
+   "explanation": "声调顺序为一声平，二声扬，三声拐弯，四声降。",
+   "difficulty": 1,
+   "bloom": "记忆",
+   "type": "single_choice",
+   "id": "pohw-CC00986"
+  },
+  {
+   "topic_id": "primary-g1-s1-chinese-K001",
+   "topic_name": "j、q、x与ü相拼规则",
+   "stem": "音节“qù”（回去）是由哪两个部分组成的？",
+   "options": [
+    "q 和 u",
+    "q 和 ü",
+    "p 和 u",
+    "g 和 u"
+   ],
+   "answer": "B",
+   "explanation": "题目给出 qù（回去）。这个音节书写时由 q 和去掉两点的 ü 组成，读音仍是 ü，不是单韵母 u。",
+   "difficulty": 3,
+   "bloom": "应用",
+   "type": "single_choice",
+   "id": "pohw-CC00987"
+  },
+  {
+   "topic_id": "primary-g1-s1-chinese-K006",
+   "topic_name": "前鼻韵母与后鼻韵母区分",
+   "stem": "‘灯光’这两个字的韵母依次是：",
+   "options": [
+    "en, an",
+    "eng, ang",
+    "eng, an",
+    "en, ang"
+   ],
+   "answer": "B",
+   "explanation": "灯dēng，光guāng，都是后鼻韵母。",
+   "difficulty": 2,
+   "bloom": "理解",
+   "type": "single_choice",
+   "id": "pohw-CC00988"
+  },
+  {
+   "topic_id": "primary-g1-s1-chinese-K013",
+   "topic_name": "复韵母辨析与拼读",
+   "stem": "‘白菜、买卖、奶奶’这些词里都有哪个韵母？",
+   "options": [
+    "an",
+    "ei",
+    "ai",
+    "ao"
+   ],
+   "answer": "C",
+   "explanation": "白bái，菜cài，买mǎi，卖mài，奶nǎi，都含有ai。",
+   "difficulty": 2,
+   "bloom": "理解",
+   "type": "single_choice",
+   "id": "pohw-CC00989"
+  },
+  {
+   "topic_id": "primary-g1-s1-chinese-K013",
+   "topic_name": "复韵母辨析与拼读",
+   "stem": "‘老、草、好’这三个字的韵母都是：",
+   "options": [
+    "ou",
+    "ao",
+    "ai",
+    "uo"
+   ],
+   "answer": "B",
+   "explanation": "老lǎo，草cǎo，好hǎo，韵母都是ao。",
+   "difficulty": 3,
+   "bloom": "应用",
+   "type": "single_choice",
+   "id": "pohw-CC00990"
+  },
+  {
+   "topic_id": "primary-g1-s1-chinese-K021",
+   "topic_name": "整体认读音节应用",
+   "stem": "“圆形”的“圆”读yuán。哪个音节表示这个读音？",
+   "options": [
+    "yú",
+    "yǔ",
+    "yuán",
+    "yàn"
+   ],
+   "answer": "C",
+   "explanation": "“圆形”的“圆”读yuán，声调是第二声，拼写为yuán。yuan是整体认读音节，认读时把整个音节连起来读。",
+   "difficulty": 1,
+   "bloom": "记忆",
+   "type": "single_choice",
+   "id": "pohw-CC00991"
+  },
+  {
+   "topic_id": "primary-g1-s1-chinese-K024",
+   "topic_name": "汉语拼音综合应用",
+   "stem": "“妹”（mèi）的韵母是哪个？",
+   "options": [
+    "ei",
+    "ie",
+    "ai",
+    "ui"
+   ],
+   "answer": "A",
+   "explanation": "“妹”的拼音是mèi，声母是m，韵母是ei。ei和ie的字母相同但顺序不同，要按拼音中的实际顺序辨认。",
+   "difficulty": 1,
+   "bloom": "记忆",
+   "type": "single_choice",
+   "id": "pohw-CC00992"
+  },
+  {
+   "topic_id": "primary-g1-s1-chinese-K024",
+   "topic_name": "汉语拼音综合应用",
+   "stem": "“山”（shān）和“商”（shāng）的韵母有什么不同？",
+   "options": [
+    "山的韵母是an，商的韵母是ang。",
+    "山的韵母是ang，商的韵母是an。",
+    "山的韵母是en，商的韵母是eng。",
+    "山的韵母是ai，商的韵母是ei。"
+   ],
+   "answer": "A",
+   "explanation": "“山”的拼音是shān，去掉声母sh后，韵母是an；“商”的拼音是shāng，去掉声母sh后，韵母是ang。an以n结尾，ang以ng结尾，两个韵母不能混淆。",
+   "difficulty": 3,
+   "bloom": "应用",
+   "type": "single_choice",
+   "id": "pohw-CC00993"
+  },
+  {
+   "topic_id": "primary-g1-s1-chinese-K024",
+   "topic_name": "汉语拼音综合应用",
+   "stem": "“水”（shuǐ）的韵母是哪个？",
+   "options": [
+    "iu",
+    "ei",
+    "ui",
+    "ie"
+   ],
+   "answer": "C",
+   "explanation": "“水”的拼音是shuǐ，声母是sh，韵母是ui。韵母的字母顺序要按拼音里的写法辨认，不能把ui看成iu。",
+   "difficulty": 1,
+   "bloom": "记忆",
+   "type": "single_choice",
+   "id": "pohw-CC00994"
+  },
+  {
+   "topic_id": "primary-g1-s1-chinese-K021",
+   "topic_name": "整体认读音节应用",
+   "stem": "下列音节中，哪个是整体认读音节？",
+   "options": [
+    "ba",
+    "yue",
+    "mei",
+    "tian"
+   ],
+   "answer": "B",
+   "explanation": "yue是整体认读音节，应把整个音节连起来认读。ba、mei、tian不属于整体认读音节。",
+   "difficulty": 1,
+   "bloom": "记忆",
+   "type": "single_choice",
+   "id": "pohw-CC00995"
+  },
+  {
+   "topic_id": "primary-g1-s1-chinese-K024",
+   "topic_name": "汉语拼音综合应用",
+   "stem": "下面哪个是整体认读音节？",
+   "options": [
+    "liu",
+    "yuan",
+    "bai",
+    "shui"
+   ],
+   "answer": "B",
+   "explanation": "yuan是整体认读音节，要把整个音节直接认读。liu、bai、shui都不是整体认读音节。",
+   "difficulty": 1,
+   "bloom": "记忆",
+   "type": "single_choice",
+   "id": "pohw-CC00996"
+  },
+  {
+   "topic_id": "primary-g1-s1-chinese-K021",
+   "topic_name": "整体认读音节应用",
+   "stem": "哪一组音节和汉字对应正确？",
+   "options": [
+    "zǐ—五，wǔ—子，rì—鱼，yú—日",
+    "zǐ—子，wǔ—五，rì—日，yú—鱼",
+    "zǐ—日，wǔ—鱼，rì—子，yú—五",
+    "zǐ—鱼，wǔ—日，rì—五，yú—子"
+   ],
+   "answer": "B",
+   "explanation": "子读zǐ，五读wǔ，日读rì，鱼读yú。把每个音节的声调和对应汉字逐一核对，只有这一组全部正确。",
+   "difficulty": 1,
+   "bloom": "记忆",
+   "type": "single_choice",
+   "id": "pohw-CC00997"
+  },
+  {
+   "topic_id": "primary-g1-s1-chinese-K021",
+   "topic_name": "整体认读音节应用",
+   "stem": "小华要把zi、yu、ma、shi放进“直接读”或“先拼一拼”两个盒子。哪种放法正确？",
+   "options": [
+    "zi、yu、shi放进“直接读”盒，ma放进“先拼一拼”盒",
+    "zi、yu、ma放进“直接读”盒，shi放进“先拼一拼”盒",
+    "ma、shi放进“直接读”盒，zi、yu放进“先拼一拼”盒",
+    "zi、ma放进“直接读”盒，yu、shi放进“先拼一拼”盒"
+   ],
+   "answer": "A",
+   "explanation": "zi、yu、shi都是整体认读音节，应该放进“直接读”盒。ma不是整体认读音节，可以按声母和韵母拼读，因此放进“先拼一拼”盒。",
+   "difficulty": 3,
+   "bloom": "应用",
+   "type": "single_choice",
+   "id": "pohw-CC00998"
+  },
+  {
+   "topic_id": "primary-g1-s1-chinese-K014",
+   "topic_name": "多音字“一”的变调规律",
+   "stem": "“一会儿”中“一”的读音变调规律与下列哪个词相同？",
+   "options": [
+    "一个",
+    "第一",
+    "一起",
+    "一片"
+   ],
+   "answer": "D",
+   "explanation": "“一会儿”和“一片”中的“一”都是在第四声前，变调为第二声。",
+   "difficulty": 2,
+   "bloom": "理解",
+   "type": "single_choice",
+   "id": "pohw-CC00999"
+  },
+  {
+   "topic_id": "primary-g1-s1-chinese-K014",
+   "topic_name": "多音字“一”的变调规律",
+   "stem": "“一会儿”的“一”读音是？",
+   "options": [
+    "yī",
+    "yí",
+    "yì",
+    "yi"
+   ],
+   "answer": "B",
+   "explanation": "“一”放在第四声“会”前，要读作第二声。",
+   "difficulty": 2,
+   "bloom": "理解",
+   "type": "single_choice",
+   "id": "pohw-CC01000"
+  },
+  {
+   "topic_id": "primary-g1-s1-chinese-K010",
+   "topic_name": "叠词（ABB/AAB）的积累应用",
+   "stem": "“弯弯的月儿像____。”横线上填入哪个最合适？",
+   "options": [
+    "小马",
+    "小船",
+    "脸蛋",
+    "火球"
+   ],
+   "answer": "B",
+   "explanation": "课文《小小的船》中将弯弯的月儿比作小小的船。",
+   "difficulty": 1,
+   "bloom": "记忆",
+   "type": "single_choice",
+   "id": "pohw-CC01001"
+  },
+  {
+   "topic_id": "primary-g1-s1-chinese-K010",
+   "topic_name": "叠词（ABB/AAB）的积累应用",
+   "stem": "“草芽尖尖”是在描写哪个季节？",
+   "options": [
+    "春天",
+    "夏天",
+    "秋天",
+    "冬天"
+   ],
+   "answer": "A",
+   "explanation": "《四季》第1小节写到“草芽尖尖，他对小鸟说：‘我是春天。’”",
+   "difficulty": 1,
+   "bloom": "记忆",
+   "type": "single_choice",
+   "id": "pohw-CC01002"
+  },
+  {
+   "topic_id": "primary-g1-s1-chinese-K010",
+   "topic_name": "叠词（ABB/AAB）的积累应用",
+   "stem": "“雪人大肚子一挺，他顽皮地说...”这句话使用了什么修辞？",
+   "options": [
+    "比喻",
+    "拟人",
+    "排比",
+    "夸张"
+   ],
+   "answer": "B",
+   "explanation": "把雪人赋予人的动作（挺肚子）和语言（说），是拟人写法。",
+   "difficulty": 3,
+   "bloom": "应用",
+   "type": "single_choice",
+   "id": "pohw-CC01003"
+  },
+  {
+   "topic_id": "primary-g1-s1-chinese-K027",
+   "topic_name": "自然段的判定与划分",
+   "stem": "一篇短文排成四行，排版说明说每一行各自是一个自然段。短文有几个自然段？",
+   "options": [
+    "2个",
+    "3个",
+    "4个",
+    "5个"
+   ],
+   "answer": "C",
+   "explanation": "答案是“4个”。题目说明四行各自是一个自然段，逐行数出四段，所以短文有4个自然段。",
+   "difficulty": 3,
+   "bloom": "应用",
+   "type": "single_choice",
+   "id": "pohw-CC01004"
+  },
+  {
+   "topic_id": "primary-g1-s1-chinese-K010",
+   "topic_name": "叠词（ABB/AAB）的积累应用",
+   "stem": "下列哪一项叠词搭配是错误的？",
+   "options": [
+    "弯弯的月儿",
+    "小小的船",
+    "红红的草",
+    "尖尖的草芽"
+   ],
+   "answer": "C",
+   "explanation": "草通常是绿色的，说“红红的草”不符合常识。",
+   "difficulty": 1,
+   "bloom": "记忆",
+   "type": "single_choice",
+   "id": "pohw-CC01005"
+  },
+  {
+   "topic_id": "primary-g1-s1-chinese-K014",
+   "topic_name": "多音字“一”的变调规律",
+   "stem": "在词语“一群”中，“一”的读音是？",
+   "options": [
+    "yī",
+    "yí",
+    "yì",
+    "yi"
+   ],
+   "answer": "C",
+   "explanation": "“一”在第二声（群）前变调为第四声（yì）。",
+   "difficulty": 1,
+   "bloom": "记忆",
+   "type": "single_choice",
+   "id": "pohw-CC01006"
+  },
+  {
+   "topic_id": "primary-g1-s1-chinese-K027",
+   "topic_name": "自然段的判定与划分",
+   "stem": "短文排版如下：第一、二行同属第一自然段。第一行写“我去公园。”；第二行接着写“看见了花，也看见了树。”；第三行另起一段，段首空两格，写“天黑了。”新自然段从哪里开始？",
+   "options": [
+    "第一段",
+    "第二段",
+    "第三段",
+    "第四段"
+   ],
+   "answer": "B",
+   "explanation": "答案是“第二段”。题目说明第一、二行同属第一自然段，第三行另起一段，因此新自然段从第三行开始，也就是第二自然段。",
+   "difficulty": 3,
+   "bloom": "应用",
+   "type": "single_choice",
+   "id": "pohw-CC01007"
+  },
+  {
+   "topic_id": "primary-g1-s1-chinese-K027",
+   "topic_name": "自然段的判定与划分",
+   "stem": "短文排版说明：第一行写“太阳出来了。”；第二行另起一段，段首空两格，写“小鸟唱歌了。”这段文字有几个自然段？",
+   "options": [
+    "1个",
+    "2个",
+    "3个",
+    "4个"
+   ],
+   "answer": "B",
+   "explanation": "答案是“2个”。第一行是一段，第二行另起一段且段首空两格，所以共有两个自然段。",
+   "difficulty": 3,
+   "bloom": "应用",
+   "type": "single_choice",
+   "id": "pohw-CC01008"
+  },
+  {
+   "topic_id": "primary-g1-s1-chinese-K014",
+   "topic_name": "多音字“一”的变调规律",
+   "stem": "选出“一”读音全是第四声（yì）的一组：",
+   "options": [
+    "一串、一边",
+    "一天、一心",
+    "一年、一条",
+    "一回、一人"
+   ],
+   "answer": "B",
+   "explanation": "当“一”在第一、二、三声字前时，变调为第四声。A项边是第一声，但串是第四声（变二声）；C、D均为第二声字前。",
+   "difficulty": 3,
+   "bloom": "应用",
+   "type": "single_choice",
+   "id": "pohw-CC01009"
+  },
+  {
+   "topic_id": "primary-g1-s1-chinese-K027",
+   "topic_name": "自然段的判定与划分",
+   "stem": "阅读：天冷了，大雁往南飞。一会儿排成个“人”字，一会儿排成个“一”字。这段文字有几个自然段？",
+   "options": [
+    "1个",
+    "2个",
+    "3个",
+    "4个"
+   ],
+   "answer": "A",
+   "explanation": "这段话开头空了两格，中间没有新的段首空格，是一个自然段。",
+   "difficulty": 3,
+   "bloom": "应用",
+   "type": "single_choice",
+   "id": "pohw-CC01010"
+  },
+  {
+   "topic_id": "primary-g1-s1-chinese-K003",
+   "topic_name": "会意字构字特征分析",
+   "stem": "“三个木”可以组成“森”，“三个日”可以组成什么字？",
+   "options": [
+    "晶",
+    "众",
+    "品",
+    "磊"
+   ],
+   "answer": "A",
+   "explanation": "三个日重叠在一起是“晶”，表示非常明亮。",
+   "difficulty": 2,
+   "bloom": "理解",
+   "type": "single_choice",
+   "id": "pohw-CC01011"
+  },
+  {
+   "topic_id": "primary-g1-s1-chinese-K035",
+   "topic_name": "阅读理解",
+   "stem": "下面哪种说法的量词搭配正确？",
+   "options": [
+    "一只牛",
+    "一头牛",
+    "一条牛",
+    "一颗牛"
+   ],
+   "answer": "B",
+   "explanation": "答案是“一头牛”。“牛”常用量词“头”来搭配，因此说“一头牛”；“只”“条”“颗”都不是这里常见、规范的搭配。",
+   "difficulty": 2,
+   "bloom": "理解",
+   "type": "single_choice",
+   "id": "pohw-CC01012"
+  },
+  {
+   "topic_id": "primary-g1-s1-chinese-K022",
+   "topic_name": "时间关联词逻辑排序",
+   "stem": "今天我生病了，____我已经康复去学校了。",
+   "options": [
+    "昨天",
+    "明天",
+    "后天",
+    "以前"
+   ],
+   "answer": "A",
+   "explanation": "由于今天是病态，“康复”对应的时间逻辑应该是“明天”或“昨天”，但语境通常指过去或未来，这里考查学生日常语感。根据逻辑，昨天的状态与今天不同。",
+   "difficulty": 2,
+   "bloom": "理解",
+   "type": "single_choice",
+   "id": "pohw-CC01013"
+  },
+  {
+   "topic_id": "primary-g1-s1-chinese-K033",
+   "topic_name": "量词的规范搭配应用",
+   "stem": "填入合适的词：操场上有一____小朋友在做游戏。",
+   "options": [
+    "头",
+    "只",
+    "个",
+    "群"
+   ],
+   "answer": "D",
+   "explanation": "小朋友不止一个时，生活场景中多用“一群”。",
+   "difficulty": 1,
+   "bloom": "记忆",
+   "type": "single_choice",
+   "id": "pohw-CC01014"
+  },
+  {
+   "topic_id": "primary-g1-s1-chinese-K017",
+   "topic_name": "字词义辨析",
+   "stem": "好几只鸭子聚在一起。下面哪个量词可以表示这些鸭子是一个整体？",
+   "options": [
+    "头",
+    "只",
+    "群",
+    "个"
+   ],
+   "answer": "C",
+   "explanation": "答案是“群”。题目说的是好几只鸭子聚在一起，表示许多动物聚在一起可以用量词“群”，所以应说“一群鸭子”。",
+   "difficulty": 3,
+   "bloom": "应用",
+   "type": "single_choice",
+   "id": "pohw-CC01015"
+  },
+  {
+   "topic_id": "primary-g1-s1-chinese-K022",
+   "topic_name": "时间关联词逻辑排序",
+   "stem": "如果今天是星期二，那么昨天是星期几？",
+   "options": [
+    "星期一",
+    "星期三",
+    "星期四",
+    "星期五"
+   ],
+   "answer": "A",
+   "explanation": "答案是“星期一”。星期按一天一天相连，星期二的前一天是星期一，所以如果今天是星期二，昨天就是星期一。",
+   "difficulty": 1,
+   "bloom": "记忆",
+   "type": "single_choice",
+   "id": "pohw-CC01016"
+  },
+  {
+   "topic_id": "primary-g1-s1-chinese-K022",
+   "topic_name": "时间关联词逻辑排序",
+   "stem": "妈妈说：“我们明天去公园。”去公园的时间是____。",
+   "options": [
+    "已经去过的一天",
+    "正在过的一天",
+    "还没到的一天",
+    "比昨天更早的一天"
+   ],
+   "answer": "C",
+   "explanation": "答案是“还没到的一天”。妈妈说的是明天去公园；明天在今天之后，所以去公园的时间还没到。",
+   "difficulty": 2,
+   "bloom": "理解",
+   "type": "single_choice",
+   "id": "pohw-CC01017"
+  },
+  {
+   "topic_id": "primary-g1-s1-chinese-K022",
+   "topic_name": "时间关联词逻辑排序",
+   "stem": "日历上写着今天是星期五。明天是星期几？",
+   "options": [
+    "星期四",
+    "星期五",
+    "星期六",
+    "星期日"
+   ],
+   "answer": "C",
+   "explanation": "答案是“星期六”。题目说明今天是星期五，明天是今天之后的一天；星期五之后的一天是星期六，所以明天是星期六。",
+   "difficulty": 2,
+   "bloom": "理解",
+   "type": "single_choice",
+   "id": "pohw-CC01018"
+  },
+  {
+   "topic_id": "primary-g1-s1-chinese-K035",
+   "topic_name": "阅读理解",
+   "stem": "读短文：小雨捡到一片树叶。树叶前面用的量词是什么？",
+   "options": [
+    "一朵",
+    "一片",
+    "一条",
+    "一颗"
+   ],
+   "answer": "B",
+   "explanation": "答案是“一片”。短文明确说小雨捡到的是一片树叶，所以树叶前面的量词是“片”。",
+   "difficulty": 1,
+   "bloom": "记忆",
+   "type": "single_choice",
+   "id": "pohw-CC01019"
+  },
+  {
+   "topic_id": "primary-g1-s1-chinese-K035",
+   "topic_name": "阅读理解",
+   "stem": "读短文：风吹来了。它吹得云儿轻轻移动，花儿随风摇摆。这里的“它”指什么？",
+   "options": [
+    "水",
+    "风",
+    "雨",
+    "雪"
+   ],
+   "answer": "B",
+   "explanation": "答案是“风”。短文先说风吹来了，接着说“它”吹得云儿移动、花儿摇摆。“它”承接前面提到的风，所以指风。",
+   "difficulty": 3,
+   "bloom": "应用",
+   "type": "single_choice",
+   "id": "pohw-CC01020"
+  },
+  {
+   "topic_id": "primary-g1-s1-chinese-K017",
+   "topic_name": "字词义辨析",
+   "stem": "读诗句“远看山有色，近听水无声”。“远”的反义词是什么？",
+   "options": [
+    "去",
+    "近",
+    "有",
+    "无"
+   ],
+   "answer": "B",
+   "explanation": "答案是“近”。诗句中有“远看”和“近听”，“远”和“近”表示相反的距离，所以“远”的反义词是“近”。",
+   "difficulty": 1,
+   "bloom": "记忆",
+   "type": "single_choice",
+   "id": "pohw-CC01021"
+  },
+  {
+   "topic_id": "primary-g1-s1-chinese-K033",
+   "topic_name": "量词的规范搭配应用",
+   "stem": "选出搭配错误的一项：",
+   "options": [
+    "一堆杏子",
+    "一朵红花",
+    "一张鸭子",
+    "一个苹果"
+   ],
+   "answer": "C",
+   "explanation": "鸭子通常用“只”或“群”，不能用“张”。",
+   "difficulty": 1,
+   "bloom": "记忆",
+   "type": "single_choice",
+   "id": "pohw-CC01022"
+  },
+  {
+   "topic_id": "primary-g1-s1-chinese-K007",
+   "topic_name": "励志格言与古诗名句积累",
+   "stem": "“千里之行，____。”横线上应填什么？",
+   "options": [
+    "始于足下",
+    "更进一步",
+    "种豆得豆",
+    "不进则退"
+   ],
+   "answer": "A",
+   "explanation": "答案是“始于足下”。完整句子是“千里之行，始于足下”，意思是长远的事情要从一步一步做起。",
+   "difficulty": 1,
+   "bloom": "记忆",
+   "type": "single_choice",
+   "id": "pohw-CC01023"
+  },
+  {
+   "topic_id": "primary-g1-s1-chinese-K007",
+   "topic_name": "励志格言与古诗名句积累",
+   "stem": "“百尺竿头，更进一步”鼓励我们要____。",
+   "options": [
+    "学会爬杆",
+    "努力长高",
+    "不断进步",
+    "种地种豆"
+   ],
+   "answer": "C",
+   "explanation": "这句话的意思是在成绩面前不要自满，要继续努力。",
+   "difficulty": 2,
+   "bloom": "理解",
+   "type": "single_choice",
+   "id": "pohw-CC01024"
+  },
+  {
+   "topic_id": "primary-g1-s1-chinese-K007",
+   "topic_name": "励志格言与古诗名句积累",
+   "stem": "小林种下瓜籽，后来结出瓜；种下豆种，后来结出豆。哪句格言最能说明种下什么常会得到相应的结果？",
+   "options": [
+    "百尺竿头，更进一步",
+    "千里之行，始于足下",
+    "种瓜得瓜，种豆得豆",
+    "不进则退"
+   ],
+   "answer": "C",
+   "explanation": "答案是“种瓜得瓜，种豆得豆”。题目中种下瓜籽后来结出瓜、种下豆种后来结出豆，符合这句格言所表达的种下什么常会得到相应结果的意思。",
+   "difficulty": 2,
+   "bloom": "理解",
+   "type": "single_choice",
+   "id": "pohw-CC01025"
+  },
+  {
+   "topic_id": "primary-g1-s1-chinese-K007",
+   "topic_name": "励志格言与古诗名句积累",
+   "stem": "小芳想读完一本故事书，决定每天读几页，从今天开始。哪句格言最适合鼓励她？",
+   "options": [
+    "种瓜得瓜，种豆得豆",
+    "百尺竿头，更进一步",
+    "千里之行，始于足下",
+    "不进则退"
+   ],
+   "answer": "C",
+   "explanation": "答案是“千里之行，始于足下”。小芳想读完一本故事书，决定每天读几页并从今天开始，说明她从一步一步的小行动开始完成较长的计划，符合这句格言的意思。",
+   "difficulty": 3,
+   "bloom": "应用",
+   "type": "single_choice",
+   "id": "pohw-CC01026"
+  },
+  {
+   "topic_id": "primary-g1-s1-chinese-K020",
+   "topic_name": "拟人化文本的情感体验",
+   "stem": "读句子：“雨点儿从云彩里飘落下来。”句子中“飘落”说明了什么？",
+   "options": [
+    "雨点很重",
+    "雨点很轻",
+    "雨点很大",
+    "雨点很急"
+   ],
+   "answer": "B",
+   "explanation": "“飘”字体现了雨点在空中轻盈下降的状态。",
+   "difficulty": 3,
+   "bloom": "应用",
+   "type": "single_choice",
+   "id": "pohw-CC01027"
+  },
+  {
+   "topic_id": "primary-g1-s1-chinese-K020",
+   "topic_name": "拟人化文本的情感体验",
+   "stem": "雨点儿是从哪里落下来的？",
+   "options": [
+    "树上",
+    "云彩里",
+    "房檐下",
+    "雨伞上"
+   ],
+   "answer": "B",
+   "explanation": "课文原话：数不清的雨点儿，从云彩里飘落下来。",
+   "difficulty": 1,
+   "bloom": "记忆",
+   "type": "single_choice",
+   "id": "pohw-CC01028"
+  },
+  {
+   "topic_id": "primary-g1-s1-chinese-K020",
+   "topic_name": "拟人化文本的情感体验",
+   "stem": "青蛙写的诗里一直重复“呱呱呱”，这说明青蛙在____。",
+   "options": [
+    "哭泣",
+    "叫喊",
+    "唱歌说话",
+    "睡觉"
+   ],
+   "answer": "C",
+   "explanation": "“呱呱”是青蛙的语言方式，在拟人化语境中它在写诗表达情感。",
+   "difficulty": 3,
+   "bloom": "应用",
+   "type": "single_choice",
+   "id": "pohw-CC01029"
+  },
+  {
+   "topic_id": "primary-g1-s1-chinese-K019",
+   "topic_name": "常用偏旁与部首对应规律",
+   "stem": "“听、唱、喊”这三个字都有____，表示用嘴发出的动作。",
+   "options": [
+    "口字旁",
+    "日字旁",
+    "目字旁",
+    "心字底"
+   ],
+   "answer": "A",
+   "explanation": "口字旁相关的字大多与嘴部的动作、发声或吃有关。",
+   "difficulty": 1,
+   "bloom": "记忆",
+   "type": "single_choice",
+   "id": "pohw-CC01030"
+  },
+  {
+   "topic_id": "primary-g1-s1-chinese-K023",
+   "topic_name": "汉字结构分类与辨析",
+   "stem": "“妈”和“地”都是什么结构？",
+   "options": [
+    "左右结构",
+    "上下结构",
+    "半包围结构",
+    "全包围结构"
+   ],
+   "answer": "A",
+   "explanation": "答案是左右结构。“妈”由“女”和“马”左右并列组成，“地”由“土”和“也”左右并列组成，因此两字都是左右结构。",
+   "difficulty": 1,
+   "bloom": "记忆",
+   "type": "single_choice",
+   "id": "pohw-CC01031"
+  },
+  {
+   "topic_id": "primary-g1-s1-chinese-K016",
+   "topic_name": "字义辨析",
+   "stem": "“小红花了十分钟整理书包。”这里的“花”是什么意思？",
+   "options": [
+    "植物开的花",
+    "用、费",
+    "美丽的图案",
+    "一朵花"
+   ],
+   "answer": "B",
+   "explanation": "答案是“用、费”。句子说小红用了十分钟整理书包，因此“花”表示用、费，不是植物开的花。",
+   "difficulty": 2,
+   "bloom": "理解",
+   "type": "single_choice",
+   "id": "pohw-CC01032"
+  },
+  {
+   "topic_id": "primary-g1-s1-chinese-K009",
+   "topic_name": "反义词",
+   "stem": "“往后走”的相反方向是“往前走”。下面哪句话表示往前走？",
+   "options": [
+    "小明往前走",
+    "小明走得很快",
+    "小明停下来",
+    "小明坐在椅子上"
+   ],
+   "answer": "A",
+   "explanation": "答案是“小明往前走”。“往后”的相反方向是“往前”，所以这句话表示与“往后走”相反的方向。其余选项没有表示往前走。",
+   "difficulty": 3,
+   "bloom": "应用",
+   "type": "single_choice",
+   "id": "pohw-CC01033"
+  },
+  {
+   "topic_id": "primary-g1-s1-chinese-K016",
+   "topic_name": "字义辨析",
+   "stem": "“树”在哪句话里指植物？",
+   "options": [
+    "大树长出新叶子。",
+    "他树起了大拇指。",
+    "我们要树立信心。",
+    "小树旁边有一块木牌。"
+   ],
+   "answer": "A",
+   "explanation": "答案是“大树长出新叶子。”句子说树长出了叶子，因此“树”指植物。其余句子中的“树起了大拇指”和“树立信心”表示竖起、建立，不是植物。",
+   "difficulty": 1,
+   "bloom": "记忆",
+   "type": "single_choice",
+   "id": "pohw-CC01034"
+  },
+  {
+   "topic_id": "primary-g1-s1-chinese-K004",
+   "topic_name": "修辞方法识别",
+   "stem": "“红红的苹果像灯笼一样挂在树上。”这句话运用了：",
+   "options": [
+    "拟人",
+    "比喻",
+    "排比",
+    "疑问"
+   ],
+   "answer": "B",
+   "explanation": "答案是“比喻”。句子用“像……一样”把苹果的样子比作灯笼，借灯笼来写苹果的外形；苹果挂在树上只是说明它所在的位置，并没有写苹果像人一样行动。",
+   "difficulty": 2,
+   "bloom": "理解",
+   "type": "single_choice",
+   "id": "pohw-CC01035"
+  },
+  {
+   "topic_id": "primary-g1-s1-chinese-K016",
+   "topic_name": "字义辨析",
+   "stem": "“花朵”和“花时间”中的“花”意思不同。哪一项说明正确？",
+   "options": [
+    "花朵里的“花”指植物开的花；花时间里的“花”指用、费。",
+    "花朵里的“花”指用、费；花时间里的“花”指植物开的花。",
+    "两个词里的“花”都指植物开的花。",
+    "两个词里的“花”都指用、费。"
+   ],
+   "answer": "A",
+   "explanation": "答案是“花朵里的‘花’指植物开的花；花时间里的‘花’指用、费。”在“花朵”中，“花”说的是植物开的花；在“花时间”中，“花”表示用、费。比较完整词语，就能判断同一个字在不同词语里意思不同。",
+   "difficulty": 3,
+   "bloom": "应用",
+   "type": "single_choice",
+   "id": "pohw-CC01036"
+  },
+  {
+   "topic_id": "primary-g1-s1-chinese-K005",
+   "topic_name": "偏旁归类",
+   "stem": "“苹”可以按哪个偏旁归类？",
+   "options": [
+    "三点水",
+    "草字头",
+    "单人旁",
+    "言字旁"
+   ],
+   "answer": "B",
+   "explanation": "“苹”的偏旁是草字头“艹”。草字头常提示字与植物有关，因此“苹”可以归到草字头一类。",
+   "difficulty": 1,
+   "bloom": "记忆",
+   "type": "single_choice",
+   "id": "pohw-CC01037"
+  },
+  {
+   "topic_id": "primary-g1-s1-chinese-K023",
+   "topic_name": "汉字结构分类与辨析",
+   "stem": "“问”的外框只围住里面的一部分。“问”是什么结构？",
+   "options": [
+    "左右结构",
+    "上下结构",
+    "半包围结构",
+    "全包围结构"
+   ],
+   "answer": "C",
+   "explanation": "答案是半包围结构。“问”的外框没有把里面的“口”完全围住，只围住一部分，所以“问”是半包围结构。",
+   "difficulty": 1,
+   "bloom": "记忆",
+   "type": "single_choice",
+   "id": "pohw-CC01038"
+  },
+  {
+   "topic_id": "primary-g1-s1-chinese-K016",
+   "topic_name": "字义辨析",
+   "stem": "“青蛙为什么没参加？”这句话中的“参加”是什么意思？",
+   "options": [
+    "加入到某种活动中",
+    "看别人画画",
+    "去睡觉",
+    "在雪里走"
+   ],
+   "answer": "A",
+   "explanation": "参加是指加入其中。文中指青蛙没来雪地画画。",
+   "difficulty": 2,
+   "bloom": "理解",
+   "type": "single_choice",
+   "id": "pohw-CC01039"
+  },
+  {
+   "topic_id": "primary-g1-s1-chinese-K004",
+   "topic_name": "修辞方法识别",
+   "stem": "“风儿在窗外唱歌。”这句话运用了哪种修辞方法？",
+   "options": [
+    "比喻",
+    "拟人",
+    "排比",
+    "疑问"
+   ],
+   "answer": "B",
+   "explanation": "答案是“拟人”。句子写风儿唱歌，把风儿写得像人一样会唱歌；它没有把风儿的样子比作另一种事物。",
+   "difficulty": 2,
+   "bloom": "理解",
+   "type": "single_choice",
+   "id": "pohw-CC01040"
+  },
+  {
+   "topic_id": "primary-g1-s1-chinese-K012",
+   "topic_name": "古诗积累",
+   "stem": "“鹅，鹅，鹅，曲项向天歌”出自哪位诗人的诗？",
+   "options": [
+    "李白",
+    "骆宾王",
+    "王之涣",
+    "孟浩然"
+   ],
+   "answer": "B",
+   "explanation": "答案是“骆宾王”。《咏鹅》是骆宾王写的诗；题目所给的“鹅，鹅，鹅，曲项向天歌”是《咏鹅》的诗句。",
+   "difficulty": 2,
+   "bloom": "理解",
+   "type": "single_choice",
+   "id": "pohw-CC01041"
+  },
+  {
+   "topic_id": "primary-g1-s1-chinese-K019",
+   "topic_name": "常用偏旁与部首对应规律",
+   "stem": "下列哪个字和眼睛有关？",
+   "options": [
+    "眼",
+    "耳",
+    "口",
+    "手"
+   ],
+   "answer": "A",
+   "explanation": "眼带有目字旁，表示与视觉和肉眼器官有关。",
+   "difficulty": 1,
+   "bloom": "记忆",
+   "type": "single_choice",
+   "id": "pohw-CC01042"
+  },
+  {
+   "topic_id": "primary-g1-s1-chinese-K023",
+   "topic_name": "汉字结构分类与辨析",
+   "stem": "下列汉字按结构分类，完全正确的一组是：",
+   "options": [
+    "上下结构：全、星",
+    "左右结构：国、回",
+    "上下结构：秋、林",
+    "全包围结构：爸、空"
+   ],
+   "answer": "A",
+   "explanation": "A正确；B是全包围结构；C是左右结构；D是上下结构。",
+   "difficulty": 2,
+   "bloom": "理解",
+   "type": "single_choice",
+   "id": "pohw-CC01043"
+  },
+  {
+   "topic_id": "primary-g1-s1-chinese-K011",
+   "topic_name": "口语交际：场景音量控制",
+   "stem": "下课了，老师正在办公室批改作业，并已允许你进去自行拿作业本。你进去时怎样做更合适？",
+   "options": [
+    "大声喊报告",
+    "轻轻敲门，小声说话",
+    "跑进去直接大喊",
+    "不说话直接拿走"
+   ],
+   "answer": "B",
+   "explanation": "答案是“轻轻敲门，小声说话”。题目说明老师已经允许你自行取作业本。办公室里老师正在批改作业，轻轻敲门并小声说话，能让老师听清，也尽量不打扰老师。",
+   "difficulty": 3,
+   "bloom": "应用",
+   "type": "single_choice",
+   "id": "pohw-CC01044"
+  },
+  {
+   "topic_id": "primary-g1-s1-chinese-K009",
+   "topic_name": "反义词",
+   "stem": "下面哪一组是反义词？",
+   "options": [
+    "多—少",
+    "多—高",
+    "多—快",
+    "多—大"
+   ],
+   "answer": "A",
+   "explanation": "答案是“多—少”。“多”表示数量较多，“少”表示数量较少，意思相反。其余词语搭配没有表示相反的意思。",
+   "difficulty": 1,
+   "bloom": "记忆",
+   "type": "single_choice",
+   "id": "pohw-CC01045"
+  },
+  {
+   "topic_id": "primary-g1-s1-chinese-K004",
+   "topic_name": "修辞方法识别",
+   "stem": "下面哪句话运用了比喻？",
+   "options": [
+    "小鸟在树上唱歌。",
+    "太阳像一个红红的大圆盘。",
+    "小草轻轻地点头。",
+    "太阳公公起床了。"
+   ],
+   "answer": "B",
+   "explanation": "答案是“太阳像一个红红的大圆盘。”这句话借大圆盘来写太阳的样子，属于比喻。其他句子写的是事物像人一样唱歌、点头或起床，属于拟人的表达。",
+   "difficulty": 3,
+   "bloom": "应用",
+   "type": "single_choice",
+   "id": "pohw-CC01046"
+  },
+  {
+   "topic_id": "primary-g1-s1-chinese-K019",
+   "topic_name": "常用偏旁与部首对应规律",
+   "stem": "下面哪组字的偏旁完全相同？",
+   "options": [
+    "江、河、湖",
+    "江、地、海",
+    "花、妈、草",
+    "说、语、清"
+   ],
+   "answer": "A",
+   "explanation": "江、河、湖三字均为三点水旁。B项“地”是土字旁，C项“妈”是女字旁，D项“清”是三点水。",
+   "difficulty": 1,
+   "bloom": "记忆",
+   "type": "single_choice",
+   "id": "pohw-CC01047"
+  },
+  {
+   "topic_id": "primary-g1-s1-chinese-K011",
+   "topic_name": "口语交际：场景音量控制",
+   "stem": "几位同学在阅览室一起找书，需要商量书放在哪里。怎样做既能交流，又尽量不打扰别人？",
+   "options": [
+    "大声讨论",
+    "轻声说话",
+    "边跑边喊",
+    "用力拍桌子"
+   ],
+   "answer": "B",
+   "explanation": "答案是“轻声说话”。题目说明同学们在阅览室一起找书，需要商量书的位置。阅览室需要安静，轻声交流既能让身边的同学听见，也尽量不打扰正在阅读的人。",
+   "difficulty": 3,
+   "bloom": "应用",
+   "type": "single_choice",
+   "id": "pohw-CC01048"
+  },
+  {
+   "topic_id": "primary-g1-s1-chinese-K025",
+   "topic_name": "现代句式",
+   "stem": "哪一句按“谁＋是＋什么”的顺序表达？",
+   "options": [
+    "妹妹在班长。",
+    "班长是妹妹。",
+    "妹妹是班长。",
+    "妹妹班长是。"
+   ],
+   "answer": "C",
+   "explanation": "答案是“妹妹是班长。”题目要求选择“谁＋是＋什么”的句子。“妹妹是班长”先说谁，再说明她是什么；“妹妹班长是”语序不通，“班长是妹妹”改变了题目所给句意，“妹妹在班长”也不是完整、通顺的句子。",
+   "difficulty": 2,
+   "bloom": "理解",
+   "type": "single_choice",
+   "id": "pohw-CC01049"
+  },
+  {
+   "topic_id": "primary-g1-s1-chinese-K015",
+   "topic_name": "多音字读音选择",
+   "stem": "在“一只小松鼠”中，“一”应该读：",
+   "options": [
+    "yī",
+    "yì",
+    "yí",
+    "不读声调"
+   ],
+   "answer": "B",
+   "explanation": "“一”在第一、二、三声字前读第四声。只（zhī）是第一声，所以一读yì。",
+   "difficulty": 2,
+   "bloom": "理解",
+   "type": "single_choice",
+   "id": "pohw-CC01050"
+  },
+  {
+   "topic_id": "primary-g1-s1-chinese-K011",
+   "topic_name": "口语交际：场景音量控制",
+   "stem": "在医院里保持安静是为了：",
+   "options": [
+    "不让医生工作",
+    "怕吵醒病人的休息",
+    "大家都在比赛不说话",
+    "不让大家听到声音"
+   ],
+   "answer": "B",
+   "explanation": "医院需要安静环境，利于病人康复和医生诊断。",
+   "difficulty": 2,
+   "bloom": "理解",
+   "type": "single_choice",
+   "id": "pohw-CC01051"
+  },
+  {
+   "topic_id": "primary-g1-s1-chinese-K019",
+   "topic_name": "常用偏旁与部首对应规律",
+   "stem": "带有“亻”的字，含义通常和____有关。",
+   "options": [
+    "人",
+    "天气",
+    "心情",
+    "水"
+   ],
+   "answer": "A",
+   "explanation": "单人旁代表字义与人类的身份、动作或特征有关。",
+   "difficulty": 1,
+   "bloom": "记忆",
+   "type": "single_choice",
+   "id": "pohw-CC01052"
+  },
+  {
+   "topic_id": "primary-g1-s1-chinese-K019",
+   "topic_name": "常用偏旁与部首对应规律",
+   "stem": "带有“木”这个偏旁的字，大多和什么有关？",
+   "options": [
+    "天空",
+    "植物、树木",
+    "心情",
+    "金属"
+   ],
+   "answer": "B",
+   "explanation": "木字旁的字如桥、校、林等，最初都与木材或树木有关。",
+   "difficulty": 1,
+   "bloom": "记忆",
+   "type": "single_choice",
+   "id": "pohw-CC01053"
+  },
+  {
+   "topic_id": "primary-g1-s1-chinese-K005",
+   "topic_name": "偏旁归类",
+   "stem": "把“河”按偏旁放进一类，它应放在哪一类？",
+   "options": [
+    "草字头",
+    "三点水",
+    "单人旁",
+    "言字旁"
+   ],
+   "answer": "B",
+   "explanation": "“河”的偏旁是三点水“氵”，常提示它与水有关。题目要求把有相同偏旁的字放在一起，所以“河”应和“清”归为一类，而不是和草字头的“花”归为一类。",
+   "difficulty": 2,
+   "bloom": "理解",
+   "type": "single_choice",
+   "id": "pohw-CC01054"
+  },
+  {
+   "topic_id": "primary-g1-s1-chinese-K025",
+   "topic_name": "现代句式",
+   "stem": "按“谁＋在哪里＋做什么”的顺序，选择一句通顺的话。",
+   "options": [
+    "在厨房爸爸做饭。",
+    "爸爸做饭在厨房。",
+    "做饭爸爸在厨房。",
+    "爸爸在厨房做饭。"
+   ],
+   "answer": "D",
+   "explanation": "答案是“爸爸在厨房做饭。”按“谁＋在哪里＋做什么”的顺序，爸爸是“谁”，“在厨房”说明地点，“做饭”说明动作。其他句子把地点或动作放错位置，读起来不通顺。",
+   "difficulty": 2,
+   "bloom": "理解",
+   "type": "single_choice",
+   "id": "pohw-CC01055"
+  },
+  {
+   "topic_id": "primary-g1-s1-chinese-K011",
+   "topic_name": "口语交际：场景音量控制",
+   "stem": "操场上活动声较大，同学离你很远。你发现他的水杯落在长椅上。题目要求你先走近同学，再提醒他，怎样做合适？",
+   "options": [
+    "站在远处轻声说",
+    "走近后清楚地提醒",
+    "站在远处一直大喊",
+    "不告诉他"
+   ],
+   "answer": "B",
+   "explanation": "答案是“走近后清楚地提醒”。题目明确要求先走近，再提醒；走近能缩短距离，清楚地说能让同学听见，也不必站在远处一直大喊。",
+   "difficulty": 3,
+   "bloom": "应用",
+   "type": "single_choice",
+   "id": "pohw-CC01056"
+  },
+  {
+   "topic_id": "primary-g1-s1-chinese-K019",
+   "topic_name": "常用偏旁与部首对应规律",
+   "stem": "看到“跑、蹦、跳”这三个字，我们可以猜出它们的意思与____有关。",
+   "options": [
+    "说话",
+    "脚的动作",
+    "眼睛",
+    "树木"
+   ],
+   "answer": "B",
+   "explanation": "足字旁代表动作与脚相关。跑、蹦、跳都需要用到脚。",
+   "difficulty": 2,
+   "bloom": "理解",
+   "type": "single_choice",
+   "id": "pohw-CC01057"
+  },
+  {
+   "topic_id": "primary-g1-s1-chinese-K034",
+   "topic_name": "阅读应用",
+   "stem": "短文：云在天上飞。有的像白羊，有的像棉花。风一吹，它们就跑了。这段话写了云的什么？",
+   "options": [
+    "颜色",
+    "名字",
+    "形状",
+    "大小"
+   ],
+   "answer": "C",
+   "explanation": "短文用“像白羊”“像棉花”来写云看起来的样子，说明写的是云的形状，不是名字或大小。",
+   "difficulty": 3,
+   "bloom": "应用",
+   "type": "single_choice",
+   "id": "pohw-CC01058"
+  },
+  {
+   "topic_id": "primary-g1-s1-chinese-K035",
+   "topic_name": "阅读理解",
+   "stem": "短文：向日葵，圆圆脸。对着太阳笑，对着太阳站。这段话描写的是向日葵总是____。",
+   "options": [
+    "向着月亮",
+    "向着星星",
+    "向着太阳",
+    "躲进土里"
+   ],
+   "answer": "C",
+   "explanation": "“对着太阳笑，对着太阳站”说明向日葵的方向始终追随太阳。",
+   "difficulty": 3,
+   "bloom": "应用",
+   "type": "single_choice",
+   "id": "pohw-CC01059"
+  },
+  {
+   "topic_id": "primary-g1-s1-chinese-K028",
+   "topic_name": "词语搭配",
+   "stem": "请选出四组搭配都合适的一项。",
+   "options": [
+    "金色的—太阳；绿色的—叶子；雪白的—浪花；圆圆的—月亮",
+    "金色的—叶子；绿色的—太阳；雪白的—月亮；圆圆的—浪花",
+    "金色的—浪花；绿色的—月亮；雪白的—太阳；圆圆的—叶子",
+    "金色的—月亮；绿色的—浪花；雪白的—叶子；圆圆的—太阳"
+   ],
+   "answer": "A",
+   "explanation": "答案是“金色的—太阳；绿色的—叶子；雪白的—浪花；圆圆的—月亮”。“金色的太阳”“绿色的叶子”“雪白的浪花”“圆圆的月亮”意思都合适、通顺；其他选项至少有一组搭配不合适。",
+   "difficulty": 2,
+   "bloom": "理解",
+   "type": "single_choice",
+   "id": "pohw-CC01060"
+  },
+  {
+   "topic_id": "primary-g1-s1-chinese-K012",
+   "topic_name": "古诗积累",
+   "stem": "读一读“曲项向天歌”和“红掌拨清波”，哪种说法正确？",
+   "options": [
+    "两句都写了山的颜色。",
+    "两句都写了鹅的动作。",
+    "两句都出自《画》。",
+    "两句都是《咏鹅》的开头。"
+   ],
+   "answer": "B",
+   "explanation": "答案是“两句都写了鹅的动作”。“曲项向天歌”写鹅抬起脖子向天鸣叫，“红掌拨清波”写鹅掌拨动清水；两句都写了鹅的动作。",
+   "difficulty": 2,
+   "bloom": "理解",
+   "type": "single_choice",
+   "id": "pohw-CC01061"
+  },
+  {
+   "topic_id": "primary-g1-s1-chinese-K034",
+   "topic_name": "阅读应用",
+   "stem": "读短文：小兔在菜园里拔萝卜，小鸟在树上唱歌。谁在拔萝卜？",
+   "options": [
+    "小鸟",
+    "小兔",
+    "小猫",
+    "小鸭"
+   ],
+   "answer": "B",
+   "explanation": "短文说小兔在菜园里拔萝卜，小鸟在树上唱歌。根据短文，拔萝卜的是小兔。",
+   "difficulty": 3,
+   "bloom": "应用",
+   "type": "single_choice",
+   "id": "pohw-CC01062"
+  },
+  {
+   "topic_id": "primary-g1-s1-chinese-K034",
+   "topic_name": "阅读应用",
+   "stem": "读短文：小鹿在林边睡觉。小鸟看见一朵红花，想叫小松鼠来看。小鸟怎样做合适，既能叫来小松鼠，又不吵醒小鹿？",
+   "options": [
+    "大声喊，把小鹿叫醒",
+    "轻声叫同伴过来",
+    "跑去叫小鹿起床",
+    "把花摘下来送给小松鼠"
+   ],
+   "answer": "B",
+   "explanation": "短文说小鹿在林边睡觉，小鸟想叫小松鼠来一起看花。小鸟轻声叫同伴，既能传达邀请，也不吵醒小鹿；大声喊会打扰小鹿，自己去叫则不符合短文所问的小鸟怎么做。",
+   "difficulty": 3,
+   "bloom": "应用",
+   "type": "single_choice",
+   "id": "pohw-CC01063"
+  },
+  {
+   "topic_id": "primary-g1-s2-chinese-K065",
+   "topic_name": "形声字构字规律（青字族）",
+   "stem": "“今天天气很____。”横线上应填哪个字？",
+   "options": [
+    "睛",
+    "晴",
+    "情",
+    "请"
+   ],
+   "answer": "B",
+   "explanation": "答案是晴。句子说天气很好，表示天气晴朗用日字旁的“晴”；“睛”与眼睛有关，“情”表示感受，“请”表示请求，都不合适。",
+   "difficulty": 2,
+   "bloom": "理解",
+   "type": "single_choice",
+   "id": "pohw-CC01064"
+  },
+  {
+   "topic_id": "primary-g1-s2-chinese-K056",
+   "topic_name": "姓氏介绍与拆字法",
+   "stem": "“双口”合起来是什么姓？",
+   "options": [
+    "吕",
+    "回",
+    "品",
+    "叶"
+   ],
+   "answer": "A",
+   "explanation": "姓氏“吕”由两个“口”上下排列组成。“双口”合起来是“吕”，不是外框里面有一个“口”的“回”。",
+   "difficulty": 1,
+   "bloom": "记忆",
+   "type": "single_choice",
+   "id": "pohw-CC01065"
+  },
+  {
+   "topic_id": "primary-g1-s2-chinese-K056",
+   "topic_name": "姓氏介绍与拆字法",
+   "stem": "“木子”合起来是什么姓？",
+   "options": [
+    "林",
+    "李",
+    "杰",
+    "村"
+   ],
+   "answer": "B",
+   "explanation": "“木子李”中的“木”和“子”合起来组成姓氏“李”，所以答案是“李”。",
+   "difficulty": 1,
+   "bloom": "记忆",
+   "type": "single_choice",
+   "id": "pohw-CC01066"
+  },
+  {
+   "topic_id": "primary-g1-s2-chinese-K065",
+   "topic_name": "形声字构字规律（青字族）",
+   "stem": "“清水”的“清”左边是什么偏旁？",
+   "options": [
+    "日",
+    "目",
+    "氵",
+    "忄"
+   ],
+   "answer": "C",
+   "explanation": "答案是氵。“清水”的“清”左边是三点水，三点水常提示字义与水有关；“清”常用于“清水”。",
+   "difficulty": 2,
+   "bloom": "理解",
+   "type": "single_choice",
+   "id": "pohw-CC01067"
+  },
+  {
+   "topic_id": "primary-g1-s2-chinese-K065",
+   "topic_name": "形声字构字规律（青字族）",
+   "stem": "“请坐”这个词里，哪个字表示礼貌地请求别人？",
+   "options": [
+    "清",
+    "晴",
+    "请",
+    "睛"
+   ],
+   "answer": "C",
+   "explanation": "答案是请。“请坐”是礼貌地请求别人坐下，“请”有言字旁，常用于说话时请求；“情”有竖心旁，表示心里的感受。",
+   "difficulty": 3,
+   "bloom": "应用",
+   "type": "single_choice",
+   "id": "pohw-CC01068"
+  },
+  {
+   "topic_id": "primary-g1-s2-chinese-K072",
+   "topic_name": "汉语拼音字母表",
+   "stem": "下列大写字母与小写字母对应错误的一组是：",
+   "options": [
+    "A—a",
+    "D—b",
+    "E—e",
+    "F—f"
+   ],
+   "answer": "B",
+   "explanation": "D对应的小写字母是d，不是b；b对应的大写字母是B。因此D—b这一组对应错误。",
+   "difficulty": 2,
+   "bloom": "理解",
+   "type": "single_choice",
+   "id": "pohw-CC01069"
+  },
+  {
+   "topic_id": "primary-g1-s2-chinese-K056",
+   "topic_name": "姓氏介绍与拆字法",
+   "stem": "下列姓氏按音序（字母表）排列正确的是：",
+   "options": [
+    "李、王、张",
+    "王、李、张",
+    "张、王、李",
+    "张、李、王"
+   ],
+   "answer": "A",
+   "explanation": "L(Li) < W(Wang) < Z(Zhang)。",
+   "difficulty": 2,
+   "bloom": "理解",
+   "type": "single_choice",
+   "id": "pohw-CC01070"
+  },
+  {
+   "topic_id": "primary-g1-s2-chinese-K052",
+   "topic_name": "四季词汇与动词搭配",
+   "stem": "下列词语搭配完全正确的一项是：",
+   "options": [
+    "春风吹",
+    "冬雪落",
+    "秋霜降",
+    "夏雨飘"
+   ],
+   "answer": "A",
+   "explanation": "《春夏秋冬》中对应为：春风吹、夏雨落、秋霜降、冬雪飘。",
+   "difficulty": 1,
+   "bloom": "记忆",
+   "type": "single_choice",
+   "id": "pohw-CC01071"
+  },
+  {
+   "topic_id": "primary-g1-s2-chinese-K056",
+   "topic_name": "姓氏介绍与拆字法",
+   "stem": "哪一个姓氏可以用“古月”来介绍？",
+   "options": [
+    "李",
+    "张",
+    "胡",
+    "吴"
+   ],
+   "answer": "C",
+   "explanation": "“古月胡”中，姓氏“胡”由“古”和“月”组成；“弓长”对应“张”，“木子”对应“李”，“口天”对应“吴”。因此与“古月”对应的是“胡”。",
+   "difficulty": 2,
+   "bloom": "理解",
+   "type": "single_choice",
+   "id": "pohw-CC01072"
+  },
+  {
+   "topic_id": "primary-g1-s2-chinese-K072",
+   "topic_name": "汉语拼音字母表",
+   "stem": "大写字母B对应的小写字母是：",
+   "options": [
+    "a",
+    "b",
+    "d",
+    "p"
+   ],
+   "answer": "B",
+   "explanation": "字母表中，大写B对应小写b；大写D对应小写d。因此B的小写字母是b。",
+   "difficulty": 2,
+   "bloom": "理解",
+   "type": "single_choice",
+   "id": "pohw-CC01073"
+  },
+  {
+   "topic_id": "primary-g1-s2-chinese-K060",
+   "topic_name": "字谜逻辑推理",
+   "stem": "字迷：“一人一张口，口下长只手。”谜底是：",
+   "options": [
+    "合",
+    "拿",
+    "吹",
+    "抱"
+   ],
+   "answer": "B",
+   "explanation": "上面是“合”（人+口），下面是“手”，合起来是“拿”。",
+   "difficulty": 2,
+   "bloom": "理解",
+   "type": "single_choice",
+   "id": "pohw-CC01074"
+  },
+  {
+   "topic_id": "primary-g1-s2-chinese-K056",
+   "topic_name": "姓氏介绍与拆字法",
+   "stem": "小明要辨认一个字：外面是一个框，里面有一个“口”。这个字是哪个？",
+   "options": [
+    "吕",
+    "回",
+    "吴",
+    "李"
+   ],
+   "answer": "B",
+   "explanation": "题目说明外面是一个框，里面还有一个“口”，这样的字是“回”。“吕”是两个“口”上下排列，形状不同。",
+   "difficulty": 3,
+   "bloom": "应用",
+   "type": "single_choice",
+   "id": "pohw-CC01075"
+  },
+  {
+   "topic_id": "primary-g1-s2-chinese-K072",
+   "topic_name": "汉语拼音字母表",
+   "stem": "按字母表顺序填空：J、K、L、____、N。括号里应该填：",
+   "options": [
+    "I",
+    "M",
+    "O",
+    "P"
+   ],
+   "answer": "B",
+   "explanation": "按字母表顺序，J后面是K，接着是L、M、N，所以括号里填M。",
+   "difficulty": 1,
+   "bloom": "记忆",
+   "type": "single_choice",
+   "id": "pohw-CC01076"
+  },
+  {
+   "topic_id": "primary-g1-s2-chinese-K072",
+   "topic_name": "汉语拼音字母表",
+   "stem": "按字母表顺序选出缺少的字母：D、E、____、G。",
+   "options": [
+    "B",
+    "E",
+    "F",
+    "H"
+   ],
+   "answer": "C",
+   "explanation": "按字母表顺序，D后面是E，再后面是F。因此D、E、F、G中缺少的字母是F。",
+   "difficulty": 1,
+   "bloom": "记忆",
+   "type": "single_choice",
+   "id": "pohw-CC01077"
+  },
+  {
+   "topic_id": "primary-g1-s2-chinese-K072",
+   "topic_name": "汉语拼音字母表",
+   "stem": "按字母表顺序，N和P之间的字母是：",
+   "options": [
+    "M",
+    "N",
+    "O",
+    "Q"
+   ],
+   "answer": "C",
+   "explanation": "字母表中N后面是O，O后面是P，所以N、O、P连续排列时，中间的字母是O。",
+   "difficulty": 2,
+   "bloom": "理解",
+   "type": "single_choice",
+   "id": "pohw-CC01078"
+  },
+  {
+   "topic_id": "primary-g1-s2-chinese-K060",
+   "topic_name": "字谜逻辑推理",
+   "stem": "猜字：左边是“亻”，右边是“木”。",
+   "options": [
+    "休",
+    "林",
+    "好",
+    "明"
+   ],
+   "answer": "A",
+   "explanation": "答案是“休”。“休”字左边是“亻”，右边是“木”，符合谜面所说的“左边一个人、右边一棵树”。其余选项的左右字形不是“亻”和“木”。",
+   "difficulty": 1,
+   "bloom": "记忆",
+   "type": "single_choice",
+   "id": "pohw-CC01079"
+  },
+  {
+   "topic_id": "primary-g1-s2-chinese-K065",
+   "topic_name": "形声字构字规律（青字族）",
+   "stem": "表示“心情”的“qíng”字，应该选哪个偏旁？",
+   "options": [
+    "日",
+    "目",
+    "忄",
+    "氵"
+   ],
+   "answer": "C",
+   "explanation": "答案是忄。心情是心里的感受，“情”有竖心旁，写作“情”；“青”帮助认读音。",
+   "difficulty": 1,
+   "bloom": "记忆",
+   "type": "single_choice",
+   "id": "pohw-CC01080"
+  },
+  {
+   "topic_id": "primary-g1-s2-chinese-K052",
+   "topic_name": "四季词汇与动词搭配",
+   "stem": "读句子：“池草青，山花红，鱼出水，鸟入林。”句子中表示动作的字是：",
+   "options": [
+    "池、山",
+    "青、红",
+    "出、入",
+    "鱼、鸟"
+   ],
+   "answer": "C",
+   "explanation": "“出”和“入”是动词，表示鱼和鸟的动作。",
+   "difficulty": 3,
+   "bloom": "应用",
+   "type": "single_choice",
+   "id": "pohw-CC01081"
+  },
+  {
+   "topic_id": "primary-g1-s2-chinese-K092",
+   "topic_name": "阅读理解",
+   "stem": "读短文：“小明跑完步，觉得口渴。他拿起水杯，喝了一杯水。”小明跑完步后做了什么？",
+   "options": [
+    "吃饭",
+    "喝水",
+    "看书",
+    "睡觉"
+   ],
+   "answer": "B",
+   "explanation": "答案是“喝水”。短文先写小明跑完步，接着写他喝了一杯水；文中没有说他吃东西或睡觉。",
+   "difficulty": 3,
+   "bloom": "应用",
+   "type": "single_choice",
+   "id": "pohw-CC01082"
+  },
+  {
+   "topic_id": "primary-g1-s2-chinese-K092",
+   "topic_name": "阅读理解",
+   "stem": "读短文：“小红带来一个红色的球。她把球放在桌上。”小红带来的球是什么颜色？",
+   "options": [
+    "红色",
+    "蓝色",
+    "黄色",
+    "绿色"
+   ],
+   "answer": "A",
+   "explanation": "答案是“红色”。短文说小红带来一个红色的球，颜色信息直接写在短文里。",
+   "difficulty": 2,
+   "bloom": "理解",
+   "type": "single_choice",
+   "id": "pohw-CC01083"
+  },
+  {
+   "topic_id": "primary-g1-s2-chinese-K062",
+   "topic_name": "季节特征与色彩关联",
+   "stem": "“春天的太阳”为什么要画成彩色的？",
+   "options": [
+    "因为作者喜欢彩笔",
+    "因为春天百花齐放、五彩缤纷",
+    "因为彩虹在春天",
+    "因为天空很蓝"
+   ],
+   "answer": "B",
+   "explanation": "多彩的色彩最能代表春天万物生长、繁花盛开的景象。",
+   "difficulty": 3,
+   "bloom": "应用",
+   "type": "single_choice",
+   "id": "pohw-CC01084"
+  },
+  {
+   "topic_id": "primary-g1-s2-chinese-K067",
+   "topic_name": "感恩主题阅读与理解",
+   "stem": "“沙洲坝”是在哪个地方的一个小村子？",
+   "options": [
+    "瑞金",
+    "北京",
+    "上海",
+    "广州"
+   ],
+   "answer": "A",
+   "explanation": "课文第一自然段交代了地点在江西瑞金的沙洲坝。",
+   "difficulty": 2,
+   "bloom": "理解",
+   "type": "single_choice",
+   "id": "pohw-CC01085"
+  },
+  {
+   "topic_id": "primary-g1-s2-chinese-K063",
+   "topic_name": "常用量词规范搭配",
+   "stem": "下列词组中有误的一项是？",
+   "options": [
+    "一匹马",
+    "一辆车",
+    "一册书",
+    "一架书"
+   ],
+   "answer": "D",
+   "explanation": "书通常说一册或一本，“一架”一般指书架或者飞机。",
+   "difficulty": 2,
+   "bloom": "理解",
+   "type": "single_choice",
+   "id": "pohw-CC01086"
+  },
+  {
+   "topic_id": "primary-g1-s2-chinese-K063",
+   "topic_name": "常用量词规范搭配",
+   "stem": "下列量词搭配完全正确的一项是：",
+   "options": [
+    "一只马",
+    "一双书",
+    "一辆车",
+    "一个花"
+   ],
+   "answer": "C",
+   "explanation": "马用匹配，书用本配，花用朵配，车用辆配是正确的。",
+   "difficulty": 1,
+   "bloom": "记忆",
+   "type": "single_choice",
+   "id": "pohw-CC01087"
+  },
+  {
+   "topic_id": "primary-g1-s2-chinese-K066",
+   "topic_name": "感叹句朗读与情感表达",
+   "stem": "在读“壮观的升旗仪式”时，语速应该：",
+   "options": [
+    "越来越快",
+    "非常缓慢",
+    "平稳、有力",
+    "小声嘀咕"
+   ],
+   "answer": "C",
+   "explanation": "形容庄严整齐的场面需要有力的语调来表现神圣感。",
+   "difficulty": 2,
+   "bloom": "理解",
+   "type": "single_choice",
+   "id": "pohw-CC01088"
+  },
+  {
+   "topic_id": "primary-g1-s2-chinese-K062",
+   "topic_name": "季节特征与色彩关联",
+   "stem": "夏天流汗时，最好画个什么颜色的太阳挂在天空？",
+   "options": [
+    "红色",
+    "绿色",
+    "紫色",
+    "粉色"
+   ],
+   "answer": "B",
+   "explanation": "绿绿的太阳能带来一片清凉，正符合夏天的需要。",
+   "difficulty": 2,
+   "bloom": "理解",
+   "type": "single_choice",
+   "id": "pohw-CC01089"
+  },
+  {
+   "topic_id": "primary-g1-s2-chinese-K066",
+   "topic_name": "感叹句朗读与情感表达",
+   "stem": "小明看到花园里的花，说：“这些花真美啊！”哪种朗读方式最合适？",
+   "options": [
+    "声音自然，语气有变化",
+    "从头到尾平平地读",
+    "一直大声喊",
+    "读出害怕的心情"
+   ],
+   "answer": "A",
+   "explanation": "答案是“声音自然，语气有变化”。“这些花真美啊！”表达赞美，朗读时应自然地读出喜爱的感情。平平地读没有表现出感情，一直大声喊也不合适。",
+   "difficulty": 3,
+   "bloom": "应用",
+   "type": "single_choice",
+   "id": "pohw-CC01090"
+  },
+  {
+   "topic_id": "primary-g1-s2-chinese-K066",
+   "topic_name": "感叹句朗读与情感表达",
+   "stem": "朗读“我多想去看看！”时，哪种感情最合适？",
+   "options": [
+    "害怕",
+    "难过",
+    "急切和向往",
+    "无所谓"
+   ],
+   "answer": "C",
+   "explanation": "答案是“急切和向往”。“多想去看看”说明说话的人很想亲自去看，表达了向往的心情；朗读时可以自然地读出这份愿望。",
+   "difficulty": 1,
+   "bloom": "记忆",
+   "type": "single_choice",
+   "id": "pohw-CC01091"
+  },
+  {
+   "topic_id": "primary-g1-s2-chinese-K066",
+   "topic_name": "感叹句朗读与情感表达",
+   "stem": "比较句子：A.我多想去看看。 B.我多想去看看！哪一句更能表达说话人向往去看一看的心情？",
+   "options": [
+    "A句更能表达向往之情",
+    "B句更能表达向往之情",
+    "两句都表达害怕",
+    "两句都没有表达愿望"
+   ],
+   "answer": "B",
+   "explanation": "答案是“B句更能表达向往之情”。两句都写了想去看看，B句用感叹号结尾，提示较强烈的感情；联系“多想去看看”的句意，B句更能表现向往。朗读时应自然、适度，不必大声喊。",
+   "difficulty": 3,
+   "bloom": "应用",
+   "type": "single_choice",
+   "id": "pohw-CC01092"
+  },
+  {
+   "topic_id": "primary-g1-s2-chinese-K062",
+   "topic_name": "季节特征与色彩关联",
+   "stem": "秋天到了，果园里有很多____的果子。",
+   "options": [
+    "苦苦",
+    "咸咸",
+    "香甜",
+    "酸辣"
+   ],
+   "answer": "C",
+   "explanation": "《四个太阳》中提到秋天邀请小伙伴尝尝香甜的果子。",
+   "difficulty": 1,
+   "bloom": "记忆",
+   "type": "single_choice",
+   "id": "pohw-CC01093"
+  },
+  {
+   "topic_id": "primary-g1-s2-chinese-K063",
+   "topic_name": "常用量词规范搭配",
+   "stem": "选出括号里填入最恰当的词：一____飞机",
+   "options": [
+    "只",
+    "架",
+    "条",
+    "个"
+   ],
+   "answer": "B",
+   "explanation": "重型机械或乐器的固定量词通常选用“架”。",
+   "difficulty": 2,
+   "bloom": "理解",
+   "type": "single_choice",
+   "id": "pohw-CC01094"
+  },
+  {
+   "topic_id": "primary-g1-s2-chinese-K067",
+   "topic_name": "感恩主题阅读与理解",
+   "stem": "阅读语段：“毛主席就带领战士和乡亲们挖了一口井。”这句话说明了什么？",
+   "options": [
+    "毛主席爱劳动",
+    "战士们很辛苦",
+    "毛主席关心群众生活",
+    "乡亲们力气大"
+   ],
+   "answer": "C",
+   "explanation": "由于沙洲坝没有水，毛主席亲自带人挖井，体现了对人民生活的关怀。",
+   "difficulty": 3,
+   "bloom": "应用",
+   "type": "single_choice",
+   "id": "pohw-CC01095"
+  },
+  {
+   "topic_id": "primary-g1-s2-chinese-K091",
+   "topic_name": "长句子停顿朗读",
+   "stem": "“你会从天上洒下雨滴吗？”停顿最科学的是：",
+   "options": [
+    "你/会/从天上/洒下/雨滴吗/？",
+    "你会/从天上/洒下/雨滴/吗？",
+    "你会从/天上洒下/雨滴/吗？",
+    "你/会从天上洒下/雨滴吗？"
+   ],
+   "answer": "B",
+   "explanation": "状语“从天上”后，动词“洒下”前后停顿最清晰。",
+   "difficulty": 2,
+   "bloom": "理解",
+   "type": "single_choice",
+   "id": "pohw-CC01096"
+  },
+  {
+   "topic_id": "primary-g1-s2-chinese-K054",
+   "topic_name": "多音字读音选择",
+   "stem": "“全家人一起过节，大家都很高兴。”句中“兴”的读音是：",
+   "options": [
+    "xīng",
+    "xìng",
+    "xīn",
+    "xìn"
+   ],
+   "answer": "B",
+   "explanation": "答案是 xìng。“高兴”读 gāo xìng，所以“高兴”中的“兴”读第四声 xìng。",
+   "difficulty": 1,
+   "bloom": "记忆",
+   "type": "single_choice",
+   "id": "pohw-CC01097"
+  },
+  {
+   "topic_id": "primary-g1-s2-chinese-K087",
+   "topic_name": "近义词连线",
+   "stem": "“公园里到处都是花。”哪个词可以替换“到处”，表达的意思最接近？",
+   "options": [
+    "开心",
+    "处处",
+    "从此",
+    "十分"
+   ],
+   "answer": "B",
+   "explanation": "答案是“处处”。句子说公园里的花分布在各个地方；“到处”和“处处”都表示各个地方，意思相近。",
+   "difficulty": 3,
+   "bloom": "应用",
+   "type": "single_choice",
+   "id": "pohw-CC01098"
+  },
+  {
+   "topic_id": "primary-g1-s2-chinese-K054",
+   "topic_name": "多音字读音选择",
+   "stem": "“兴奋”中的“兴”读第一声，“高兴”中的“兴”读第四声。哪个词里的“兴”读第四声？",
+   "options": [
+    "“兴奋”里的“兴”",
+    "“高兴”里的“兴”",
+    "两个词里的“兴”都读第一声",
+    "两个词里的“兴”都读第四声"
+   ],
+   "answer": "B",
+   "explanation": "答案是“高兴”里的“兴”。“兴奋”中的“兴”读 xīng，“高兴”中的“兴”读 xìng；xìng 是第四声，所以读第四声的是“高兴”里的“兴”。",
+   "difficulty": 3,
+   "bloom": "应用",
+   "type": "single_choice",
+   "id": "pohw-CC01099"
+  },
+  {
+   "topic_id": "primary-g1-s2-chinese-K061",
+   "topic_name": "字音配对",
+   "stem": "“勇”的正确读音是哪一个？",
+   "options": [
+    "yǒng",
+    "yòng",
+    "yǔn",
+    "yōng"
+   ],
+   "answer": "A",
+   "explanation": "“勇”读yǒng，声母是y，韵母是ong，声调是第三声。",
+   "difficulty": 1,
+   "bloom": "记忆",
+   "type": "single_choice",
+   "id": "pohw-CC01100"
+  },
+  {
+   "topic_id": "primary-g1-s2-chinese-K061",
+   "topic_name": "字音配对",
+   "stem": "“勇、窗、裙、肉”中，只有一个字读第三声。这个字是哪个？",
+   "options": [
+    "勇",
+    "窗",
+    "裙",
+    "肉"
+   ],
+   "answer": "A",
+   "explanation": "答案是“勇”。“勇”读yǒng，是第三声；“窗”读chuāng，是第一声；“裙”读qún，是第二声；“肉”读ròu，是第四声。逐个比较声调，只有“勇”读第三声。",
+   "difficulty": 3,
+   "bloom": "应用",
+   "type": "single_choice",
+   "id": "pohw-CC01101"
+  },
+  {
+   "topic_id": "primary-g1-s2-chinese-K054",
+   "topic_name": "多音字读音选择",
+   "stem": "“听到好消息，我兴奋地告诉了妈妈。”句中“兴”的读音是：",
+   "options": [
+    "xīng",
+    "xìng",
+    "xīn",
+    "xìn"
+   ],
+   "answer": "A",
+   "explanation": "答案是 xīng。句中的词语是“兴奋”，读作 xīng fèn，所以“兴”的读音是 xīng。",
+   "difficulty": 1,
+   "bloom": "记忆",
+   "type": "single_choice",
+   "id": "pohw-CC01102"
+  },
+  {
+   "topic_id": "primary-g1-s2-chinese-K054",
+   "topic_name": "多音字读音选择",
+   "stem": "“床前明月光”中的“床”在古代常指：",
+   "options": [
+    "睡觉的床",
+    "井栏",
+    "桌子",
+    "窗户"
+   ],
+   "answer": "B",
+   "explanation": "古诗教学中常提到“床”在此时可能指井栏，不过作为基础题，亦在考查文化常识。",
+   "difficulty": 1,
+   "bloom": "记忆",
+   "type": "single_choice",
+   "id": "pohw-CC01103"
+  },
+  {
+   "topic_id": "primary-g1-s2-chinese-K069",
+   "topic_name": "方位点画书写规则",
+   "stem": "“我”的点在右上方，“主”的点在上方。按这两个字的规范笔顺，哪句话正确？",
+   "options": [
+    "“我”的点最后写，“主”的点第一笔写。",
+    "“我”和“主”的点都第一笔写。",
+    "“我”和“主”的点都最后写。",
+    "“我”的点第一笔写，“主”的点最后写。"
+   ],
+   "answer": "A",
+   "explanation": "答案是““我”的点最后写，“主”的点第一笔写。”按这两个字的规范笔顺，“我”以右上方的点收笔，“主”以点起笔；这只说明这两个例字的写法，不能直接推断其他汉字。",
+   "difficulty": 3,
+   "bloom": "应用",
+   "type": "single_choice",
+   "id": "pohw-CC01104"
+  },
+  {
+   "topic_id": "primary-g1-s2-chinese-K061",
+   "topic_name": "字音配对",
+   "stem": "“裙”的正确读音是哪一个？",
+   "options": [
+    "qǔn",
+    "qún",
+    "qùn",
+    "qūn"
+   ],
+   "answer": "B",
+   "explanation": "“裙”读qún，声母是q，韵母是ün，声调是第二声；qǔn、qùn和qūn的声调与它不同。",
+   "difficulty": 2,
+   "bloom": "理解",
+   "type": "single_choice",
+   "id": "pohw-CC01105"
+  },
+  {
+   "topic_id": "primary-g1-s2-chinese-K087",
+   "topic_name": "近义词连线",
+   "stem": "“这朵花十分漂亮。”句子中的“十分”可以换成哪个意思相近的词？",
+   "options": [
+    "处处",
+    "非常",
+    "从此",
+    "开心"
+   ],
+   "answer": "B",
+   "explanation": "答案是“非常”。“十分”和“非常”都表示程度很高，因此在“这朵花十分漂亮”中，“非常”可以替换“十分”，句意相近。",
+   "difficulty": 2,
+   "bloom": "理解",
+   "type": "single_choice",
+   "id": "pohw-CC01106"
+  },
+  {
+   "topic_id": "primary-g1-s2-chinese-K069",
+   "topic_name": "方位点画书写规则",
+   "stem": "“门”字的规范笔顺是哪一种？",
+   "options": [
+    "点、点、竖、横折钩",
+    "点、竖、横折钩、点",
+    "竖、点、横折钩、点",
+    "点、横折钩、竖、点"
+   ],
+   "answer": "B",
+   "explanation": "答案是“点、竖、横折钩、点”。“门”字共四笔，依次是点、竖、横折钩、点；其他笔顺都与这一规范顺序不符。",
+   "difficulty": 1,
+   "bloom": "记忆",
+   "type": "single_choice",
+   "id": "pohw-CC01107"
+  },
+  {
+   "topic_id": "primary-g1-s2-chinese-K045",
+   "topic_name": "叠词搭配",
+   "stem": "一个皮球的样子像圆形。选出最能描写它形状的一项。",
+   "options": [
+    "青青的皮球",
+    "圆圆的皮球",
+    "红红的皮球",
+    "白白的皮球"
+   ],
+   "answer": "B",
+   "explanation": "题目说明皮球的样子像圆形，“圆圆的”正好描写圆形，所以“圆圆的皮球”搭配恰当。其余选项中的叠词与题目给出的皮球样子不相符。",
+   "difficulty": 2,
+   "bloom": "理解",
+   "type": "single_choice",
+   "id": "pohw-CC01108"
+  },
+  {
+   "topic_id": "primary-g1-s2-chinese-K078",
+   "topic_name": "端午民俗与背景认知",
+   "stem": "下列哪一项不是端午节常见的习俗？",
+   "options": [
+    "吃粽子",
+    "赛龙舟",
+    "挂艾草",
+    "吃月饼"
+   ],
+   "answer": "D",
+   "explanation": "答案是“吃月饼”。端午节常见习俗有吃粽子、赛龙舟和挂艾草；吃月饼常与中秋节联系起来，所以它不是题目所问的端午节常见习俗。",
+   "difficulty": 1,
+   "bloom": "记忆",
+   "type": "single_choice",
+   "id": "pohw-CC01109"
+  },
+  {
+   "topic_id": "primary-g1-s2-chinese-K090",
+   "topic_name": "量词搭配",
+   "stem": "下面哪个词语的量词搭配不恰当？",
+   "options": [
+    "一堆粽子",
+    "一颗枣",
+    "一头桥",
+    "一座山"
+   ],
+   "answer": "C",
+   "explanation": "“粽子”可以说“一堆粽子”，“枣”可以说“一颗枣”，“山”可以说“一座山”。给出的四个词语中，桥不说“一头桥”，所以搭配不恰当的是“一头桥”。",
+   "difficulty": 1,
+   "bloom": "记忆",
+   "type": "single_choice",
+   "id": "pohw-CC01110"
+  },
+  {
+   "topic_id": "primary-g1-s2-chinese-K045",
+   "topic_name": "叠词搭配",
+   "stem": "叶子呈青绿色，米粒呈白色。选出两组都搭配恰当的一项。",
+   "options": [
+    "青青的叶子；白白的米粒",
+    "白白的叶子；青青的米粒",
+    "圆圆的叶子；红红的米粒",
+    "红红的叶子；圆圆的米粒"
+   ],
+   "answer": "A",
+   "explanation": "题目给出两条条件：叶子呈青绿色，米粒呈白色。“青青的”表示青绿色，应搭配叶子；“白白的”表示白色，应搭配米粒。因此答案是“青青的叶子；白白的米粒”。",
+   "difficulty": 3,
+   "bloom": "应用",
+   "type": "single_choice",
+   "id": "pohw-CC01111"
+  },
+  {
+   "topic_id": "primary-g1-s2-chinese-K061",
+   "topic_name": "字音配对",
+   "stem": "哪个汉字读ròu？",
+   "options": [
+    "勇",
+    "肉",
+    "裙",
+    "窗"
+   ],
+   "answer": "B",
+   "explanation": "“肉”读ròu，声母是r，韵母是ou，声调是第四声。",
+   "difficulty": 1,
+   "bloom": "记忆",
+   "type": "single_choice",
+   "id": "pohw-CC01112"
+  },
+  {
+   "topic_id": "primary-g1-s2-chinese-K061",
+   "topic_name": "字音配对",
+   "stem": "四个字中，“裙”读第二声，“勇”读第三声，“肉”读第四声。剩下读第一声的字是哪个？",
+   "options": [
+    "裙",
+    "勇",
+    "窗",
+    "肉"
+   ],
+   "answer": "C",
+   "explanation": "答案是“窗”。“窗”读chuāng，声调是第一声；“裙”读qún，是第二声；“勇”读yǒng，是第三声；“肉”读ròu，是第四声。根据题干，排除第二、第三、第四声后，剩下第一声的“窗”。",
+   "difficulty": 3,
+   "bloom": "应用",
+   "type": "single_choice",
+   "id": "pohw-CC01113"
+  },
+  {
+   "topic_id": "primary-g1-s2-chinese-K058",
+   "topic_name": "字词义辨析",
+   "stem": "奶奶过生日，全家人脸上都露出笑容，大家都____。",
+   "options": [
+    "开心",
+    "笑嘻嘻",
+    "白白",
+    "红红"
+   ],
+   "answer": "B",
+   "explanation": "答案是“笑嘻嘻”。题干明确说大家脸上露出笑容，空格要写出带笑的样子。“开心”主要说心情；“白白”和“红红”不符合带笑的样子这一线索。",
+   "difficulty": 1,
+   "bloom": "记忆",
+   "type": "single_choice",
+   "id": "pohw-CC01114"
+  },
+  {
+   "topic_id": "primary-g1-s2-chinese-K059",
+   "topic_name": "字词积累",
+   "stem": "妈妈包的粽子真好____。选择合适的字。",
+   "options": [
+    "看",
+    "听",
+    "吃",
+    "玩"
+   ],
+   "answer": "C",
+   "explanation": "答案是“吃”。食物味道好可以说“好吃”，所以句子应读作“妈妈包的粽子真好吃”。“好看”说外表，“好听”说声音，“好玩”说事情有趣，都不符合这里的意思。",
+   "difficulty": 1,
+   "bloom": "记忆",
+   "type": "single_choice",
+   "id": "pohw-CC01115"
+  },
+  {
+   "topic_id": "primary-g1-s2-chinese-K059",
+   "topic_name": "字词积累",
+   "stem": "妹妹在____里读书。选择合适的词语。",
+   "options": [
+    "方间",
+    "房间",
+    "房见",
+    "房尖"
+   ],
+   "answer": "B",
+   "explanation": "答案是“房间”。“房间”指屋子里的空间，句子说妹妹在屋里读书，所以“房间”合适。“方间”“房见”“房尖”都不是这里应使用的词语。",
+   "difficulty": 1,
+   "bloom": "记忆",
+   "type": "single_choice",
+   "id": "pohw-CC01116"
+  },
+  {
+   "topic_id": "primary-g1-s2-chinese-K087",
+   "topic_name": "近义词连线",
+   "stem": "小明学会整理书包后，每天都自己整理。“从此”每天整理书包中的“从此”，意思最接近哪个词语？",
+   "options": [
+    "快乐",
+    "处处",
+    "从这以后",
+    "十分"
+   ],
+   "answer": "C",
+   "explanation": "答案是“从这以后”。“从此”表示从这个时候开始。题目说小明学会整理书包后每天自己整理，因此“从这以后”与“从此”意思相近。",
+   "difficulty": 3,
+   "bloom": "应用",
+   "type": "single_choice",
+   "id": "pohw-CC01117"
+  },
+  {
+   "topic_id": "primary-g1-s2-chinese-K049",
+   "topic_name": "句子结构",
+   "stem": "小明把“妹妹、画画”排成了“画画妹妹”。老师要求先说谁，再说做什么。应选哪句话？",
+   "options": [
+    "画画妹妹。",
+    "妹妹画画。",
+    "妹妹妹妹。",
+    "画画画画。"
+   ],
+   "answer": "B",
+   "explanation": "答案是“妹妹画画。”按题目条件，句子必须先说谁，再说做什么。选“妹妹画画”时，先说做事的人“妹妹”，再说她做的事“画画”；“画画妹妹”把动作放在人物前面，不符合条件。",
+   "difficulty": 3,
+   "bloom": "应用",
+   "type": "single_choice",
+   "id": "pohw-CC01118"
+  },
+  {
+   "topic_id": "primary-g1-s2-chinese-K059",
+   "topic_name": "字词积累",
+   "stem": "小明用眼睛看书上的字。他在____。选择合适的词语。",
+   "options": [
+    "听书",
+    "看书",
+    "写书",
+    "吃书"
+   ],
+   "answer": "B",
+   "explanation": "答案是“看书”。题干给出的线索是“用眼睛看书上的字”，对应的词语是“看书”。“听书”表示用耳朵听书的声音，不符合题干的用眼线索。",
+   "difficulty": 2,
+   "bloom": "理解",
+   "type": "single_choice",
+   "id": "pohw-CC01119"
+  },
+  {
+   "topic_id": "primary-g1-s2-chinese-K069",
+   "topic_name": "方位点画书写规则",
+   "stem": "小林要写“我”字。哪一种是它的规范笔顺？",
+   "options": [
+    "点、撇、横、竖钩、提、撇",
+    "撇、横、竖钩、提、撇、点",
+    "撇、点、横、竖钩、提、撇",
+    "横、撇、竖钩、提、点、撇"
+   ],
+   "answer": "B",
+   "explanation": "答案是“撇、横、竖钩、提、撇、点”。“我”字按这六笔依次书写，右上方的点是末笔；先写点的顺序不符合它的规范笔顺。",
+   "difficulty": 2,
+   "bloom": "理解",
+   "type": "single_choice",
+   "id": "pohw-CC01120"
+  },
+  {
+   "topic_id": "primary-g1-s2-chinese-K047",
+   "topic_name": "古诗原文",
+   "stem": "小林读到“举头望明月”，接下来应读哪一句？",
+   "options": [
+    "低头思故乡",
+    "举头望明月",
+    "床前明月光",
+    "疑是地上霜"
+   ],
+   "answer": "A",
+   "explanation": "答案是“低头思故乡”。《静夜思》中，“举头望明月”之后的下一句是“低头思故乡”；“举头望明月，床前明月光”不是诗句的原文顺序。",
+   "difficulty": 2,
+   "bloom": "理解",
+   "type": "single_choice",
+   "id": "pohw-CC01121"
+  },
+  {
+   "topic_id": "primary-g1-s2-chinese-K079",
+   "topic_name": "词义辨析",
+   "stem": "小雨说：“我知道这个字怎么读。”这里的“知道”最接近哪个意思？",
+   "options": [
+    "学到的内容",
+    "能认出字",
+    "明白、了解",
+    "会叫的昆虫"
+   ],
+   "answer": "C",
+   "explanation": "答案是“明白、了解”。“我知道这个字怎么读”表示我明白这个字的读法；“学到的内容”是“知识”的意思，“会叫的昆虫”是“知了”的意思。",
+   "difficulty": 3,
+   "bloom": "应用",
+   "type": "single_choice",
+   "id": "pohw-CC01122"
+  },
+  {
+   "topic_id": "primary-g1-s2-chinese-K051",
+   "topic_name": "句式转换",
+   "stem": "把“妹妹是爱看书的孩子。”改成询问“是不是”的问句，选一项。",
+   "options": [
+    "妹妹是爱看书的孩子。",
+    "妹妹不是爱看书的孩子。",
+    "妹妹是爱看书的孩子吗？",
+    "谁是爱看书的孩子？"
+   ],
+   "answer": "C",
+   "explanation": "题目要求把陈述句改成询问“是不是”的问句。保留“妹妹是爱看书的孩子”这件事，在句末加“吗”，并用问号，得到“妹妹是爱看书的孩子吗？”",
+   "difficulty": 3,
+   "bloom": "应用",
+   "type": "single_choice",
+   "id": "pohw-CC01123"
+  },
+  {
+   "topic_id": "primary-g1-s2-chinese-K051",
+   "topic_name": "句式转换",
+   "stem": "把“彩虹不是天上的桥吗？”改成肯定陈述句，选一项。",
+   "options": [
+    "彩虹不是天上的桥。",
+    "彩虹是天上的桥。",
+    "彩虹是天上的桥吗？",
+    "天上有一座真正的桥。"
+   ],
+   "answer": "B",
+   "explanation": "题目要求把带肯定语气的“彩虹不是天上的桥吗？”改成肯定陈述句。按这个句式转换练习的要求，去掉“不是……吗”的问句形式，表达为“彩虹是天上的桥。”句子末尾用句号。",
+   "difficulty": 2,
+   "bloom": "理解",
+   "type": "single_choice",
+   "id": "pohw-CC01124"
+  },
+  {
+   "topic_id": "primary-g1-s2-chinese-K051",
+   "topic_name": "句式转换",
+   "stem": "把陈述句“妹妹喜欢唱歌。”改成询问妹妹是否喜欢唱歌的句子，选一项。",
+   "options": [
+    "妹妹不喜欢唱歌。",
+    "妹妹喜欢唱歌吗？",
+    "妹妹喜欢跳舞。",
+    "谁喜欢唱歌？"
+   ],
+   "answer": "B",
+   "explanation": "题目要求询问妹妹是否喜欢唱歌。保留“妹妹喜欢唱歌”这件事，在句末加“吗”，并用问号，改成“妹妹喜欢唱歌吗？”",
+   "difficulty": 3,
+   "bloom": "应用",
+   "type": "single_choice",
+   "id": "pohw-CC01125"
+  },
+  {
+   "topic_id": "primary-g1-s2-chinese-K049",
+   "topic_name": "句子结构",
+   "stem": "按“先说天上的事物，再说它像什么”的意思，使用下面全部词语排成一句通顺的话，哪一个正确？词语：天上的、云朵、像、美丽的、棉花糖。",
+   "options": [
+    "天上的云朵像美丽的棉花糖。",
+    "云朵天上的美丽的像棉花糖。",
+    "天上的云朵美丽的像棉花糖。",
+    "天上的像云朵棉花糖美丽的。"
+   ],
+   "answer": "A",
+   "explanation": "答案是“天上的云朵像美丽的棉花糖。”题目要求使用给出的全部词语，并先说天上的事物，再说它像什么。“天上的云朵”说出事物，“像美丽的棉花糖”接着说明它像什么；其余选项没有按题目要求把同一组词语排列成通顺的句子。",
+   "difficulty": 3,
+   "bloom": "应用",
+   "type": "single_choice",
+   "id": "pohw-CC01126"
+  },
+  {
+   "topic_id": "primary-g1-s2-chinese-K058",
+   "topic_name": "字词义辨析",
+   "stem": "收到自己喜欢的生日卡片，小明心里很愉快，他觉得很____。",
+   "options": [
+    "红红",
+    "热闹",
+    "开心",
+    "笑嘻嘻"
+   ],
+   "answer": "C",
+   "explanation": "答案是“开心”。题干说小明收到喜欢的生日卡片，心里很愉快，空格要表达他的心情。“笑嘻嘻”写带笑的样子；“热闹”形容人多、活动多的场面；“红红”写颜色。",
+   "difficulty": 2,
+   "bloom": "理解",
+   "type": "single_choice",
+   "id": "pohw-CC01127"
+  },
+  {
+   "topic_id": "primary-g1-s2-chinese-K087",
+   "topic_name": "近义词连线",
+   "stem": "旧题改编：下面哪一对词语意思最接近？",
+   "options": [
+    "十分—处处",
+    "快乐—开心",
+    "从此—非常",
+    "到处—从这以后"
+   ],
+   "answer": "B",
+   "explanation": "正确配对是：十分—非常、快乐—开心、从此—从这以后、到处—处处。题目所问的“快乐”表示心情愉快，与“开心”意思相近。",
+   "difficulty": 2,
+   "bloom": "理解",
+   "type": "single_choice",
+   "id": "pohw-CC01128"
+  },
+  {
+   "topic_id": "primary-g1-s2-chinese-K091",
+   "topic_name": "长句子停顿朗读",
+   "stem": "朗读“外婆给我们煮了好多种味道的粽子。”只停顿一处，并且停顿位置必须在“外婆”后，哪种读法符合要求？",
+   "options": [
+    "外婆 / 给 / 我们 / 煮了 / 好多种 / 味道的 / 粽子。",
+    "外婆 / 给我们煮了好多种味道的粽子。",
+    "外婆给 / 我们煮了好多种味道的粽子。",
+    "外婆 / 给我们煮了好多种 / 味道的 / 粽子。"
+   ],
+   "answer": "B",
+   "explanation": "答案是“外婆 / 给我们煮了好多种味道的粽子。”题目要求只停顿一处，并在“外婆”后停顿，表示先说做事的人，再连贯地说她做了什么。“好多种味道的粽子”也要连贯读。",
+   "difficulty": 3,
+   "bloom": "应用",
+   "type": "single_choice",
+   "id": "pohw-CC01129"
+  },
+  {
+   "topic_id": "primary-g1-s2-chinese-K091",
+   "topic_name": "长句子停顿朗读",
+   "stem": "朗读“星星在夜空中闪闪发亮。”只停顿一处，并在“星星”后停顿，哪种读法符合要求？",
+   "options": [
+    "星星在 / 夜空中闪闪发亮。",
+    "星星 / 在夜空中闪闪发亮。",
+    "星星 / 在夜空中 / 闪闪发亮。",
+    "星星在夜空 / 中闪闪发亮。"
+   ],
+   "answer": "B",
+   "explanation": "答案是“星星 / 在夜空中闪闪发亮。”题目要求只在“星星”后停顿一处。先说句子写的对象“星星”，再连贯地说它在哪里、怎么样。",
+   "difficulty": 3,
+   "bloom": "应用",
+   "type": "single_choice",
+   "id": "pohw-CC01130"
+  },
+  {
+   "topic_id": "primary-g1-s2-chinese-K049",
+   "topic_name": "句子结构",
+   "stem": "根据条件“谁：小狗；做什么、到哪里：跑进屋里”，哪句话把意思说清楚了？",
+   "options": [
+    "屋里跑进小狗。",
+    "小狗跑进屋里。",
+    "跑进屋里小狗。",
+    "小狗屋里跑进。"
+   ],
+   "answer": "B",
+   "explanation": "答案是“小狗跑进屋里。”条件说明“小狗”是做事的人，“跑进屋里”说明它做什么、到哪里。先说谁，再说做什么和到哪里，句意清楚完整。",
+   "difficulty": 3,
+   "bloom": "应用",
+   "type": "single_choice",
+   "id": "pohw-CC01131"
+  },
+  {
+   "topic_id": "primary-g1-s2-chinese-K059",
+   "topic_name": "字词积累",
+   "stem": "窗外传来小鸟的叫声，我____了。选择合适的词语。",
+   "options": [
+    "看到",
+    "摸到",
+    "闻到",
+    "听到"
+   ],
+   "answer": "D",
+   "explanation": "答案是“听到”。题干说明小鸟发出的是叫声，声音要用耳朵接收，所以说“听到小鸟叫”。“看到”是用眼睛发现事物，“摸到”是用手接触，“闻到”是用鼻子闻气味。",
+   "difficulty": 1,
+   "bloom": "记忆",
+   "type": "single_choice",
+   "id": "pohw-CC01132"
+  },
+  {
+   "topic_id": "primary-g1-s2-chinese-K078",
+   "topic_name": "端午民俗与背景认知",
+   "stem": "端午节在农历几月几日？",
+   "options": [
+    "五月初五",
+    "八月十五",
+    "正月初一",
+    "九月初九"
+   ],
+   "answer": "A",
+   "explanation": "答案是“五月初五”。题目问端午节在农历几月几日；本课所学是农历五月初五，所以应选“五月初五”。",
+   "difficulty": 1,
+   "bloom": "记忆",
+   "type": "single_choice",
+   "id": "pohw-CC01133"
+  },
+  {
+   "topic_id": "primary-g1-s2-chinese-K078",
+   "topic_name": "端午民俗与背景认知",
+   "stem": "端午节常见的几种习俗中，哪一种是把植物挂起来？",
+   "options": [
+    "吃粽子",
+    "赛龙舟",
+    "挂艾草",
+    "赏月"
+   ],
+   "answer": "C",
+   "explanation": "答案是“挂艾草”。题目要求从端午节常见习俗中找出把植物挂起来的活动。艾草是植物，挂艾草符合条件；吃粽子是饮食活动，赛龙舟是比赛活动。",
+   "difficulty": 1,
+   "bloom": "记忆",
+   "type": "single_choice",
+   "id": "pohw-CC01134"
+  },
+  {
+   "topic_id": "primary-g1-s2-chinese-K078",
+   "topic_name": "端午民俗与背景认知",
+   "stem": "端午节时，奶奶把艾草挂在门边。她做的是哪一种习俗？",
+   "options": [
+    "挂艾草",
+    "赏月",
+    "贴春联",
+    "包饺子"
+   ],
+   "answer": "A",
+   "explanation": "答案是“挂艾草”。题目说奶奶把艾草挂在门边，对应端午节常见的挂艾草习俗。赏月常与中秋节联系起来，贴春联和包饺子常与春节联系起来。",
+   "difficulty": 1,
+   "bloom": "记忆",
+   "type": "single_choice",
+   "id": "pohw-CC01135"
+  },
+  {
+   "topic_id": "primary-g1-s2-chinese-K078",
+   "topic_name": "端午民俗与背景认知",
+   "stem": "端午节时，小明看到人们在河上比赛龙舟。这是哪一种习俗？",
+   "options": [
+    "吃粽子",
+    "挂艾草",
+    "赛龙舟",
+    "赏月"
+   ],
+   "answer": "C",
+   "explanation": "答案是“赛龙舟”。题目描述人们在河上比赛龙舟，这正是赛龙舟；吃粽子是饮食习俗，挂艾草是把艾草挂起来，赏月常与中秋节联系起来。",
+   "difficulty": 1,
+   "bloom": "记忆",
+   "type": "single_choice",
+   "id": "pohw-CC01136"
+  },
+  {
+   "topic_id": "primary-g1-s2-chinese-K090",
+   "topic_name": "量词搭配",
+   "stem": "给“马”和“鱼”各选一个常见量词，哪一组搭配都恰当？",
+   "options": [
+    "一颗马和一条鱼",
+    "一匹马和一条鱼",
+    "一匹马和一间鱼",
+    "一张马和一条鱼"
+   ],
+   "answer": "B",
+   "explanation": "马常说“一匹马”，鱼常说“一条鱼”，这组搭配都恰当。“颗”常用于小而圆的东西，“张”常用于纸等，“间”常用于房屋；选项中其他组合至少有一处量词不合适。因此选择“一匹马和一条鱼”。",
+   "difficulty": 2,
+   "bloom": "理解",
+   "type": "single_choice",
+   "id": "pohw-CC01137"
+  },
+  {
+   "topic_id": "primary-g1-s2-chinese-K058",
+   "topic_name": "字词义辨析",
+   "stem": "街上有许多人逛摊、看表演，锣鼓声响，场面真____。",
+   "options": [
+    "安静",
+    "开心",
+    "热闹",
+    "红红"
+   ],
+   "answer": "C",
+   "explanation": "答案是“热闹”。题干说街上有许多人逛摊、看表演，还有锣鼓声，说明人多、活动多，适合用“热闹”形容。“安静”与这些线索相反；“开心”说心情；“红红”写颜色。",
+   "difficulty": 2,
+   "bloom": "理解",
+   "type": "single_choice",
+   "id": "pohw-CC01138"
+  },
+  {
+   "topic_id": "primary-g1-s2-chinese-K049",
+   "topic_name": "句子结构",
+   "stem": "词语是“姐姐、吃、苹果”。哪一个排列成了通顺的句子？",
+   "options": [
+    "苹果吃姐姐。",
+    "姐姐吃苹果。",
+    "吃苹果姐姐。",
+    "苹果姐姐吃。"
+   ],
+   "answer": "B",
+   "explanation": "答案是“姐姐吃苹果。”题目要求选择通顺的排列。“姐姐”是做事的人，“吃苹果”说明她做什么；其余选项把人物、动作或对象的位置放错了，读起来不通顺。",
+   "difficulty": 2,
+   "bloom": "理解",
+   "type": "single_choice",
+   "id": "pohw-CC01139"
+  },
+  {
+   "topic_id": "primary-g1-s2-chinese-K079",
+   "topic_name": "词义辨析",
+   "stem": "读句子：“树上有一只知了，它正在叫。”这里的“知了”指什么？",
+   "options": [
+    "学到的内容",
+    "明白、了解",
+    "会叫的昆虫",
+    "能认出字"
+   ],
+   "answer": "C",
+   "explanation": "答案是“会叫的昆虫”。句子说树上有一只知了，正在叫，因此“知了”指昆虫；这里不是“知道了”的意思。",
+   "difficulty": 2,
+   "bloom": "理解",
+   "type": "single_choice",
+   "id": "pohw-CC01140"
+  },
+  {
+   "topic_id": "primary-g1-s2-chinese-K045",
+   "topic_name": "叠词搭配",
+   "stem": "选出颜色和事物搭配恰当的一项。",
+   "options": [
+    "白白的糯米",
+    "青青的糯米",
+    "圆圆的糯米",
+    "红红的糯米"
+   ],
+   "answer": "A",
+   "explanation": "糯米通常呈白色，所以“白白的糯米”搭配恰当。“青青的”说青绿色，“红红的”说红色，“圆圆的”说形状，都不符合题目所问的糯米颜色。",
+   "difficulty": 1,
+   "bloom": "记忆",
+   "type": "single_choice",
+   "id": "pohw-CC01141"
+  },
+  {
+   "topic_id": "primary-g1-s2-chinese-K073",
+   "topic_name": "理解阅读",
+   "stem": "阅读短文：下课了，小明和同学在操场上踢球。上课铃响后，他们回到教室。小明在哪里踢球？",
+   "options": [
+    "教室里",
+    "操场上",
+    "图书馆里",
+    "厨房里"
+   ],
+   "answer": "B",
+   "explanation": "答案是“操场上”。短文写明小明和同学在操场上踢球，地点就是操场上。",
+   "difficulty": 2,
+   "bloom": "理解",
+   "type": "single_choice",
+   "id": "pohw-CC01142"
+  },
+  {
+   "topic_id": "primary-g1-s2-chinese-K073",
+   "topic_name": "理解阅读",
+   "stem": "阅读短文：小猫跳到椅子上。它伸出爪子，去够桌上的毛线球。这里的“它”指谁？",
+   "options": [
+    "小狗",
+    "小猫",
+    "小鸟",
+    "小兔"
+   ],
+   "answer": "B",
+   "explanation": "答案是“小猫”。短文说小猫跳到椅子上，接着写“它”伸爪去够桌上的毛线球。“它”承接前一句的小猫，所以去够毛线球的是小猫；短文没有说小猫够到了毛线球。",
+   "difficulty": 3,
+   "bloom": "应用",
+   "type": "single_choice",
+   "id": "pohw-CC01143"
+  },
+  {
+   "topic_id": "primary-g1-s2-chinese-K073",
+   "topic_name": "理解阅读",
+   "stem": "阅读短文：小雨出门时拿了一把伞。放学回家时，他手里还拿着这把伞。根据这两条线索，可以判断小雨回家时怎样？",
+   "options": [
+    "带着伞",
+    "拿着书",
+    "穿着雨衣",
+    "抱着花"
+   ],
+   "answer": "A",
+   "explanation": "答案是“带着伞”。短文写小雨出门时拿了一把伞，回家时伞还在手里，因此可以判断他回家时带着伞。短文没有说明他有没有淋湿，不能据此作出判断。",
+   "difficulty": 3,
+   "bloom": "应用",
+   "type": "single_choice",
+   "id": "pohw-CC01144"
+  },
+  {
+   "topic_id": "primary-g1-s2-chinese-K073",
+   "topic_name": "理解阅读",
+   "stem": "阅读短文：风吹进屋里，把桌上的纸吹到了地上。乐乐捡起纸，随后关上窗户。乐乐捡起纸后做了什么？",
+   "options": [
+    "关上窗户",
+    "打开书包",
+    "拿出水杯",
+    "擦黑板"
+   ],
+   "answer": "A",
+   "explanation": "答案是“关上窗户”。短文先写风把桌上的纸吹到地上，再写乐乐关上窗户。两件事按短文顺序发生，乐乐随后做的是关窗户。",
+   "difficulty": 3,
+   "bloom": "应用",
+   "type": "single_choice",
+   "id": "pohw-CC01145"
+  },
+  {
+   "topic_id": "primary-g1-s2-chinese-K068",
+   "topic_name": "打电话礼仪规范",
+   "stem": "你想告诉老师自己今天生病了，但老师没有接电话。电话提示可以留言，事情不紧急。怎样做更合适？",
+   "options": [
+    "一直打到老师接为止。",
+    "先问能不能留言，说清楚事情，再稍后联系。",
+    "在电话里大喊大叫。",
+    "因为没接，就不再告诉老师事情。"
+   ],
+   "answer": "B",
+   "explanation": "答案是“先问能不能留言，说清楚事情，再稍后联系。”老师没有接电话，事情也不紧急；先确认是否能留言，得到同意后再简短说明自己今天生病了，之后可稍后联系。不能假定一定有人能代为转告，也不必一直拨打。",
+   "difficulty": 3,
+   "bloom": "应用",
+   "type": "single_choice",
+   "id": "pohw-CC01146"
+  },
+  {
+   "topic_id": "primary-g1-s2-chinese-K068",
+   "topic_name": "打电话礼仪规范",
+   "stem": "你打电话找李老师。接电话的人说现在方便帮你转接。下面哪句话最有礼貌？",
+   "options": [
+    "喂，叫李老师听电话！",
+    "您好，请问您方便请李老师接电话吗？",
+    "李老师怎么还不接电话？",
+    "挂掉，不用再打了。"
+   ],
+   "answer": "B",
+   "explanation": "答案是“您好，请问您方便请李老师接电话吗？”题目说明接电话的人方便转接，所以可以先问好，再礼貌地询问能否请李老师接电话。命令、抱怨或直接挂掉，都没有礼貌地提出请求。",
+   "difficulty": 3,
+   "bloom": "应用",
+   "type": "single_choice",
+   "id": "pohw-CC01147"
+  },
+  {
+   "topic_id": "primary-g1-s2-chinese-K070",
+   "topic_name": "歇后语积累与应用",
+   "stem": "小丽的画一次比一次有进步。下面哪句歇后语适合形容她的进步？",
+   "options": [
+    "小葱拌豆腐——一清二白",
+    "十五个吊桶打水——七上八下",
+    "芝麻开花——节节高",
+    "竹篮子打水——一场空"
+   ],
+   "answer": "C",
+   "explanation": "小丽的画一次比一次有进步，表示她不断进步。“芝麻开花——节节高”常用来表示事情或成绩一步步变好，所以应选这句。",
+   "difficulty": 3,
+   "bloom": "应用",
+   "type": "single_choice",
+   "id": "pohw-CC01148"
+  },
+  {
+   "topic_id": "primary-g1-s2-chinese-K070",
+   "topic_name": "歇后语积累与应用",
+   "stem": "小刚忙了半天，最后什么也没得到。下面哪句歇后语最适合形容这件事？",
+   "options": [
+    "芝麻开花——节节高",
+    "竹篮子打水——一场空",
+    "十五个吊桶打水——七上八下",
+    "小葱拌豆腐——一清二白"
+   ],
+   "answer": "B",
+   "explanation": "小刚忙了半天，最后什么也没得到，说明忙了一场却没有收获。“竹篮子打水——一场空”常用来形容这样的结果，所以应选这句。",
+   "difficulty": 3,
+   "bloom": "应用",
+   "type": "single_choice",
+   "id": "pohw-CC01149"
+  },
+  {
+   "topic_id": "primary-g1-s2-chinese-K070",
+   "topic_name": "歇后语积累与应用",
+   "stem": "小明第一次参加比赛，心里____，总是静不下来。",
+   "options": [
+    "芝麻开花——节节高",
+    "小葱拌豆腐——一清二白",
+    "十五个吊桶打水——七上八下",
+    "竹篮子打水——一场空"
+   ],
+   "answer": "C",
+   "explanation": "小明心里很慌、静不下来，说明他心里不安。“十五个吊桶打水——七上八下”常用来形容心里不安，因此应选这句。",
+   "difficulty": 2,
+   "bloom": "理解",
+   "type": "single_choice",
+   "id": "pohw-CC01150"
+  },
+  {
+   "topic_id": "primary-g1-s2-chinese-K070",
+   "topic_name": "歇后语积累与应用",
+   "stem": "小红把事情的来龙去脉讲得很清楚。下面哪句歇后语适合形容她讲得清楚明白？",
+   "options": [
+    "竹篮子打水——一场空",
+    "小葱拌豆腐——一清二白",
+    "芝麻开花——节节高",
+    "十五个吊桶打水——七上八下"
+   ],
+   "answer": "B",
+   "explanation": "小红把事情的来龙去脉讲得很清楚。“小葱拌豆腐——一清二白”可以表示清楚、明白，和题目情境相符。",
+   "difficulty": 3,
+   "bloom": "应用",
+   "type": "single_choice",
+   "id": "pohw-CC01151"
+  },
+  {
+   "topic_id": "primary-g1-s2-chinese-K071",
+   "topic_name": "气象谚语辨析",
+   "stem": "“晚霞行千里”意味着明天很可能是？",
+   "options": [
+    "晴天",
+    "雷阵雨",
+    "雾霾天",
+    "大雪"
+   ],
+   "answer": "A",
+   "explanation": "晚霞预示着云层逐渐消散，明天是适合远行的大晴天。",
+   "difficulty": 1,
+   "bloom": "记忆",
+   "type": "single_choice",
+   "id": "pohw-CC01152"
+  },
+  {
+   "topic_id": "primary-g1-s2-chinese-K071",
+   "topic_name": "气象谚语辨析",
+   "stem": "“有雨山戴帽”时，山上的云像什么？",
+   "options": [
+    "一条线",
+    "一个帽子",
+    "一朵花",
+    "一个皮球"
+   ],
+   "answer": "B",
+   "explanation": "故称“戴帽”，生动形容云彩覆盖山头的样子。",
+   "difficulty": 2,
+   "bloom": "理解",
+   "type": "single_choice",
+   "id": "pohw-CC01153"
+  },
+  {
+   "topic_id": "primary-g1-s2-chinese-K071",
+   "topic_name": "气象谚语辨析",
+   "stem": "“有雨山戴帽，无雨半山腰”，这里的“帽”指的是？",
+   "options": [
+    "草帽",
+    "白云",
+    "积雪",
+    "雨伞"
+   ],
+   "answer": "B",
+   "explanation": "云块盖住山头就像戴了帽子，预示天要下雨。",
+   "difficulty": 1,
+   "bloom": "记忆",
+   "type": "single_choice",
+   "id": "pohw-CC01154"
+  },
+  {
+   "topic_id": "primary-g1-s2-chinese-K055",
+   "topic_name": "天气自然现象常识",
+   "stem": "大雨前，蜻蜓通常会怎么飞？",
+   "options": [
+    "越高越快",
+    "低空飞翔",
+    "躲在窝里",
+    "飞向太阳"
+   ],
+   "answer": "B",
+   "explanation": "下雨前空气潮湿，昆虫翅膀带水，蜻蜓会飞得很低来捕捉昆虫。",
+   "difficulty": 1,
+   "bloom": "记忆",
+   "type": "single_choice",
+   "id": "pohw-CC01155"
+  },
+  {
+   "topic_id": "primary-g1-s2-chinese-K071",
+   "topic_name": "气象谚语辨析",
+   "stem": "如果看到“蚂蚁搬家蛇过道”，接下来的天气最可能是？",
+   "options": [
+    "大晴天",
+    "大风天",
+    "大雨将至",
+    "下雪天"
+   ],
+   "answer": "C",
+   "explanation": "这是民间的气象谚语，预示着就要下大雨了。",
+   "difficulty": 1,
+   "bloom": "记忆",
+   "type": "single_choice",
+   "id": "pohw-CC01156"
+  },
+  {
+   "topic_id": "primary-g1-s2-chinese-K055",
+   "topic_name": "天气自然现象常识",
+   "stem": "通过本单元学习，我们知道“要下雨了”的表现不包括哪一个？",
+   "options": [
+    "燕子飞得很高",
+    "鱼游到水面",
+    "蚂蚁往高处搬家",
+    "感觉周围闷热"
+   ],
+   "answer": "A",
+   "explanation": "下雨前燕子应该是“低飞”，而非“高飞”。",
+   "difficulty": 1,
+   "bloom": "记忆",
+   "type": "single_choice",
+   "id": "pohw-CC01157"
+  },
+  {
+   "topic_id": "primary-g1-s2-chinese-K059",
+   "topic_name": "字词积累",
+   "stem": "“掰”的正确读音是哪个？",
+   "options": [
+    "bāi",
+    "káng",
+    "rēng",
+    "pěng"
+   ],
+   "answer": "A",
+   "explanation": "答案是“bāi”。“掰”读 bāi，声母是 b，韵母是 ai，读第一声。",
+   "difficulty": 1,
+   "bloom": "记忆",
+   "type": "single_choice",
+   "id": "pohw-CC01158"
+  },
+  {
+   "topic_id": "primary-g1-s2-chinese-K041",
+   "topic_name": "动作连贯词运用",
+   "stem": "丁丁____着书包跑向学校。",
+   "options": [
+    "扛",
+    "背",
+    "扔",
+    "掰"
+   ],
+   "answer": "B",
+   "explanation": "书包通常是用肩带挂在背上的，动作是“背”。",
+   "difficulty": 1,
+   "bloom": "记忆",
+   "type": "single_choice",
+   "id": "pohw-CC01159"
+  },
+  {
+   "topic_id": "primary-g1-s2-chinese-K041",
+   "topic_name": "动作连贯词运用",
+   "stem": "下列哪个词语中“空”的读音与“天空”一致？",
+   "options": [
+    "空地",
+    "空白",
+    "空间",
+    "空手"
+   ],
+   "answer": "C",
+   "explanation": "天空中的“空”读一声，空间也是一声；空地读四声。",
+   "difficulty": 1,
+   "bloom": "记忆",
+   "type": "single_choice",
+   "id": "pohw-CC01160"
+  },
+  {
+   "topic_id": "primary-g1-s2-chinese-K059",
+   "topic_name": "字词积累",
+   "stem": "下面哪个字含有“纟”？",
+   "options": [
+    "经",
+    "过",
+    "这",
+    "选"
+   ],
+   "answer": "A",
+   "explanation": "答案是“经”。“经”含有绞丝旁“纟”；“过”“这”“选”都不含“纟”。",
+   "difficulty": 1,
+   "bloom": "记忆",
+   "type": "single_choice",
+   "id": "pohw-CC01161"
+  },
+  {
+   "topic_id": "primary-g1-s2-chinese-K038",
+   "topic_name": "习惯养成",
+   "stem": "小明常常忘带上课要用的书本。哪种做法最能帮助他养成出门前检查的习惯？",
+   "options": [
+    "把要带的东西写下来，出门前照着检查。",
+    "出门时不看书包里有没有要带的东西。",
+    "看到别的事就放下正在做的准备。",
+    "等到了学校才想起要带什么。"
+   ],
+   "answer": "A",
+   "explanation": "答案是“把要带的东西写下来，出门前照着检查。”小明常忘带书本，先列出要带的东西，再出门前逐项检查，能帮助他确认物品是否带齐；其他做法没有检查，不能解决漏带问题。",
+   "difficulty": 3,
+   "bloom": "应用",
+   "type": "single_choice",
+   "id": "pohw-CC01162"
+  },
+  {
+   "topic_id": "primary-g1-s2-chinese-K059",
+   "topic_name": "字词积累",
+   "stem": "小明把一根长木棍放在肩上搬走。下面哪个词最合适？",
+   "options": [
+    "摘",
+    "扛",
+    "捧",
+    "掰"
+   ],
+   "answer": "B",
+   "explanation": "答案是“扛”。题目说明小明把长木棍放在肩上搬走；把东西放在肩上搬，适合用“扛”。“摘”是从枝头取下，“捧”是用手托着，“掰”常指把东西分开。",
+   "difficulty": 2,
+   "bloom": "理解",
+   "type": "single_choice",
+   "id": "pohw-CC01163"
+  },
+  {
+   "topic_id": "primary-g1-s2-chinese-K059",
+   "topic_name": "字词积累",
+   "stem": "小林要告诉一年级同学：周三下午到图书角整理图书。他准备写一则告知大家这件事的文字，开头应写哪两个字？",
+   "options": [
+    "日记",
+    "通知",
+    "儿歌",
+    "请假条"
+   ],
+   "answer": "B",
+   "explanation": "答案是“通知”。通知要写清活动时间、地点、参加人和事情。题目给出的信息分别是“周三下午”“图书角”“一年级同学”和“整理图书”，所以开头应写“通知”。",
+   "difficulty": 3,
+   "bloom": "应用",
+   "type": "single_choice",
+   "id": "pohw-CC01164"
+  },
+  {
+   "topic_id": "primary-g1-s2-chinese-K038",
+   "topic_name": "习惯养成",
+   "stem": "文文总是不整理书包，导致东西经常丢。文文要把书包____。",
+   "options": [
+    "扔掉",
+    "送人",
+    "整理好",
+    "放地上"
+   ],
+   "answer": "C",
+   "explanation": "本单元主题是习惯，整理书包是良好的卫生和学习习惯。",
+   "difficulty": 3,
+   "bloom": "应用",
+   "type": "single_choice",
+   "id": "pohw-CC01165"
+  },
+  {
+   "topic_id": "primary-g1-s2-chinese-K041",
+   "topic_name": "动作连贯词运用",
+   "stem": "猴子看见满地的西瓜，____了一个大西瓜往回走。",
+   "options": [
+    "掰",
+    "摘",
+    "抱",
+    "扛"
+   ],
+   "answer": "C",
+   "explanation": "西瓜圆且大，通常用两臂合拢的动作，即“抱”。",
+   "difficulty": 1,
+   "bloom": "记忆",
+   "type": "single_choice",
+   "id": "pohw-CC01166"
+  },
+  {
+   "topic_id": "primary-g1-s2-chinese-K038",
+   "topic_name": "习惯养成",
+   "stem": "读短文：小猴子先掰了玉米，又摘了桃子，后来捧着西瓜。看见兔子后，它把玉米、桃子和西瓜都放在地上，去追兔子，没有再拿起它们。小猴子最后怎样回家？",
+   "options": [
+    "带着玉米",
+    "带着桃子",
+    "带着西瓜",
+    "空着手"
+   ],
+   "answer": "D",
+   "explanation": "题干明确说小猴子把玉米、桃子和西瓜都放下了，随后只顾追兔子，没有再拿起这些东西。因此它回家时空着手。",
+   "difficulty": 2,
+   "bloom": "理解",
+   "type": "single_choice",
+   "id": "pohw-CC01167"
+  },
+  {
+   "topic_id": "primary-g1-s2-chinese-K088",
+   "topic_name": "通知要素提取与撰写",
+   "stem": "读通知：“周四，请大家到校园给树浇水。”通知中要做的事情是什么？",
+   "options": [
+    "到校园",
+    "给树浇水",
+    "大家",
+    "周四"
+   ],
+   "answer": "B",
+   "explanation": "答案是“给树浇水”。通知中的“给树浇水”说明要做的事情；“校园”说明地点，“大家”说明参加人，“周四”说明时间。",
+   "difficulty": 2,
+   "bloom": "理解",
+   "type": "single_choice",
+   "id": "pohw-CC01168"
+  },
+  {
+   "topic_id": "primary-g1-s2-chinese-K088",
+   "topic_name": "通知要素提取与撰写",
+   "stem": "读通知：“明天早上八点，请全体同学到操场集合。”谁去集合？",
+   "options": [
+    "老师",
+    "全体同学",
+    "家长",
+    "值日生"
+   ],
+   "answer": "B",
+   "explanation": "答案是“全体同学”。通知中的“请全体同学”说明参加人是全体同学；“明天早上八点”是时间，“操场”是地点，“集合”是事情。",
+   "difficulty": 2,
+   "bloom": "理解",
+   "type": "single_choice",
+   "id": "pohw-CC01169"
+  },
+  {
+   "topic_id": "primary-g1-s2-chinese-K038",
+   "topic_name": "习惯养成",
+   "stem": "选择一句前后意思连贯、能说明提前准备好处的话。",
+   "options": [
+    "要是我提前整理好明天要用的书本，早上就能按时出门。",
+    "要是我提前整理好明天要用的书本，早上就要再整理一次。",
+    "要是我提前整理好明天要用的书本，早上就会忘记书本。",
+    "要是我提前整理好明天要用的书本，早上就不需要带书本。"
+   ],
+   "answer": "A",
+   "explanation": "答案是“要是我提前整理好明天要用的书本，早上就能按时出门。”提前整理书本是条件，早上省去临时找书的时间是合理结果，前后意思连贯。",
+   "difficulty": 2,
+   "bloom": "理解",
+   "type": "single_choice",
+   "id": "pohw-CC01170"
+  },
+  {
+   "topic_id": "primary-g1-s2-chinese-K088",
+   "topic_name": "通知要素提取与撰写",
+   "stem": "通知写着：“周二，请到教室擦黑板。”通知没有写清哪一项？",
+   "options": [
+    "时间",
+    "地点",
+    "参加人",
+    "事情"
+   ],
+   "answer": "C",
+   "explanation": "答案是“参加人”。通知写了周二、教室和擦黑板，分别说明时间、地点和事情；没有说明谁去擦黑板，因此缺少参加人这一项。",
+   "difficulty": 3,
+   "bloom": "应用",
+   "type": "single_choice",
+   "id": "pohw-CC01171"
+  },
+  {
+   "topic_id": "primary-g1-s2-chinese-K064",
+   "topic_name": "常见近义词",
+   "stem": "“十分”的近义词是哪一个？",
+   "options": [
+    "几分",
+    "非常",
+    "一点",
+    "一半"
+   ],
+   "answer": "B",
+   "explanation": "“十分”在这里表示程度很深，“非常”也表示程度很深，所以“非常”是“十分”的近义词。“几分”“一点”“一半”通常表示数量或部分，不符合这里表示程度的意思。",
+   "difficulty": 1,
+   "bloom": "记忆",
+   "type": "single_choice",
+   "id": "pohw-CC01172"
+  },
+  {
+   "topic_id": "primary-g1-s2-chinese-K040",
+   "topic_name": "偏旁归类识字法",
+   "stem": "“喜鹊”这个词里，“鹊”字带什么偏旁？",
+   "options": [
+    "虫字旁",
+    "犭（反犬旁）",
+    "鸟字旁",
+    "鱼字旁"
+   ],
+   "answer": "C",
+   "explanation": "答案是“鸟字旁”。“鹊”字带鸟字旁。题目问的是“鹊”字的偏旁，不是喜鹊属于哪一类动物。",
+   "difficulty": 2,
+   "bloom": "理解",
+   "type": "single_choice",
+   "id": "pohw-CC01173"
+  },
+  {
+   "topic_id": "primary-g1-s2-chinese-K039",
+   "topic_name": "偏旁基础",
+   "stem": "“推”字里的“扌”叫什么？",
+   "options": [
+    "鸟字旁",
+    "提手旁",
+    "虫字旁",
+    "反犬旁"
+   ],
+   "answer": "B",
+   "explanation": "“推”字带有偏旁“扌”。“扌”叫提手旁，所以答案是“提手旁”。",
+   "difficulty": 1,
+   "bloom": "记忆",
+   "type": "single_choice",
+   "id": "pohw-CC01174"
+  },
+  {
+   "topic_id": "primary-g1-s2-chinese-K058",
+   "topic_name": "字词义辨析",
+   "stem": "“蚂、猫、鸟、河”四个字中，哪个字带虫字旁？",
+   "options": [
+    "猫",
+    "蚂",
+    "河",
+    "鸟"
+   ],
+   "answer": "B",
+   "explanation": "答案是“蚂”。“蚂”带虫字旁，“猫”带反犬旁，“鸟”带鸟字旁，“河”带三点水旁。按偏旁线索把字分到“虫字旁”一组时，应选“蚂”。",
+   "difficulty": 3,
+   "bloom": "应用",
+   "type": "single_choice",
+   "id": "pohw-CC01175"
+  },
+  {
+   "topic_id": "primary-g1-s2-chinese-K039",
+   "topic_name": "偏旁基础",
+   "stem": "“鸡”带鸟字旁。下面哪个字也带鸟字旁？",
+   "options": [
+    "猫",
+    "鸦",
+    "蚂",
+    "拍"
+   ],
+   "answer": "B",
+   "explanation": "“鸡”带鸟字旁。选项中“鸦”也带鸟字旁；“猫”带反犬旁，“蚂”带虫字旁，“拍”带提手旁。因此答案是“鸦”。",
+   "difficulty": 2,
+   "bloom": "理解",
+   "type": "single_choice",
+   "id": "pohw-CC01176"
+  },
+  {
+   "topic_id": "primary-g1-s2-chinese-K083",
+   "topic_name": "词语运用",
+   "stem": "“鸡”带鸟字旁，也是一种鸟。它属于哪一类？",
+   "options": [
+    "昆虫",
+    "走兽",
+    "植物",
+    "鸟类"
+   ],
+   "answer": "D",
+   "explanation": "答案是“鸟类”。题目中的“鸡”指一种鸟，带鸟字旁；结合字义，应把“鸡”归到鸟类，而不是昆虫、走兽或植物。",
+   "difficulty": 2,
+   "bloom": "理解",
+   "type": "single_choice",
+   "id": "pohw-CC01177"
+  },
+  {
+   "topic_id": "primary-g1-s2-chinese-K077",
+   "topic_name": "科普常识",
+   "stem": "下雨前，蚂蚁会发生什么行为？",
+   "options": [
+    "搬家",
+    "唱歌",
+    "睡觉",
+    "游泳"
+   ],
+   "answer": "A",
+   "explanation": "民间谚语说：蚂蚁搬家蛇过道，大雨不久要来到。",
+   "difficulty": 1,
+   "bloom": "记忆",
+   "type": "single_choice",
+   "id": "pohw-CC01178"
+  },
+  {
+   "topic_id": "primary-g1-s2-chinese-K083",
+   "topic_name": "词语运用",
+   "stem": "下面哪个字带反犬旁，表示一种走兽？",
+   "options": [
+    "蚂",
+    "鸡",
+    "猫",
+    "蚁"
+   ],
+   "answer": "C",
+   "explanation": "答案是“猫”。题目要求选带反犬旁、表示走兽的字。“猫”带反犬旁，表示一种动物；“蚂”和“蚁”带虫字旁，“鸡”带鸟字旁。",
+   "difficulty": 2,
+   "bloom": "理解",
+   "type": "single_choice",
+   "id": "pohw-CC01179"
+  },
+  {
+   "topic_id": "primary-g1-s2-chinese-K039",
+   "topic_name": "偏旁基础",
+   "stem": "下面哪个字带有反犬旁“犭”？",
+   "options": [
+    "鸟",
+    "狗",
+    "虫",
+    "打"
+   ],
+   "answer": "B",
+   "explanation": "“狗”带反犬旁“犭”；“鸟”带鸟字旁，“虫”带虫字旁，“打”带提手旁。因此，带反犬旁的是“狗”。",
+   "difficulty": 2,
+   "bloom": "理解",
+   "type": "single_choice",
+   "id": "pohw-CC01180"
+  },
+  {
+   "topic_id": "primary-g1-s2-chinese-K064",
+   "topic_name": "常见近义词",
+   "stem": "下面哪个词和“快乐”意思相近？",
+   "options": [
+    "高兴",
+    "桌子",
+    "跑步",
+    "明天"
+   ],
+   "answer": "A",
+   "explanation": "“快乐”和“高兴”都可以表示心情好、感到开心，所以“高兴”是“快乐”的近义词。",
+   "difficulty": 1,
+   "bloom": "记忆",
+   "type": "single_choice",
+   "id": "pohw-CC01181"
+  },
+  {
+   "topic_id": "primary-g1-s2-chinese-K053",
+   "topic_name": "多音字",
+   "stem": "下面的字是“蚂、鸡、猫”。哪个字带反犬旁“犭”？",
+   "options": [
+    "蚂",
+    "鸡",
+    "猫",
+    "鱼"
+   ],
+   "answer": "C",
+   "explanation": "“猫”有反犬旁，“鸡”有鸟字旁，“蚂”有虫字旁。题目要求从这三个字中选出带反犬旁的字，因此答案是“猫”。",
+   "difficulty": 3,
+   "bloom": "应用",
+   "type": "single_choice",
+   "id": "pohw-CC01182"
+  },
+  {
+   "topic_id": "primary-g1-s2-chinese-K083",
+   "topic_name": "词语运用",
+   "stem": "会在树干里找虫的____正在给树捉虫。",
+   "options": [
+    "燕子",
+    "啄木鸟",
+    "青蛙",
+    "七星瓢虫"
+   ],
+   "answer": "B",
+   "explanation": "答案是“啄木鸟”。题目给出“在树干里找虫”的线索；啄木鸟会在树上寻找虫子，因此“啄木鸟在树干里找虫”符合句意。",
+   "difficulty": 2,
+   "bloom": "理解",
+   "type": "single_choice",
+   "id": "pohw-CC01183"
+  },
+  {
+   "topic_id": "primary-g1-s2-chinese-K075",
+   "topic_name": "短文理解",
+   "stem": "兰兰过桥时看到了流水、游鱼。这描写的是哪种桥？",
+   "options": [
+    "独木桥",
+    "潜水桥",
+    "立交桥",
+    "石拱桥"
+   ],
+   "answer": "B",
+   "explanation": "出自课文《兰兰过桥》，潜水桥能看到水下景象。",
+   "difficulty": 3,
+   "bloom": "应用",
+   "type": "single_choice",
+   "id": "pohw-CC01184"
+  },
+  {
+   "topic_id": "primary-g1-s2-chinese-K058",
+   "topic_name": "字词义辨析",
+   "stem": "动物卡片上写着：“遇到危险时可以断尾逃生，之后尾巴还能再生。”这张卡说的是哪种动物？",
+   "options": [
+    "牛",
+    "鱼",
+    "壁虎",
+    "燕子"
+   ],
+   "answer": "C",
+   "explanation": "答案是“壁虎”。题目说明动物会在遇到危险时断尾逃生；壁虎遇到危险时可以断尾帮助逃生，之后尾巴还能再生。牛尾常用来赶蝇，鱼尾帮助拨水，燕子尾巴帮助飞行。",
+   "difficulty": 3,
+   "bloom": "应用",
+   "type": "single_choice",
+   "id": "pohw-CC01185"
+  },
+  {
+   "topic_id": "primary-g1-s2-chinese-K040",
+   "topic_name": "偏旁归类识字法",
+   "stem": "哪一组里的三个字都带同一种偏旁？",
+   "options": [
+    "猫 狗 猪",
+    "鸡 鸭 鱼",
+    "蜻 蜓 鸟",
+    "松 柏 花"
+   ],
+   "answer": "A",
+   "explanation": "答案是“猫 狗 猪”。这三个字都带犭（反犬旁）。其他组选项至少有一个字的偏旁与另外两个不同：“鱼”不带鸟字旁；“鸟”不带虫字旁；“花”不带木字旁。",
+   "difficulty": 2,
+   "bloom": "理解",
+   "type": "single_choice",
+   "id": "pohw-CC01186"
+  },
+  {
+   "topic_id": "primary-g1-s2-chinese-K086",
+   "topic_name": "课文识记",
+   "stem": "小林观察到一只鸟在树干上找虫。根据本课知识，这最可能是哪种动物？",
+   "options": [
+    "燕子捕食空中飞虫",
+    "啄木鸟在树干里找虫",
+    "七星瓢虫吃叶片上的蚜虫",
+    "小鱼在水里拨水"
+   ],
+   "answer": "B",
+   "explanation": "答案是“啄木鸟在树干里找虫”。题目给出的线索是虫在树干里，和啄木鸟的捕食位置相符；燕子捕食空中飞虫，七星瓢虫吃叶片上的蚜虫。",
+   "difficulty": 3,
+   "bloom": "应用",
+   "type": "single_choice",
+   "id": "pohw-CC01187"
+  },
+  {
+   "topic_id": "primary-g1-s2-chinese-K082",
+   "topic_name": "词语辨析",
+   "stem": "小红收到朋友送的花，心里很快乐。她感到____。",
+   "options": [
+    "高兴",
+    "认真",
+    "干净",
+    "安静"
+   ],
+   "answer": "A",
+   "explanation": "小红收到朋友送的花，心里快乐，表达心情应选“高兴”。“认真”说做事专心，不能表示收到礼物后的快乐心情。",
+   "difficulty": 2,
+   "bloom": "理解",
+   "type": "single_choice",
+   "id": "pohw-CC01188"
+  },
+  {
+   "topic_id": "primary-g1-s2-chinese-K064",
+   "topic_name": "常见近义词",
+   "stem": "小花园里的花儿很美。选一个能替换“美”的词，使句子意思相近。",
+   "options": [
+    "冷清",
+    "漂亮",
+    "忙碌",
+    "整齐"
+   ],
+   "answer": "B",
+   "explanation": "句子说花儿很美。“漂亮”和“美”意思相近，替换后“花儿很漂亮”仍表示花儿好看，所以答案是“漂亮”。“冷清”表示不热闹，“忙碌”表示事情多，“整齐”表示有条理，都不能表达花儿好看。",
+   "difficulty": 3,
+   "bloom": "应用",
+   "type": "single_choice",
+   "id": "pohw-CC01189"
+  },
+  {
+   "topic_id": "primary-g1-s2-chinese-K053",
+   "topic_name": "多音字",
+   "stem": "小飞虫正在空中飞，哪种动物常捕捉这样的飞虫？",
+   "options": [
+    "青蛙",
+    "啄木鸟",
+    "七星瓢虫",
+    "燕子"
+   ],
+   "answer": "D",
+   "explanation": "题目说昆虫正在空中飞。燕子会捕捉飞行中的昆虫，所以应选燕子；七星瓢虫常在植物叶片上捕食蚜虫。",
+   "difficulty": 2,
+   "bloom": "理解",
+   "type": "single_choice",
+   "id": "pohw-CC01190"
+  },
+  {
+   "topic_id": "primary-g1-s2-chinese-K083",
+   "topic_name": "词语运用",
+   "stem": "小鱼在水里游时，尾巴能帮助它怎样？",
+   "options": [
+    "赶走苍蝇",
+    "给树捉虫",
+    "拨水游动",
+    "在空中飞行"
+   ],
+   "answer": "C",
+   "explanation": "答案是“拨水游动”。题目问小鱼游动时尾巴的作用；鱼尾能拨动水，帮助鱼游动。赶苍蝇是牛尾常见的作用，不是鱼尾的作用。",
+   "difficulty": 2,
+   "bloom": "理解",
+   "type": "single_choice",
+   "id": "pohw-CC01191"
+  },
+  {
+   "topic_id": "primary-g1-s2-chinese-K074",
+   "topic_name": "益虫捕食领域归类",
+   "stem": "把动物和常见捕虫位置配对。A燕子，B啄木鸟，C七星瓢虫；1田里，2树干，3空中，4植物叶片。请选择正确的一组。",
+   "options": [
+    "A—1，B—2，C—4",
+    "A—3，B—2，C—4",
+    "A—3，B—4，C—2",
+    "A—2，B—3，C—4"
+   ],
+   "answer": "B",
+   "explanation": "答案是A—3，B—2，C—4。燕子常在空中捕食飞虫，所以A配3；啄木鸟会在树干上寻找害虫，所以B配2；七星瓢虫会吃植物叶片上的蚜虫，所以C配4。三种动物各与相应的常见捕虫位置配对。",
+   "difficulty": 3,
+   "bloom": "应用",
+   "type": "single_choice",
+   "id": "pohw-CC01192"
+  },
+  {
+   "topic_id": "primary-g1-s2-chinese-K058",
+   "topic_name": "字词义辨析",
+   "stem": "旧题改编：有一种动物常甩动尾巴赶苍蝇。下面哪种动物的尾巴有这个作用？",
+   "options": [
+    "鱼尾",
+    "牛尾",
+    "壁虎尾巴",
+    "燕子尾巴"
+   ],
+   "answer": "B",
+   "explanation": "答案是“牛尾”。题目说明动物用尾巴赶蝇；牛会甩动尾巴驱赶苍蝇。鱼尾帮助鱼拨水，壁虎断尾可帮助逃生，因此它们不符合题意。",
+   "difficulty": 3,
+   "bloom": "应用",
+   "type": "single_choice",
+   "id": "pohw-CC01193"
+  },
+  {
+   "topic_id": "primary-g1-s2-chinese-K086",
+   "topic_name": "课文识记",
+   "stem": "根据本课知识，燕子主要捕食什么？",
+   "options": [
+    "树干里的虫",
+    "叶片上的蚜虫",
+    "空中飞行的昆虫",
+    "水里的小鱼"
+   ],
+   "answer": "C",
+   "explanation": "答案是“空中飞行的昆虫”。大纲所列内容中，燕子捕食空中飞行的昆虫；啄木鸟在树干中找虫，七星瓢虫吃叶片上的蚜虫。",
+   "difficulty": 1,
+   "bloom": "记忆",
+   "type": "single_choice",
+   "id": "pohw-CC01194"
+  },
+  {
+   "topic_id": "primary-g1-s2-chinese-K082",
+   "topic_name": "词语辨析",
+   "stem": "桌面没有灰尘和污渍，我们可以说桌面很____。",
+   "options": [
+    "安静",
+    "整齐",
+    "干净",
+    "明亮"
+   ],
+   "answer": "C",
+   "explanation": "桌面没有灰尘和污渍，说明桌面很“干净”。“安静”说没有吵闹声，“整齐”说摆放有次序，“明亮”说光线充足，都不是题目给出的桌面状况。",
+   "difficulty": 1,
+   "bloom": "记忆",
+   "type": "single_choice",
+   "id": "pohw-CC01195"
+  },
+  {
+   "topic_id": "primary-g1-s2-chinese-K074",
+   "topic_name": "益虫捕食领域归类",
+   "stem": "棉花叶片上有蚜虫，下面哪种动物会吃这些蚜虫？",
+   "options": [
+    "燕子",
+    "啄木鸟",
+    "青蛙",
+    "七星瓢虫"
+   ],
+   "answer": "D",
+   "explanation": "答案是七星瓢虫。题目说明棉花叶片上有蚜虫；七星瓢虫会吃植物叶片上的蚜虫，能帮助棉花姑娘。",
+   "difficulty": 1,
+   "bloom": "记忆",
+   "type": "single_choice",
+   "id": "pohw-CC01196"
+  },
+  {
+   "topic_id": "primary-g1-s2-chinese-K053",
+   "topic_name": "多音字",
+   "stem": "植物叶片上有蚜虫，哪种动物常在叶片上捕食蚜虫？",
+   "options": [
+    "树干里的虫",
+    "叶片上的蚜虫",
+    "空中飞虫",
+    "水里的小鱼"
+   ],
+   "answer": "B",
+   "explanation": "七星瓢虫常在植物叶片上捕食蚜虫。题目明确说蚜虫在叶片上，因此七星瓢虫与这个捕食位置相符。",
+   "difficulty": 2,
+   "bloom": "理解",
+   "type": "single_choice",
+   "id": "pohw-CC01197"
+  },
+  {
+   "topic_id": "primary-g1-s2-chinese-K083",
+   "topic_name": "词语运用",
+   "stem": "燕子飞过田野时，常常怎样捕捉食物？",
+   "options": [
+    "在空中捉飞虫",
+    "在树干里找虫",
+    "在水里吃青草",
+    "在地上捉小鱼"
+   ],
+   "answer": "A",
+   "explanation": "答案是“在空中捉飞虫”。题目问燕子找食物的位置和方式；燕子会在飞行时捕捉空中飞行的昆虫，所以这个词语与燕子的习性相符。",
+   "difficulty": 2,
+   "bloom": "理解",
+   "type": "single_choice",
+   "id": "pohw-CC01198"
+  },
+  {
+   "topic_id": "primary-g1-s2-chinese-K086",
+   "topic_name": "课文识记",
+   "stem": "看到一个字带虫字旁，能不能只凭偏旁就认定它一定表示昆虫？",
+   "options": [
+    "一定",
+    "不一定",
+    "只表示植物",
+    "完全不能帮助猜意思"
+   ],
+   "answer": "B",
+   "explanation": "答案是“不一定”。偏旁能提供猜字义的线索，但不能保证字义完全符合偏旁所提示的类别。例如“蛇”带虫字旁，却不是昆虫；还要结合整个字和词语来判断。",
+   "difficulty": 3,
+   "bloom": "应用",
+   "type": "single_choice",
+   "id": "pohw-CC01199"
+  },
+  {
+   "topic_id": "primary-g1-s2-chinese-K075",
+   "topic_name": "短文理解",
+   "stem": "短文：啄木鸟在树干上寻找虫子。啄木鸟在哪里寻找虫子？",
+   "options": [
+    "水里",
+    "树干",
+    "天空",
+    "草地"
+   ],
+   "answer": "B",
+   "explanation": "短文说啄木鸟在树干上寻找虫子，所以它寻找虫子的地方是树干。",
+   "difficulty": 1,
+   "bloom": "记忆",
+   "type": "single_choice",
+   "id": "pohw-CC01200"
+  },
+  {
+   "topic_id": "primary-g1-s2-chinese-K075",
+   "topic_name": "短文理解",
+   "stem": "短文：小鱼摆动尾巴拨水，向前游去。小鱼的尾巴在做什么？",
+   "options": [
+    "赶苍蝇",
+    "拨水",
+    "找虫子",
+    "遮太阳"
+   ],
+   "answer": "B",
+   "explanation": "短文写小鱼摆动尾巴拨水，接着向前游去。由这两句可知，短文中小鱼的尾巴在拨水。",
+   "difficulty": 3,
+   "bloom": "应用",
+   "type": "single_choice",
+   "id": "pohw-CC01201"
+  },
+  {
+   "topic_id": "primary-g1-s2-chinese-K075",
+   "topic_name": "短文理解",
+   "stem": "短文：早晨，红红的太阳从东方升起。太阳是什么时候升起的？",
+   "options": [
+    "中午",
+    "早晨",
+    "晚上",
+    "下午"
+   ],
+   "answer": "B",
+   "explanation": "短文写明“早晨，红红的太阳从东方升起”，所以太阳升起的时间是早晨。",
+   "difficulty": 1,
+   "bloom": "记忆",
+   "type": "single_choice",
+   "id": "pohw-CC01202"
+  },
+  {
+   "topic_id": "primary-g1-s2-chinese-K058",
+   "topic_name": "字词义辨析",
+   "stem": "给汉字卡片分类：哪一个字带鸟字旁？",
+   "options": [
+    "蚂",
+    "河",
+    "鸡",
+    "猫"
+   ],
+   "answer": "C",
+   "explanation": "答案是“鸡”。“鸡”带鸟字旁，符合题目按鸟字旁归类的要求。“蚂”带虫字旁，“猫”带反犬旁，“河”带三点水旁。",
+   "difficulty": 2,
+   "bloom": "理解",
+   "type": "single_choice",
+   "id": "pohw-CC01203"
+  },
+  {
+   "topic_id": "primary-g1-s2-chinese-K053",
+   "topic_name": "多音字",
+   "stem": "虫子躲在树干里。根据学过的动物知识，哪种鸟会在树干上寻找虫子？",
+   "options": [
+    "叶片",
+    "树干",
+    "水里",
+    "空中"
+   ],
+   "answer": "B",
+   "explanation": "啄木鸟会在树干上寻找并啄食里面的虫子。题目给出的虫在树干里，因此捕食位置是树干。",
+   "difficulty": 3,
+   "bloom": "应用",
+   "type": "single_choice",
+   "id": "pohw-CC01204"
+  },
+  {
+   "topic_id": "primary-g1-s2-chinese-K043",
+   "topic_name": "动物尾巴的功能性",
+   "stem": "请选出动物和尾巴作用配对正确的一组。",
+   "options": [
+    "小壁虎的尾巴可以断后再长出；小鱼的尾巴拨水；老牛的尾巴赶蝇；燕子的尾巴帮助飞行",
+    "小壁虎的尾巴用来拨水；小鱼的尾巴能赶蝇；老牛的尾巴帮助飞行；燕子的尾巴断后再长出",
+    "小壁虎的尾巴能赶蝇；小鱼的尾巴帮助飞行；老牛的尾巴拨水；燕子的尾巴断后再长出",
+    "小壁虎的尾巴帮助飞行；小鱼的尾巴断后再长出；老牛的尾巴拨水；燕子的尾巴能赶蝇"
+   ],
+   "answer": "A",
+   "explanation": "答案是“小壁虎的尾巴可以断后再长出；小鱼的尾巴拨水；老牛的尾巴赶蝇；燕子的尾巴帮助飞行”。这四种配对分别对应壁虎断尾后可以再长出尾巴、鱼尾拨水、牛尾赶蝇和燕子尾巴帮助飞行。",
+   "difficulty": 2,
+   "bloom": "理解",
+   "type": "single_choice",
+   "id": "pohw-CC01205"
+  },
+  {
+   "topic_id": "primary-g1-s2-chinese-K050",
+   "topic_name": "句式结构",
+   "stem": "选出意思完整、表达通顺的一句话。",
+   "options": [
+    "小鸟飞走了。",
+    "小鸟。",
+    "飞走了小鸟。",
+    "小鸟在。"
+   ],
+   "answer": "A",
+   "explanation": "答案是“小鸟飞走了。”这句话说清楚了谁（小鸟）和它做什么（飞走了），意思完整、表达通顺。“小鸟。”没有说清楚小鸟怎么样；“飞走了小鸟。”语序不自然。",
+   "difficulty": 1,
+   "bloom": "记忆",
+   "type": "single_choice",
+   "id": "pohw-CC01206"
+  },
+  {
+   "topic_id": "primary-g1-s2-chinese-K050",
+   "topic_name": "句式结构",
+   "stem": "选出按“先说谁、再说地点、最后说做什么”排列的一句话。",
+   "options": [
+    "妹妹画画在屋里。",
+    "妹妹在屋里画画。",
+    "在屋里妹妹画画。",
+    "画画妹妹在屋里。"
+   ],
+   "answer": "B",
+   "explanation": "答案是“妹妹在屋里画画。”题目要求先说谁、再说地点、最后说做什么。“妹妹”是对象，“在屋里”说明地点，“画画”说她做的事，符合指定顺序。",
+   "difficulty": 3,
+   "bloom": "应用",
+   "type": "single_choice",
+   "id": "pohw-CC01207"
+  },
+  {
+   "topic_id": "primary-g1-s2-chinese-K082",
+   "topic_name": "词语辨析",
+   "stem": "阳光照进屋里，桌上的东西看得很清楚。可以说屋里很____。",
+   "options": [
+    "整齐",
+    "安静",
+    "美味",
+    "明亮"
+   ],
+   "answer": "D",
+   "explanation": "屋里有阳光，东西看得清楚，说明光线充足，应说屋里“明亮”。“整齐”说东西摆放有次序，“安静”说没有吵闹声，“美味”形容食物味道好，都不符合题目给出的光线线索。",
+   "difficulty": 3,
+   "bloom": "应用",
+   "type": "single_choice",
+   "id": "pohw-CC01208"
+  },
+  {
+   "topic_id": "primary-g1-s2-chinese-K082",
+   "topic_name": "词语辨析",
+   "stem": "饭菜的味道很好，可以说：“这顿饭真____！”",
+   "options": [
+    "美丽",
+    "美味",
+    "美妙",
+    "好看"
+   ],
+   "answer": "B",
+   "explanation": "句子说饭菜的味道很好，所以选“美味”。“美味”形容食物味道好；“美丽”通常形容样子好看，“美妙”常形容声音或感受很好，“好看”也说样子，不适合说明饭菜味道。",
+   "difficulty": 1,
+   "bloom": "记忆",
+   "type": "single_choice",
+   "id": "pohw-CC01209"
+  },
+  {
+   "topic_id": "primary-g1-s2-chinese-K043",
+   "topic_name": "动物尾巴的功能性",
+   "stem": "鱼儿在水里游动时，尾巴拨水能帮助它做什么？",
+   "options": [
+    "帮助游动",
+    "赶走苍蝇",
+    "断尾后马上长好",
+    "帮助在陆地上奔跑"
+   ],
+   "answer": "A",
+   "explanation": "答案是“帮助游动”。题目说鱼儿在水里游动，尾巴拨水能帮助它游动；赶蝇是牛尾的作用，断尾后再长出尾巴是壁虎的特点。",
+   "difficulty": 2,
+   "bloom": "理解",
+   "type": "single_choice",
+   "id": "pohw-CC01210"
+  },
+  {
+   "topic_id": "primary-g1-s2-chinese-K084",
+   "topic_name": "语言表达",
+   "stem": "“亮晶晶”是ABB式词语。它的字形特点是什么？",
+   "options": [
+    "第二个和第三个字相同",
+    "第一个和第二个字相同",
+    "四个字都相同",
+    "每个字都不相同"
+   ],
+   "answer": "A",
+   "explanation": "答案是“第二个和第三个字相同”。“亮晶晶”由“亮”和两个“晶”组成，符合ABB式；“安安静静”是AABB式，不能只因为词语里有重复字就归为ABB式。",
+   "difficulty": 2,
+   "bloom": "理解",
+   "type": "single_choice",
+   "id": "pohw-CC01211"
+  },
+  {
+   "topic_id": "primary-g1-s2-chinese-K044",
+   "topic_name": "反义词",
+   "stem": "“单”的反义词通常是哪个？",
+   "options": [
+    "双",
+    "大",
+    "上",
+    "来"
+   ],
+   "answer": "A",
+   "explanation": "答案是“双”。“单”表示一个，“双”表示两个，数量意思相反，所以“单”的反义词通常是“双”。",
+   "difficulty": 1,
+   "bloom": "记忆",
+   "type": "single_choice",
+   "id": "pohw-CC01212"
+  },
+  {
+   "topic_id": "primary-g1-s2-chinese-K080",
+   "topic_name": "词语搭配",
+   "stem": "“叽叽喳喳的小鸟”中，“叽叽喳喳”描写鸟叫声。下面哪一个能发出鸟叫声？",
+   "options": [
+    "石头",
+    "小鸟",
+    "桌子",
+    "棉花"
+   ],
+   "answer": "B",
+   "explanation": "答案是“小鸟”。“叽叽喳喳”在这里描写鸟叫声，能发出鸟叫声的动物是小鸟；石头、桌子和棉花都不是会发出鸟叫声的动物。",
+   "difficulty": 2,
+   "bloom": "理解",
+   "type": "single_choice",
+   "id": "pohw-CC01213"
+  },
+  {
+   "topic_id": "primary-g1-s2-chinese-K089",
+   "topic_name": "部首识别",
+   "stem": "“吃”和“叫”的左边都有相同的部件。这个部件是：",
+   "options": [
+    "足字旁",
+    "口字旁",
+    "提手旁",
+    "走字底"
+   ],
+   "answer": "B",
+   "explanation": "“吃”和“叫”的左边都有口字旁，所以这两个字共同的部件是口字旁。",
+   "difficulty": 1,
+   "bloom": "记忆",
+   "type": "single_choice",
+   "id": "pohw-CC01214"
+  },
+  {
+   "topic_id": "primary-g1-s2-chinese-K057",
+   "topic_name": "字义辨析",
+   "stem": "“小鸭子很快就游到了小公鸡身边。”要把“很快”换成一个词，可以说小鸭子____地游到了小公鸡身边。",
+   "options": [
+    "飞快",
+    "快乐",
+    "吃力",
+    "难过"
+   ],
+   "answer": "A",
+   "explanation": "答案是“飞快”。题目说小鸭子很快就到了小公鸡身边，线索是到达的速度快。“飞快”表示速度很快；“快乐”表示心情好，“吃力”表示做起来费劲，“难过”表示伤心，都不符合这个速度线索。",
+   "difficulty": 2,
+   "bloom": "理解",
+   "type": "single_choice",
+   "id": "pohw-CC01215"
+  },
+  {
+   "topic_id": "primary-g1-s2-chinese-K053",
+   "topic_name": "多音字",
+   "stem": "“快乐”中的“乐”读作：",
+   "options": [
+    "yuè",
+    "lè",
+    "rè",
+    "lǜ"
+   ],
+   "answer": "B",
+   "explanation": "答案是lè。“快乐”表示心情愉快，“乐”在“快乐”中读lè；“音乐”中的“乐”读yuè。",
+   "difficulty": 1,
+   "bloom": "记忆",
+   "type": "single_choice",
+   "id": "pohw-CC01216"
+  },
+  {
+   "topic_id": "primary-g1-s2-chinese-K080",
+   "topic_name": "词语搭配",
+   "stem": "“胖乎乎”是ABB式词语。它符合下面哪种特点？",
+   "options": [
+    "三个字，前两个字相同",
+    "三个字，后两个字相同",
+    "四个字，前后各有两个相同的字",
+    "两个字，两个字相同"
+   ],
+   "answer": "B",
+   "explanation": "答案是“三个字，后两个字相同”。“胖乎乎”由“胖、乎、乎”三个字组成，后两个字相同，所以是ABB式；它不是四个字的AABB式。",
+   "difficulty": 2,
+   "bloom": "理解",
+   "type": "single_choice",
+   "id": "pohw-CC01217"
+  },
+  {
+   "topic_id": "primary-g1-s2-chinese-K084",
+   "topic_name": "语言表达",
+   "stem": "“花”读huā。查“花”时，音序应选哪一个？",
+   "options": [
+    "h",
+    "H",
+    "huā",
+    "花"
+   ],
+   "answer": "B",
+   "explanation": "答案是“H”。“花”读huā，读音首字母是h，对应的大写字母是H，所以“花”的音序是H。查字时还要继续找音节huā和对应页码。",
+   "difficulty": 1,
+   "bloom": "记忆",
+   "type": "single_choice",
+   "id": "pohw-CC01218"
+  },
+  {
+   "topic_id": "primary-g1-s2-chinese-K053",
+   "topic_name": "多音字",
+   "stem": "“音乐”中的“乐”读作：",
+   "options": [
+    "lè",
+    "yuè",
+    "lǜ",
+    "rè"
+   ],
+   "answer": "B",
+   "explanation": "答案是yuè。“音乐”指歌曲或乐曲，“乐”在“音乐”中读yuè；“快乐”中的“乐”读lè。",
+   "difficulty": 1,
+   "bloom": "记忆",
+   "type": "single_choice",
+   "id": "pohw-CC01219"
+  },
+  {
+   "topic_id": "primary-g1-s2-chinese-K081",
+   "topic_name": "词语积累",
+   "stem": "一块布摸起来柔软，拿起来也很轻。下面哪句话同时符合这两条信息？",
+   "options": [
+    "这块布很硬。",
+    "这块布又软又轻。",
+    "这块布很重。",
+    "这块布很响。"
+   ],
+   "answer": "B",
+   "explanation": "答案是“这块布又软又轻。”题目给出的两条信息是这块布摸起来柔软、拿起来很轻，这句话同时符合两条信息。“这块布很硬”与柔软相反；“这块布很重”与很轻相反；“这块布很响”说的是声音，不符合题意。",
+   "difficulty": 3,
+   "bloom": "应用",
+   "type": "single_choice",
+   "id": "pohw-CC01220"
+  },
+  {
+   "topic_id": "primary-g1-s2-chinese-K044",
+   "topic_name": "反义词",
+   "stem": "一根绳子不长，可以说它很____。",
+   "options": [
+    "高",
+    "短",
+    "多",
+    "慢"
+   ],
+   "answer": "B",
+   "explanation": "答案是“短”。“长”和“短”都可以说物体的长度，意思相反，所以它们是一对反义词。",
+   "difficulty": 1,
+   "bloom": "记忆",
+   "type": "single_choice",
+   "id": "pohw-CC01221"
+  },
+  {
+   "topic_id": "primary-g1-s2-chinese-K080",
+   "topic_name": "词语搭配",
+   "stem": "下列词语中，哪一个常用来描写水流的声音？",
+   "options": [
+    "绿油油",
+    "亮晶晶",
+    "哗啦啦",
+    "软绵绵"
+   ],
+   "answer": "C",
+   "explanation": "答案是“哗啦啦”。题目限定要找常用来描写水流声音的词语；“哗啦啦”可以描写水流的声音。“绿油油”常描写绿色，“亮晶晶”常描写明亮的样子，“软绵绵”常描写柔软的样子。",
+   "difficulty": 1,
+   "bloom": "记忆",
+   "type": "single_choice",
+   "id": "pohw-CC01222"
+  },
+  {
+   "topic_id": "primary-g1-s2-chinese-K057",
+   "topic_name": "字义辨析",
+   "stem": "下面哪个词表示动作的速度很快？",
+   "options": [
+    "吃力",
+    "难过",
+    "飞快",
+    "快乐"
+   ],
+   "answer": "C",
+   "explanation": "答案是“飞快”。题目要求选出表示速度很快的词。“飞快”表示速度快；“吃力”表示做起来费劲，“快乐”表示心情好，“难过”表示伤心。",
+   "difficulty": 2,
+   "bloom": "理解",
+   "type": "single_choice",
+   "id": "pohw-CC01223"
+  },
+  {
+   "topic_id": "primary-g1-s2-chinese-K081",
+   "topic_name": "词语积累",
+   "stem": "下面哪个词语有三个字，而且后两个字相同？",
+   "options": [
+    "红花",
+    "亮晶晶",
+    "高高兴兴",
+    "叮当响"
+   ],
+   "answer": "B",
+   "explanation": "答案是“亮晶晶”。它有三个字，后两个字都是“晶”，符合题目要求的三个字且后两个字相同。“红花”只有两个字；“高高兴兴”有四个字；“叮当响”的后两个字不同。",
+   "difficulty": 1,
+   "bloom": "记忆",
+   "type": "single_choice",
+   "id": "pohw-CC01224"
+  },
+  {
+   "topic_id": "primary-g1-s2-chinese-K042",
+   "topic_name": "动宾搭配",
+   "stem": "从旧题中的词语搭配里，选出表示用脚踢足球的词语。",
+   "options": [
+    "跳足球",
+    "听音乐",
+    "踢足球",
+    "关门"
+   ],
+   "answer": "C",
+   "explanation": "答案是“踢足球”。旧题给出的动作词中，“踢”与“足球”搭配，表示用脚踢足球；其余搭配不符合“用脚踢足球”这一动作线索。",
+   "difficulty": 1,
+   "bloom": "记忆",
+   "type": "single_choice",
+   "id": "pohw-CC01225"
+  },
+  {
+   "topic_id": "primary-g1-s2-chinese-K046",
+   "topic_name": "口语交际：礼貌请求",
+   "stem": "你坐在座位上，需要同桌帮你递一本书。选一句礼貌的请求。",
+   "options": [
+    "把书递给我。",
+    "请把书递给我，好吗？",
+    "你为什么不递书？",
+    "我不要这本书。"
+   ],
+   "answer": "B",
+   "explanation": "答案是“请把书递给我，好吗？”题目要求礼貌地请同桌递书，这句话用“请”和“好吗”提出清楚的请求，语气是商量的；“把书递给我”没有礼貌用语，像是在直接要求。",
+   "difficulty": 3,
+   "bloom": "应用",
+   "type": "single_choice",
+   "id": "pohw-CC01226"
+  },
+  {
+   "topic_id": "primary-g1-s2-chinese-K046",
+   "topic_name": "口语交际：礼貌请求",
+   "stem": "你想去同学家玩，怎么跟妈妈说最礼貌？",
+   "options": [
+    "我要去小明家！",
+    "妈，快送我去小明家。",
+    "妈妈，我可以去小明家玩吗？",
+    "小明让我去他家。"
+   ],
+   "answer": "C",
+   "explanation": "答案是“妈妈，我可以去小明家玩吗？”这句话先称呼妈妈，再用“可以……吗”商量，清楚地说出想去小明家玩的请求；其他说法像命令，或没有直接礼貌地询问。",
+   "difficulty": 2,
+   "bloom": "理解",
+   "type": "single_choice",
+   "id": "pohw-CC01227"
+  },
+  {
+   "topic_id": "primary-g1-s2-chinese-K057",
+   "topic_name": "字义辨析",
+   "stem": "大家都停止说话后，教室里没有吵闹声。教室里很____。选最合适的词。",
+   "options": [
+    "快乐",
+    "安静",
+    "难过",
+    "飞快"
+   ],
+   "answer": "B",
+   "explanation": "答案是“安静”。题目说大家停止说话，教室里没有吵闹声，描述的是教室的状态。“安静”表示没有吵闹声；“快乐”表示心情好，不适合描述这里的声音状态。",
+   "difficulty": 3,
+   "bloom": "应用",
+   "type": "single_choice",
+   "id": "pohw-CC01228"
+  },
+  {
+   "topic_id": "primary-g1-s2-chinese-K036",
+   "topic_name": "ABB式词语积累",
+   "stem": "天黑了，教室里没有人，也没有声音。下面哪个词语最适合形容教室？",
+   "options": [
+    "笑嘻嘻",
+    "静悄悄",
+    "胖乎乎",
+    "红润润"
+   ],
+   "answer": "B",
+   "explanation": "题目说明教室里没有人，也没有声音，适合用“静悄悄”描写安静的状态。“笑嘻嘻”描写笑的样子，“胖乎乎”描写样子，“红润润”常描写颜色或气色。",
+   "difficulty": 2,
+   "bloom": "理解",
+   "type": "single_choice",
+   "id": "pohw-CC01229"
+  },
+  {
+   "topic_id": "primary-g1-s2-chinese-K081",
+   "topic_name": "词语积累",
+   "stem": "小兔走路时没有弄出大声音。选一句最符合题意的话。",
+   "options": [
+    "小兔大声地走进屋里。",
+    "小兔轻轻地走进屋里。",
+    "小兔香喷喷地走进屋里。",
+    "小兔红彤彤地走进屋里。"
+   ],
+   "answer": "B",
+   "explanation": "答案是“小兔轻轻地走进屋里。”题目说明小兔走路时没有弄出大声音，“轻轻地”表示动作轻，符合这个意思；“大声地”与没有大声音相反，另外两个词分别表示香味和颜色，不说明走路的声音大小。",
+   "difficulty": 2,
+   "bloom": "理解",
+   "type": "single_choice",
+   "id": "pohw-CC01230"
+  },
+  {
+   "topic_id": "primary-g1-s2-chinese-K037",
+   "topic_name": "中外传闻及课文理解",
+   "stem": "小军没有看见小狗，只听同学说操场边有一只小狗。哪句话准确说明了消息来源和地点？",
+   "options": [
+    "我听同学说操场边有一只小狗。",
+    "我亲眼看见操场边有一只小狗。",
+    "我听同学说教室里有一只小狗。",
+    "同学没有告诉我小狗在哪里。"
+   ],
+   "answer": "A",
+   "explanation": "答案是“我听同学说操场边有一只小狗。”题干说小军没有亲眼看见小狗，只听同学说起，因此准确的表达要说明消息来自同学，不能说自己亲眼看见，也不能把地点改成教室。",
+   "difficulty": 2,
+   "bloom": "理解",
+   "type": "single_choice",
+   "id": "pohw-CC01231"
+  },
+  {
+   "topic_id": "primary-g1-s2-chinese-K053",
+   "topic_name": "多音字",
+   "stem": "小明心情很好，说：“我很快乐。”这句话中的“乐”读作：",
+   "options": [
+    "lè",
+    "yuè",
+    "lǜ",
+    "rè"
+   ],
+   "answer": "A",
+   "explanation": "答案是lè。句子说小明心情很好，“快乐”表示心情愉快，其中的“乐”读lè；“音乐”中的“乐”读yuè。",
+   "difficulty": 3,
+   "bloom": "应用",
+   "type": "single_choice",
+   "id": "pohw-CC01232"
+  },
+  {
+   "topic_id": "primary-g1-s2-chinese-K084",
+   "topic_name": "语言表达",
+   "stem": "小明想请老师帮忙递一本书，哪句话说得最有礼貌？",
+   "options": [
+    "把书给我！",
+    "请您把书递给我，好吗？",
+    "你必须把书递给我。",
+    "书，快拿来。"
+   ],
+   "answer": "B",
+   "explanation": "答案是“请您把书递给我，好吗？”小明想请老师递书，这句话用“请您”和“好吗”礼貌地提出请求，没有把请求说成命令。",
+   "difficulty": 1,
+   "bloom": "记忆",
+   "type": "single_choice",
+   "id": "pohw-CC01233"
+  },
+  {
+   "topic_id": "primary-g1-s2-chinese-K044",
+   "topic_name": "反义词",
+   "stem": "小明把门关上了。和“关”意思相反、能与“门”搭配的词是哪个？",
+   "options": [
+    "大",
+    "开",
+    "多",
+    "长"
+   ],
+   "answer": "B",
+   "explanation": "答案是“开”。按题目给定的“门”这个词，“开门”与“关门”表示相反的状态或动作；“大”“多”“长”都不是“关”的反义词。",
+   "difficulty": 3,
+   "bloom": "应用",
+   "type": "single_choice",
+   "id": "pohw-CC01234"
+  },
+  {
+   "topic_id": "primary-g1-s2-chinese-K057",
+   "topic_name": "字义辨析",
+   "stem": "小明搬一个大箱子，搬得满头大汗，费了很大劲。他搬得很____。选最合适的词。",
+   "options": [
+    "快乐",
+    "飞快",
+    "吃力",
+    "难过"
+   ],
+   "answer": "C",
+   "explanation": "答案是“吃力”。题目明确说小明搬箱子时费了很大劲，线索是做起来费劲。“吃力”正表示做事费劲；“飞快”表示速度快，不表示费劲。",
+   "difficulty": 3,
+   "bloom": "应用",
+   "type": "single_choice",
+   "id": "pohw-CC01235"
+  },
+  {
+   "topic_id": "primary-g1-s2-chinese-K037",
+   "topic_name": "中外传闻及课文理解",
+   "stem": "小明没有去花坛边看花，只听同学说那里有一朵花。哪句话既说清了消息来自哪里，也说明小明还没有亲自看过？",
+   "options": [
+    "我听同学说花坛边有一朵花，我还没有去看。",
+    "我亲眼看见花坛边有一朵花。",
+    "同学没有告诉我花坛边的事。",
+    "我听同学说教室里有一朵花。"
+   ],
+   "answer": "A",
+   "explanation": "答案是“我听同学说花坛边有一朵花，我还没有去看。”小明没有亲自去花坛边看，消息来自同学，因此这句话说清了消息来源，也没有把听来的事说成亲眼所见。",
+   "difficulty": 2,
+   "bloom": "理解",
+   "type": "single_choice",
+   "id": "pohw-CC01236"
+  },
+  {
+   "topic_id": "primary-g1-s2-chinese-K089",
+   "topic_name": "部首识别",
+   "stem": "小明说：“跑”和“这”有同一个部件，因为它们都和走动有关。”看字形，哪个部件在“跑”的左边，而不在“这”的下边？",
+   "options": [
+    "口字旁",
+    "提手旁",
+    "走字底",
+    "足字旁"
+   ],
+   "answer": "D",
+   "explanation": "看字形可知，“跑”左边是足字旁（⻊）；“这”下边是走之底（辶）。题目问“跑”左边、而“这”下边没有的部件，因此答案是足字旁。",
+   "difficulty": 3,
+   "bloom": "应用",
+   "type": "single_choice",
+   "id": "pohw-CC01237"
+  },
+  {
+   "topic_id": "primary-g1-s2-chinese-K036",
+   "topic_name": "ABB式词语积累",
+   "stem": "小猫身体圆圆的，看起来胖胖的。下面哪个三字词语是ABB式，又适合描写小猫的样子？",
+   "options": [
+    "胖乎乎",
+    "安安静静",
+    "高高兴兴",
+    "叽叽喳喳"
+   ],
+   "answer": "A",
+   "explanation": "“胖乎乎”由“胖”和两个相同的“乎”组成，是ABB式，也适合描写小猫胖胖的样子。“安安静静”“高高兴兴”和“叽叽喳喳”都是AABB式，不符合题目要求。",
+   "difficulty": 3,
+   "bloom": "应用",
+   "type": "single_choice",
+   "id": "pohw-CC01238"
+  },
+  {
+   "topic_id": "primary-g1-s2-chinese-K037",
+   "topic_name": "中外传闻及课文理解",
+   "stem": "小红站在窗边看见一只小鸟，告诉了没有到窗边的小明。哪句话说得准确？",
+   "options": [
+    "小红看见窗边有一只小鸟；小明听小红说窗边有一只小鸟。",
+    "小红和小明都亲眼看见窗边有一只小鸟。",
+    "小红听小明说窗边有一只小鸟；小明亲眼看见了。",
+    "小红看见窗边有两只小鸟；小明也看见了。"
+   ],
+   "answer": "A",
+   "explanation": "答案是“小红看见窗边有一只小鸟；小明听小红说窗边有一只小鸟。”小红亲眼看见了，可以说自己看见；小明没有到窗边，只听小红告诉他，不能说自己也看见了。",
+   "difficulty": 3,
+   "bloom": "应用",
+   "type": "single_choice",
+   "id": "pohw-CC01239"
+  },
+  {
+   "topic_id": "primary-g1-s2-chinese-K046",
+   "topic_name": "口语交际：礼貌请求",
+   "stem": "小雨双手拿着画纸，想请哥哥帮忙拿开彩笔盒。哪句话最合适？",
+   "options": [
+    "快拿给我。",
+    "请你帮我把这盒彩笔拿一下，好吗？",
+    "我不想画画了。",
+    "你自己拿吧。"
+   ],
+   "answer": "B",
+   "explanation": "答案是“请你帮我把这盒彩笔拿一下，好吗？”小雨双手拿着画纸，需要哥哥帮忙拿开彩笔盒；这句话用“请”和“好吗”礼貌地说明了请求。哥哥答应后，小雨还应说“谢谢”。不能说“快拿给我”，因为那听起来像命令。",
+   "difficulty": 3,
+   "bloom": "应用",
+   "type": "single_choice",
+   "id": "pohw-CC01240"
+  },
+  {
+   "topic_id": "primary-g1-s2-chinese-K042",
+   "topic_name": "动宾搭配",
+   "stem": "小雨用眼睛看书上的字。下面哪个词语最符合她正在做的动作？",
+   "options": [
+    "读故事",
+    "看书",
+    "听音乐",
+    "提水"
+   ],
+   "answer": "B",
+   "explanation": "答案是“看书”。题目说小雨用眼睛读书上的字，动作是“看”，对象是“书”，所以说“看书”。“读书”也是通顺的词语，但题目要根据“用眼睛看”的动作来选择。",
+   "difficulty": 3,
+   "bloom": "应用",
+   "type": "single_choice",
+   "id": "pohw-CC01241"
+  },
+  {
+   "topic_id": "primary-g1-s2-chinese-K093",
+   "topic_name": "音序查字法步骤",
+   "stem": "已经找到音序“L”，接下来要找音节。下面哪个音节的首字母与“L”对应？",
+   "options": [
+    "le",
+    "he",
+    "la",
+    "ne"
+   ],
+   "answer": "C",
+   "explanation": "找到音序 L 后，要在这个音序下找音节。音节 la 的第一个字母是小写 l，与大写音序 L 对应；he、me、ne 的首字母都不是 l。",
+   "difficulty": 3,
+   "bloom": "应用",
+   "type": "single_choice",
+   "id": "pohw-CC01242"
+  },
+  {
+   "topic_id": "primary-g1-s2-chinese-K093",
+   "topic_name": "音序查字法步骤",
+   "stem": "查“云”字时，已知它的音节是 yun。按音序查字法，第一步应该做什么？",
+   "options": [
+    "先找音节“云”的音序 Y",
+    "先找“云”的页码",
+    "先翻到字典中任意一页",
+    "先按笔画数找“云”"
+   ],
+   "answer": "A",
+   "explanation": "题目已知“云”的音节是 yun。音序是音节第一个字母的大写形式，所以第一步先找大写字母 Y，而不是先找页码或按笔画查字。",
+   "difficulty": 3,
+   "bloom": "应用",
+   "type": "single_choice",
+   "id": "pohw-CC01243"
+  },
+  {
+   "topic_id": "primary-g1-s2-chinese-K048",
+   "topic_name": "古诗理解",
+   "stem": "根据“桃花潭水深千尺，不及汪伦送我情”，诗人想表达什么？",
+   "options": [
+    "桃花潭水比汪伦送别李白的情意更值得珍视",
+    "李白没有听见岸上的踏歌声",
+    "汪伦送别李白的情意值得珍视",
+    "诗句是在报告桃花潭水的实际深度"
+   ],
+   "answer": "C",
+   "explanation": "答案是“汪伦送别李白的情意值得珍视”。诗句先写桃花潭水很深，再说潭水“不及”汪伦送别自己的情意；“不及”是比不上。诗人借潭水表达对汪伦情意的珍视，并非在报告两者的实际测量结果。",
+   "difficulty": 3,
+   "bloom": "应用",
+   "type": "single_choice",
+   "id": "pohw-CC01244"
+  },
+  {
+   "topic_id": "primary-g1-s2-chinese-K089",
+   "topic_name": "部首识别",
+   "stem": "看“打、拍”两个字的左边，它们都有哪个相同的部件？",
+   "options": [
+    "走字底",
+    "提手旁",
+    "口字旁",
+    "足字旁"
+   ],
+   "answer": "B",
+   "explanation": "“打”和“拍”的左边都带提手旁（扌），所以它们左边相同的部件是提手旁。",
+   "difficulty": 1,
+   "bloom": "记忆",
+   "type": "single_choice",
+   "id": "pohw-CC01245"
+  },
+  {
+   "topic_id": "primary-g1-s2-chinese-K089",
+   "topic_name": "部首识别",
+   "stem": "看“跳、跑、踢”三个字的左边，它们都有哪个相同的部件？",
+   "options": [
+    "口字旁",
+    "足字旁",
+    "提手旁",
+    "走字底"
+   ],
+   "answer": "B",
+   "explanation": "“跳、跑、踢”三个字左边都有足字旁（⻊）。题目要求观察它们左边相同的部件，所以答案是足字旁。",
+   "difficulty": 1,
+   "bloom": "记忆",
+   "type": "single_choice",
+   "id": "pohw-CC01246"
+  },
+  {
+   "topic_id": "primary-g1-s2-chinese-K053",
+   "topic_name": "多音字",
+   "stem": "读一读：“音乐让我快乐。”两个“乐”的读音分别是什么？",
+   "options": [
+    "两处都读yuè",
+    "第一处读yuè，第二处读lè",
+    "两处都读lè",
+    "第一处读lè，第二处读yuè"
+   ],
+   "answer": "B",
+   "explanation": "答案是“第一处读yuè，第二处读lè”。第一处“乐”在“音乐”中，读yuè；第二处“乐”在“快乐”中，读lè。要根据每个“乐”所在的词语分别判断。",
+   "difficulty": 3,
+   "bloom": "应用",
+   "type": "single_choice",
+   "id": "pohw-CC01247"
+  },
+  {
+   "topic_id": "primary-g1-s2-chinese-K076",
+   "topic_name": "短文阅读",
+   "stem": "读短文后选择：下雨了，小猴子没有带伞，衣服湿了。小兔子把自己的伞借给小猴子。小兔子怎样帮助了小猴子？",
+   "options": [
+    "小兔子把伞借给小猴子。",
+    "小猴子把伞借给小兔子。",
+    "小兔子请小猴子一起找伞。",
+    "短文没有说谁帮助了谁。"
+   ],
+   "answer": "A",
+   "explanation": "短文先说小猴子没有带伞、衣服湿了，接着明确写出小兔子把自己的伞借给小猴子。因此，小兔子是用借伞的办法帮助小猴子。",
+   "difficulty": 3,
+   "bloom": "应用",
+   "type": "single_choice",
+   "id": "pohw-CC01248"
+  },
+  {
+   "topic_id": "primary-g1-s2-chinese-K076",
+   "topic_name": "短文阅读",
+   "stem": "读短文后选择：小丽看到花盆里的土干了，就请小红一起给花浇水。她们做了什么？",
+   "options": [
+    "小丽和小红一起给花浇了水。",
+    "小红一个人把花盆搬走了。",
+    "小丽把花送给了小红。",
+    "小红请小丽去找水杯。"
+   ],
+   "answer": "A",
+   "explanation": "短文说小丽请小红一起给花浇水，因此两个人一起浇了水。答案是“小丽和小红一起给花浇了水。”",
+   "difficulty": 3,
+   "bloom": "应用",
+   "type": "single_choice",
+   "id": "pohw-CC01249"
+  },
+  {
+   "topic_id": "primary-g1-s2-chinese-K042",
+   "topic_name": "动宾搭配",
+   "stem": "选出表示用耳朵感受音乐声音的词语。",
+   "options": [
+    "看音乐",
+    "听音乐",
+    "读音乐",
+    "关音乐"
+   ],
+   "answer": "B",
+   "explanation": "答案是“听音乐”。“听”表示用耳朵感受声音，“音乐”是听的对象。“看音乐”可用于表示看音乐相关内容，但不符合用耳朵感受音乐声音的线索；“读音乐”和“关音乐”也不符合这个线索。",
+   "difficulty": 1,
+   "bloom": "记忆",
+   "type": "single_choice",
+   "id": "pohw-CC01250"
+  },
+  {
+   "topic_id": "primary-g1-s2-chinese-K042",
+   "topic_name": "动宾搭配",
+   "stem": "选出表示进行球类活动的通顺词语。",
+   "options": [
+    "打球",
+    "看书",
+    "听音乐",
+    "提水"
+   ],
+   "answer": "A",
+   "explanation": "答案是“打球”。“打”表示动作，“球”是动作对象；“打球”表示进行球类活动。其他搭配虽然也能组成词语，但不表示进行球类活动。",
+   "difficulty": 1,
+   "bloom": "记忆",
+   "type": "single_choice",
+   "id": "pohw-CC01251"
+  },
+  {
+   "topic_id": "primary-g1-s2-chinese-K085",
+   "topic_name": "课文总结",
+   "stem": "通过本单元的学习，我们知道了什么最快乐？",
+   "options": [
+    "一个人玩",
+    "独自看书",
+    "和伙伴在一起",
+    "吃零食"
+   ],
+   "answer": "C",
+   "explanation": "全单元主题是“伙伴”，强调共同相处、互相帮助的快乐。",
+   "difficulty": 3,
+   "bloom": "应用",
+   "type": "single_choice",
+   "id": "pohw-CC01252"
+  },
+  {
+   "topic_id": "primary-g1-s2-chinese-K081",
+   "topic_name": "词语积累",
+   "stem": "风吹过，挂在门上的小铃铛发出清脆的声音。选词填空：“铃铛____响起来。”",
+   "options": [
+    "静悄悄地",
+    "叮叮当当地",
+    "软绵绵地",
+    "绿油油地"
+   ],
+   "answer": "B",
+   "explanation": "答案是“叮叮当当地”。句子说小铃铛发出清脆的声音，“叮叮当当”可以描写铃铛的声音。“静悄悄”表示安静，“软绵绵”描写柔软的样子，“绿油油”描写绿色的样子，都不能描写铃铛发出的声音。",
+   "difficulty": 3,
+   "bloom": "应用",
+   "type": "single_choice",
+   "id": "pohw-CC01253"
   }
  ]
 }

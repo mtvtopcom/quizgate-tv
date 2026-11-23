@@ -2,6 +2,8 @@ package app.quizgate.tv;
 
 import android.content.Context;
 import android.graphics.drawable.GradientDrawable;
+import android.text.TextUtils;
+import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.KeyEvent;
 import android.view.View;
@@ -30,7 +32,11 @@ public class MaskView extends FrameLayout {
     private final int extendMin;
 
     private final TextView stemView;
+    private final TextView kicker;
     private final TextView feedback;
+    private final TextView hint;
+    private final TextView nextBtn;
+    private final LinearLayout brandRow;
     private final TextView[] opts = new TextView[4];
     private final LinearLayout box;
 
@@ -39,6 +45,8 @@ public class MaskView extends FrameLayout {
     private RecoveryFlow recovery;
     private boolean pinVisible = false;
     private boolean answering = false;
+    /** 答错后停在解析页，等用户按「下一题」才继续。true 时除 OK 外的按键一律吞掉。 */
+    private boolean waitNext = false;
     /** 当前选中的选项。遮罩在悬浮窗里，不能靠焦点树，只能自己记。 */
     private int sel = 0;
 
@@ -61,12 +69,16 @@ public class MaskView extends FrameLayout {
         // 否则题干换两行时品牌会被挤出屏幕（模拟器实测）。
         box.setPadding(Ui.dp(c, 72), Ui.dp(c, 28), Ui.dp(c, 72), Ui.dp(c, 28));
 
-        TextView kicker = Ui.label(c, "本次观看时间到", 20, Ui.DIM);
+        kicker = Ui.label(c, "本次观看时间到", 20, Ui.DIM);
         box.addView(kicker);
 
         stemView = Ui.title(c, "", 30);
         stemView.setGravity(Gravity.CENTER);
-        LinearLayout.LayoutParams slp = new LinearLayout.LayoutParams(-1, -2);
+        // 默认题库题干最长 90 字，固定高度 + 自动缩放，保证 540dp 屏幕上不会被挤出。
+        stemView.setMaxLines(3);
+        stemView.setAutoSizeTextTypeUniformWithConfiguration(
+                16, 30, 1, TypedValue.COMPLEX_UNIT_DIP);
+        LinearLayout.LayoutParams slp = new LinearLayout.LayoutParams(-1, Ui.dp(c, 104));
         slp.topMargin = Ui.dp(c, 16);
         box.addView(stemView, slp);
 
@@ -85,6 +97,11 @@ public class MaskView extends FrameLayout {
                 b.setFocusable(false);
                 b.setClickable(true);
                 b.setPadding(Ui.dp(c, 16), Ui.dp(c, 8), Ui.dp(c, 16), Ui.dp(c, 8));
+                // 最长选项 48 字符（英文整句），固定 72dp 高度下自动缩到能放下 3 行。
+                b.setMaxLines(3);
+                b.setEllipsize(TextUtils.TruncateAt.END);
+                b.setAutoSizeTextTypeUniformWithConfiguration(
+                        13, 24, 1, TypedValue.COMPLEX_UNIT_DIP);
                 LinearLayout.LayoutParams blp = new LinearLayout.LayoutParams(0, -1, 1f);
                 blp.leftMargin = Ui.dp(c, col == 0 ? 0 : 10);
                 blp.rightMargin = Ui.dp(c, col == 0 ? 10 : 0);
@@ -96,19 +113,38 @@ public class MaskView extends FrameLayout {
 
         feedback = Ui.label(c, "", 20, Ui.DIM);
         feedback.setGravity(Gravity.CENTER);
+        // 错题反馈里带正确答案与解析，最长 200+ 字，限两行自动缩放，别把品牌行顶出屏幕。
+        feedback.setMaxLines(2);
+        feedback.setEllipsize(TextUtils.TruncateAt.END);
+        feedback.setAutoSizeTextTypeUniformWithConfiguration(
+                13, 20, 1, TypedValue.COMPLEX_UNIT_DIP);
         LinearLayout.LayoutParams flp = new LinearLayout.LayoutParams(-1, -2);
         flp.topMargin = Ui.dp(c, 14);
         box.addView(feedback, flp);
 
-        TextView hint = Ui.label(c, "按 1–4 或方向键选择，OK 确认　·　菜单键 = 家长", 16, Ui.DIM);
+        hint = Ui.label(c, "按 1–4 或方向键选择，OK 确认　·　菜单键 = 家长", 16, Ui.DIM);
         hint.setGravity(Gravity.CENTER);
         LinearLayout.LayoutParams hlp = new LinearLayout.LayoutParams(-1, -2);
         hlp.topMargin = Ui.dp(c, 16);
         box.addView(hint, hlp);
 
+        // 答错后的「下一题」按钮：与提示行同一个位置，显示时把提示行收起来。
+        // 不再自动跳题 —— 解析要留给用户看完，由他自己按 OK 或点这一行继续。
+        nextBtn = Ui.label(c, "下一题  ▶", 22, Ui.ACCENT);
+        nextBtn.setGravity(Gravity.CENTER);
+        nextBtn.setBackground(selectedBg());
+        nextBtn.setClickable(true);
+        nextBtn.setFocusable(false);   // 悬浮窗焦点树不可靠，按键由 dispatchKeyEvent 路由
+        nextBtn.setOnClickListener(v -> { if (waitNext) nextQuestion(); });
+        LinearLayout.LayoutParams nlp = new LinearLayout.LayoutParams(-1, Ui.dp(c, 46));
+        nlp.topMargin = Ui.dp(c, 12);
+        box.addView(nextBtn, nlp);
+        nextBtn.setVisibility(View.GONE);
+
         // 右下角品牌角标：家长在出题这一刻看到的还是「答题续时」自己的界面。
         // 放进内容流而不是盖在右下角 —— 1080p 下题干换两行时贴角会压到提示行。
         LinearLayout brand = Ui.row(c);
+        brandRow = brand;
         brand.setGravity(Gravity.END | Gravity.CENTER_VERTICAL);
         ImageView logo = new ImageView(c);
         logo.setImageResource(R.drawable.home_logo);
@@ -135,7 +171,19 @@ public class MaskView extends FrameLayout {
     public void nextQuestion() {
         q = bank.next(subjectKey, grade, floorGrade, rnd);
         answering = false;
+        waitNext = false;
+        nextBtn.setVisibility(View.GONE);
+        hint.setVisibility(View.VISIBLE);
+        brandRow.setVisibility(View.VISIBLE);
         stemView.setText(q.stem);
+        // 用户题库缺当前年级题目时只提示一次，不占额外高度：改写顶部这行说明。
+        if (q.fallback) {
+            kicker.setTextSize(TypedValue.COMPLEX_UNIT_DIP, 17);
+            kicker.setText("本次观看时间到 · 该题库无此题，已用默认题库");
+        } else {
+            kicker.setTextSize(TypedValue.COMPLEX_UNIT_DIP, 20);
+            kicker.setText("本次观看时间到");
+        }
         for (int i = 0; i < 4; i++) opts[i].setText(q.options[i]);
         feedback.setText("");
         sel = 0;
@@ -197,7 +245,14 @@ public class MaskView extends FrameLayout {
             feedback.setTextColor(Ui.BAD);
             String ex = q.explain == null || q.explain.isEmpty() ? "" : "　" + q.explain;
             feedback.setText("正确答案是「" + q.options[q.answer] + "」" + ex);
-            postDelayed(this::nextQuestion, 1800);
+            // 不自动跳题：解析要留给用户看完，亮出「下一题」，他按 OK / 点这一行才继续。
+            // 540dp 高的电视上「解析两行 + 按钮 + 品牌角标」会顶出屏幕，等按钮出现时先收起
+            // 提示行与品牌行，返回下一题时恢复。
+            waitNext = true;
+            hint.setVisibility(View.GONE);
+            brandRow.setVisibility(View.GONE);
+            nextBtn.setText("下一题  ▶");
+            nextBtn.setVisibility(View.VISIBLE);
         }
     }
 
@@ -286,6 +341,16 @@ public class MaskView extends FrameLayout {
         if (e.getAction() == KeyEvent.ACTION_DOWN) {
             if (k == KeyEvent.KEYCODE_BACK) return true;                 // 吞掉返回
             if (k == KeyEvent.KEYCODE_MENU) { showPin(); return true; }  // 家长入口
+            if (waitNext) {
+                // 答错后停在解析页：只有 OK / 回车进入下一题，其余按键吞掉，
+                // 免得用户以为还能改答案，或者按键漏到下层正在播放的应用。
+                if (k == KeyEvent.KEYCODE_DPAD_CENTER || k == KeyEvent.KEYCODE_ENTER
+                        || k == KeyEvent.KEYCODE_NUMPAD_ENTER) {
+                    nextQuestion();
+                    return true;
+                }
+                return true;
+            }
             if (k == KeyEvent.KEYCODE_DPAD_LEFT) { moveSel(-1, 0); return true; }
             if (k == KeyEvent.KEYCODE_DPAD_RIGHT) { moveSel(1, 0); return true; }
             if (k == KeyEvent.KEYCODE_DPAD_UP) { moveSel(0, -1); return true; }

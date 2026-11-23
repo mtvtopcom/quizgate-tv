@@ -6,17 +6,25 @@
   <img src="docs/img/logo.png" width="18%" alt="答题续时">
 </p>
 
-> **当前版本 [v1.3.0](https://github.com/mtvtopcom/quizgate-tv/releases/tag/v1.3.0)** · `versionCode 10300` · 2026-11-11 发布
-> `quizgate-1.3.0.apk` · SHA-256 `ba8a51bf29b175673151051871f9a83d8ce62beffca2c5521e31c6f7fa623ce2`
+> **当前版本 [v1.4.0](https://github.com/mtvtopcom/quizgate-tv/releases/tag/v1.4.0)** · `versionCode 10400` · 2026-11-24 发布
+> `quizgate-1.4.0.apk` · SHA-256 `afab3235d61d3cb14a967ee2a9514df242cc76fb8513756773b45d7e75f9c228`
 > · [更新日志](CHANGELOG.md) · [全部 Release](https://github.com/mtvtopcom/quizgate-tv/releases)
 >
-> 已装 1.2.9 的电视不用手动下载：升级源更新后会提示新版本（可点「以后再说」跳过）。
+> 已装 1.3.0 的电视不用手动下载：升级源更新后会提示新版本（可点「以后再说」跳过）。
 > **≤1.2.8 只认已下线的旧升级目录，需手动覆盖安装**（见「1. 装 APK」）。
 > 升级不改口令、恢复码、时长与年级；卸载重装仍需自己设 6 位口令。
 >
-> 1.3.0 应用改名「答题续时」，题库扩到语文 / 数学 / 英语 × 1–9 年级（216 题），
-> 授权自检收进「守护状态」子页，取消电池白名单（装机改为**两条必需 ＋ 一条可选**），
-> 家长解锁后进首页并短期免密，卸载留痕只在真有痕迹时提示。
+> **1.4.0 新增「题库管理」**：设置 → 题库管理，电视显示二维码，手机扫码打开网页即可上传
+> 自己的题目（txt / csv / xlsx / json），可新建或合并到已有题库、随时切换、随时删除；
+> 默认题库只读。上传是手机与电视的局域网直连，题库模块零外网请求。
+>
+> **题库统一为 [K12 题库工厂](https://github.com/mtvtopcom/k12-question-bank) Schema**（9 个必填字段），
+> 内置 9731 题（PoHW 9515 ＋ 原创 216）已同步迁移，共 2898 个本地知识点编号；
+> 用该项目工具批量生成的题可以直接导入。
+>
+> 1.4.0 同时修复三处真机问题：二维码页过一阵扫不开（上传服务改为进程级常驻）、
+> 遮罩输口令后计时被中断（改为继续计时）、「删除选中」按钮完全无效；
+> 答错不再 1.8 秒自动跳题，改为看清解析后手动点「下一题」。
 >
 > **应用名分界**：1.3.0 起改为「答题续时」；v1.2.9 安装包、仓库内截图与 1.3.0 验收期的
 > `evidence/D12` 取证图都拍于改名落地前，仍显示「答对再看」。包名 `app.quizgate.tv` 没变，
@@ -86,12 +94,12 @@
 
 ### 1. 装 APK
 
-从 [v1.3.0 Release](https://github.com/mtvtopcom/quizgate-tv/releases/tag/v1.3.0) 下载 `quizgate-1.3.0.apk`，
+从 [v1.4.0 Release](https://github.com/mtvtopcom/quizgate-tv/releases/tag/v1.4.0) 下载 `quizgate-1.4.0.apk`，
 按上方 SHA-256（或 Release 附的 `SHA256SUMS.txt`）校验后安装：
 
 ```bash
 adb connect <电视IP>:5555
-adb install -r quizgate-1.3.0.apk
+adb install -r quizgate-1.4.0.apk
 ```
 
 也可以用 U 盘装（见下方「安装路径 A」）。
@@ -99,7 +107,7 @@ adb install -r quizgate-1.3.0.apk
 > **1.2.8 及以前的老版本**：这些版本只会去旧升级目录
 > `https://shitang.mianmiangou.cn/static/quizgate-tv/` 取清单，该目录已于 1.3.0 发布后
 > 永久下线（`/static/` 返回 404），因此**不会自动弹出升级提示**。直接用上面的
-> `adb install -r quizgate-1.3.0.apk` 覆盖安装即可：包名与正式签名都没变，
+> `adb install -r quizgate-1.4.0.apk` 覆盖安装即可：包名与正式签名都没变，
 > 口令、恢复码、时长与年级全部保留；装完按第 2 节补齐两条必需授权。
 
 ### 2. 授权（两条必需）
@@ -196,11 +204,50 @@ adb shell settings get secure enabled_notification_listeners # 应包含 app.qui
 | **点「开始计时」弹出「先补齐授权」**（1.2.9+） | 通知使用权缺失（1.2.9 还查电池白名单）；悬浮窗缺失时「仍然开始」是灰的 | 按面板上的 ✓/✗ 逐项点「去开启」，或用面板里那条 adb 命令；回到应用会自动重查，全绿后按钮变「开始计时」 |
 | 按 HOME 能切出答题页（1.2.9+ 已缓解） | HOME 键在系统层就被处理了，普通应用既收不到也吞不掉 | 1.2.9 起锁定态会盯着窗口焦点，被切走后约 0.5–2.5 秒重新挂遮罩抢回焦点；**要彻底禁止得靠无障碍服务或设备所有者**，本项目没做 |
 | 升级提示一直不出来（1.3.0+ 无兜底地址） | 升级源不可达 / 域名证书异常；1.3.0 起只连主地址一个，检查失败静默跳过 | 确认电视能访问 `https://7789.cn/y/quizgate-tv/`、证书有效（`CN=7789.cn`，到 2027-02-09）；`adb logcat -s QuizGate` 里只有一行 `update_check_fail`。回落旧目录是 ≤1.2.9 的旧行为，且该目录现已下线 |
-| 停在 1.2.8 及以前，一直收不到 1.3.0 提示 | 这些版本只认已下线的旧升级目录（`/static/` 404），不会自动升级 | 手动覆盖安装 `quizgate-1.3.0.apk`（见「1. 装 APK」）；包名与正式签名未变，口令 / 恢复码 / 时长 / 年级保留 |
+| 停在第 1.2.8 及以前，一直收不到新版提示 | 这些版本只认已下线的旧升级目录（`/static/` 404），不会自动升级 | 手动覆盖安装最新的 `quizgate-1.4.0.apk`（见「1. 装 APK」）；包名与正式签名未变，口令 / 恢复码 / 时长 / 年级保留 |
+| 遮罩上输对家长口令，会话被直接结束（1.3.0） | 1.3.0 的既定设计：遮罩上输口令 = 结束会话 | **1.4.0 起改为只摘遮罩、回首页，计时继续**；真要结束会话请在首页点「结束本次会话」，再用口令二次确认 |
+| 答错后画面停在解析页不换题 | **1.4.0 起取消了自动跳题**（原来 1.8 秒就切走，长解析根本读不完） | 看完按遥控器 OK，或先选中底部「下一题 ▶」再按 OK；不是卡住 |
+| 题库管理里手机打不开电视显示的地址 | 手机与电视不在同一局域网，或路由器开了「AP 隔离 / 客户端隔离」 | 连同一个 WiFi 并关掉路由器的客户端隔离；换过网络后回二维码页会显示电视当前 IP，重新扫码即可 |
 | 升级页显示「下载失败」 | 电视没网 / 升级源不可用 | 不影响使用（检查失败会静默跳过）；确认升级源地址后再进应用 |
 | 点「立即安装」提示要去授权 | 没给「安装未知应用」权限（重装应用会重置） | 设置 → 应用 → 安全 → 安装未知应用 → 允许；回来再点「立即安装」，包已经下好了 |
 | 点「立即安装」没反应 | 电视固件改过安装器入口 | 包就在 `Download/quizgate-x.y.z.apk`，用「媒体中心 / 文件管理」打开它 |
 | 设置页「卸载留痕：未启用」红字（1.2.6–1.2.9） | 少一条只用于留痕的可选授权，覆盖升级不会自动获得 | `adb shell pm grant app.quizgate.tv android.permission.WRITE_SECURE_SETTINGS`，重进本页自动变 ✓；不影响出题与计时。**1.3.0 起这条红字不再出现**：没卸过就是正常状态，只有真检测到卸载才提示 |
+
+---
+
+## 自定义题库
+
+内置题库只读；家长可以把自己的题目传进去，和默认题库并存、随时切换。
+
+- **入口**：设置 → 题库管理
+- **添加**：电视显示二维码，手机扫码打开网页，选 `txt` / `xlsx` / `xls` / `csv` / `json` 上传
+- **新建或合并**：可以单独成一个题库，也可以追加到已有题库（重复题按题干跳过）
+- **切换**：题库管理里选中一个，按 OK，之后答题就用它
+- **删除**：选中自己的题库连按两次删除；默认题库不能删
+- **落盘**：用户题库存在应用私有目录 `filesDir/banks/<id>/`，按年级科目分片，
+  覆盖升级保留，卸载应用才清除；运行时只加载当前用到的一片（1–2MB）
+
+**导入格式采用 [K12 题库工厂](https://github.com/mtvtopcom/k12-question-bank)**（MIT）
+的统一题目 Schema 与四种导出格式，用上游工具批量生成的题可以直接导入：
+
+| 字段 | 说明 |
+| --- | --- |
+| `topic_id` | 来源知识点，如 `primary-g3-s1-math-K018`；年级科目可从这里反推 |
+| `topic_name` | 知识点名称 |
+| `stem` / `options` / `answer` | 题干 / 4 个选项 / 答案字母 A–D |
+| `explanation` | 解析 |
+| `difficulty` / `bloom` / `type` | 难度 1–4 / 认知层级 / 题型（固定 `single_choice`） |
+
+- 表格支持 12 列 `topic_id, topic_name, stem, option_a…option_d, answer, explanation,
+  difficulty, bloom, type`；`topic_id` 填不出来时可以额外加 `grade`、`subject` 两列。
+- 幼儿园题（`kg-` 开头的 `topic_id`）导入时跳过并计数——本软件只有 1–9 年级。
+- 旧的「年级、科目、题干、A、B、C、D、答案」表头仍然可用，不用改写历史文件。
+
+完整字段说明、`topic_id` 规则、内置题库本地编号的说明见
+[docs/bank-format.md](docs/bank-format.md)，操作步骤见 [docs/bank-upload.md](docs/bank-upload.md)。
+
+**出网边界**：上传是手机和电视之间的局域网直连，电视只被动监听一个端口，
+不向任何外部地址发请求；CI 的「出网点只有 2 处」断言仍然成立，权限清单没有新增项。
 
 ---
 
@@ -322,9 +369,17 @@ export ANDROID_HOME=/path/to/android-sdk
 ## 许可
 
 - **代码**：[Apache-2.0](LICENSE)（含显式专利授权）
-- **题库内容**：[CC BY-SA 4.0](LICENSE-CONTENT)，与代码分开授权，作为独立作品聚合
+- **PoHW 导入题**（1–6 年级 9515 道，id 以 `pohw-` 开头）：来自
+  [PoHW](https://github.com/jagerzhang/PoHW) 随 APK 发布的题库数据，部分题目整理自
+  互联网公开渠道。内容权利归各自权利人，**不随 Apache-2.0 或 CC BY-SA 4.0 授权**；
+  仅供个人非商业家庭学习，侵权请提 issue，核实后删除或替换。
+- **本项目原创题**（27 份 JSON 共 216 道）及截图 / 图表：
+  [CC BY-SA 4.0](LICENSE-CONTENT)，与代码分开授权，作为独立作品聚合。
+- **导入格式**：采用 [K12 题库工厂](https://github.com/mtvtopcom/k12-question-bank)
+  的题目 Schema 与导出格式定义（MIT License，© 2026 mtvtopcom），仅对齐格式，
+  未包含其知识点地图与生成管道。见 [docs/bank-format.md](docs/bank-format.md)。
 
-题库为原创，不含教材原文。素材来源见 [docs/provenance.md](docs/provenance.md)。
+逐项来源见 [docs/provenance.md](docs/provenance.md)，许可细节见 [LICENSE-CONTENT](LICENSE-CONTENT)。
 
 ---
 

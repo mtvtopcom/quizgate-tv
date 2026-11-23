@@ -56,6 +56,29 @@ public final class Prefs {
     public String subjectName() { return SUBJECT_NAMES[subject()]; }
 
     /**
+     * 当前使用的题库：{@code builtin} 或 filesDir/banks 下的题库 id。
+     * 用户题库被删除时由 {@link BankManagerView} 自动写回 builtin，这里不做校验
+     * （读的时候校验会让每次抽题都碰一次文件系统）。
+     */
+    public String activeBankId() {
+        String v = sp.getString("activeBankId", "builtin");
+        return v == null || v.isEmpty() ? "builtin" : v;
+    }
+
+    public void setActiveBankId(String id) {
+        sp.edit().putString("activeBankId", id == null || id.isEmpty() ? "builtin" : id).commit();
+    }
+
+    /** 用户题库缺当前年级题目、回退默认题库时，同一题库只提示一次。 */
+    public boolean fallbackNoticed(String bankId) {
+        return sp.getBoolean("fb_" + bankId, false);
+    }
+
+    public void setFallbackNoticed(String bankId) {
+        sp.edit().putBoolean("fb_" + bankId, true).commit();
+    }
+
+    /**
      * 1.3.0：家长在锁屏遮罩上输对过一次口令后，到「开始新一局计时」为止进设置不再要口令。
      *
      * <p><b>必须落盘</b>：小米电视回桌面 / 待机会强停第三方进程，只放进程内静态变量

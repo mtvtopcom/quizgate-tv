@@ -1,11 +1,12 @@
 {
- "version": 2,
+ "version": 3,
+ "schema": "k12-question-bank/v1",
  "subject": "数学",
  "grade": 8,
  "items": [
   {
-   "id": "m8-001",
-   "subject": "数学",
+   "topic_id": "junior-g8-s1-math-K900",
+   "topic_name": "平方根、一次函数与勾股定理",
    "stem": "x² = 9，x 等于多少？",
    "options": [
     "3",
@@ -13,12 +14,16 @@
     "±3",
     "9"
    ],
-   "answerIndex": 2,
-   "explanation": "正负 3 的平方都是 9"
+   "answer": "C",
+   "explanation": "正负 3 的平方都是 9",
+   "difficulty": 3,
+   "bloom": "应用",
+   "type": "single_choice",
+   "id": "m8-001"
   },
   {
-   "id": "m8-002",
-   "subject": "数学",
+   "topic_id": "junior-g8-s1-math-K900",
+   "topic_name": "平方根、一次函数与勾股定理",
    "stem": "一次函数 y = 2x + 1，x = 3 时 y 等于多少？",
    "options": [
     "5",
@@ -26,12 +31,16 @@
     "7",
     "8"
    ],
-   "answerIndex": 2,
-   "explanation": "2×3 + 1 = 7"
+   "answer": "C",
+   "explanation": "2×3 + 1 = 7",
+   "difficulty": 3,
+   "bloom": "应用",
+   "type": "single_choice",
+   "id": "m8-002"
   },
   {
-   "id": "m8-003",
-   "subject": "数学",
+   "topic_id": "junior-g8-s1-math-K900",
+   "topic_name": "平方根、一次函数与勾股定理",
    "stem": "直角三角形两直角边为 3、4，斜边是多少？",
    "options": [
     "5",
@@ -39,12 +48,16 @@
     "7",
     "25"
    ],
-   "answerIndex": 0,
-   "explanation": "3² + 4² = 5²"
+   "answer": "A",
+   "explanation": "3² + 4² = 5²",
+   "difficulty": 3,
+   "bloom": "应用",
+   "type": "single_choice",
+   "id": "m8-003"
   },
   {
-   "id": "m8-004",
-   "subject": "数学",
+   "topic_id": "junior-g8-s1-math-K900",
+   "topic_name": "平方根、一次函数与勾股定理",
    "stem": "(a + b)(a - b) 等于？",
    "options": [
     "a² - b²",
@@ -52,12 +65,16 @@
     "a² - 2ab + b²",
     "a² + 2ab + b²"
    ],
-   "answerIndex": 0,
-   "explanation": "平方差公式"
+   "answer": "A",
+   "explanation": "平方差公式",
+   "difficulty": 3,
+   "bloom": "应用",
+   "type": "single_choice",
+   "id": "m8-004"
   },
   {
-   "id": "m8-005",
-   "subject": "数学",
+   "topic_id": "junior-g8-s1-math-K900",
+   "topic_name": "平方根、一次函数与勾股定理",
    "stem": "数据 2、4、4、6、9 的中位数是？",
    "options": [
     "4",
@@ -65,12 +82,16 @@
     "5",
     "6"
    ],
-   "answerIndex": 0,
-   "explanation": "排序后中间那个是 4"
+   "answer": "A",
+   "explanation": "排序后中间那个是 4",
+   "difficulty": 3,
+   "bloom": "应用",
+   "type": "single_choice",
+   "id": "m8-005"
   },
   {
-   "id": "m8-006",
-   "subject": "数学",
+   "topic_id": "junior-g8-s1-math-K900",
+   "topic_name": "平方根、一次函数与勾股定理",
    "stem": "掷一枚均匀硬币，正面朝上的概率是？",
    "options": [
     "1/4",
@@ -78,12 +99,16 @@
     "1/2",
     "1"
    ],
-   "answerIndex": 2,
-   "explanation": "两种结果等可能"
+   "answer": "C",
+   "explanation": "两种结果等可能",
+   "difficulty": 3,
+   "bloom": "应用",
+   "type": "single_choice",
+   "id": "m8-006"
   },
   {
-   "id": "m8-007",
-   "subject": "数学",
+   "topic_id": "junior-g8-s1-math-K900",
+   "topic_name": "平方根、一次函数与勾股定理",
    "stem": "x² - 1 因式分解的结果是？",
    "options": [
     "(x+1)(x-1)",
@@ -91,12 +116,16 @@
     "(x+1)²",
     "x(x-1)"
    ],
-   "answerIndex": 0,
-   "explanation": "平方差公式反过来用"
+   "answer": "A",
+   "explanation": "平方差公式反过来用",
+   "difficulty": 3,
+   "bloom": "应用",
+   "type": "single_choice",
+   "id": "m8-007"
   },
   {
-   "id": "m8-008",
-   "subject": "数学",
+   "topic_id": "junior-g8-s1-math-K900",
+   "topic_name": "平方根、一次函数与勾股定理",
    "stem": "反比例函数 y = 6/x，x = 2 时 y 等于？",
    "options": [
     "2",
@@ -104,8 +133,12 @@
     "6",
     "12"
    ],
-   "answerIndex": 1,
-   "explanation": "6 ÷ 2 = 3"
+   "answer": "B",
+   "explanation": "6 ÷ 2 = 3",
+   "difficulty": 3,
+   "bloom": "应用",
+   "type": "single_choice",
+   "id": "m8-008"
   }
  ]
 }

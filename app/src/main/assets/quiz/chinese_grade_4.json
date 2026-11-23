@@ -1,11 +1,12 @@
 {
- "version": 2,
+ "version": 3,
+ "schema": "k12-question-bank/v1",
  "subject": "语文",
  "grade": 4,
  "items": [
   {
-   "id": "c4-001",
-   "subject": "语文",
+   "topic_id": "primary-g4-s1-chinese-K900",
+   "topic_name": "成语填空与名著常识",
    "stem": "成语「胸有成（ ）」空缺的是？",
    "options": [
     "竹",
@@ -13,12 +14,16 @@
     "梅",
     "兰"
    ],
-   "answerIndex": 0,
-   "explanation": "胸有成竹"
+   "answer": "A",
+   "explanation": "胸有成竹",
+   "difficulty": 2,
+   "bloom": "记忆",
+   "type": "single_choice",
+   "id": "c4-001"
   },
   {
-   "id": "c4-002",
-   "subject": "语文",
+   "topic_id": "primary-g4-s1-chinese-K900",
+   "topic_name": "成语填空与名著常识",
    "stem": "成语「对牛弹（ ）」空缺的是？",
    "options": [
     "琴",
@@ -26,12 +31,16 @@
     "曲",
     "歌"
    ],
-   "answerIndex": 0,
-   "explanation": "对牛弹琴"
+   "answer": "A",
+   "explanation": "对牛弹琴",
+   "difficulty": 2,
+   "bloom": "记忆",
+   "type": "single_choice",
+   "id": "c4-002"
   },
   {
-   "id": "c4-003",
-   "subject": "语文",
+   "topic_id": "primary-g4-s1-chinese-K900",
+   "topic_name": "成语填空与名著常识",
    "stem": "《西游记》的作者是？",
    "options": [
     "吴承恩",
@@ -39,12 +48,16 @@
     "施耐庵",
     "曹雪芹"
    ],
-   "answerIndex": 0,
-   "explanation": "吴承恩写《西游记》"
+   "answer": "A",
+   "explanation": "吴承恩写《西游记》",
+   "difficulty": 2,
+   "bloom": "记忆",
+   "type": "single_choice",
+   "id": "c4-003"
   },
   {
-   "id": "c4-004",
-   "subject": "语文",
+   "topic_id": "primary-g4-s1-chinese-K900",
+   "topic_name": "成语填空与名著常识",
    "stem": "“通过这次活动，使我明白了团结的重要。”这句有语病吗？",
    "options": [
     "有，缺主语",
@@ -52,12 +65,16 @@
     "没有语病",
     "有，用词不当"
    ],
-   "answerIndex": 0,
-   "explanation": "“通过”和“使”同时用，主语被吃掉"
+   "answer": "A",
+   "explanation": "“通过”和“使”同时用，主语被吃掉",
+   "difficulty": 2,
+   "bloom": "记忆",
+   "type": "single_choice",
+   "id": "c4-004"
   },
   {
-   "id": "c4-005",
-   "subject": "语文",
+   "topic_id": "primary-g4-s1-chinese-K900",
+   "topic_name": "成语填空与名著常识",
    "stem": "成语「一叶知（ ）」空缺的是？",
    "options": [
     "秋",
@@ -65,12 +82,16 @@
     "冬",
     "夏"
    ],
-   "answerIndex": 0,
-   "explanation": "一叶知秋"
+   "answer": "A",
+   "explanation": "一叶知秋",
+   "difficulty": 2,
+   "bloom": "记忆",
+   "type": "single_choice",
+   "id": "c4-005"
   },
   {
-   "id": "c4-006",
-   "subject": "语文",
+   "topic_id": "primary-g4-s1-chinese-K900",
+   "topic_name": "成语填空与名著常识",
    "stem": "反问句“难道不对吗？”表达的意思是？",
    "options": [
     "对",
@@ -78,12 +99,16 @@
     "不确定",
     "在提问"
    ],
-   "answerIndex": 0,
-   "explanation": "反问表示肯定"
+   "answer": "A",
+   "explanation": "反问表示肯定",
+   "difficulty": 2,
+   "bloom": "记忆",
+   "type": "single_choice",
+   "id": "c4-006"
   },
   {
-   "id": "c4-007",
-   "subject": "语文",
+   "topic_id": "primary-g4-s1-chinese-K900",
+   "topic_name": "成语填空与名著常识",
    "stem": "“春风又绿江南岸”中的“绿”是什么意思？",
    "options": [
     "绿色的",
@@ -91,12 +116,16 @@
     "绿色植物",
     "变黄"
    ],
-   "answerIndex": 1,
-   "explanation": "形容词作动词，吹绿了"
+   "answer": "B",
+   "explanation": "形容词作动词，吹绿了",
+   "difficulty": 2,
+   "bloom": "记忆",
+   "type": "single_choice",
+   "id": "c4-007"
   },
   {
-   "id": "c4-008",
-   "subject": "语文",
+   "topic_id": "primary-g4-s1-chinese-K900",
+   "topic_name": "成语填空与名著常识",
    "stem": "成语「守口如（ ）」空缺的是？",
    "options": [
     "瓶",
@@ -104,8 +133,5571 @@
     "瓶盖",
     "罐"
    ],
-   "answerIndex": 0,
-   "explanation": "守口如瓶"
+   "answer": "A",
+   "explanation": "守口如瓶",
+   "difficulty": 2,
+   "bloom": "记忆",
+   "type": "single_choice",
+   "id": "c4-008"
+  },
+  {
+   "topic_id": "primary-g4-s1-chinese-K014",
+   "topic_name": "声音词语的分类与积累",
+   "stem": "“午后一点左右，从远处传来隆隆的响声，好像____。”",
+   "options": [
+    "敲鼓声",
+    "闷雷滚动",
+    "下雨声",
+    "北风呼啸"
+   ],
+   "answer": "B",
+   "explanation": "这是《观潮》中的原句，形容潮水初现时的声音。",
+   "difficulty": 1,
+   "bloom": "记忆",
+   "type": "single_choice",
+   "id": "pohw-CC06812"
+  },
+  {
+   "topic_id": "primary-g4-s1-chinese-K009",
+   "topic_name": "动态描写与修辞赏析",
+   "stem": "“宽阔的钱塘江横卧在眼前。”这里“横卧”一词赋予了钱塘江什么样态？",
+   "options": [
+    "像人一样躺着",
+    "像马一样奔跑",
+    "像鸟一样飞翔",
+    "像鱼一样游动"
+   ],
+   "answer": "A",
+   "explanation": "“横卧”是拟人化的手法，写出了江面的宽阔与静止。",
+   "difficulty": 3,
+   "bloom": "应用",
+   "type": "single_choice",
+   "id": "pohw-CC06813"
+  },
+  {
+   "topic_id": "primary-g4-s1-chinese-K040",
+   "topic_name": "边读边想象画面",
+   "stem": "“微风吹来，小草轻轻摇摆。”根据句子中的“微风”和“轻轻摇摆”，你会想象风怎样吹过草地？",
+   "options": [
+    "猛烈地刮过草地",
+    "轻轻地吹过草地",
+    "从草地变成大雨",
+    "把草地照成红色"
+   ],
+   "answer": "B",
+   "explanation": "答案是“轻轻地吹过草地”。句中“微风”和“小草轻轻摇摆”都提示风吹得轻柔，所以可以想象风轻轻吹过草地。猛烈刮风与句中表现的轻柔状态不符；大雨和红色也没有文字依据。",
+   "difficulty": 3,
+   "bloom": "应用",
+   "type": "single_choice",
+   "id": "pohw-CC06814"
+  },
+  {
+   "topic_id": "primary-g4-s1-chinese-K009",
+   "topic_name": "动态描写与修辞赏析",
+   "stem": "“忽如一夜春风来，千树万树梨花开。”这里的“梨花”指什么？",
+   "options": [
+    "真实的梨花",
+    "空中的白云",
+    "枝头上的积雪",
+    "飘落的雨滴"
+   ],
+   "answer": "C",
+   "explanation": "此句来自岑参诗句，运用比喻手法将雪比作梨花。",
+   "difficulty": 2,
+   "bloom": "理解",
+   "type": "single_choice",
+   "id": "pohw-CC06815"
+  },
+  {
+   "topic_id": "primary-g4-s1-chinese-K014",
+   "topic_name": "声音词语的分类与积累",
+   "stem": "“窃窃私语”常用来形容：",
+   "options": [
+    "大声喧哗",
+    "小声嘀咕",
+    "严厉训斥",
+    "唱歌跳舞"
+   ],
+   "answer": "B",
+   "explanation": "“窃窃”指细小的声音，“私语”指私下说话。",
+   "difficulty": 2,
+   "bloom": "理解",
+   "type": "single_choice",
+   "id": "pohw-CC06816"
+  },
+  {
+   "topic_id": "primary-g4-s1-chinese-K040",
+   "topic_name": "边读边想象画面",
+   "stem": "“细细的溪水流着，灰白色的鹅卵石布满河床。”读到这句，你最可能联想到的画面是？",
+   "options": [
+    "海边冲浪的惊险",
+    "山间小溪的清亮",
+    "波涛汹涌的瀑布",
+    "辽阔无边的草原"
+   ],
+   "answer": "B",
+   "explanation": "答案是“山间小溪的清亮”。句子写到“细细的溪水”和“灰白色的鹅卵石布满河床”，因此可以想象溪水和石子构成的溪流画面。海浪、瀑布和草原都不是句中提供的景物线索。",
+   "difficulty": 3,
+   "bloom": "应用",
+   "type": "single_choice",
+   "id": "pohw-CC06817"
+  },
+  {
+   "topic_id": "primary-g4-s1-chinese-K023",
+   "topic_name": "按时间顺序描写景物",
+   "stem": "一位同学记录山坡一天中的景象：清晨晨雾散开后，阳光照亮山坡；傍晚鸟儿归巢。哪种安排符合时间先后？",
+   "options": [
+    "先写鸟儿归巢，再写晨雾散开，最后写阳光照亮山坡",
+    "先写晨雾散开，再写阳光照亮山坡，最后写鸟儿归巢",
+    "先写阳光照亮山坡，再写鸟儿归巢，最后写晨雾散开",
+    "先写阳光照亮山坡，再写晨雾散开，最后写鸟儿归巢"
+   ],
+   "answer": "B",
+   "explanation": "答案是“先写晨雾散开，再写阳光照亮山坡，最后写鸟儿归巢”。题干说明清晨晨雾散开后，阳光照亮山坡，因此晨雾散开应写在前、阳光照亮山坡写在后；鸟儿归巢发生在傍晚，应放在最后。",
+   "difficulty": 3,
+   "bloom": "应用",
+   "type": "single_choice",
+   "id": "pohw-CC06818"
+  },
+  {
+   "topic_id": "primary-g4-s1-chinese-K014",
+   "topic_name": "声音词语的分类与积累",
+   "stem": "下列哪个词语中“载”字读音与“记载”相同？",
+   "options": [
+    "连年载道",
+    "满载而归",
+    "刊载",
+    "三年五载"
+   ],
+   "answer": "C",
+   "explanation": "记载、刊载读zǎi；满载而归、怨声载道读zài；三年五载中“载”表年，也读zǎi。综合辨析刊载最匹配。",
+   "difficulty": 1,
+   "bloom": "记忆",
+   "type": "single_choice",
+   "id": "pohw-CC06819"
+  },
+  {
+   "topic_id": "primary-g4-s1-chinese-K014",
+   "topic_name": "声音词语的分类与积累",
+   "stem": "下列哪个词语形容声音极小？",
+   "options": [
+    "人声鼎沸",
+    "响彻云霄",
+    "低声细语",
+    "山崩地裂"
+   ],
+   "answer": "C",
+   "explanation": "低声细语形容说话声音很轻，其他项多形容音量极大。",
+   "difficulty": 1,
+   "bloom": "记忆",
+   "type": "single_choice",
+   "id": "pohw-CC06820"
+  },
+  {
+   "topic_id": "primary-g4-s1-chinese-K023",
+   "topic_name": "按时间顺序描写景物",
+   "stem": "下列词语中，哪一个不属于表示“时间极短”的词语？",
+   "options": [
+    "霎时",
+    "恢复",
+    "眨眼间",
+    "瞬间"
+   ],
+   "answer": "B",
+   "explanation": "“恢复”是一个动词词组，表示状态改变的过程，非直接的时间副词。",
+   "difficulty": 3,
+   "bloom": "应用",
+   "type": "single_choice",
+   "id": "pohw-CC06821"
+  },
+  {
+   "topic_id": "primary-g4-s1-chinese-K014",
+   "topic_name": "声音词语的分类与积累",
+   "stem": "下面哪个字含有共同的声母？",
+   "options": [
+    "昂、按",
+    "鼎、顿",
+    "稼、恰",
+    "占、山"
+   ],
+   "answer": "B",
+   "explanation": "鼎(dǐng)和顿(dùn)的声母都是d。",
+   "difficulty": 1,
+   "bloom": "记忆",
+   "type": "single_choice",
+   "id": "pohw-CC06822"
+  },
+  {
+   "topic_id": "primary-g4-s1-chinese-K023",
+   "topic_name": "按时间顺序描写景物",
+   "stem": "四位同学记录一朵花的变化。已知花苞先出现，之后花朵开放，最后花瓣落下。哪份记录按时间顺序排列？",
+   "options": [
+    "记录甲：花朵开放、花苞出现、花瓣落下",
+    "记录乙：花瓣落下、花朵开放、花苞出现",
+    "记录丙：花苞出现、花朵开放、花瓣落下",
+    "记录丁：花苞出现、花瓣落下、花朵开放"
+   ],
+   "answer": "C",
+   "explanation": "答案是“记录丙：花苞出现、花朵开放、花瓣落下”。题目给出的变化顺序是先出现花苞，再开花，最后花瓣落下；记录丙与这三个阶段的先后完全一致。",
+   "difficulty": 3,
+   "bloom": "应用",
+   "type": "single_choice",
+   "id": "pohw-CC06823"
+  },
+  {
+   "topic_id": "primary-g4-s1-chinese-K023",
+   "topic_name": "按时间顺序描写景物",
+   "stem": "观察日记或游记最常用哪种结构？",
+   "options": [
+    "时间顺序",
+    "空间顺序",
+    "事情发展顺序",
+    "逻辑顺序"
+   ],
+   "answer": "A",
+   "explanation": "本单元课文如《观潮》就是典型的时间顺序写作示例。",
+   "difficulty": 2,
+   "bloom": "理解",
+   "type": "single_choice",
+   "id": "pohw-CC06824"
+  },
+  {
+   "topic_id": "primary-g4-s1-chinese-K023",
+   "topic_name": "按时间顺序描写景物",
+   "stem": "观察记录写着：“潮水还没有到来，江面比较平静。”根据记录，潮来前的景象是哪一项？",
+   "options": [
+    "江面比较平静",
+    "潮水奔腾咆哮",
+    "白浪翻滚向前",
+    "潮头已经远去"
+   ],
+   "answer": "A",
+   "explanation": "答案是“江面比较平静”。记录明确说明潮水还没有到来时，江面比较平静；潮水奔腾、白浪翻滚和潮头远去分别是潮水涌来或经过之后的景象。",
+   "difficulty": 3,
+   "bloom": "应用",
+   "type": "single_choice",
+   "id": "pohw-CC06825"
+  },
+  {
+   "topic_id": "primary-g4-s1-chinese-K040",
+   "topic_name": "边读边想象画面",
+   "stem": "读到“远处有一座小山，山脚下伸出一条小路，路边开着几朵野花”，哪一项符合句中景物的描写顺序？",
+   "options": [
+    "先看小山，再看小路，最后看野花",
+    "先看野花，再看小路，最后看小山",
+    "先看小路，再看野花，最后看小山",
+    "先看小山，再看野花，最后看小路"
+   ],
+   "answer": "A",
+   "explanation": "答案是“先看小山，再看小路，最后看野花”。句子依次写“远处有一座小山”“山脚下伸出一条小路”“路边开着几朵野花”，所以想象画面时也应按小山、小路、野花的顺序。",
+   "difficulty": 3,
+   "bloom": "应用",
+   "type": "single_choice",
+   "id": "pohw-CC06826"
+  },
+  {
+   "topic_id": "primary-g4-s1-chinese-K014",
+   "topic_name": "声音词语的分类与积累",
+   "stem": "选出下列词语中字形完全正确的一项：",
+   "options": [
+    "据说、庄稼",
+    "提土、余波",
+    "震耳欲笼",
+    "响彻云宵"
+   ],
+   "answer": "A",
+   "explanation": "C项应为“震耳欲聋”，D项应为“响彻云霄”。",
+   "difficulty": 2,
+   "bloom": "理解",
+   "type": "single_choice",
+   "id": "pohw-CC06827"
+  },
+  {
+   "topic_id": "primary-g4-s1-chinese-K006",
+   "topic_name": "修辞方法识别",
+   "stem": "“地球不再像是一个遥不可及的荒原，而是一个小小的小村庄。”这句话用了什么修辞？",
+   "options": [
+    "排比",
+    "比喻",
+    "拟人",
+    "反问"
+   ],
+   "answer": "B",
+   "explanation": "把地球比作村庄，形象说明了科技拉近了人们的距离。",
+   "difficulty": 3,
+   "bloom": "应用",
+   "type": "single_choice",
+   "id": "pohw-CC06828"
+  },
+  {
+   "topic_id": "primary-g4-s1-chinese-K025",
+   "topic_name": "标点符号选择",
+   "stem": "“它是那么机灵____又是那么温柔____”括号里应填入：",
+   "options": [
+    "， 。",
+    "。 。",
+    "！ ！",
+    "， ？"
+   ],
+   "answer": "A",
+   "explanation": "答案是“， 。”。“机灵”和“温柔”是并列描述，中间用逗号；整句话是在陈述，句末用句号。",
+   "difficulty": 1,
+   "bloom": "记忆",
+   "type": "single_choice",
+   "id": "pohw-CC06829"
+  },
+  {
+   "topic_id": "primary-g4-s1-chinese-K015",
+   "topic_name": "多角度尝试提问",
+   "stem": "“那时没有电灯，没有电视，没有收音机，也没有汽车。”这句话使用了____修辞手法。",
+   "options": [
+    "拟人",
+    "排比",
+    "比喻",
+    "夸张"
+   ],
+   "answer": "B",
+   "explanation": "四个“没有……”构成了结构相同、意义相关的排比句。",
+   "difficulty": 2,
+   "bloom": "理解",
+   "type": "single_choice",
+   "id": "pohw-CC06830"
+  },
+  {
+   "topic_id": "primary-g4-s1-chinese-K041",
+   "topic_name": "近义词辨析",
+   "stem": "一段说明只写：“科学家认为，蝙蝠靠接收回声辨别方向。”没有介绍实验过程或观察结果。为了让读者看懂结论的依据，最需要补充什么？",
+   "options": [
+    "还缺少实验中观察到的具体现象及其如何支持结论。",
+    "还缺少雷达外形的颜色和尺寸。",
+    "还缺少蝙蝠每天飞行的具体距离。",
+    "还缺少科学家为什么喜欢蝙蝠。"
+   ],
+   "answer": "A",
+   "explanation": "答案是“还缺少实验中观察到的具体现象及其如何支持结论。”题目只给出结论“蝙蝠靠接收回声辨别方向”，没有提供实验观察结果作为证据，所以不能说明结论是怎样从实验中得出的。完整说明应把实验现象与结论之间的关系讲清楚。",
+   "difficulty": 3,
+   "bloom": "应用",
+   "type": "single_choice",
+   "id": "pohw-CC06831"
+  },
+  {
+   "topic_id": "primary-g4-s1-chinese-K031",
+   "topic_name": "科学实验逻辑与原理解析",
+   "stem": "下列关于雷达与蝙蝠的对应关系，错误的是：",
+   "options": [
+    "天线——嘴巴",
+    "无线电波——超声波",
+    "荧光屏——耳朵",
+    "雷达——蝙蝠"
+   ],
+   "answer": "C",
+   "explanation": "荧光屏是显示结果的，而耳朵是接收信号的对应物。",
+   "difficulty": 3,
+   "bloom": "应用",
+   "type": "single_choice",
+   "id": "pohw-CC06832"
+  },
+  {
+   "topic_id": "primary-g4-s1-chinese-K013",
+   "topic_name": "句式转换正误判断",
+   "stem": "句子“这条山路难道平坦吗？”表达“山路不平坦”的意思。下面哪一句改成了保留原意的陈述句？",
+   "options": [
+    "这条山路平坦吗？",
+    "这条山路很平坦。",
+    "山路不平。",
+    "这条山路难道不平坦。"
+   ],
+   "answer": "C",
+   "explanation": "“这条山路难道平坦吗？”表达这条山路不平坦。改为陈述句时，应保留否定意思并去掉反问语气，写成“山路不平。”",
+   "difficulty": 3,
+   "bloom": "应用",
+   "type": "single_choice",
+   "id": "pohw-CC06833"
+  },
+  {
+   "topic_id": "primary-g4-s1-chinese-K031",
+   "topic_name": "科学实验逻辑与原理解析",
+   "stem": "在蝙蝠实验中，科学家蒙住蝙蝠的____，它依然能安全飞行。",
+   "options": [
+    "嘴巴",
+    "耳朵",
+    "眼睛",
+    "头部"
+   ],
+   "answer": "C",
+   "explanation": "蝙蝠夜行靠的是听觉（超声波），不是视觉。",
+   "difficulty": 1,
+   "bloom": "记忆",
+   "type": "single_choice",
+   "id": "pohw-CC06834"
+  },
+  {
+   "topic_id": "primary-g4-s1-chinese-K025",
+   "topic_name": "标点符号选择",
+   "stem": "小林读完一本书后，想表达强烈的赞叹。下面哪句话的标点最合适？",
+   "options": [
+    "这本书真有趣。",
+    "这本书真有趣？",
+    "这本书真有趣！",
+    "这本书，真有趣？"
+   ],
+   "answer": "C",
+   "explanation": "答案是“这本书真有趣！”。题目说明小林要表达强烈的赞叹，“真有趣”带有感叹语气，句末用感叹号。",
+   "difficulty": 3,
+   "bloom": "应用",
+   "type": "single_choice",
+   "id": "pohw-CC06835"
+  },
+  {
+   "topic_id": "primary-g4-s1-chinese-K013",
+   "topic_name": "句式转换正误判断",
+   "stem": "把“难道这不是一个奇迹吗？”改成陈述句，且不增添原句没有的意思，正确的是：",
+   "options": [
+    "这是一个奇迹吗？",
+    "这是一个奇迹。",
+    "这不是一个奇迹。",
+    "难道这是一个奇迹。"
+   ],
+   "answer": "B",
+   "explanation": "原句“难道这不是一个奇迹吗？”用反问形式表达肯定意思，即“这是一个奇迹”。改成陈述句时去掉反问语气，并用句号；“这肯定是一个奇迹”增加了原句没有的“肯定”，不作为本题要求的对应改写。",
+   "difficulty": 2,
+   "bloom": "理解",
+   "type": "single_choice",
+   "id": "pohw-CC06836"
+  },
+  {
+   "topic_id": "primary-g4-s1-chinese-K018",
+   "topic_name": "字词义辨析",
+   "stem": "短句：“植物依赖阳光和水分才能生长。”这里“依赖”的意思是什么？",
+   "options": [
+    "观察得透彻",
+    "隐藏",
+    "依靠",
+    "深奥的秘密"
+   ],
+   "answer": "C",
+   "explanation": "答案是“依靠”。句中“植物依赖阳光和水分才能生长”说明植物要靠阳光和水分维持生长，因此“依赖”在这里是“依靠”的意思，不是“隐藏”或“观察得透彻”。",
+   "difficulty": 3,
+   "bloom": "应用",
+   "type": "single_choice",
+   "id": "pohw-CC06837"
+  },
+  {
+   "topic_id": "primary-g4-s1-chinese-K032",
+   "topic_name": "筛选有价值的问题",
+   "stem": "短文写妹妹种下一粒种子，每天观察它，后来发现长出了嫩芽。下面哪个问题更值得优先探究？",
+   "options": [
+    "优先探究“花盆是什么颜色？”",
+    "优先探究“妹妹为什么在种下花后每天观察它的变化？”",
+    "优先探究“短文有多少个字？”",
+    "优先探究“种子放在房间的哪个角落？”"
+   ],
+   "answer": "B",
+   "explanation": "答案是“优先探究‘妹妹为什么在种下花后每天观察它的变化？’”。短文说明妹妹每天观察种子，后来发现长出了嫩芽；探究她观察的原因，有助于理解她的做法。询问花盆颜色只是表面细节，题目没有提供它与理解内容相关的线索。",
+   "difficulty": 3,
+   "bloom": "应用",
+   "type": "single_choice",
+   "id": "pohw-CC06838"
+  },
+  {
+   "topic_id": "primary-g4-s1-chinese-K018",
+   "topic_name": "字词义辨析",
+   "stem": "诗句“忽如一夜春风来，千树万树梨花开”描写雪后树枝上覆盖着白雪。“梨花”在这里指什么？",
+   "options": [
+    "美丽的梨树花",
+    "洁白的雪花",
+    "柳絮",
+    "白云"
+   ],
+   "answer": "B",
+   "explanation": "答案是“洁白的雪花”。题干交代诗句写的是雪后树枝被白雪覆盖的景象，所以“梨花”是用来比喻雪花，不是实际开放的梨树花。",
+   "difficulty": 3,
+   "bloom": "应用",
+   "type": "single_choice",
+   "id": "pohw-CC06839"
+  },
+  {
+   "topic_id": "primary-g4-s1-chinese-K018",
+   "topic_name": "字词义辨析",
+   "stem": "阅读短句：“地上的绳子横七竖八地摆着，走路时要小心。”这里“横七竖八”是什么意思？",
+   "options": [
+    "形容东西很多",
+    "形容杂乱地交错摆放",
+    "形容非常有规律",
+    "形容数量极少"
+   ],
+   "answer": "B",
+   "explanation": "答案是“形容杂乱地交错摆放”。题干说明绳子排列杂乱，“横七竖八”写出横向、竖向交错的样子；它不表示数量多、数量少或排列有规律。",
+   "difficulty": 2,
+   "bloom": "理解",
+   "type": "single_choice",
+   "id": "pohw-CC06840"
+  },
+  {
+   "topic_id": "primary-g4-s1-chinese-K015",
+   "topic_name": "多角度尝试提问",
+   "stem": "阅读短文：“豌豆在那儿长得很好，它还开了一朵粉红色的花。”针对这段话提出的问题中，属于“联系生活”角度的是项？",
+   "options": [
+    "豌豆花是什么颜色的？",
+    "作者为什么写豌豆花？",
+    "豌豆种子要在什么环境下才能发芽开花？",
+    "豌豆花一共有几片花瓣？"
+   ],
+   "answer": "C",
+   "explanation": "该问题探讨的是动植物生长的客观条件，属于联系现实生活的科学常识提问。",
+   "difficulty": 2,
+   "bloom": "理解",
+   "type": "single_choice",
+   "id": "pohw-CC06841"
+  },
+  {
+   "topic_id": "primary-g4-s1-chinese-K011",
+   "topic_name": "古诗意境与哲理理解",
+   "stem": "“可怜九月初三夜”中，“可怜”的意思是：",
+   "options": [
+    "值得同情",
+    "可惜",
+    "可爱",
+    "贫穷"
+   ],
+   "answer": "C",
+   "explanation": "在《暮江吟》中，“可怜”意为可爱，表达了诗人对美景的赞美。",
+   "difficulty": 1,
+   "bloom": "记忆",
+   "type": "single_choice",
+   "id": "pohw-CC06842"
+  },
+  {
+   "topic_id": "primary-g4-s1-chinese-K044",
+   "topic_name": "连续细致的观察",
+   "stem": "“爬山虎的脚要是没触着墙，不几天就枯萎了。”这句话意在说明：",
+   "options": [
+    "脚非常有生命力",
+    "脚对墙的依赖性",
+    "脚长得很快",
+    "脚颜色好看"
+   ],
+   "answer": "B",
+   "explanation": "如果不触墙就枯萎，反向衬托出触墙生长的动态联系。",
+   "difficulty": 1,
+   "bloom": "记忆",
+   "type": "single_choice",
+   "id": "pohw-CC06843"
+  },
+  {
+   "topic_id": "primary-g4-s1-chinese-K044",
+   "topic_name": "连续细致的观察",
+   "stem": "“蟋蟀并不利用现成的洞穴”，这句话体现了它：",
+   "options": [
+    "没有伙伴",
+    "非常懒惰",
+    "不肯随遇而安",
+    "动作缓慢"
+   ],
+   "answer": "C",
+   "explanation": "课文明确提到蟋蟀不利用现成洞穴体现了其勤劳、不随意的性格。",
+   "difficulty": 2,
+   "bloom": "理解",
+   "type": "single_choice",
+   "id": "pohw-CC06844"
+  },
+  {
+   "topic_id": "primary-g4-s1-chinese-K011",
+   "topic_name": "古诗意境与哲理理解",
+   "stem": "“露似真珠月似弓”运用的修辞手法是：",
+   "options": [
+    "拟人",
+    "排比",
+    "比喻",
+    "设问"
+   ],
+   "answer": "C",
+   "explanation": "将“露水”比作“真珠”，将“月亮”比作“弓”，属于比喻。",
+   "difficulty": 2,
+   "bloom": "理解",
+   "type": "single_choice",
+   "id": "pohw-CC06845"
+  },
+  {
+   "topic_id": "primary-g4-s1-chinese-K044",
+   "topic_name": "连续细致的观察",
+   "stem": "为了观察蚂蚁搬家，小明连续观察了三天，这属于：",
+   "options": [
+    "粗略观察",
+    "连续观察",
+    "对比观察",
+    "随机观察"
+   ],
+   "answer": "B",
+   "explanation": "“连续三天”强调了观察的持续性和动态过程。",
+   "difficulty": 3,
+   "bloom": "应用",
+   "type": "single_choice",
+   "id": "pohw-CC06846"
+  },
+  {
+   "topic_id": "primary-g4-s1-chinese-K044",
+   "topic_name": "连续细致的观察",
+   "stem": "以下哪项是法布尔为了观察蟋蟀而做出的努力？",
+   "options": [
+    "在屋里睡觉",
+    "向邻居询问",
+    "常年隐居山林",
+    "在草丛里潜心守候"
+   ],
+   "answer": "D",
+   "explanation": "法布尔观察非常专注且刻苦，经常长时间守候在野外。",
+   "difficulty": 1,
+   "bloom": "记忆",
+   "type": "single_choice",
+   "id": "pohw-CC06847"
+  },
+  {
+   "topic_id": "primary-g4-s1-chinese-K033",
+   "topic_name": "观察日记的记录格式",
+   "stem": "写观察日记时，发现一株植物刚发芽。以下哪项最适合用来记录这株植物当时的样子？",
+   "options": [
+    "天气预报",
+    "植物的高度和颜色",
+    "朋友的建议",
+    "昨天的午饭"
+   ],
+   "answer": "B",
+   "explanation": "答案是“植物的高度和颜色”。题目中观察到植物刚发芽，这两项能描述它当时的形态；天气预报、朋友的建议和昨天的午饭不能直接说明植物的样子。",
+   "difficulty": 2,
+   "bloom": "理解",
+   "type": "single_choice",
+   "id": "pohw-CC06848"
+  },
+  {
+   "topic_id": "primary-g4-s1-chinese-K033",
+   "topic_name": "观察日记的记录格式",
+   "stem": "在记录观察日记时，第一行不一定要写的是：",
+   "options": [
+    "日期",
+    "星期",
+    "天气",
+    "心情"
+   ],
+   "answer": "D",
+   "explanation": "日记格式通常首行包含日期、星期和天气，心情属于正文。",
+   "difficulty": 1,
+   "bloom": "记忆",
+   "type": "single_choice",
+   "id": "pohw-CC06849"
+  },
+  {
+   "topic_id": "primary-g4-s1-chinese-K033",
+   "topic_name": "观察日记的记录格式",
+   "stem": "如果你的豆芽长出了第一片叶子，你应该在日记里加入：",
+   "options": [
+    "叶子的形状",
+    "午餐的味道",
+    "妈妈的话",
+    "书本的价格"
+   ],
+   "answer": "A",
+   "explanation": "观察事物的关键变化细节（形状）是日记核心。",
+   "difficulty": 2,
+   "bloom": "理解",
+   "type": "single_choice",
+   "id": "pohw-CC06850"
+  },
+  {
+   "topic_id": "primary-g4-s1-chinese-K033",
+   "topic_name": "观察日记的记录格式",
+   "stem": "小刚正在写一篇记录蚕宝宝外形变化的观察日记。除了观察到的变化，以下哪项可以作为与观察有关的补充内容？",
+   "options": [
+    "虚构的探险故事",
+    "观察时真实的感受",
+    "与观察无关的午餐菜单",
+    "没有观察依据的断言"
+   ],
+   "answer": "B",
+   "explanation": "答案是“观察时真实的感受”。记录观察对象的外形变化时，可以补充自己观察时真实、与观察有关的感受。虚构的探险故事、与观察无关的午餐菜单和没有观察依据的断言，都不能代替真实的观察记录。",
+   "difficulty": 3,
+   "bloom": "应用",
+   "type": "single_choice",
+   "id": "pohw-CC06851"
+  },
+  {
+   "topic_id": "primary-g4-s1-chinese-K033",
+   "topic_name": "观察日记的记录格式",
+   "stem": "小林在两个不同日期测量同一片叶子的长度，想准确比较两次结果。以下哪种记录最清楚？",
+   "options": [
+    "把两个日期和长度分别对应，并给长度注明单位。",
+    "只写“叶子长了”，不写日期，也不记录具体特征。",
+    "把两次长度混在一起，只写一个数字，不说明单位。",
+    "只记录观察当天的天气，不写叶片的测量结果。"
+   ],
+   "answer": "A",
+   "explanation": "答案是“把两个日期和长度分别对应，并给长度注明单位。”题目要求比较同一片叶子在两个日期的长度，因此每个日期都要对应一次测量结果，才能看出哪次测量对应哪一天；注明长度单位，读者才能理解测量数字表示的量。",
+   "difficulty": 3,
+   "bloom": "应用",
+   "type": "single_choice",
+   "id": "pohw-CC06852"
+  },
+  {
+   "topic_id": "primary-g4-s1-chinese-K044",
+   "topic_name": "连续细致的观察",
+   "stem": "爬山虎脚的颜色变化过程是：",
+   "options": [
+    "红—白—灰",
+    "嫩红—嫩绿—灰",
+    "绿—红—黑",
+    "白—绿—黄"
+   ],
+   "answer": "B",
+   "explanation": "根据课文描述，爬山虎的脚由嫩红变嫩绿，最后没触墙的变枯萎（灰色）。",
+   "difficulty": 1,
+   "bloom": "记忆",
+   "type": "single_choice",
+   "id": "pohw-CC06853"
+  },
+  {
+   "topic_id": "primary-g4-s1-chinese-K044",
+   "topic_name": "连续细致的观察",
+   "stem": "阅读语段：“蟋蟀钻到土底下，用前足扒土，还用钳子搬掉土块。”这句话主要描写了蟋蟀的：",
+   "options": [
+    "外形特征",
+    "筑巢动作",
+    "生活习性",
+    "叫声变化"
+   ],
+   "answer": "B",
+   "explanation": "“扒”、“搬”等动词精准刻画了蟋蟀工作的动态过程。",
+   "difficulty": 3,
+   "bloom": "应用",
+   "type": "single_choice",
+   "id": "pohw-CC06854"
+  },
+  {
+   "topic_id": "primary-g4-s1-chinese-K028",
+   "topic_name": "理解阅读",
+   "stem": "“神话故事往往起源于原始先民对自然的敬畏。”由此判断，神话反映的是：",
+   "options": [
+    "未来的高科技",
+    "现代的生活",
+    "古代人类对自然的理解",
+    "老师的故事"
+   ],
+   "answer": "C",
+   "explanation": "答案是“古代人类对自然的理解”。题干指出神话往往起源于先民对自然的敬畏，说明神话反映了古人对自然现象的认识与想象；它不是未来高科技或现代生活的记录。",
+   "difficulty": 3,
+   "bloom": "应用",
+   "type": "single_choice",
+   "id": "pohw-CC06855"
+  },
+  {
+   "topic_id": "primary-g4-s1-chinese-K018",
+   "topic_name": "字词义辨析",
+   "stem": "“茂盛”常用来形容草木长得旺盛。下面哪个词的意思与“茂盛”最接近？",
+   "options": [
+    "凄惨",
+    "马上",
+    "繁茂",
+    "广阔"
+   ],
+   "answer": "C",
+   "explanation": "答案是“繁茂”。“茂盛”和“繁茂”都可以形容草木生长旺盛，意思相近。“凄惨”形容悲惨，“马上”表示立刻，“广阔”表示范围广大，都不能表示草木长得旺盛。",
+   "difficulty": 3,
+   "bloom": "应用",
+   "type": "single_choice",
+   "id": "pohw-CC06856"
+  },
+  {
+   "topic_id": "primary-g4-s1-chinese-K030",
+   "topic_name": "神话题材叙事结构复述",
+   "stem": "一则故事写：山路被落石挡住，少年搬开小石块、绕过大石头，最后到达山顶。少年搬石块和绕行属于哪一部分？",
+   "options": [
+    "结果",
+    "经过",
+    "起因",
+    "题目"
+   ],
+   "answer": "B",
+   "explanation": "答案是“经过”。山路被落石挡住交代了问题，是起因；少年搬开小石块、绕过大石头，是解决问题时采取的行动，属于经过；最后到达山顶是结果。",
+   "difficulty": 3,
+   "bloom": "应用",
+   "type": "single_choice",
+   "id": "pohw-CC06857"
+  },
+  {
+   "topic_id": "primary-g4-s1-chinese-K019",
+   "topic_name": "感悟神话神奇的想象",
+   "stem": "一则神话写一位歌者唱歌后，河流改变了方向。情节中明确写出的变化是什么？",
+   "options": [
+    "让歌声变得更响",
+    "让河流改变方向",
+    "让河水停止流动",
+    "让岸边的石头变小"
+   ],
+   "answer": "B",
+   "explanation": "答案是“让河流改变方向”。题干明确写了歌声之后河流改变方向，所以这一情节所写的具体变化就是河流改道；它没有写河水停止流动、石头变小或歌声变响。",
+   "difficulty": 3,
+   "bloom": "应用",
+   "type": "single_choice",
+   "id": "pohw-CC06858"
+  },
+  {
+   "topic_id": "primary-g4-s1-chinese-K019",
+   "topic_name": "感悟神话神奇的想象",
+   "stem": "一则神话写少年登山时，云朵主动移开，为他让出道路；故事还说明山顶有一棵普通的大树。下列哪句话最直接表现了神奇想象？",
+   "options": [
+    "少年沿着山路登山",
+    "少年背着一个小包",
+    "云朵为他让出道路",
+    "山顶有一棵普通的大树"
+   ],
+   "answer": "C",
+   "explanation": "答案是“云朵为他让出道路”。题干说明山顶的大树是普通树，少年沿山路登山、背着小包以及普通树木都属于日常情形；云朵主动移开并让路，则写出了超出日常经验的变化，因此最直接体现神奇想象。",
+   "difficulty": 3,
+   "bloom": "应用",
+   "type": "single_choice",
+   "id": "pohw-CC06859"
+  },
+  {
+   "topic_id": "primary-g4-s1-chinese-K019",
+   "topic_name": "感悟神话神奇的想象",
+   "stem": "下列情节中，哪一个明确写出了超出日常经验的变化，最能体现神话的神奇想象？",
+   "options": [
+    "盘古在睡觉",
+    "普通猎人准备箭矢",
+    "女娲用彩色石补天",
+    "普罗米修斯走路"
+   ],
+   "answer": "C",
+   "explanation": "答案是“女娲用彩色石补天”。用彩色石补天超出日常生活经验，体现了神奇想象。其余选项写的是睡觉、准备普通箭矢或走路，没有写出超出日常经验的变化。",
+   "difficulty": 3,
+   "bloom": "应用",
+   "type": "single_choice",
+   "id": "pohw-CC06860"
+  },
+  {
+   "topic_id": "primary-g4-s1-chinese-K018",
+   "topic_name": "字词义辨析",
+   "stem": "下列短语中，哪一项书写正确？",
+   "options": [
+    "滋闰万物",
+    "滋润万物",
+    "滋润万闰",
+    "滋闰万闰"
+   ],
+   "answer": "B",
+   "explanation": "答案是“滋润万物”。“滋润”表示使水分充足、得到滋养，其中“润”是三点水旁；“闰”与“润”读音相同但字形、意思不同，因此“滋闰万物”书写错误。",
+   "difficulty": 1,
+   "bloom": "记忆",
+   "type": "single_choice",
+   "id": "pohw-CC06861"
+  },
+  {
+   "topic_id": "primary-g4-s1-chinese-K017",
+   "topic_name": "多音字读音选择",
+   "stem": "下列词语中“降”字的读音与“投降”相同的一项是：",
+   "options": [
+    "降临",
+    "降落",
+    "宁死不降",
+    "下降"
+   ],
+   "answer": "C",
+   "explanation": "答案是“宁死不降”。“投降”表示屈服，其中“降”读xiáng；“宁死不降”也表示宁可牺牲也不屈服，所以“降”同样读xiáng。“降临、降落、降生”中的“降”读jiàng。",
+   "difficulty": 1,
+   "bloom": "记忆",
+   "type": "single_choice",
+   "id": "pohw-CC06862"
+  },
+  {
+   "topic_id": "primary-g4-s1-chinese-K006",
+   "topic_name": "修辞方法识别",
+   "stem": "下面哪句话运用了拟人？",
+   "options": [
+    "夜风轻轻地敲着窗户。",
+    "夜里刮起了风，窗户发出响声。",
+    "窗户被夜风吹得轻轻摇动。",
+    "夜风从窗外吹进房间。"
+   ],
+   "answer": "A",
+   "explanation": "答案是“夜风轻轻地敲着窗户。”敲窗户通常是人的动作，这句话把夜风写得像人一样会敲窗，运用了拟人。其他句子只是直接描述风和窗户的情况。",
+   "difficulty": 2,
+   "bloom": "理解",
+   "type": "single_choice",
+   "id": "pohw-CC06863"
+  },
+  {
+   "topic_id": "primary-g4-s1-chinese-K006",
+   "topic_name": "修辞方法识别",
+   "stem": "下面哪句话运用了比喻？",
+   "options": [
+    "这条小河像一条银色的带子，绕着村庄流淌。",
+    "小河绕过村庄，最后流进大海。",
+    "小河里的水清清的，能看见石头。",
+    "村庄旁边有一条小河。"
+   ],
+   "answer": "A",
+   "explanation": "答案是“这条小河像一条银色的带子，绕着村庄流淌。”句子把小河比作银色的带子，借“像”写出河流细长、闪亮的样子，运用了比喻。其他句子是在直接说明小河的情况，没有把小河比作另一种事物。",
+   "difficulty": 1,
+   "bloom": "记忆",
+   "type": "single_choice",
+   "id": "pohw-CC06864"
+  },
+  {
+   "topic_id": "primary-g4-s1-chinese-K030",
+   "topic_name": "神话题材叙事结构复述",
+   "stem": "叙述神话故事时，通常遵循的逻辑顺序是：",
+   "options": [
+    "经过-起因-结果",
+    "结果-经过-起因",
+    "起因-经过-结果",
+    "没有顺序"
+   ],
+   "answer": "C",
+   "explanation": "答案是“起因-经过-结果”。起因交代事情为什么发生，经过说明事情如何发展，结果交代最后的结局。按这个顺序讲述，故事的发展就清楚了。",
+   "difficulty": 1,
+   "bloom": "记忆",
+   "type": "single_choice",
+   "id": "pohw-CC06865"
+  },
+  {
+   "topic_id": "primary-g4-s1-chinese-K028",
+   "topic_name": "理解阅读",
+   "stem": "古文“女娃游于东海，溺而不返”中的“溺”是什么意思？",
+   "options": [
+    "溺爱",
+    "顽皮",
+    "贪玩",
+    "淹死"
+   ],
+   "answer": "D",
+   "explanation": "答案是“淹死”。“女娃游于东海，溺而不返”说女娃在东海游玩后溺水而死，没有回来。“溺”在这里指淹死，不是溺爱、顽皮或贪玩。",
+   "difficulty": 1,
+   "bloom": "记忆",
+   "type": "single_choice",
+   "id": "pohw-CC06866"
+  },
+  {
+   "topic_id": "primary-g4-s1-chinese-K006",
+   "topic_name": "修辞方法识别",
+   "stem": "哪句话没有运用比喻或拟人？",
+   "options": [
+    "树叶像一只只绿色的小手，在风中挥舞。",
+    "树叶在风中跳起了欢快的舞蹈。",
+    "起风了，树叶在风中摇来摇去。",
+    "风儿推着树叶，催它们快快回家。"
+   ],
+   "answer": "C",
+   "explanation": "答案是“起风了，树叶在风中摇来摇去。”它直接说明树叶受风吹而摇动，没有把树叶比作别的事物，也没有写树叶像人一样行动或有情感，因此没有运用比喻或拟人。其他句子分别把树叶比作小手，或写成会跳舞、会回家，运用了比喻或拟人。",
+   "difficulty": 2,
+   "bloom": "理解",
+   "type": "single_choice",
+   "id": "pohw-CC06867"
+  },
+  {
+   "topic_id": "primary-g4-s1-chinese-K017",
+   "topic_name": "多音字读音选择",
+   "stem": "实验记录写着：“第一次结果不准确，小林决定重做一次。”句中的“重”应读哪一个音？",
+   "options": [
+    "重（zhòng）",
+    "重（chóng）",
+    "两种读音都可以",
+    "这个字不读音"
+   ],
+   "answer": "B",
+   "explanation": "答案是“重（chóng）”。题目说明他要再做一次实验，“重做”表示再做一次，其中“重”读chóng；“重量”表示物体有多重，其中“重”读zhòng。应根据句意“再做一次”选择“重（chóng）”。",
+   "difficulty": 3,
+   "bloom": "应用",
+   "type": "single_choice",
+   "id": "pohw-CC06868"
+  },
+  {
+   "topic_id": "primary-g4-s1-chinese-K017",
+   "topic_name": "多音字读音选择",
+   "stem": "小明觉得第一次画得不满意，决定再画一次。下列哪个词语中的“重”读chóng，最适合表示“再画一次”？",
+   "options": [
+    "重要",
+    "重新",
+    "重复",
+    "重量"
+   ],
+   "answer": "B",
+   "explanation": "答案是“重新”。题目说小明要把画再画一次，“重新”表示再一次，其中“重”读chóng；“重要”中的“重”读zhòng。",
+   "difficulty": 3,
+   "bloom": "应用",
+   "type": "single_choice",
+   "id": "pohw-CC06869"
+  },
+  {
+   "topic_id": "primary-g4-s1-chinese-K030",
+   "topic_name": "神话题材叙事结构复述",
+   "stem": "把下面三件事按起因—经过—结果排列：甲：村民顺利过河。乙：大雨冲毁了河上的桥。丙：河神用石块和树木搭起新桥。",
+   "options": [
+    "甲—乙—丙",
+    "乙—丙—甲",
+    "丙—甲—乙",
+    "乙—甲—丙"
+   ],
+   "answer": "B",
+   "explanation": "答案是“乙—丙—甲”。乙写大雨冲毁桥梁，交代了事情发生的缘由，是起因；丙写河神用石块和树木搭起新桥，是解决问题的行动，属于经过；甲写村民顺利过河，是最后的结局，属于结果。因此顺序是乙—丙—甲。",
+   "difficulty": 3,
+   "bloom": "应用",
+   "type": "single_choice",
+   "id": "pohw-CC06870"
+  },
+  {
+   "topic_id": "primary-g4-s1-chinese-K030",
+   "topic_name": "神话题材叙事结构复述",
+   "stem": "故事中写“村里连续干旱，大家急需水”，这部分主要交代故事的哪一部分？",
+   "options": [
+    "经过",
+    "结果",
+    "起因",
+    "人物"
+   ],
+   "answer": "C",
+   "explanation": "答案是“起因”。“村里连续干旱，大家急需水”交代了少年寻找水源的缘由，属于起因；寻找行动属于经过，找到水源属于结果。",
+   "difficulty": 2,
+   "bloom": "理解",
+   "type": "single_choice",
+   "id": "pohw-CC06871"
+  },
+  {
+   "topic_id": "primary-g4-s1-chinese-K029",
+   "topic_name": "神话人物形象分析",
+   "stem": "普罗米修斯不向宙斯屈服，主要是因为：",
+   "options": [
+    "他想当王",
+    "他认为火能给人类带来文明",
+    "他不害怕鹰",
+    "他有人救他"
+   ],
+   "answer": "B",
+   "explanation": "这是他盗火并坚持的根本原因：为人类谋福祉。",
+   "difficulty": 1,
+   "bloom": "记忆",
+   "type": "single_choice",
+   "id": "pohw-CC06872"
+  },
+  {
+   "topic_id": "primary-g4-s1-chinese-K029",
+   "topic_name": "神话人物形象分析",
+   "stem": "盘古、精卫、女娲这些人物的共同点是：",
+   "options": [
+    "都具有神力且乐于助人",
+    "都生活在现代",
+    "全都是现实生活的人",
+    "都喜欢大海"
+   ],
+   "answer": "A",
+   "explanation": "神话英雄通常拥有超越常人的力量并为人类牺牲或贡献。",
+   "difficulty": 3,
+   "bloom": "应用",
+   "type": "single_choice",
+   "id": "pohw-CC06873"
+  },
+  {
+   "topic_id": "primary-g4-s1-chinese-K028",
+   "topic_name": "理解阅读",
+   "stem": "短文：普罗米修斯看到人类没有火，在无边的黑暗中受冻。他决心为人类带来火种。这段话最适合做：",
+   "options": [
+    "故事的起因",
+    "故事的结尾",
+    "故事的冲突",
+    "故事的悬念"
+   ],
+   "answer": "A",
+   "explanation": "描述现状及主角的动机通常是神话题材的起因。",
+   "difficulty": 3,
+   "bloom": "应用",
+   "type": "single_choice",
+   "id": "pohw-CC06874"
+  },
+  {
+   "topic_id": "primary-g4-s1-chinese-K018",
+   "topic_name": "字词义辨析",
+   "stem": "选择与句中空格相对应的词语：神话故事写道：“盘古发出的____变成了隆隆的雷声。”",
+   "options": [
+    "血液",
+    "气息",
+    "肌肉",
+    "声音"
+   ],
+   "answer": "D",
+   "explanation": "答案是“声音”。在这道题给出的句子中，“隆隆”写出了声音响亮、连续的特点；“盘古的声音变成雷声”是神话中的想象表达。血液、气息和肌肉都不是句中与“雷声”相对应的词语。",
+   "difficulty": 2,
+   "bloom": "理解",
+   "type": "single_choice",
+   "id": "pohw-CC06875"
+  },
+  {
+   "topic_id": "primary-g4-s1-chinese-K018",
+   "topic_name": "字词义辨析",
+   "stem": "选择最合适的词语：这片草原的范围很大，一眼望不到边，显得十分____。",
+   "options": [
+    "茂盛",
+    "奔流不息",
+    "辽阔",
+    "凄惨"
+   ],
+   "answer": "C",
+   "explanation": "答案是“辽阔”。题干明确说草原“范围很大”，描述的是范围广大，所以用“辽阔”。“茂盛”形容草木长得旺盛，“奔流不息”常形容水流连续不断，“凄惨”形容悲惨的情形，都不符合这里的描述。",
+   "difficulty": 3,
+   "bloom": "应用",
+   "type": "single_choice",
+   "id": "pohw-CC06876"
+  },
+  {
+   "topic_id": "primary-g4-s1-chinese-K028",
+   "topic_name": "理解阅读",
+   "stem": "阅读：普罗米修斯被锁在悬崖上，每天遭受秃鹰啄食，但他没有向宙斯屈服。根据他的处境和行为，他最可能具有哪种品质？",
+   "options": [
+    "贪婪",
+    "软弱退缩",
+    "坚毅顽强",
+    "喜怒无常"
+   ],
+   "answer": "C",
+   "explanation": "答案是“坚毅顽强”。题干说普罗米修斯被锁在悬崖上、遭受秃鹰啄食，却没有向宙斯屈服；面对痛苦仍不屈服，体现了坚毅顽强。",
+   "difficulty": 3,
+   "bloom": "应用",
+   "type": "single_choice",
+   "id": "pohw-CC06877"
+  },
+  {
+   "topic_id": "primary-g4-s1-chinese-K008",
+   "topic_name": "动作词的精准运用",
+   "stem": "“他____开外衣，____进怀里。”此处填入哪两个词最能体现动作的急切？",
+   "options": [
+    "解 塞",
+    "脱 放",
+    "撕 扔",
+    "掀 挡"
+   ],
+   "answer": "A",
+   "explanation": "“解和塞”在特定情境（如课文《猎人笔记》中相关描写）最贴切。",
+   "difficulty": 3,
+   "bloom": "应用",
+   "type": "single_choice",
+   "id": "pohw-CC06878"
+  },
+  {
+   "topic_id": "primary-g4-s1-chinese-K021",
+   "topic_name": "把事情写清楚的方法",
+   "stem": "“他气得脸色发白，拳头握得紧紧的。”这句话通过什么描写写出了他的气愤？",
+   "options": [
+    "神态和动作描写",
+    "心理和语言描写",
+    "环境和外貌描写",
+    "动作和心理描写"
+   ],
+   "answer": "A",
+   "explanation": "“脸色发白”是神态，“握紧拳头”是动作。",
+   "difficulty": 2,
+   "bloom": "理解",
+   "type": "single_choice",
+   "id": "pohw-CC06879"
+  },
+  {
+   "topic_id": "primary-g4-s1-chinese-K008",
+   "topic_name": "动作词的精准运用",
+   "stem": "“姐姐握着笔，对着草稿纸发愁。”这句话通过描写什么展现了姐姐遇到了难题？",
+   "options": [
+    "神态和环境",
+    "动作和心理",
+    "外貌和语言",
+    "环境和语言"
+   ],
+   "answer": "B",
+   "explanation": "“握着笔”是动作，“发愁”是内心状态的表现。",
+   "difficulty": 3,
+   "bloom": "应用",
+   "type": "single_choice",
+   "id": "pohw-CC06880"
+  },
+  {
+   "topic_id": "primary-g4-s1-chinese-K008",
+   "topic_name": "动作词的精准运用",
+   "stem": "“老爷爷……爬上了天都峰。”中间应该填哪组词体现爬山费力？",
+   "options": [
+    "大步流星地",
+    "慢吞吞地",
+    "奋力地",
+    "轻快地"
+   ],
+   "answer": "C",
+   "explanation": "根据《爬天都峰》课文内容及语境，爬山过程极其艰辛，用“奋力”最恰当。",
+   "difficulty": 2,
+   "bloom": "理解",
+   "type": "single_choice",
+   "id": "pohw-CC06881"
+  },
+  {
+   "topic_id": "primary-g4-s1-chinese-K027",
+   "topic_name": "环境描写对叙事的衬托",
+   "stem": "“路边的槐树被风吹得沙沙作响，仿佛在为我欢呼。”这是什么写法？",
+   "options": [
+    "环境描写衬托心情",
+    "外貌描写",
+    "说明文章中心",
+    "交代故事地点"
+   ],
+   "answer": "A",
+   "explanation": "槐树的声响被赋予了感彩，衬托了“我”的喜悦。",
+   "difficulty": 2,
+   "bloom": "理解",
+   "type": "single_choice",
+   "id": "pohw-CC06882"
+  },
+  {
+   "topic_id": "primary-g4-s1-chinese-K021",
+   "topic_name": "把事情写清楚的方法",
+   "stem": "下列哪个题目最适合通过一系列连续动作来具体描写？",
+   "options": [
+    "我的一张照片",
+    "一次做家务的过程",
+    "我喜欢的风景",
+    "我的好朋友"
+   ],
+   "answer": "B",
+   "explanation": "做家务包含洗、擦、拖等连续动作，最适宜动作描写。",
+   "difficulty": 2,
+   "bloom": "理解",
+   "type": "single_choice",
+   "id": "pohw-CC06883"
+  },
+  {
+   "topic_id": "primary-g4-s1-chinese-K027",
+   "topic_name": "环境描写对叙事的衬托",
+   "stem": "小宇正在家里等比赛结果。屋子里静极了，只有时钟嘀嗒嘀嗒地响。这处环境描写主要衬托什么？",
+   "options": [
+    "衬托等待消息的焦急心情",
+    "说明时钟的质量很好",
+    "说明屋里肯定没有人",
+    "表现大家正在热闹地庆祝"
+   ],
+   "answer": "A",
+   "explanation": "答案是“衬托等待消息的焦急心情”。小宇正在等比赛结果，屋里安静得能听见时钟声，环境的寂静和清晰的滴答声突出了等待时的紧张、焦急；句子并不能说明屋里没有人。",
+   "difficulty": 3,
+   "bloom": "应用",
+   "type": "single_choice",
+   "id": "pohw-CC06884"
+  },
+  {
+   "topic_id": "primary-g4-s1-chinese-K027",
+   "topic_name": "环境描写对叙事的衬托",
+   "stem": "小明背着书包赶去学校。路上狂风呼呼地吹，泥泞的小路让他一步一滑。这段环境描写最能衬托什么？",
+   "options": [
+    "衬托赶路不容易",
+    "说明这条路刚刚修好",
+    "表示小明已经安全到家",
+    "只介绍路边树木的颜色"
+   ],
+   "answer": "A",
+   "explanation": "答案是“衬托赶路不容易”。小明背着书包赶去学校；狂风说明天气不好，泥泞的小路和“一步一滑”说明路面难走。这些环境特点共同衬托出赶路不容易。",
+   "difficulty": 3,
+   "bloom": "应用",
+   "type": "single_choice",
+   "id": "pohw-CC06885"
+  },
+  {
+   "topic_id": "primary-g4-s1-chinese-K027",
+   "topic_name": "环境描写对叙事的衬托",
+   "stem": "小雨在傍晚寻找走失的小猫。天色渐暗，雨越下越大。这里的环境描写主要有什么作用？",
+   "options": [
+    "使寻找小猫的过程显得更困难",
+    "说明小猫已经回到家里",
+    "表现雨后的景色十分美丽",
+    "说明小雨不喜欢下雨"
+   ],
+   "answer": "A",
+   "explanation": "答案是“使寻找小猫的过程显得更困难”。小雨正在寻找走失的小猫；夜色很暗、雨下得很大，这些环境特点增加了寻找的难度，因此衬托出她寻找小猫并不容易。",
+   "difficulty": 3,
+   "bloom": "应用",
+   "type": "single_choice",
+   "id": "pohw-CC06886"
+  },
+  {
+   "topic_id": "primary-g4-s1-chinese-K008",
+   "topic_name": "动作词的精准运用",
+   "stem": "给下列句子填入合适的词：他____起书包，____向操场。",
+   "options": [
+    "背 跑",
+    "拿 走",
+    "提 跳",
+    "扛 挪"
+   ],
+   "answer": "A",
+   "explanation": "结合生活情境，书包通常用“背”，去操场参加活动通常用“跑”。",
+   "difficulty": 1,
+   "bloom": "记忆",
+   "type": "single_choice",
+   "id": "pohw-CC06887"
+  },
+  {
+   "topic_id": "primary-g4-s1-chinese-K027",
+   "topic_name": "环境描写对叙事的衬托",
+   "stem": "读句子：“在那条崎岖的小路上，寒风呼呼地刮着。”这段环境描写主要写出了什么？",
+   "options": [
+    "表现天气寒冷，路不好走",
+    "预示着结局一定圆满",
+    "描写温暖明媚的春景",
+    "只介绍小路的颜色"
+   ],
+   "answer": "A",
+   "explanation": "答案是“表现天气寒冷，路不好走”。“寒风呼呼地刮着”写出天气寒冷，“崎岖的小路”写出道路不平；两处环境特点共同说明这段路不容易行走。",
+   "difficulty": 2,
+   "bloom": "理解",
+   "type": "single_choice",
+   "id": "pohw-CC06888"
+  },
+  {
+   "topic_id": "primary-g4-s1-chinese-K034",
+   "topic_name": "记叙文长话短说（缩句）",
+   "stem": "“一只全身披着金黄色羽毛的雄鸡大声啼叫。”缩写时，哪一句保留了主要意思并删去了非必要修饰？",
+   "options": [
+    "雄鸡在屋顶。",
+    "一只雄鸡啼叫。",
+    "雄鸡大声啼叫。",
+    "雄鸡啼叫。"
+   ],
+   "answer": "D",
+   "explanation": "答案是“雄鸡啼叫。”句子的主要意思是雄鸡啼叫。“一只”和“全身披着金黄色羽毛的”补充说明雄鸡的数量和样子，“大声”说明啼叫的方式，“在屋顶”说明地点；删去这些补充信息后，主要意思仍清楚。",
+   "difficulty": 2,
+   "bloom": "理解",
+   "type": "single_choice",
+   "id": "pohw-CC06889"
+  },
+  {
+   "topic_id": "primary-g4-s1-chinese-K018",
+   "topic_name": "字词义辨析",
+   "stem": "“不动声色”通常形容什么？",
+   "options": [
+    "不说话，也不流露感情",
+    "一点声音也听不见",
+    "故意把事情说得很大",
+    "心里完全不在意"
+   ],
+   "answer": "A",
+   "explanation": "答案是“不说话，也不流露感情”。“不动声色”形容不说话、不流露感情，或神色镇静；它描述外在表现，不能单凭这个词断定一个人内心是否在意。",
+   "difficulty": 1,
+   "bloom": "记忆",
+   "type": "single_choice",
+   "id": "pohw-CC06890"
+  },
+  {
+   "topic_id": "primary-g4-s1-chinese-K034",
+   "topic_name": "记叙文长话短说（缩句）",
+   "stem": "“傍晚，妈妈轻轻地把窗户关上了。”哪一句删去了时间和动作方式的补充说明，同时保留原句的动作关系？",
+   "options": [
+    "妈妈把窗户关上了。",
+    "窗户把妈妈关上了。",
+    "傍晚，妈妈关上窗户。",
+    "妈妈轻轻地关上了。"
+   ],
+   "answer": "A",
+   "explanation": "答案是“妈妈把窗户关上了。”妈妈是动作发出者，关上是主要动作，窗户是动作对象；“傍晚”和“轻轻地”分别补充时间和动作方式。保留“把”字结构和“了”，既保留了动作关系，也保留了动作完成的意思。",
+   "difficulty": 3,
+   "bloom": "应用",
+   "type": "single_choice",
+   "id": "pohw-CC06891"
+  },
+  {
+   "topic_id": "primary-g4-s1-chinese-K042",
+   "topic_name": "近义词连线",
+   "stem": "“勇敢”的近义词是哪个？",
+   "options": [
+    "立刻",
+    "英勇",
+    "冰冷",
+    "期待"
+   ],
+   "answer": "B",
+   "explanation": "“英勇”和“勇敢”都表示不怕困难、危险，意思相近。“立刻”是“马上”，“冰冷”是“寒冷”，“期待”是“盼望”，都不是“勇敢”的近义词。",
+   "difficulty": 2,
+   "bloom": "理解",
+   "type": "single_choice",
+   "id": "pohw-CC06892"
+  },
+  {
+   "topic_id": "primary-g4-s1-chinese-K042",
+   "topic_name": "近义词连线",
+   "stem": "“协助”的近义词是哪个？",
+   "options": [
+    "安静",
+    "帮助",
+    "温暖",
+    "珍贵"
+   ],
+   "answer": "B",
+   "explanation": "“协助”和“帮助”都表示给别人支持或帮忙，意思相近。“安静”指没有声音或不吵闹；“温暖”指暖和；“珍贵”指有价值，其他选项的意思都与“协助”不同。",
+   "difficulty": 2,
+   "bloom": "理解",
+   "type": "single_choice",
+   "id": "pohw-CC06893"
+  },
+  {
+   "topic_id": "primary-g4-s1-chinese-K034",
+   "topic_name": "记叙文长话短说（缩句）",
+   "stem": "“小猫在安静的院子里睡着了。”哪一句是缩句，并保留原句表示状态变化的“了”？",
+   "options": [
+    "小猫在院子里。",
+    "小猫睡着了。",
+    "安静的院子睡着了。",
+    "小猫安静地睡。"
+   ],
+   "answer": "B",
+   "explanation": "答案是“小猫睡着了。”原句主要说小猫睡着了；“在安静的院子里”补充说明地点和环境，可以删去。题目要求保留表示状态变化的“了”，因此“小猫安静地睡”不符合要求。",
+   "difficulty": 2,
+   "bloom": "理解",
+   "type": "single_choice",
+   "id": "pohw-CC06894"
+  },
+  {
+   "topic_id": "primary-g4-s1-chinese-K003",
+   "topic_name": "人物心理活动的揣摩",
+   "stem": "“我”站在台上，两腿发抖，这是在描写人物的：",
+   "options": [
+    "神态",
+    "外貌",
+    "动作",
+    "语言"
+   ],
+   "answer": "C",
+   "explanation": "“发抖”是身体各部位的运动状态，属于广义的动作/细节描写。",
+   "difficulty": 2,
+   "bloom": "理解",
+   "type": "single_choice",
+   "id": "pohw-CC06895"
+  },
+  {
+   "topic_id": "primary-g4-s1-chinese-K042",
+   "topic_name": "近义词连线",
+   "stem": "“期待”与下面哪个词语意思相近？",
+   "options": [
+    "失败",
+    "后悔",
+    "盼望",
+    "明辨是非"
+   ],
+   "answer": "C",
+   "explanation": "“期待”和“盼望”都表示盼着某件事情发生，意思相近。",
+   "difficulty": 2,
+   "bloom": "理解",
+   "type": "single_choice",
+   "id": "pohw-CC06896"
+  },
+  {
+   "topic_id": "primary-g4-s1-chinese-K006",
+   "topic_name": "修辞方法识别",
+   "stem": "“清晨，小鸟在枝头欢快地唱歌。”运用了什么修辞方法？",
+   "options": [
+    "设问",
+    "比喻",
+    "拟人",
+    "排比"
+   ],
+   "answer": "C",
+   "explanation": "句子写小鸟在枝头“唱歌”，把人的动作赋予小鸟，使表达更生动，属于拟人。",
+   "difficulty": 1,
+   "bloom": "记忆",
+   "type": "single_choice",
+   "id": "pohw-CC06897"
+  },
+  {
+   "topic_id": "primary-g4-s1-chinese-K006",
+   "topic_name": "修辞方法识别",
+   "stem": "“花儿轻轻摇动，树木静静站立，微风缓缓吹过。”这句话主要运用了什么修辞方法？",
+   "options": [
+    "拟人",
+    "设问",
+    "比喻",
+    "排比"
+   ],
+   "answer": "D",
+   "explanation": "句子连续写了三个结构相近的分句，分别描写花、树和风的状态，表达内容相关，构成排比。句中没有把花、树或风写成人的动作或情态。",
+   "difficulty": 3,
+   "bloom": "应用",
+   "type": "single_choice",
+   "id": "pohw-CC06898"
+  },
+  {
+   "topic_id": "primary-g4-s1-chinese-K028",
+   "topic_name": "理解阅读",
+   "stem": "“赛场上，他像离弦的箭一样冲向终点，最终站上了领奖台。”这句话中，“冲向终点”和“站上领奖台”属于哪一种描写？",
+   "options": [
+    "心理描写",
+    "外貌描写",
+    "动作描写",
+    "语言描写"
+   ],
+   "answer": "C",
+   "explanation": "答案是“动作描写”。“冲向终点”和“站上领奖台”写的是人物做出的动作，因此这句话主要使用动作描写。",
+   "difficulty": 3,
+   "bloom": "应用",
+   "type": "single_choice",
+   "id": "pohw-CC06899"
+  },
+  {
+   "topic_id": "primary-g4-s1-chinese-K006",
+   "topic_name": "修辞方法识别",
+   "stem": "“陀螺如果不旋转，不就成了一块废木头吗？”这是一个什么句子？",
+   "options": [
+    "疑问句",
+    "反问句",
+    "感叹句",
+    "陈述句"
+   ],
+   "answer": "B",
+   "explanation": "用疑问的形式表达肯定的意思，答案尽在其中。",
+   "difficulty": 1,
+   "bloom": "记忆",
+   "type": "single_choice",
+   "id": "pohw-CC06900"
+  },
+  {
+   "topic_id": "primary-g4-s1-chinese-K006",
+   "topic_name": "修辞方法识别",
+   "stem": "“鹅的步调从容，大模大样的，颇像京剧里的净角出场。”运用了什么修辞方法？",
+   "options": [
+    "比喻",
+    "排比",
+    "设问",
+    "拟人"
+   ],
+   "answer": "A",
+   "explanation": "句子把鹅从容、大模大样的步调比作京剧净角出场的样子，用熟悉的情景表现鹅走路的姿态，属于比喻。",
+   "difficulty": 2,
+   "bloom": "理解",
+   "type": "single_choice",
+   "id": "pohw-CC06901"
+  },
+  {
+   "topic_id": "primary-g4-s1-chinese-K037",
+   "topic_name": "词语识别",
+   "stem": "下列词语中是“ABB”式结构的是：",
+   "options": [
+    "慢腾腾",
+    "干干净净",
+    "商量商量",
+    "得意扬扬"
+   ],
+   "answer": "A",
+   "explanation": "慢（A）腾腾（BB）。B、C、D分别是AABB、ABAB、ABCC。",
+   "difficulty": 1,
+   "bloom": "记忆",
+   "type": "single_choice",
+   "id": "pohw-CC06902"
+  },
+  {
+   "topic_id": "primary-g4-s1-chinese-K037",
+   "topic_name": "词语识别",
+   "stem": "下列词语中，形容人十分担心、害怕的是：",
+   "options": [
+    "眉开眼笑",
+    "提心吊胆",
+    "顾名思义",
+    "不动声色"
+   ],
+   "answer": "B",
+   "explanation": "答案是“提心吊胆”。它形容十分担心、害怕；“眉开眼笑”形容高兴，“顾名思义”指从名称想到它的含义，“不动声色”指不显露内心活动。因此，只有“提心吊胆”符合题目要求。",
+   "difficulty": 1,
+   "bloom": "记忆",
+   "type": "single_choice",
+   "id": "pohw-CC06903"
+  },
+  {
+   "topic_id": "primary-g4-s1-chinese-K018",
+   "topic_name": "字词义辨析",
+   "stem": "下列词语字形完全正确的一组是：",
+   "options": [
+    "溃败 冰鞋 玩皮",
+    "垂头丧气 通情打理",
+    "自豪 甚至 旋转",
+    "大模大样 摇头晃恼"
+   ],
+   "answer": "C",
+   "explanation": "A中玩皮应为顽皮；B中通情打理应为通情达理；D中摇头晃恼应为摇头晃脑。",
+   "difficulty": 1,
+   "bloom": "记忆",
+   "type": "single_choice",
+   "id": "pohw-CC06904"
+  },
+  {
+   "topic_id": "primary-g4-s1-chinese-K042",
+   "topic_name": "近义词连线",
+   "stem": "下面哪一组词语是近义词？",
+   "options": [
+    "高兴—马上",
+    "仔细—认真",
+    "美丽—快乐",
+    "立刻—漂亮"
+   ],
+   "answer": "B",
+   "explanation": "“仔细”和“认真”意思相近。其他选项中的词语意思不相近。",
+   "difficulty": 1,
+   "bloom": "记忆",
+   "type": "single_choice",
+   "id": "pohw-CC06905"
+  },
+  {
+   "topic_id": "primary-g4-s1-chinese-K035",
+   "topic_name": "词语填空",
+   "stem": "从选项中选一个词填入句中：老师提醒我们：“（____）是留给有准备的人的。”",
+   "options": [
+    "机会",
+    "心情",
+    "动作",
+    "办法"
+   ],
+   "answer": "A",
+   "explanation": "答案是“机会”。句子说有准备的人能够抓住有利时机；在“机会、心情、动作”中，只有“机会”表示有利的时机，符合句意和搭配。",
+   "difficulty": 2,
+   "bloom": "理解",
+   "type": "single_choice",
+   "id": "pohw-CC06906"
+  },
+  {
+   "topic_id": "primary-g4-s1-chinese-K003",
+   "topic_name": "人物心理活动的揣摩",
+   "stem": "他刚刚承认自己做错了事，并对老师说：“我不该把同学的本子弄坏，对不起。”说话时，他脸红到了耳根，低着头，不敢看老师的眼睛。最能概括他当时心情的是：",
+   "options": [
+    "愤怒",
+    "惭愧",
+    "兴奋",
+    "惊讶"
+   ],
+   "answer": "B",
+   "explanation": "答案是“惭愧”。他刚刚承认自己做错了事，并说“我不该把同学的本子弄坏，对不起”。这句话表明他认识到自己的过错；脸红、低头、不敢看老师的眼睛也支持他感到惭愧。",
+   "difficulty": 3,
+   "bloom": "应用",
+   "type": "single_choice",
+   "id": "pohw-CC06907"
+  },
+  {
+   "topic_id": "primary-g4-s1-chinese-K018",
+   "topic_name": "字词义辨析",
+   "stem": "图书角新到一套故事书，借阅的人排起了队。这里说“这套书很抢手”，意思是什么？",
+   "options": [
+    "很受欢迎、需求多",
+    "拿在手里很紧",
+    "价格很便宜",
+    "放在书架最上层"
+   ],
+   "answer": "A",
+   "explanation": "答案是“很受欢迎、需求多”。句中借阅的人排起了队，说明很多人想借这套书，因此“抢手”表示很受欢迎、需求多；不是书拿在手里很紧、价格便宜或放在高处。",
+   "difficulty": 3,
+   "bloom": "应用",
+   "type": "single_choice",
+   "id": "pohw-CC06908"
+  },
+  {
+   "topic_id": "primary-g4-s1-chinese-K020",
+   "topic_name": "批注阅读的实践",
+   "stem": "在“人不可貌相，海水不可斗量”这句话旁写下自己对它所表达道理的理解，这条批注属于哪一类？",
+   "options": [
+    "对内容的疑问",
+    "对写法的点评",
+    "对感人的共鸣",
+    "对道理的感悟"
+   ],
+   "answer": "D",
+   "explanation": "“人不可貌相，海水不可斗量”表达了不能只凭外表判断人的道理。在这句话旁写批注并思考它所表达的道理，属于对道理的感悟。",
+   "difficulty": 3,
+   "bloom": "应用",
+   "type": "single_choice",
+   "id": "pohw-CC06909"
+  },
+  {
+   "topic_id": "primary-g4-s1-chinese-K038",
+   "topic_name": "词语配对",
+   "stem": "在“拍手叫好、泪流满面、满脸通红、手心出汗”中，选一个与“紧张”最贴切的身体反应。",
+   "options": [
+    "拍手叫好",
+    "泪流满面",
+    "满脸通红",
+    "手心出汗"
+   ],
+   "answer": "D",
+   "explanation": "答案是“手心出汗”。题目要求从所列身体反应中找与“紧张”最贴切的一项；手心出汗常用来表现紧张。拍手叫好通常表示喝彩，泪流满面常表现伤心，满脸通红则可能有多种原因，不能作为这里最贴切的答案。",
+   "difficulty": 2,
+   "bloom": "理解",
+   "type": "single_choice",
+   "id": "pohw-CC06910"
+  },
+  {
+   "topic_id": "primary-g4-s1-chinese-K025",
+   "topic_name": "标点符号选择",
+   "stem": "小明把心里想到的话原样写下来。选择标点正确的一句话。",
+   "options": [
+    "我想，既然老师让我演，肯定有他的道理。",
+    "我想：“既然老师让我演，肯定有他的道理。”",
+    "我想：“既然老师让我演？肯定有他的道理。”",
+    "我想；“既然老师让我演，肯定有他的道理。”"
+   ],
+   "answer": "B",
+   "explanation": "答案是“我想：“既然老师让我演，肯定有他的道理。””。题干说明后面是直接引用的心里话，所以提示语“我想”后用冒号，引出的话用引号标出；引用内容的两个分句之间用逗号，陈述句句末用句号并放在引号内。",
+   "difficulty": 2,
+   "bloom": "理解",
+   "type": "single_choice",
+   "id": "pohw-CC06911"
+  },
+  {
+   "topic_id": "primary-g4-s1-chinese-K028",
+   "topic_name": "理解阅读",
+   "stem": "小明站在教室门口等比赛结果，双手紧紧攥着书角。句中“紧紧攥着书角”属于哪一种描写？",
+   "options": [
+    "心理描写",
+    "动作描写",
+    "语言描写",
+    "外貌描写"
+   ],
+   "answer": "B",
+   "explanation": "答案是“动作描写”。“紧紧攥着书角”写的是小明做出的动作；等待结果的情境可以帮助读者推想心情，但这几个字本身写的不是心理活动。",
+   "difficulty": 3,
+   "bloom": "应用",
+   "type": "single_choice",
+   "id": "pohw-CC06912"
+  },
+  {
+   "topic_id": "primary-g4-s1-chinese-K003",
+   "topic_name": "人物心理活动的揣摩",
+   "stem": "小明第一次登台表演。轮到他时，他的手心冒汗，握着道具的手有些发抖。最能概括他当时心情的是：",
+   "options": [
+    "紧张",
+    "得意",
+    "生气",
+    "轻松"
+   ],
+   "answer": "A",
+   "explanation": "答案是“紧张”。题目写明小明第一次登台，轮到他时手心冒汗，握道具的手发抖。这些表现结合第一次上台的情境，说明他心里紧张。",
+   "difficulty": 3,
+   "bloom": "应用",
+   "type": "single_choice",
+   "id": "pohw-CC06913"
+  },
+  {
+   "topic_id": "primary-g4-s1-chinese-K006",
+   "topic_name": "修辞方法识别",
+   "stem": "小明读到：“夜深了，风轻轻推开窗户，仿佛在提醒我们早点休息。”这句话主要运用了什么修辞方法？",
+   "options": [
+    "排比",
+    "比喻",
+    "设问",
+    "拟人"
+   ],
+   "answer": "D",
+   "explanation": "句子写风“轻轻推开”窗户，并写它“仿佛在提醒我们”，把风写成像人一样能做动作、传递提醒，属于拟人。这里没有把风比作另一种事物，也没有自问自答。",
+   "difficulty": 3,
+   "bloom": "应用",
+   "type": "single_choice",
+   "id": "pohw-CC06914"
+  },
+  {
+   "topic_id": "primary-g4-s1-chinese-K035",
+   "topic_name": "词语填空",
+   "stem": "小雨马上要上台朗读，刚站起来就发现自己的声音有些发抖。根据动作和情境，她此刻最可能是什么心情？",
+   "options": [
+    "得意",
+    "紧张",
+    "轻松",
+    "生气"
+   ],
+   "answer": "B",
+   "explanation": "答案是“紧张”。小雨马上要上台朗读，站起来时声音发抖；结合即将当众朗读的情境，声音发抖是她紧张的线索。“得意”表示满意或自豪，“轻松”表示没有压力，“生气”表示恼怒，都不符合题干提供的情境和表现。",
+   "difficulty": 3,
+   "bloom": "应用",
+   "type": "single_choice",
+   "id": "pohw-CC06915"
+  },
+  {
+   "topic_id": "primary-g4-s1-chinese-K025",
+   "topic_name": "标点符号选择",
+   "stem": "爸爸直接问我雨是否停了。选择标点正确的一句话。",
+   "options": [
+    "爸爸问：“雨停了吗？”",
+    "爸爸问：“雨停了吗”。",
+    "爸爸问：“雨停了吗”？",
+    "爸爸问，雨停了吗？"
+   ],
+   "answer": "A",
+   "explanation": "答案是“爸爸问：“雨停了吗？””。“爸爸问”引出爸爸的直接原话，提示语后用冒号并给原话加引号；原话是疑问句，问号放在引号内。选项B把问号误写成句号，选项C把问号放在引号外，选项D漏掉引号且在提示语后误用逗号。",
+   "difficulty": 3,
+   "bloom": "应用",
+   "type": "single_choice",
+   "id": "pohw-CC06916"
+  },
+  {
+   "topic_id": "primary-g4-s1-chinese-K038",
+   "topic_name": "词语配对",
+   "stem": "观众看完一场精彩的表演后鼓掌喝彩。下列哪个词语与这个情境最贴切？",
+   "options": [
+    "手心出汗",
+    "满脸通红",
+    "拍手叫好",
+    "泪流满面"
+   ],
+   "answer": "C",
+   "explanation": "答案是“拍手叫好”。观众看完精彩表演后鼓掌喝彩，“拍手叫好”与喝彩的意思相符；“手心出汗”常表现紧张，“泪流满面”常表现伤心，“满脸通红”不能单独确定为喝彩。",
+   "difficulty": 1,
+   "bloom": "记忆",
+   "type": "single_choice",
+   "id": "pohw-CC06917"
+  },
+  {
+   "topic_id": "primary-g4-s1-chinese-K037",
+   "topic_name": "词语识别",
+   "stem": "读情境：听到门外传来熟悉的脚步声，小宁立刻跑到门口，脸上露出了笑容。哪一个词语最贴合她的表现？",
+   "options": [
+    "听到门外传来熟悉的脚步声，小宁立刻跑到门口，脸上露出了笑容。可以说她不动声色。",
+    "听到门外传来熟悉的脚步声，小宁立刻跑到门口，脸上露出了笑容。可以说她提心吊胆。",
+    "听到门外传来熟悉的脚步声，小宁立刻跑到门口，脸上露出了笑容。可以说她欣喜若狂。",
+    "听到门外传来熟悉的脚步声，小宁立刻跑到门口，脸上露出了笑容。可以说她闷闷不乐。"
+   ],
+   "answer": "C",
+   "explanation": "答案是“听到门外传来熟悉的脚步声，小宁立刻跑到门口，脸上露出了笑容。可以说她欣喜若狂。”熟悉的脚步声、立刻跑到门口和露出笑容共同表现出强烈的高兴，符合“欣喜若狂”的意思。“不动声色”表示不显露内心活动；“提心吊胆”表示十分担心、害怕；“闷闷不乐”表示心情不舒畅，都与这些表现不符。",
+   "difficulty": 3,
+   "bloom": "应用",
+   "type": "single_choice",
+   "id": "pohw-CC06918"
+  },
+  {
+   "topic_id": "primary-g4-s1-chinese-K037",
+   "topic_name": "词语识别",
+   "stem": "读情境：小杰做一道难题，试了几次才做出来。他一边擦汗，一边说：“这道题我终于做出来了！”哪句话中的词语最贴合他此刻的心情？",
+   "options": [
+    "他一边擦汗，一边说：“这道题我终于做出来了！”可以说他松了一口气。",
+    "他一边擦汗，一边说：“这道题我终于做出来了！”可以说他不动声色。",
+    "他一边擦汗，一边说：“这道题我终于做出来了！”可以说他提心吊胆。",
+    "他一边擦汗，一边说：“这道题我终于做出来了！”可以说他顾名思义。"
+   ],
+   "answer": "A",
+   "explanation": "答案是“他一边擦汗，一边说：‘这道题我终于做出来了！’可以说他松了一口气。”擦汗和“终于做出来了”表明他经历了一番努力后完成了题目，符合“松了一口气”所表达的担忧或紧张过后感到放松。“眉开眼笑”可能表示高兴，但题目要求选择最能概括他完成难题后的放松心情的词语。",
+   "difficulty": 3,
+   "bloom": "应用",
+   "type": "single_choice",
+   "id": "pohw-CC06919"
+  },
+  {
+   "topic_id": "primary-g4-s1-chinese-K035",
+   "topic_name": "词语填空",
+   "stem": "读文章时遇到一句不明白的话，哪种做法最能留下有用的批注？",
+   "options": [
+    "标出这句话，并写下自己的疑问",
+    "只在旁边写“好”",
+    "把整段抄一遍",
+    "不作标记，继续读"
+   ],
+   "answer": "A",
+   "explanation": "答案是“标出这句话，并写下自己的疑问”。遇到不明白的内容，标出具体语句并写明疑问，能留下明确的阅读思考；只画线、写“很好”或抄整段，都没有清楚记录疑问。",
+   "difficulty": 1,
+   "bloom": "记忆",
+   "type": "single_choice",
+   "id": "pohw-CC06920"
+  },
+  {
+   "topic_id": "primary-g4-s1-chinese-K003",
+   "topic_name": "人物心理活动的揣摩",
+   "stem": "轮到“我”登台表演时，“我”心想：“要是演不好怎么办？”结合即将上台的情境，最能概括“我”此时心情的一项是：",
+   "options": [
+    "紧张",
+    "高兴",
+    "得意",
+    "放心"
+   ],
+   "answer": "A",
+   "explanation": "答案是“紧张”。轮到“我”登台表演时，“我”心想：“要是演不好怎么办？”这句话直接表达了对演出结果的担忧；结合即将登台的情境，可以判断“我”此时紧张。其他选项与担忧演出结果不符。",
+   "difficulty": 3,
+   "bloom": "应用",
+   "type": "single_choice",
+   "id": "pohw-CC06921"
+  },
+  {
+   "topic_id": "primary-g4-s1-chinese-K025",
+   "topic_name": "标点符号选择",
+   "stem": "选择标点正确的一句话。",
+   "options": [
+    "妈妈问：“你准备好了吗？”",
+    "妈妈问，“你准备好了吗？”",
+    "妈妈问：“你准备好了吗”。",
+    "妈妈问：你准备好了吗？"
+   ],
+   "answer": "A",
+   "explanation": "答案是“妈妈问：“你准备好了吗？””。“妈妈问”引出妈妈的原话，提示语后用冒号，原话用引号标出；原话是疑问句，句末用问号并放在引号内。",
+   "difficulty": 2,
+   "bloom": "理解",
+   "type": "single_choice",
+   "id": "pohw-CC06922"
+  },
+  {
+   "topic_id": "primary-g4-s1-chinese-K020",
+   "topic_name": "批注阅读的实践",
+   "stem": "阅读文章时，若在描写精彩处画波浪线并写下“写得真生动”，这属于：",
+   "options": [
+    "质疑式批注",
+    "联想式批注",
+    "评价式批注",
+    "概括式批注"
+   ],
+   "answer": "C",
+   "explanation": "对作者写作手法的优劣进行评价属于评价式批注。",
+   "difficulty": 3,
+   "bloom": "应用",
+   "type": "single_choice",
+   "id": "pohw-CC06923"
+  },
+  {
+   "topic_id": "primary-g4-s1-chinese-K007",
+   "topic_name": "关联词使用",
+   "stem": "____条件再艰苦，梅兰芳____不为日本人演戏。",
+   "options": [
+    "因为……所以……",
+    "如果……就……",
+    "即使……也……",
+    "虽然……但是……"
+   ],
+   "answer": "C",
+   "explanation": "这是转折关系中的假设情况，强调坚定的意志。",
+   "difficulty": 1,
+   "bloom": "记忆",
+   "type": "single_choice",
+   "id": "pohw-CC06924"
+  },
+  {
+   "topic_id": "primary-g4-s1-chinese-K010",
+   "topic_name": "古诗意境",
+   "stem": "“两个黄鹂鸣翠柳，一行白鹭上青天”描绘的意境最接近哪一项？",
+   "options": [
+    "阴冷昏暗、凄凉孤寂",
+    "明丽鲜活、充满生机",
+    "紧张喧闹、令人害怕",
+    "萧瑟荒凉、毫无生气"
+   ],
+   "answer": "B",
+   "explanation": "“两个黄鹂”写声音，“一行白鹭”写飞行动作，黄、翠、白、青等色彩鲜明，构成明亮、生机勃勃的春日画面。",
+   "difficulty": 2,
+   "bloom": "理解",
+   "type": "single_choice",
+   "id": "pohw-CC06925"
+  },
+  {
+   "topic_id": "primary-g4-s1-chinese-K039",
+   "topic_name": "词语释义",
+   "stem": "“他为人宽厚，胸怀宽广。”句中“胸怀宽广”的意思是____。",
+   "options": [
+    "胸怀的面积很大",
+    "心胸开阔，气量大",
+    "身体长得高大",
+    "心里装着很多东西"
+   ],
+   "answer": "B",
+   "explanation": "“宽广”指面积或范围大；“胸怀宽广”是说一个人的心胸开阔、气量大。",
+   "difficulty": 1,
+   "bloom": "记忆",
+   "type": "single_choice",
+   "id": "pohw-CC06926"
+  },
+  {
+   "topic_id": "primary-g4-s1-chinese-K043",
+   "topic_name": "近义词选择",
+   "stem": "“夜晚的山村十分寂静。”中，与“寂静”意思最接近且适合放入句中的词语是：",
+   "options": [
+    "热闹",
+    "安静",
+    "明亮",
+    "宽阔"
+   ],
+   "answer": "B",
+   "explanation": "“寂静”和“安静”都表示没有声音、不吵闹，适合描述夜晚；“寂静”也可以说“静悄悄”。",
+   "difficulty": 3,
+   "bloom": "应用",
+   "type": "single_choice",
+   "id": "pohw-CC06927"
+  },
+  {
+   "topic_id": "primary-g4-s1-chinese-K043",
+   "topic_name": "近义词选择",
+   "stem": "“大家度过了一个愉快的周末。”中，与“愉快”意思最接近的词语是：",
+   "options": [
+    "欢快",
+    "安静",
+    "困难",
+    "寒冷"
+   ],
+   "answer": "A",
+   "explanation": "“愉快”和“欢快”都有快乐、高兴的意思；其余选项意思不同。",
+   "difficulty": 1,
+   "bloom": "记忆",
+   "type": "single_choice",
+   "id": "pohw-CC06928"
+  },
+  {
+   "topic_id": "primary-g4-s1-chinese-K043",
+   "topic_name": "近义词选择",
+   "stem": "“小明认真地完成了作业。”中，最适合替代“认真”的词语是：",
+   "options": [
+    "马虎",
+    "专心",
+    "迅速",
+    "热闹"
+   ],
+   "answer": "B",
+   "explanation": "句中的“认真”表示做事仔细、用心，“专心”意思相近，替换后句意通顺。",
+   "difficulty": 2,
+   "bloom": "理解",
+   "type": "single_choice",
+   "id": "pohw-CC06929"
+  },
+  {
+   "topic_id": "primary-g4-s1-chinese-K005",
+   "topic_name": "修辞方法",
+   "stem": "“小溪在歌唱，树叶在舞蹈，鸟儿在欢叫。”这句话主要运用了哪种修辞手法？",
+   "options": [
+    "比喻",
+    "拟人",
+    "排比",
+    "反问"
+   ],
+   "answer": "C",
+   "explanation": "三个分句结构相似，连续写出小溪、树叶和鸟儿的动作，构成排比。",
+   "difficulty": 3,
+   "bloom": "应用",
+   "type": "single_choice",
+   "id": "pohw-CC06930"
+  },
+  {
+   "topic_id": "primary-g4-s1-chinese-K005",
+   "topic_name": "修辞方法",
+   "stem": "“弯弯的月亮像一只小船。”这句话运用了哪种修辞手法？",
+   "options": [
+    "比喻",
+    "拟人",
+    "排比",
+    "反问"
+   ],
+   "answer": "A",
+   "explanation": "句子把弯弯的月亮比作小船，借助“像”把一种事物比作另一种事物，运用了比喻。",
+   "difficulty": 1,
+   "bloom": "记忆",
+   "type": "single_choice",
+   "id": "pohw-CC06931"
+  },
+  {
+   "topic_id": "primary-g4-s1-chinese-K043",
+   "topic_name": "近义词选择",
+   "stem": "“教室里很光亮。”中，与“光亮”意思最接近的词语是：",
+   "options": [
+    "昏暗",
+    "明亮",
+    "潮湿",
+    "柔软"
+   ],
+   "answer": "B",
+   "explanation": "“光亮”和“明亮”都表示亮；“昏暗”则是相反的意思。",
+   "difficulty": 2,
+   "bloom": "理解",
+   "type": "single_choice",
+   "id": "pohw-CC06932"
+  },
+  {
+   "topic_id": "primary-g4-s1-chinese-K005",
+   "topic_name": "修辞方法",
+   "stem": "“春风吹来，花儿张开笑脸。”这句话运用了哪种修辞手法？",
+   "options": [
+    "比喻",
+    "拟人",
+    "排比",
+    "反问"
+   ],
+   "answer": "B",
+   "explanation": "“花儿张开笑脸”把花儿当作人来写，赋予了花儿人的动作，运用了拟人。",
+   "difficulty": 1,
+   "bloom": "记忆",
+   "type": "single_choice",
+   "id": "pohw-CC06933"
+  },
+  {
+   "topic_id": "primary-g4-s1-chinese-K043",
+   "topic_name": "近义词选择",
+   "stem": "“梅兰芳拒绝了日本人的邀请。”中最适合替代“拒绝”的词语是：",
+   "options": [
+    "谢绝",
+    "离开",
+    "打算",
+    "无视"
+   ],
+   "answer": "A",
+   "explanation": "“拒绝邀请”表示不接受邀请；“谢绝邀请”意思相近，放在句中也通顺。",
+   "difficulty": 1,
+   "bloom": "记忆",
+   "type": "single_choice",
+   "id": "pohw-CC06934"
+  },
+  {
+   "topic_id": "primary-g4-s1-chinese-K004",
+   "topic_name": "作者与作品配对",
+   "stem": "“生当作人杰，死亦为鬼雄”出自哪位诗人的作品？",
+   "options": [
+    "李清照",
+    "王翰",
+    "王昌龄",
+    "杜甫"
+   ],
+   "answer": "A",
+   "explanation": "“生当作人杰，死亦为鬼雄”出自李清照的《夏日绝句》。",
+   "difficulty": 1,
+   "bloom": "记忆",
+   "type": "single_choice",
+   "id": "pohw-CC06935"
+  },
+  {
+   "topic_id": "primary-g4-s1-chinese-K043",
+   "topic_name": "近义词选择",
+   "stem": "“老师通知我们明天去参观博物馆。”中，最适合替代“通知”的词语是：",
+   "options": [
+    "通知",
+    "告诉",
+    "忘记",
+    "寻找"
+   ],
+   "answer": "B",
+   "explanation": "“通知”在句中表示把事情告知大家；“告诉”意思相近，放入句中仍然通顺。",
+   "difficulty": 3,
+   "bloom": "应用",
+   "type": "single_choice",
+   "id": "pohw-CC06936"
+  },
+  {
+   "topic_id": "primary-g4-s1-chinese-K005",
+   "topic_name": "修辞方法",
+   "stem": "“难道我们不应该像周恩来同学那样立下远大志向吗？”这句话运用的修辞手法是：",
+   "options": [
+    "比喻",
+    "拟人",
+    "反问",
+    "排比"
+   ],
+   "answer": "C",
+   "explanation": "句子表面上提出问题，实际上表达了“我们应该像周恩来同学那样立下远大志向”的肯定意思，语气较强，因此运用了反问。",
+   "difficulty": 2,
+   "bloom": "理解",
+   "type": "single_choice",
+   "id": "pohw-CC06937"
+  },
+  {
+   "topic_id": "primary-g4-s1-chinese-K012",
+   "topic_name": "句子结构",
+   "stem": "下列句子中没有语病的一项是：",
+   "options": [
+    "我们要从小树立爱国志向。",
+    "梅兰芳热爱演戏和生活。",
+    "他虽然生病了，而且没去演戏。",
+    "读了古诗，很有感悟。"
+   ],
+   "answer": "A",
+   "explanation": "A项完整。B项语义略显单薄，C关联词错，D缺主语。",
+   "difficulty": 1,
+   "bloom": "记忆",
+   "type": "single_choice",
+   "id": "pohw-CC06938"
+  },
+  {
+   "topic_id": "primary-g4-s1-chinese-K016",
+   "topic_name": "多音字读音",
+   "stem": "下列词语中“宁”字的读音与“宁死不屈”相同的一项是：",
+   "options": [
+    "安宁",
+    "宁肯",
+    "宁静",
+    "宁谧"
+   ],
+   "answer": "B",
+   "explanation": "“宁死不屈”中的“宁”读nìng，表示“情愿”；“宁肯”中的“宁”也读nìng。",
+   "difficulty": 1,
+   "bloom": "记忆",
+   "type": "single_choice",
+   "id": "pohw-CC06939"
+  },
+  {
+   "topic_id": "primary-g4-s1-chinese-K018",
+   "topic_name": "字词义辨析",
+   "stem": "他把事情的经过讲得很____，大家一下子就听明白了。",
+   "options": [
+    "坚定",
+    "清晰",
+    "纠缠",
+    "妄想"
+   ],
+   "answer": "B",
+   "explanation": "“清晰”表示清楚、明白。“清晰地看见”符合句意。“坚定”表示不动摇，“纠缠”表示缠住不放或搅扰，“妄想”表示不切实际的想法，都不适合填入。",
+   "difficulty": 2,
+   "bloom": "理解",
+   "type": "single_choice",
+   "id": "pohw-CC06940"
+  },
+  {
+   "topic_id": "primary-g4-s1-chinese-K024",
+   "topic_name": "时代背景理解",
+   "stem": "周恩来在租界看到中国妇女受到洋人欺凌，却“围观的中国人都紧握拳头，但谁也不敢上前指责”，这是因为：",
+   "options": [
+    "中国人不爱说话",
+    "大家都在忙碌",
+    "中华不振，主权丧失",
+    "洋人是警察"
+   ],
+   "answer": "C",
+   "explanation": "从中国妇女受欺凌、围观者不敢上前等细节，可以看出当时中国人缺少保护，反映了国家贫弱、主权受损的社会背景。",
+   "difficulty": 3,
+   "bloom": "应用",
+   "type": "single_choice",
+   "id": "pohw-CC06941"
+  },
+  {
+   "topic_id": "primary-g4-s1-chinese-K036",
+   "topic_name": "词语搭配",
+   "stem": "填入括号中最恰当的词语是：合理安排时间，可以____学习效率。",
+   "options": [
+    "提高",
+    "保护",
+    "发现",
+    "参加"
+   ],
+   "answer": "A",
+   "explanation": "“提高效率”是常用搭配，表示使做事的效率变高；“增加”通常搭配数量或程度。",
+   "difficulty": 2,
+   "bloom": "理解",
+   "type": "single_choice",
+   "id": "pohw-CC06942"
+  },
+  {
+   "topic_id": "primary-g4-s1-chinese-K036",
+   "topic_name": "词语搭配",
+   "stem": "填入括号中最恰当的词语是：我们在图书馆里要____借阅规则。",
+   "options": [
+    "遵守",
+    "爱护",
+    "欣赏",
+    "制造"
+   ],
+   "answer": "A",
+   "explanation": "“遵守规则”是常见搭配，表示按照规则行事；“遵守”也常与纪律、约定等搭配。",
+   "difficulty": 1,
+   "bloom": "记忆",
+   "type": "single_choice",
+   "id": "pohw-CC06943"
+  },
+  {
+   "topic_id": "primary-g4-s1-chinese-K036",
+   "topic_name": "词语搭配",
+   "stem": "填入括号中最恰当的词语是：春天来了，公园里的树木长得十分____。",
+   "options": [
+    "茂盛",
+    "热闹",
+    "明亮",
+    "柔软"
+   ],
+   "answer": "A",
+   "explanation": "树木长得好、枝叶繁密，可以说“树木茂盛”；“茂盛”常用来形容植物生长旺盛。",
+   "difficulty": 1,
+   "bloom": "记忆",
+   "type": "single_choice",
+   "id": "pohw-CC06944"
+  },
+  {
+   "topic_id": "primary-g4-s1-chinese-K036",
+   "topic_name": "词语搭配",
+   "stem": "填入括号中最恰当的词语是：梅兰芳____了种种困难，始终不为日本人表演。",
+   "options": [
+    "克服",
+    "经历",
+    "忍受",
+    "打败"
+   ],
+   "answer": "A",
+   "explanation": "“克服困难”是常见搭配，表示战胜困难；“经历”通常搭配事情或过程，“忍受”通常搭配痛苦、压力等，“打败”通常搭配对手。",
+   "difficulty": 2,
+   "bloom": "理解",
+   "type": "single_choice",
+   "id": "pohw-CC06945"
+  },
+  {
+   "topic_id": "primary-g4-s1-chinese-K036",
+   "topic_name": "词语搭配",
+   "stem": "填入括号中最恰当的词语是：秋天，果园里挂满了____的果实。",
+   "options": [
+    "香甜",
+    "整齐",
+    "安静",
+    "宽阔"
+   ],
+   "answer": "A",
+   "explanation": "“香甜的果实”搭配自然，既可以表示果实有香味，也可以表示味道甜美。",
+   "difficulty": 1,
+   "bloom": "记忆",
+   "type": "single_choice",
+   "id": "pohw-CC06946"
+  },
+  {
+   "topic_id": "primary-g4-s1-chinese-K036",
+   "topic_name": "词语搭配",
+   "stem": "填入括号中最恰当的词语是：远处的山峦和湖水构成了一幅____的风景。",
+   "options": [
+    "美丽",
+    "鲜艳",
+    "响亮",
+    "辛勤"
+   ],
+   "answer": "A",
+   "explanation": "“美丽的风景”是自然、常见的搭配，可以用来形容景色好看。",
+   "difficulty": 2,
+   "bloom": "理解",
+   "type": "single_choice",
+   "id": "pohw-CC06947"
+  },
+  {
+   "topic_id": "primary-g4-s1-chinese-K026",
+   "topic_name": "爱国古诗的背诵与领悟",
+   "stem": "诗句“生当作人杰，死亦为鬼雄”赞美的人物是：",
+   "options": [
+    "曹操",
+    "刘备",
+    "项羽",
+    "关羽"
+   ],
+   "answer": "C",
+   "explanation": "《夏日绝句》借赞美项羽“生当作人杰，死亦为鬼雄”的气节，表达诗人的情感。",
+   "difficulty": 2,
+   "bloom": "理解",
+   "type": "single_choice",
+   "id": "pohw-CC06948"
+  },
+  {
+   "topic_id": "primary-g4-s1-chinese-K010",
+   "topic_name": "古诗意境",
+   "stem": "诗句“葡萄美酒夜光杯，欲饮琵琶马上催”描绘的是什么场景？",
+   "options": [
+    "家庭聚会",
+    "边境战争",
+    "将士出征前的酒宴",
+    "丰收庆典"
+   ],
+   "answer": "C",
+   "explanation": "“葡萄美酒”“夜光杯”写出酒宴的珍贵，“琵琶马上催”写出催促出发的情景，展现了边塞将士出征前豪迈的饮酒场面。",
+   "difficulty": 2,
+   "bloom": "理解",
+   "type": "single_choice",
+   "id": "pohw-CC06949"
+  },
+  {
+   "topic_id": "primary-g4-s1-chinese-K002",
+   "topic_name": "人物外貌描写词汇辨析",
+   "stem": "‘这位小战士身高马大，挺胸叠肚，站在哨口真有____的气概。’",
+   "options": [
+    "威风凛凛",
+    "文质彬彬",
+    "眉清目秀",
+    "老气横秋"
+   ],
+   "answer": "A",
+   "explanation": "只有威风凛凛能形容出战士在哨位上的庄重和威严。",
+   "difficulty": 2,
+   "bloom": "理解",
+   "type": "single_choice",
+   "id": "pohw-CC06950"
+  },
+  {
+   "topic_id": "primary-g4-s1-chinese-K002",
+   "topic_name": "人物外貌描写词汇辨析",
+   "stem": "下列词语中，不是描写外貌气质的是____。",
+   "options": [
+    "目不转睛",
+    "明眸皓齿",
+    "鹤发童颜",
+    "膀大腰圆"
+   ],
+   "answer": "A",
+   "explanation": "目不转睛描写的是神态动作，不是固有的外貌特征。",
+   "difficulty": 1,
+   "bloom": "记忆",
+   "type": "single_choice",
+   "id": "pohw-CC06951"
+  },
+  {
+   "topic_id": "primary-g4-s1-chinese-K001",
+   "topic_name": "书信的基本格式",
+   "stem": "书信中的‘问候语’通常紧跟在____的后面。",
+   "options": [
+    "正文",
+    "日期",
+    "署名",
+    "称呼"
+   ],
+   "answer": "D",
+   "explanation": "书信的基本结构是：称呼、问候语、正文、祝福语、署名、日期。",
+   "difficulty": 2,
+   "bloom": "理解",
+   "type": "single_choice",
+   "id": "pohw-CC06952"
+  },
+  {
+   "topic_id": "primary-g4-s1-chinese-K001",
+   "topic_name": "书信的基本格式",
+   "stem": "书信中的称呼，应该写在信的第一行，末尾要加上____。",
+   "options": [
+    "逗号",
+    "冒号",
+    "感叹号",
+    "句号"
+   ],
+   "answer": "B",
+   "explanation": "书信开头的称呼写在第一行顶格，末尾加冒号，表示下面要开始问候和正文。",
+   "difficulty": 1,
+   "bloom": "记忆",
+   "type": "single_choice",
+   "id": "pohw-CC06953"
+  },
+  {
+   "topic_id": "primary-g4-s1-chinese-K001",
+   "topic_name": "书信的基本格式",
+   "stem": "在信的末尾，署名应该写在日期____。",
+   "options": [
+    "右方",
+    "左方",
+    "下方",
+    "上方"
+   ],
+   "answer": "D",
+   "explanation": "书信落款通常写在右下方，署名在上一行，日期在下一行。",
+   "difficulty": 1,
+   "bloom": "记忆",
+   "type": "single_choice",
+   "id": "pohw-CC06954"
+  },
+  {
+   "topic_id": "primary-g4-s1-chinese-K002",
+   "topic_name": "人物外貌描写词汇辨析",
+   "stem": "壮壮肩膀宽、身材结实，站在人群中显得十分魁梧。最适合形容他的词语是____。",
+   "options": [
+    "文质彬彬",
+    "膀大腰粗",
+    "眉清目秀",
+    "目不转睛"
+   ],
+   "answer": "B",
+   "explanation": "“膀大腰粗”形容肩膀宽、腰身粗，侧重身材魁梧。句中明确写到肩膀宽、身材结实，因此用这个词最贴切。",
+   "difficulty": 3,
+   "bloom": "应用",
+   "type": "single_choice",
+   "id": "pohw-CC06955"
+  },
+  {
+   "topic_id": "primary-g4-s1-chinese-K002",
+   "topic_name": "人物外貌描写词汇辨析",
+   "stem": "如果要描写一个古代文雅的读书人，选用哪个词语最不合适？",
+   "options": [
+    "文质彬彬",
+    "相貌堂堂",
+    "膀大腰粗",
+    "仪表堂堂"
+   ],
+   "answer": "C",
+   "explanation": "膀大腰粗通常形容武将或体力劳动者，不符合古代文弱书生的气质。",
+   "difficulty": 2,
+   "bloom": "理解",
+   "type": "single_choice",
+   "id": "pohw-CC06956"
+  },
+  {
+   "topic_id": "primary-g4-s1-chinese-K002",
+   "topic_name": "人物外貌描写词汇辨析",
+   "stem": "爷爷虽然年纪大了，但腰板挺直，走起路来很有精神，可以用____来形容。",
+   "options": [
+    "眉清目秀",
+    "文质彬彬",
+    "相貌堂堂",
+    "威风凛凛"
+   ],
+   "answer": "C",
+   "explanation": "“相貌堂堂”形容人的仪表端正、举止大方。题目强调爷爷腰板挺直、走路有精神，用它比“眉清目秀”等词更合适。",
+   "difficulty": 2,
+   "bloom": "理解",
+   "type": "single_choice",
+   "id": "pohw-CC06957"
+  },
+  {
+   "topic_id": "primary-g4-s1-chinese-K001",
+   "topic_name": "书信的基本格式",
+   "stem": "给老师写信时，最得体的抬头称呼是____。",
+   "options": [
+    "嘿！王老师",
+    "亲爱的老师",
+    "敬爱的老师",
+    "老师您好"
+   ],
+   "answer": "C",
+   "explanation": "对师长使用“敬爱的”体现了学生的礼貌与尊重。",
+   "difficulty": 1,
+   "bloom": "记忆",
+   "type": "single_choice",
+   "id": "pohw-CC06958"
+  },
+  {
+   "topic_id": "primary-g4-s1-chinese-K001",
+   "topic_name": "书信的基本格式",
+   "stem": "给长辈写信，为了表达敬意，最恰当的祝福语是____。",
+   "options": [
+    "祝你考试顺利",
+    "祝您身体健康",
+    "开门大吉",
+    "天天开心"
+   ],
+   "answer": "B",
+   "explanation": "给长辈写信使用“您”更显尊敬，“祝您身体健康”是合适、得体的祝福语。",
+   "difficulty": 2,
+   "bloom": "理解",
+   "type": "single_choice",
+   "id": "pohw-CC06959"
+  },
+  {
+   "topic_id": "primary-g4-s1-chinese-K002",
+   "topic_name": "人物外貌描写词汇辨析",
+   "stem": "选出下列词语中，描写人物气质温文尔雅的一项：",
+   "options": [
+    "膀大腰粗",
+    "文质彬彬",
+    "鹤发童颜",
+    "明眸皓齿"
+   ],
+   "answer": "B",
+   "explanation": "“文质彬彬”形容人文雅而有礼貌，符合温文尔雅的气质。其他词语分别侧重身材、老年人的容貌特征或容貌秀美。",
+   "difficulty": 2,
+   "bloom": "理解",
+   "type": "single_choice",
+   "id": "pohw-CC06960"
+  },
+  {
+   "topic_id": "primary-g4-s1-chinese-K022",
+   "topic_name": "把握文章主要内容的方法",
+   "stem": "阅读语段：‘西门豹到了邺县，看到田地荒芜，人烟稀少，就找老大爷调查。原来是巫婆和官绅给河伯娶媳妇闹的。’这段话交代了故事的____。",
+   "options": [
+    "起因",
+    "经过",
+    "结果",
+    "高潮"
+   ],
+   "answer": "A",
+   "explanation": "这段话描述了背景和问题的由来，属于故事的起因部分。",
+   "difficulty": 3,
+   "bloom": "应用",
+   "type": "single_choice",
+   "id": "pohw-CC06961"
+  },
+  {
+   "topic_id": "primary-g4-s2-chinese-K082",
+   "topic_name": "描写景物的修辞手法应用",
+   "stem": "‘几场春雨过后，到那里走走，你常常会看见许多鲜嫩的笋，成群地从土里探出头来。’这句话使用了：",
+   "options": [
+    "拟人",
+    "夸张",
+    "比喻",
+    "排比"
+   ],
+   "answer": "A",
+   "explanation": "‘探出头来’赋予了春笋人的动作，生动俏皮。",
+   "difficulty": 3,
+   "bloom": "应用",
+   "type": "single_choice",
+   "id": "pohw-CC06962"
+  },
+  {
+   "topic_id": "primary-g4-s2-chinese-K091",
+   "topic_name": "田园古诗词鉴赏",
+   "stem": "‘日长篱落无人过，惟有蜻蜓蛱蝶飞。’描写的是初夏乡村的什么特点？",
+   "options": [
+    "热闹",
+    "宁静",
+    "忧愁",
+    "繁忙"
+   ],
+   "answer": "B",
+   "explanation": "无人经过，只有飞虫，体现了白天乡村的沉静。",
+   "difficulty": 3,
+   "bloom": "应用",
+   "type": "single_choice",
+   "id": "pohw-CC06963"
+  },
+  {
+   "topic_id": "primary-g4-s2-chinese-K091",
+   "topic_name": "田园古诗词鉴赏",
+   "stem": "‘最喜小儿亡赖’中‘亡赖’的意思是：",
+   "options": [
+    "没有钱财",
+    "蛮横不讲理",
+    "调皮、顽皮",
+    "逃亡在外"
+   ],
+   "answer": "C",
+   "explanation": "在《清平乐·村居》中，亡赖通‘无赖’，指顽皮、可爱。",
+   "difficulty": 1,
+   "bloom": "记忆",
+   "type": "single_choice",
+   "id": "pohw-CC06964"
+  },
+  {
+   "topic_id": "primary-g4-s2-chinese-K091",
+   "topic_name": "田园古诗词鉴赏",
+   "stem": "‘篱落疏疏一径深，树头新绿未成阴’描写的植物主要是什么颜色？",
+   "options": [
+    "红色",
+    "黄色",
+    "绿色",
+    "白色"
+   ],
+   "answer": "C",
+   "explanation": "‘新绿’和‘阴’字都点明了春天树木苍翠的颜色。",
+   "difficulty": 1,
+   "bloom": "记忆",
+   "type": "single_choice",
+   "id": "pohw-CC06965"
+  },
+  {
+   "topic_id": "primary-g4-s2-chinese-K082",
+   "topic_name": "描写景物的修辞手法应用",
+   "stem": "下列词语中，描写田园风景最合适的一项是：",
+   "options": [
+    "车水马龙",
+    "依山傍水",
+    "高楼大厦",
+    "灯红酒绿"
+   ],
+   "answer": "B",
+   "explanation": "‘依山傍水’形容乡村靠着山靠近水，环境优美，属于田园风格。",
+   "difficulty": 1,
+   "bloom": "记忆",
+   "type": "single_choice",
+   "id": "pohw-CC06966"
+  },
+  {
+   "topic_id": "primary-g4-s2-chinese-K063",
+   "topic_name": "口语交际：转述",
+   "stem": "爸爸对芳芳说：‘下午我不去接你了，你自己坐公交车回家。’芳芳转告奶奶时，该怎么说？",
+   "options": [
+    "爸爸说下午芳芳不去接你了。",
+    "爸爸说下午他不去接芳芳了。",
+    "爸爸说下午他不去接我了，让我自己坐公交车回家。",
+    "爸爸说我下午不接你了。"
+   ],
+   "answer": "C",
+   "explanation": "芳芳自称‘我’，指代爸爸为‘他’，信息完整。",
+   "difficulty": 3,
+   "bloom": "应用",
+   "type": "single_choice",
+   "id": "pohw-CC06967"
+  },
+  {
+   "topic_id": "primary-g4-s2-chinese-K063",
+   "topic_name": "口语交际：转述",
+   "stem": "老师对全班同学说：“今天放学后，你们在教室里打扫卫生。”小红转述给没来上学的小刚时，哪句话最准确？",
+   "options": [
+    "老师说明天放学后，让我们在教室里打扫卫生。",
+    "老师说今天放学后，让我们在教室里打扫卫生。",
+    "老师说明天早上，让我们去操场打扫卫生。",
+    "老师说今天放学后，让你们在家里打扫卫生。"
+   ],
+   "answer": "B",
+   "explanation": "小红转述老师的话时，要把老师对全班说的“你们”改成“我们”，并保留“今天放学后”和“在教室里打扫卫生”这两项关键信息。",
+   "difficulty": 3,
+   "bloom": "应用",
+   "type": "single_choice",
+   "id": "pohw-CC06968"
+  },
+  {
+   "topic_id": "primary-g4-s2-chinese-K063",
+   "topic_name": "口语交际：转述",
+   "stem": "老师对小明说：“明天你把这本故事书还给图书馆。”小明把话转述给图书馆管理员时应说：",
+   "options": [
+    "老师说明天你把这本故事书还给图书馆。",
+    "老师让我明天把这本故事书还给图书馆。",
+    "我让你明天把这本故事书还给老师。",
+    "老师说明天他把故事书还给你。"
+   ],
+   "answer": "B",
+   "explanation": "老师对小明说的“你”指小明。小明转述时应改成“我”，并保留“明天”“还给图书馆”等关键信息。",
+   "difficulty": 3,
+   "bloom": "应用",
+   "type": "single_choice",
+   "id": "pohw-CC06969"
+  },
+  {
+   "topic_id": "primary-g4-s2-chinese-K098",
+   "topic_name": "纳米技术的概念与应用",
+   "stem": "“1纳米等于十亿分之一米”主要运用了哪种说明方法？",
+   "options": [
+    "作比较",
+    "列数字",
+    "打比方",
+    "举例子"
+   ],
+   "answer": "B",
+   "explanation": "“十亿分之一米”用具体数字说明纳米的长度，属于列数字的说明方法。",
+   "difficulty": 1,
+   "bloom": "记忆",
+   "type": "single_choice",
+   "id": "pohw-CC06970"
+  },
+  {
+   "topic_id": "primary-g4-s2-chinese-K052",
+   "topic_name": "修辞方法识别",
+   "stem": "“不再胆怯的小白菊，慢慢地抬起它们的头。”这句话运用的修辞手法是：",
+   "options": [
+    "比喻",
+    "夸张",
+    "拟人",
+    "反问"
+   ],
+   "answer": "C",
+   "explanation": "句子赋予小白菊“胆怯”和“抬起头”这些人的情感和动作，是把花当作人来写，因此运用了拟人。",
+   "difficulty": 3,
+   "bloom": "应用",
+   "type": "single_choice",
+   "id": "pohw-CC06971"
+  },
+  {
+   "topic_id": "primary-g4-s2-chinese-K052",
+   "topic_name": "修辞方法识别",
+   "stem": "“地球上的第一种恐龙和狗一般大小。”这里运用的说明方法是：",
+   "options": [
+    "列数字",
+    "打比方",
+    "作比较",
+    "举例子"
+   ],
+   "answer": "C",
+   "explanation": "将恐龙的大小与熟悉的“狗”进行比较，直观形象。",
+   "difficulty": 1,
+   "bloom": "记忆",
+   "type": "single_choice",
+   "id": "pohw-CC06972"
+  },
+  {
+   "topic_id": "primary-g4-s2-chinese-K052",
+   "topic_name": "修辞方法识别",
+   "stem": "“教室里安静极了，连一根针掉在地上的声音都听得见。”这句话主要运用了哪种修辞手法？",
+   "options": [
+    "比喻",
+    "夸张",
+    "拟人",
+    "反问"
+   ],
+   "answer": "B",
+   "explanation": "“震得耳朵都快聋了”是故意夸大声音的响亮程度，并非真的耳聋，运用了夸张。",
+   "difficulty": 3,
+   "bloom": "应用",
+   "type": "single_choice",
+   "id": "pohw-CC06974"
+  },
+  {
+   "topic_id": "primary-g4-s2-chinese-K114",
+   "topic_name": "近义词辨析",
+   "stem": "“春天的花园真漂亮。”句中“漂亮”可以换成哪个词，意思最接近？",
+   "options": [
+    "安静",
+    "美丽",
+    "宽阔",
+    "匆忙"
+   ],
+   "answer": "B",
+   "explanation": "“漂亮”和“美丽”意思相近，都可以形容花园景色好看；“安静”形容没有声音，“宽阔”形容面积大。",
+   "difficulty": 1,
+   "bloom": "记忆",
+   "type": "single_choice",
+   "id": "pohw-CC06975"
+  },
+  {
+   "topic_id": "primary-g4-s2-chinese-K052",
+   "topic_name": "修辞方法识别",
+   "stem": "“花儿迎着春风，绽开了笑脸。”其中“绽开了笑脸”运用了哪种修辞手法？",
+   "options": [
+    "拟人",
+    "夸张",
+    "反问",
+    "排比"
+   ],
+   "answer": "A",
+   "explanation": "“像”在这里表示花朵的形状如笑脸，是比喻；“绽开笑脸”又把花写成会笑的人，运用了拟人。题目问“绽开笑脸”这一表达的修辞手法，因此答案是拟人。",
+   "difficulty": 3,
+   "bloom": "应用",
+   "type": "single_choice",
+   "id": "pohw-CC06976"
+  },
+  {
+   "topic_id": "primary-g4-s2-chinese-K052",
+   "topic_name": "修辞方法识别",
+   "stem": "“难道我们能忘记老师的教导吗？”这句话运用了哪种修辞手法？",
+   "options": [
+    "拟人",
+    "夸张",
+    "比喻",
+    "反问"
+   ],
+   "answer": "D",
+   "explanation": "句子用疑问的形式表达“我们不能忘记老师的教导”这一明确意思，答案包含在句意中，运用了反问。",
+   "difficulty": 2,
+   "bloom": "理解",
+   "type": "single_choice",
+   "id": "pohw-CC06977"
+  },
+  {
+   "topic_id": "primary-g4-s2-chinese-K052",
+   "topic_name": "修辞方法识别",
+   "stem": "“风儿在树林里唱起了动听的歌。”这句话运用了哪种修辞手法？",
+   "options": [
+    "夸张",
+    "比喻",
+    "反问",
+    "拟人"
+   ],
+   "answer": "D",
+   "explanation": "句子写风“唱起了歌”，把风写成会唱歌的人，运用了拟人。",
+   "difficulty": 1,
+   "bloom": "记忆",
+   "type": "single_choice",
+   "id": "pohw-CC06978"
+  },
+  {
+   "topic_id": "primary-g4-s2-chinese-K077",
+   "topic_name": "字词辨析",
+   "stem": "下列词语中，书写完全正确的一项是：",
+   "options": [
+    "怒吼、澎湃",
+    "推侧、详细",
+    "预放、迟钝",
+    "末期、毫末"
+   ],
+   "answer": "A",
+   "explanation": "“推测”应写作“推测”，“预放”应写作“预防”，因此只有“怒吼、澎湃”这一项书写完全正确。",
+   "difficulty": 1,
+   "bloom": "记忆",
+   "type": "single_choice",
+   "id": "pohw-CC06979"
+  },
+  {
+   "topic_id": "primary-g4-s2-chinese-K093",
+   "topic_name": "科学常识",
+   "stem": "下面哪一项是长度单位？A.琥珀　B.恐龙　C.纳米　D.月球",
+   "options": [
+    "琥珀",
+    "纳米",
+    "恐龙",
+    "月球"
+   ],
+   "answer": "C",
+   "explanation": "纳米是长度单位，不是物质；月球是天体，恐龙是动物。琥珀则是由古代树脂形成的化石。",
+   "difficulty": 2,
+   "bloom": "理解",
+   "type": "single_choice",
+   "id": "pohw-CC06980"
+  },
+  {
+   "topic_id": "primary-g4-s2-chinese-K114",
+   "topic_name": "近义词辨析",
+   "stem": "与“欣喜若狂”意思最接近的词语是：",
+   "options": [
+    "面如土色",
+    "喜出望外",
+    "垂头丧气",
+    "无忧无虑"
+   ],
+   "answer": "B",
+   "explanation": "“欣喜若狂”和“喜出望外”都表示非常高兴；其他选项分别表示害怕、沮丧或没有忧愁。",
+   "difficulty": 1,
+   "bloom": "记忆",
+   "type": "single_choice",
+   "id": "pohw-CC06981"
+  },
+  {
+   "topic_id": "primary-g4-s2-chinese-K077",
+   "topic_name": "字词辨析",
+   "stem": "同学们正在认真读书，教室里十分____。",
+   "options": [
+    "热闹",
+    "安静",
+    "吵闹",
+    "喧哗"
+   ],
+   "answer": "B",
+   "explanation": "“安静”表示没有声音、不吵闹，符合教室里同学认真读书的情境。“热闹”与句意相反。",
+   "difficulty": 1,
+   "bloom": "记忆",
+   "type": "single_choice",
+   "id": "pohw-CC06982"
+  },
+  {
+   "topic_id": "primary-g4-s2-chinese-K094",
+   "topic_name": "科普说明文的科学推测",
+   "stem": "在那块透明的琥珀里，我们可以“看到”什么，从而推测很久以前可能发生的事情？",
+   "options": [
+    "看到人类的脚印",
+    "看到两个小东西的挣扎形态",
+    "看到大海的颜色",
+    "看到科学家留下的记号"
+   ],
+   "answer": "B",
+   "explanation": "琥珀里苍蝇和蜘蛛的形态、位置等是可以观察到的证据，人们据此推测它们被松脂包裹前可能发生的事情。",
+   "difficulty": 3,
+   "bloom": "应用",
+   "type": "single_choice",
+   "id": "pohw-CC06983"
+  },
+  {
+   "topic_id": "primary-g4-s2-chinese-K094",
+   "topic_name": "科普说明文的科学推测",
+   "stem": "根据琥珀的内容推断，当时森林里的天气必须是：",
+   "options": [
+    "狂风暴雨",
+    "阴雨绵绵",
+    "热辣辣的太阳",
+    "漫天大雪"
+   ],
+   "answer": "C",
+   "explanation": "只有足够热，松树才能渗出大量的松脂流下。",
+   "difficulty": 3,
+   "bloom": "应用",
+   "type": "single_choice",
+   "id": "pohw-CC06984"
+  },
+  {
+   "topic_id": "primary-g4-s2-chinese-K121",
+   "topic_name": "阅读策略：提问并解决问题",
+   "stem": "阅读时遇到“纳米涂层”这个词不明白，最合适的解决办法是：",
+   "options": [
+    "跳过去不理会",
+    "询问家长或查字典资料",
+    "自己根据偏旁瞎猜",
+    "大声朗读三遍词语"
+   ],
+   "answer": "B",
+   "explanation": "遇到专业名词，应通过查阅资料或向他人请教来准确理解，不能只凭猜测。",
+   "difficulty": 2,
+   "bloom": "理解",
+   "type": "single_choice",
+   "id": "pohw-CC06985"
+  },
+  {
+   "topic_id": "primary-g4-s2-chinese-K105",
+   "topic_name": "词语释义",
+   "stem": "“凉爽”一词的意思是：",
+   "options": [
+    "炎热",
+    "清爽",
+    "潮湿",
+    "昏暗"
+   ],
+   "answer": "B",
+   "explanation": "“凉爽”指清凉、爽快。雨后空气清新，走在路上会觉得凉爽。",
+   "difficulty": 1,
+   "bloom": "记忆",
+   "type": "single_choice",
+   "id": "pohw-CC06986"
+  },
+  {
+   "topic_id": "primary-g4-s2-chinese-K050",
+   "topic_name": "修辞手法",
+   "stem": "“到下过小雨的营地去吧，那里有泥土的清香。”这句诗运用的感官视角是：",
+   "options": [
+    "视觉",
+    "触觉",
+    "嗅觉",
+    "听觉"
+   ],
+   "answer": "C",
+   "explanation": "“清香”是通过鼻子闻到的气味，属于嗅觉视角。这句话体现的是感官视角，不是修辞手法。",
+   "difficulty": 1,
+   "bloom": "记忆",
+   "type": "single_choice",
+   "id": "pohw-CC06987"
+  },
+  {
+   "topic_id": "primary-g4-s2-chinese-K078",
+   "topic_name": "字词音形义",
+   "stem": "“北风呼呼地吹，天气十分寒冷。”这里“寒”的意思是：",
+   "options": [
+    "寒冷",
+    "寒假",
+    "心寒",
+    "寒暄"
+   ],
+   "answer": "A",
+   "explanation": "句中说“北风呼呼地吹”，说明天气很冷，因此“寒”表示冷。常见词语有“寒冷”“严寒”。",
+   "difficulty": 2,
+   "bloom": "理解",
+   "type": "single_choice",
+   "id": "pohw-CC06988"
+  },
+  {
+   "topic_id": "primary-g4-s2-chinese-K069",
+   "topic_name": "句式识别",
+   "stem": "“小明每天早上都坚持读书。”属于哪一种句式？",
+   "options": [
+    "疑问句",
+    "陈述句",
+    "祈使句",
+    "感叹句"
+   ],
+   "answer": "B",
+   "explanation": "这句话是在说明小明每天早上读书，没有提出问题，也没有表达命令或强烈感情，因此是陈述句。",
+   "difficulty": 1,
+   "bloom": "记忆",
+   "type": "single_choice",
+   "id": "pohw-CC06989"
+  },
+  {
+   "topic_id": "primary-g4-s2-chinese-K050",
+   "topic_name": "修辞手法",
+   "stem": "“弯弯的月亮像一只小船，挂在夜空中。”这句话运用了什么修辞手法？",
+   "options": [
+    "拟人",
+    "比喻",
+    "排比",
+    "夸张"
+   ],
+   "answer": "B",
+   "explanation": "句子把弯弯的月亮比作小船，借助“像”把月亮的形状写得更形象。",
+   "difficulty": 1,
+   "bloom": "记忆",
+   "type": "single_choice",
+   "id": "pohw-CC06990"
+  },
+  {
+   "topic_id": "primary-g4-s2-chinese-K050",
+   "topic_name": "修辞手法",
+   "stem": "“我们怎能随意破坏校园里的花草呢？”这句话运用了什么修辞手法？",
+   "options": [
+    "反问",
+    "设问",
+    "排比",
+    "比喻"
+   ],
+   "answer": "A",
+   "explanation": "句子用疑问的形式表达确定的意思：我们应该保护环境。答案已经包含在问句中，不需要回答。",
+   "difficulty": 2,
+   "bloom": "理解",
+   "type": "single_choice",
+   "id": "pohw-CC06991"
+  },
+  {
+   "topic_id": "primary-g4-s2-chinese-K078",
+   "topic_name": "字词音形义",
+   "stem": "“抖去水珠的凤蝶，晖中扇动着翅膀。”中“晖”的意思是：",
+   "options": [
+    "月光",
+    "灯光",
+    "阳光",
+    "闪电"
+   ],
+   "answer": "C",
+   "explanation": "“朝晖”“夕晖”中的“晖”都与阳光有关。句中“晖中”应结合语境理解为阳光中。",
+   "difficulty": 2,
+   "bloom": "理解",
+   "type": "single_choice",
+   "id": "pohw-CC06992"
+  },
+  {
+   "topic_id": "primary-g4-s2-chinese-K050",
+   "topic_name": "修辞手法",
+   "stem": "“教室里传来一阵笑声，差点儿把屋顶掀翻了。”这句话运用了什么修辞手法？",
+   "options": [
+    "比喻",
+    "设问",
+    "夸张",
+    "反问"
+   ],
+   "answer": "C",
+   "explanation": "“震得地动山摇”明显超过实际情况，是为了突出声音特别响，属于夸张。",
+   "difficulty": 3,
+   "bloom": "应用",
+   "type": "single_choice",
+   "id": "pohw-CC06993"
+  },
+  {
+   "topic_id": "primary-g4-s2-chinese-K090",
+   "topic_name": "理解阅读",
+   "stem": "“月明的园中，藤萝的叶下，母亲的膝上。”这句诗表达的情感是：",
+   "options": [
+    "对大自然的恐惧",
+    "对故乡风景的怀念",
+    "对童年温馨时刻的眷恋",
+    "对月夜寂寞的感叹"
+   ],
+   "answer": "C",
+   "explanation": "此三处意象共同构成了童年母亲怀抱的温暖回忆。",
+   "difficulty": 2,
+   "bloom": "理解",
+   "type": "single_choice",
+   "id": "pohw-CC06994"
+  },
+  {
+   "topic_id": "primary-g4-s2-chinese-K050",
+   "topic_name": "修辞手法",
+   "stem": "“花儿在风中点头微笑。”这句话运用了什么修辞手法？",
+   "options": [
+    "比喻",
+    "夸张",
+    "拟人",
+    "设问"
+   ],
+   "answer": "C",
+   "explanation": "句子把花儿写成会微笑的人，赋予了花儿人的动作和神态。",
+   "difficulty": 1,
+   "bloom": "记忆",
+   "type": "single_choice",
+   "id": "pohw-CC06995"
+  },
+  {
+   "topic_id": "primary-g4-s2-chinese-K107",
+   "topic_name": "诗歌语言的凝练与独特性",
+   "stem": "“花儿在风中跳舞”主要运用了哪种修辞手法？",
+   "options": [
+    "比喻",
+    "拟人",
+    "排比",
+    "反问"
+   ],
+   "answer": "B",
+   "explanation": "“花儿在风中跳舞”把人的动作“跳舞”赋予花儿，写出了花朵随风摇摆的样子。",
+   "difficulty": 2,
+   "bloom": "理解",
+   "type": "single_choice",
+   "id": "pohw-CC06996"
+  },
+  {
+   "topic_id": "primary-g4-s2-chinese-K050",
+   "topic_name": "修辞手法",
+   "stem": "“风儿轻轻地吹，雨点欢快地跳，溪水哗哗地唱。”这句话主要运用了什么修辞手法？",
+   "options": [
+    "反问",
+    "排比",
+    "比喻",
+    "拟人"
+   ],
+   "answer": "B",
+   "explanation": "三个分句结构相似，分别写风儿、雨点和溪水怎样做，构成排比，读起来节奏鲜明、语势连贯。",
+   "difficulty": 3,
+   "bloom": "应用",
+   "type": "single_choice",
+   "id": "pohw-CC06997"
+  },
+  {
+   "topic_id": "primary-g4-s2-chinese-K076",
+   "topic_name": "字词读音",
+   "stem": "下列加点词注音完全正确的一项是：",
+   "options": [
+    "赤脚（chì） 涉过（shè）",
+    "漫灭（màn） 膝盖（qī）",
+    "波涛（tāo） 绽放（dìng）",
+    "白桦（huà） 炫耀（xián）"
+   ],
+   "answer": "A",
+   "explanation": "B项膝应当是xī，C项绽应当是zhàn，D项炫应当是xuàn。",
+   "difficulty": 1,
+   "bloom": "记忆",
+   "type": "single_choice",
+   "id": "pohw-CC06998"
+  },
+  {
+   "topic_id": "primary-g4-s2-chinese-K106",
+   "topic_name": "诗人常识",
+   "stem": "下列哪位诗人以写“母爱、童真、自然”而闻名？",
+   "options": [
+    "艾青",
+    "冰心",
+    "戴望舒",
+    "叶赛宁"
+   ],
+   "answer": "B",
+   "explanation": "冰心的《繁星》《春水》常表现母爱、童真与自然。",
+   "difficulty": 1,
+   "bloom": "记忆",
+   "type": "single_choice",
+   "id": "pohw-CC06999"
+  },
+  {
+   "topic_id": "primary-g4-s2-chinese-K080",
+   "topic_name": "意象词语搭配",
+   "stem": "下面哪一个词语搭配最恰当？",
+   "options": [
+    "洁白的雪花",
+    "碧绿的雪花",
+    "灿烂的雪花",
+    "甜美的雪花"
+   ],
+   "answer": "A",
+   "explanation": "雪花洁白轻盈，用“洁白的雪花”描写自然、贴切。“灿烂”多形容光彩耀眼，“碧绿”多形容绿色。",
+   "difficulty": 1,
+   "bloom": "记忆",
+   "type": "single_choice",
+   "id": "pohw-CC07000"
+  },
+  {
+   "topic_id": "primary-g4-s2-chinese-K109",
+   "topic_name": "语言表达",
+   "stem": "下面哪句话写得更具体、生动？",
+   "options": [
+    "小兔子在草地上走。",
+    "小兔子在草地上蹦跳。",
+    "小兔子在草地上有。",
+    "小兔子在草地上好。"
+   ],
+   "answer": "B",
+   "explanation": "“蹦跳”能让人想到小兔子活泼轻快的动作，比“走”更具体，也更有画面感。",
+   "difficulty": 1,
+   "bloom": "记忆",
+   "type": "single_choice",
+   "id": "pohw-CC07001"
+  },
+  {
+   "topic_id": "primary-g4-s2-chinese-K092",
+   "topic_name": "短诗创作与集册",
+   "stem": "创作短诗时，哪种做法比较合适？",
+   "options": [
+    "为了让诗更长，反复写同一句话",
+    "观察身边的事物，写下自己的感受",
+    "每首诗都必须模仿古诗的对仗",
+    "写诗时不能分行"
+   ],
+   "answer": "B",
+   "explanation": "短诗可以从真实观察和感受出发，用简洁的语言表达。为了凑字数而重复句子，会让诗变得啰嗦。",
+   "difficulty": 1,
+   "bloom": "记忆",
+   "type": "single_choice",
+   "id": "pohw-CC07002"
+  },
+  {
+   "topic_id": "primary-g4-s2-chinese-K070",
+   "topic_name": "句式转换",
+   "stem": "将“哪一颗星没有光？”改为陈述句，正确的是：",
+   "options": [
+    "这颗星没有光。",
+    "每一颗星都有光。",
+    "难道星星有光吗？",
+    "星星为什么有光？"
+   ],
+   "answer": "B",
+   "explanation": "反问句变陈述句，去掉问号、否定词变肯定。",
+   "difficulty": 2,
+   "bloom": "理解",
+   "type": "single_choice",
+   "id": "pohw-CC07003"
+  },
+  {
+   "topic_id": "primary-g4-s2-chinese-K105",
+   "topic_name": "词语释义",
+   "stem": "小明听到自己获奖的消息，高兴得跳了起来。句中的“兴奋”最接近哪个意思？",
+   "options": [
+    "非常疲倦",
+    "精神振作，情绪高涨",
+    "心里害怕",
+    "感到失望"
+   ],
+   "answer": "B",
+   "explanation": "“兴奋”表示精神振作、情绪高涨。联系具体情境，可以判断人物为什么会有这样的感受。",
+   "difficulty": 3,
+   "bloom": "应用",
+   "type": "single_choice",
+   "id": "pohw-CC07004"
+  },
+  {
+   "topic_id": "primary-g4-s2-chinese-K109",
+   "topic_name": "语言表达",
+   "stem": "要把“雨后天晴”的感觉写得富有诗意，哪种描述最合适？",
+   "options": [
+    "太阳出来了，地面变干了。",
+    "小雨停了，空气很潮湿。",
+    "赤着脚，携着手，踏着青草，采着露珠。",
+    "地面上有很多积水，踩着很湿。"
+   ],
+   "answer": "C",
+   "explanation": "这句话通过连续的动作和具体的景物，写出雨后清新、轻快的感觉，语言富有画面感和节奏感。",
+   "difficulty": 2,
+   "bloom": "理解",
+   "type": "single_choice",
+   "id": "pohw-CC07005"
+  },
+  {
+   "topic_id": "primary-g4-s2-chinese-K107",
+   "topic_name": "诗歌语言的凝练与独特性",
+   "stem": "诗句“不再胆怯的小草，慢慢地抬起头来”运用了什么修辞？",
+   "options": [
+    "比喻",
+    "拟人",
+    "夸张",
+    "反问"
+   ],
+   "answer": "B",
+   "explanation": "“胆怯”和“抬起头来”把人的情感和动作赋予小草，使小草显得像人一样。",
+   "difficulty": 2,
+   "bloom": "理解",
+   "type": "single_choice",
+   "id": "pohw-CC07006"
+  },
+  {
+   "topic_id": "primary-g4-s2-chinese-K089",
+   "topic_name": "现代诗的情感意象感知",
+   "stem": "读一段诗：“白桦在我的窗前，披着一身雪。它仿佛穿上了白色的长袍。”这里的“长袍”指：",
+   "options": [
+    "真的衣服",
+    "厚厚的积雪",
+    "白色的云霞",
+    "树木的枝干"
+   ],
+   "answer": "B",
+   "explanation": "“穿上了白色的长袍”把白桦拟人化；结合“披着一身雪”，可以知道“长袍”指覆盖在枝干上的积雪。",
+   "difficulty": 3,
+   "bloom": "应用",
+   "type": "single_choice",
+   "id": "pohw-CC07007"
+  },
+  {
+   "topic_id": "primary-g4-s2-chinese-K055",
+   "topic_name": "关联词运用",
+   "stem": "____天气很冷，____同学们仍坚持跑步。",
+   "options": [
+    "因为……所以……",
+    "虽然……但是……",
+    "如果……就……",
+    "不但……而且……"
+   ],
+   "answer": "B",
+   "explanation": "“天气很冷”和“同学们仍坚持跑步”之间是转折关系，用“虽然……但是……”连接。",
+   "difficulty": 1,
+   "bloom": "记忆",
+   "type": "single_choice",
+   "id": "pohw-CC07008"
+  },
+  {
+   "topic_id": "primary-g4-s2-chinese-K055",
+   "topic_name": "关联词运用",
+   "stem": "“____它不高兴，____谁说多少好话，它一声也不出。”",
+   "options": [
+    "如果……就……",
+    "虽然……但是……",
+    "假若……无论……",
+    "只有……才……"
+   ],
+   "answer": "C",
+   "explanation": "“它不高兴”提出一种假设，“谁说多少好话，它一声也不出”表示在这种情况下结果不变，因此用“假若……无论……”搭配。",
+   "difficulty": 1,
+   "bloom": "记忆",
+   "type": "single_choice",
+   "id": "pohw-CC07009"
+  },
+  {
+   "topic_id": "primary-g4-s2-chinese-K064",
+   "topic_name": "古诗名句",
+   "stem": "“举头望明月，低头思故乡”出自哪位诗人的作品？",
+   "options": [
+    "李白",
+    "杜甫",
+    "王维",
+    "白居易"
+   ],
+   "answer": "A",
+   "explanation": "“举头望明月，低头思故乡”出自唐代诗人李白的《静夜思》，写出了诗人望月思乡的情感。",
+   "difficulty": 1,
+   "bloom": "记忆",
+   "type": "single_choice",
+   "id": "pohw-CC07010"
+  },
+  {
+   "topic_id": "primary-g4-s2-chinese-K058",
+   "topic_name": "动作与神态的细节描写",
+   "stem": "“它要是啄你一口，那就真的疼了。”这句话最能体现母鸡的什么特点？",
+   "options": [
+    "温柔可爱",
+    "欺弱怕强",
+    "凶狠可怕",
+    "性格散漫"
+   ],
+   "answer": "B",
+   "explanation": "这句话写母鸡啄人时会让人感到疼，结合课文对它欺侮弱小者的描写，体现了它欺弱怕强的特点。",
+   "difficulty": 1,
+   "bloom": "记忆",
+   "type": "single_choice",
+   "id": "pohw-CC07011"
+  },
+  {
+   "topic_id": "primary-g4-s2-chinese-K075",
+   "topic_name": "字词含义",
+   "stem": "“它贪睡，无忧无虑，什么事也不过问。”中“过问”的意思是：",
+   "options": [
+    "过去询问",
+    "关心、干预",
+    "路过问候",
+    "经过询问"
+   ],
+   "answer": "B",
+   "explanation": "这里说它什么事也不过问，意思是什么事都不关心，也不去干预。",
+   "difficulty": 1,
+   "bloom": "记忆",
+   "type": "single_choice",
+   "id": "pohw-CC07012"
+  },
+  {
+   "topic_id": "primary-g4-s2-chinese-K059",
+   "topic_name": "动作描写",
+   "stem": "“小乐紧紧抱住礼物，蹦蹦跳跳地跑去告诉妈妈。”这处动作描写主要表现了什么？",
+   "options": [
+    "写出了小乐收到礼物后的高兴",
+    "写出了屋子里的陈设",
+    "写出了礼物的颜色",
+    "写出了小乐说话的声音"
+   ],
+   "answer": "B",
+   "explanation": "“紧紧抱住”和“蹦蹦跳跳”都是人物的动作，写出了小乐收到礼物后的高兴。",
+   "difficulty": 3,
+   "bloom": "应用",
+   "type": "single_choice",
+   "id": "pohw-CC07013"
+  },
+  {
+   "topic_id": "primary-g4-s2-chinese-K100",
+   "topic_name": "表达技巧",
+   "stem": "“弯弯的月亮像一条小船，挂在深蓝的夜空中。”这句话运用了哪种表达技巧？",
+   "options": [
+    "拟人",
+    "比喻",
+    "排比",
+    "反问"
+   ],
+   "answer": "B",
+   "explanation": "把弯弯的月亮说成小船，借助两者形状相似来描写月亮，运用了比喻。",
+   "difficulty": 3,
+   "bloom": "应用",
+   "type": "single_choice",
+   "id": "pohw-CC07014"
+  },
+  {
+   "topic_id": "primary-g4-s2-chinese-K100",
+   "topic_name": "表达技巧",
+   "stem": "“清晨，小鸟在枝头快乐地唱歌。”这句话主要运用了哪种表达技巧？",
+   "options": [
+    "比喻",
+    "拟人",
+    "夸张",
+    "排比"
+   ],
+   "answer": "B",
+   "explanation": "“唱歌”通常是人的行为，把小鸟写得像人一样，运用了拟人，使描写更生动。",
+   "difficulty": 2,
+   "bloom": "理解",
+   "type": "single_choice",
+   "id": "pohw-CC07015"
+  },
+  {
+   "topic_id": "primary-g4-s2-chinese-K079",
+   "topic_name": "字音辨析",
+   "stem": "“看守”的“看”和“看护”的“看”读音____。",
+   "options": [
+    "都是kàn",
+    "都是kān",
+    "前面kàn后面kān",
+    "前面kān后面kàn"
+   ],
+   "answer": "B",
+   "explanation": "两个词中的“看”都含有照看、守护的意思，读一声。",
+   "difficulty": 1,
+   "bloom": "记忆",
+   "type": "single_choice",
+   "id": "pohw-CC07016"
+  },
+  {
+   "topic_id": "primary-g4-s2-chinese-K068",
+   "topic_name": "句子语气识辩",
+   "stem": "“说它贪玩吧，的确是呀，要不怎么会一天一夜不回家呢？”这句话是什么语气？",
+   "options": [
+    "愤怒",
+    "责备",
+    "商量与宠溺",
+    "嫌弃"
+   ],
+   "answer": "C",
+   "explanation": "“吧”和“呢”等语气词展现了作者对猫亲昵的无奈。",
+   "difficulty": 3,
+   "bloom": "应用",
+   "type": "single_choice",
+   "id": "pohw-CC07017"
+  },
+  {
+   "topic_id": "primary-g4-s2-chinese-K100",
+   "topic_name": "表达技巧",
+   "stem": "“课间的操场热闹非凡，上课铃响后，校园顿时安静下来。”这句话主要运用了什么表达技巧？",
+   "options": [
+    "对比",
+    "比喻",
+    "拟人",
+    "设问"
+   ],
+   "answer": "A",
+   "explanation": "把操场上热闹的课间和安静的上课时进行比较，突出了校园生活场景的变化。",
+   "difficulty": 3,
+   "bloom": "应用",
+   "type": "single_choice",
+   "id": "pohw-CC07018"
+  },
+  {
+   "topic_id": "primary-g4-s2-chinese-K100",
+   "topic_name": "表达技巧",
+   "stem": "一篇文章先写“我”嫌小猫调皮，后来写它陪伴生病的“我”，结尾表达了对小猫的喜爱。这种写法是？",
+   "options": [
+    "先扬后抑",
+    "先抑后扬",
+    "首尾照应",
+    "总分结构"
+   ],
+   "answer": "B",
+   "explanation": "先写对小猫的不满，再写它帮助主人后的喜欢，情感由低到高，属于先抑后扬。",
+   "difficulty": 3,
+   "bloom": "应用",
+   "type": "single_choice",
+   "id": "pohw-CC07019"
+  },
+  {
+   "topic_id": "primary-g4-s2-chinese-K056",
+   "topic_name": "冒号的用法与排版规范",
+   "stem": "下列句子中，冒号使用正确的一项是：",
+   "options": [
+    "它的一举一动：都显得那么高傲。",
+    "鹅的吃饭，非有一人侍候不可：真是架子十足。",
+    "它吃法：必须由三样东西组成。",
+    "它立刻警告：泥干了，快加点水。"
+   ],
+   "answer": "D",
+   "explanation": "“它立刻警告”是提示语，冒号后面引出警告的具体内容。",
+   "difficulty": 1,
+   "bloom": "记忆",
+   "type": "single_choice",
+   "id": "pohw-CC07020"
+  },
+  {
+   "topic_id": "primary-g4-s2-chinese-K056",
+   "topic_name": "冒号的用法与排版规范",
+   "stem": "下列句子冒号使用表示“总括之后的分述”的是：",
+   "options": [
+    "它立刻警告：泥干了，快加点水。",
+    "鹅的吃饭，非有一人侍候不可：真是架子十足。",
+    "它吃的食物有：水、泥、草。",
+    "老师说：大家要爱护小动物。"
+   ],
+   "answer": "C",
+   "explanation": "冒号引出了食物的具体种类，属于总述后的分述。",
+   "difficulty": 2,
+   "bloom": "理解",
+   "type": "single_choice",
+   "id": "pohw-CC07021"
+  },
+  {
+   "topic_id": "primary-g4-s2-chinese-K048",
+   "topic_name": "作者常识",
+   "stem": "下列哪部作品是老舍的代表作品？",
+   "options": [
+    "《骆驼祥子》",
+    "《朝花夕拾》",
+    "《草房子》",
+    "《西游记》"
+   ],
+   "answer": "A",
+   "explanation": "《骆驼祥子》是老舍的代表作品；老舍原名舒庆春。",
+   "difficulty": 2,
+   "bloom": "理解",
+   "type": "single_choice",
+   "id": "pohw-CC07022"
+  },
+  {
+   "topic_id": "primary-g4-s2-chinese-K097",
+   "topic_name": "简单句排列",
+   "stem": "下面哪一句的语序最通顺？",
+   "options": [
+    "放学后，我们一起去图书馆。",
+    "一起图书馆我们放学后去。",
+    "去放学后图书馆一起我们。",
+    "我们图书馆放学后一起去。"
+   ],
+   "answer": "A",
+   "explanation": "“放学后”表示时间，通常放在句子开头；“我们”是做事的人，“一起去图书馆”说明要做什么。",
+   "difficulty": 2,
+   "bloom": "理解",
+   "type": "single_choice",
+   "id": "pohw-CC07023"
+  },
+  {
+   "topic_id": "primary-g4-s2-chinese-K057",
+   "topic_name": "写法迁移",
+   "stem": "如果我们要写“小狗非常淘气”，下列最适合作为动作细节描写的是：",
+   "options": [
+    "它长着一身金黄色的毛，非常漂亮。",
+    "它咬坏了我的拖鞋，还把花盆里的土刨得到处都是。",
+    "小狗今天在窝里睡了一整天觉。",
+    "小狗的名字叫球球，是我最喜欢的宠物。"
+   ],
+   "answer": "B",
+   "explanation": "通过具体的破坏动作，生动体现“淘气”的特点。",
+   "difficulty": 2,
+   "bloom": "理解",
+   "type": "single_choice",
+   "id": "pohw-CC07024"
+  },
+  {
+   "topic_id": "primary-g4-s2-chinese-K055",
+   "topic_name": "关联词运用",
+   "stem": "小文____会唱歌，____会跳舞。",
+   "options": [
+    "尽管……还是……",
+    "不但……而且……",
+    "因为……所以……",
+    "只要……就……"
+   ],
+   "answer": "B",
+   "explanation": "“会唱歌”和“会跳舞”是递进关系，后一个分句在前一个分句的基础上更进一步，所以用“不但……而且……”。",
+   "difficulty": 2,
+   "bloom": "理解",
+   "type": "single_choice",
+   "id": "pohw-CC07025"
+  },
+  {
+   "topic_id": "primary-g4-s2-chinese-K105",
+   "topic_name": "词语释义",
+   "stem": "小明仔细地观察蚂蚁搬家。句子中的“仔细”是什么意思？",
+   "options": [
+    "做事很快",
+    "认真细心",
+    "声音很大",
+    "随随便便"
+   ],
+   "answer": "B",
+   "explanation": "句子中“仔细地观察”说明小明观察得认真、细心，因此“仔细”在这里的意思是认真细心。",
+   "difficulty": 1,
+   "bloom": "记忆",
+   "type": "single_choice",
+   "id": "pohw-CC07026"
+  },
+  {
+   "topic_id": "primary-g4-s2-chinese-K104",
+   "topic_name": "词语辨析",
+   "stem": "形容傲慢到极点，不把别人放在眼里的词语是：",
+   "options": [
+    "不胜其烦",
+    "目中无人",
+    "一丝不苟",
+    "从容不迫"
+   ],
+   "answer": "B",
+   "explanation": "“目中无人”形容骄傲自大，看不起别人，符合题意。",
+   "difficulty": 1,
+   "bloom": "记忆",
+   "type": "single_choice",
+   "id": "pohw-CC07027"
+  },
+  {
+   "topic_id": "primary-g4-s2-chinese-K058",
+   "topic_name": "动作与神态的细节描写",
+   "stem": "白鹅吃饭时必须有三样东西下饭，这体现了它的生活____。",
+   "options": [
+    "简陋潦草",
+    "一丝不苟",
+    "随随便便",
+    "粗茶淡饭"
+   ],
+   "answer": "B",
+   "explanation": "白鹅吃饭程序的严格正体现了它性格中傲慢而刻板的一面。",
+   "difficulty": 1,
+   "bloom": "记忆",
+   "type": "single_choice",
+   "id": "pohw-CC07028"
+  },
+  {
+   "topic_id": "primary-g4-s2-chinese-K059",
+   "topic_name": "动作描写",
+   "stem": "老舍在描写猫“尽职”时，通过写猫屏息凝视等了几个钟头，这是____描写。",
+   "options": [
+    "神态描写",
+    "细节和动作描写",
+    "语言描写",
+    "环境描写"
+   ],
+   "answer": "B",
+   "explanation": "通过具体的时长和姿态，刻画了猫抓老鼠的耐心。",
+   "difficulty": 3,
+   "bloom": "应用",
+   "type": "single_choice",
+   "id": "pohw-CC07029"
+  },
+  {
+   "topic_id": "primary-g4-s2-chinese-K097",
+   "topic_name": "简单句排列",
+   "stem": "请将词语排成描写猫的一句话：猫的、性格、实在、有些、古怪。",
+   "options": [
+    "猫的，性格，实在，这种，古怪",
+    "猫的性格实在有些古怪。",
+    "实在猫的性格有些古怪。",
+    "这种性格古怪猫的实在。"
+   ],
+   "answer": "B",
+   "explanation": "先把“猫的性格”作为句子的主要内容，再用“实在有些古怪”说明性格特点。原题给出的词语缺少“有些”，因此补全后才是通顺、准确的句子。",
+   "difficulty": 1,
+   "bloom": "记忆",
+   "type": "single_choice",
+   "id": "pohw-CC07030"
+  },
+  {
+   "topic_id": "primary-g4-s2-chinese-K061",
+   "topic_name": "动物特征匹配",
+   "stem": "读句子：“白鹅走起路来步态傲慢，架子十足。”这句话表现了白鹅什么特点？",
+   "options": [
+    "白鹅十分温顺，常常依偎在主人身边。",
+    "白鹅步态傲慢，架子十足。",
+    "白鹅叫声轻柔，走路小心翼翼。",
+    "白鹅胆小怕事，总躲着其他动物。"
+   ],
+   "answer": "B",
+   "explanation": "文中对白鹅“步态傲慢、架子十足”的描写，表现了它高傲十足。",
+   "difficulty": 3,
+   "bloom": "应用",
+   "type": "single_choice",
+   "id": "pohw-CC07031"
+  },
+  {
+   "topic_id": "primary-g4-s2-chinese-K054",
+   "topic_name": "关联词语",
+   "stem": "____今天下雨，____运动会改期了。",
+   "options": [
+    "虽然……但是……",
+    "因为……所以……",
+    "如果……就……",
+    "不但……而且……"
+   ],
+   "answer": "B",
+   "explanation": "前后分句表示原因和结果：因为下雨是原因，所以比赛改期是结果。",
+   "difficulty": 1,
+   "bloom": "记忆",
+   "type": "single_choice",
+   "id": "pohw-CC07032"
+  },
+  {
+   "topic_id": "primary-g4-s2-chinese-K054",
+   "topic_name": "关联词语",
+   "stem": "____天气很冷，____同学们仍然认真锻炼。",
+   "options": [
+    "因为……所以……",
+    "如果……就……",
+    "虽然……但是……",
+    "既……又……"
+   ],
+   "answer": "C",
+   "explanation": "“天气很冷”和“同学们仍认真锻炼”之间意思相反，表示转折。",
+   "difficulty": 1,
+   "bloom": "记忆",
+   "type": "single_choice",
+   "id": "pohw-CC07033"
+  },
+  {
+   "topic_id": "primary-g4-s2-chinese-K054",
+   "topic_name": "关联词语",
+   "stem": "____明天不下雨，我们____去公园观察植物。",
+   "options": [
+    "如果……就……",
+    "虽然……但是……",
+    "不但……而且……",
+    "不是……而是……"
+   ],
+   "answer": "A",
+   "explanation": "前一分句提出条件，后一分句说明条件成立后的结果，适合用“如果……就……”。",
+   "difficulty": 2,
+   "bloom": "理解",
+   "type": "single_choice",
+   "id": "pohw-CC07034"
+  },
+  {
+   "topic_id": "primary-g4-s2-chinese-K054",
+   "topic_name": "关联词语",
+   "stem": "____遇到困难，我们____要想办法坚持完成任务。",
+   "options": [
+    "因为……所以……",
+    "即使……也……",
+    "一边……一边……",
+    "或者……或者……"
+   ],
+   "answer": "B",
+   "explanation": "“遇到困难”是假设的情况，“坚持完成任务”表示在这种情况下结果仍不改变。",
+   "difficulty": 2,
+   "bloom": "理解",
+   "type": "single_choice",
+   "id": "pohw-CC07035"
+  },
+  {
+   "topic_id": "primary-g4-s2-chinese-K101",
+   "topic_name": "词语搭配",
+   "stem": "“____大雨”中，最恰当的量词是：",
+   "options": [
+    "一本",
+    "一只",
+    "一场",
+    "一条"
+   ],
+   "answer": "C",
+   "explanation": "“大雨”常用量词“场”来表示，如“一场大雨”。“本”常用于书，“只”常用于动物，“条”常用于绳子、道路等。",
+   "difficulty": 2,
+   "bloom": "理解",
+   "type": "single_choice",
+   "id": "pohw-CC07036"
+  },
+  {
+   "topic_id": "primary-g4-s2-chinese-K116",
+   "topic_name": "近义词选择",
+   "stem": "“上课铃响了，同学们赶紧回到教室。”选出与句中“赶紧”意思最相近的词语：",
+   "options": [
+    "慢慢",
+    "急忙",
+    "安静",
+    "仔细"
+   ],
+   "answer": "B",
+   "explanation": "“赶紧”和“急忙”都表示迅速、连忙地行动，放在句中意思相近。",
+   "difficulty": 3,
+   "bloom": "应用",
+   "type": "single_choice",
+   "id": "pohw-CC07037"
+  },
+  {
+   "topic_id": "primary-g4-s2-chinese-K083",
+   "topic_name": "描写视角",
+   "stem": "“不论多大的船只，进出罪都要仰卧在其中”，这句话突出了孔隙的：",
+   "options": [
+    "长度",
+    "高度",
+    "宽度",
+    "险要"
+   ],
+   "answer": "B",
+   "explanation": "仰卧意味着空间极扁极矮，突出高度上的受限。",
+   "difficulty": 2,
+   "bloom": "理解",
+   "type": "single_choice",
+   "id": "pohw-CC07038"
+  },
+  {
+   "topic_id": "primary-g4-s2-chinese-K075",
+   "topic_name": "字词含义",
+   "stem": "“变化多端”的“端”在这里的意思是？",
+   "options": [
+    "项目、方面",
+    "端正",
+    "用手托住",
+    "尽头"
+   ],
+   "answer": "A",
+   "explanation": "“变化多端”指变化的方面、方式很多，“端”在这里是项目、方面的意思。",
+   "difficulty": 1,
+   "bloom": "记忆",
+   "type": "single_choice",
+   "id": "pohw-CC07039"
+  },
+  {
+   "topic_id": "primary-g4-s2-chinese-K075",
+   "topic_name": "字词含义",
+   "stem": "“夜深了，村子里一片宁静”中，“静”是什么意思？",
+   "options": [
+    "停止不动",
+    "安静",
+    "不改变",
+    "冷静"
+   ],
+   "answer": "B",
+   "explanation": "夜晚没有吵闹的声音，说明周围很安静。“静”在这里表示没有声音、不吵闹。",
+   "difficulty": 2,
+   "bloom": "理解",
+   "type": "single_choice",
+   "id": "pohw-CC07040"
+  },
+  {
+   "topic_id": "primary-g4-s2-chinese-K075",
+   "topic_name": "字词含义",
+   "stem": "“大家听到一声巨响，都停下了脚步”中，“响”是什么意思？",
+   "options": [
+    "表示回声",
+    "表示声音很大",
+    "表示消息传开",
+    "表示答应"
+   ],
+   "answer": "B",
+   "explanation": "句子说大家听到一声巨响后都停下了脚步，因此“响”表示声音很大。",
+   "difficulty": 2,
+   "bloom": "理解",
+   "type": "single_choice",
+   "id": "pohw-CC07041"
+  },
+  {
+   "topic_id": "primary-g4-s2-chinese-K051",
+   "topic_name": "修辞手法识别",
+   "stem": "“弯弯的月亮挂在夜空中，像一只小船。”这句话主要运用了哪种修辞手法？",
+   "options": [
+    "比喻",
+    "拟人",
+    "排比",
+    "夸张"
+   ],
+   "answer": "A",
+   "explanation": "句子把“弯弯的月亮”比作“小船”，是把一种事物比作另一种事物，运用了比喻。",
+   "difficulty": 1,
+   "bloom": "记忆",
+   "type": "single_choice",
+   "id": "pohw-CC07042"
+  },
+  {
+   "topic_id": "primary-g4-s2-chinese-K075",
+   "topic_name": "字词含义",
+   "stem": "“我已完成作业”中，“已”是什么意思？",
+   "options": [
+    "已经",
+    "自己",
+    "停止",
+    "以后"
+   ],
+   "answer": "A",
+   "explanation": "“我已完成作业”表示作业完成了，“已”表示已经。",
+   "difficulty": 1,
+   "bloom": "记忆",
+   "type": "single_choice",
+   "id": "pohw-CC07043"
+  },
+  {
+   "topic_id": "primary-g4-s2-chinese-K087",
+   "topic_name": "标点符号",
+   "stem": "“我最喜欢春天____你最喜欢哪个季节____”两处括号里依次应填什么标点？",
+   "options": [
+    "。？",
+    "？？",
+    "，。",
+    "？！"
+   ],
+   "answer": "A",
+   "explanation": "第一句“我最喜欢春天”意思完整、语气平和，用句号；第二句是在询问对方最喜欢哪个季节，用问号。",
+   "difficulty": 3,
+   "bloom": "应用",
+   "type": "single_choice",
+   "id": "pohw-CC07044"
+  },
+  {
+   "topic_id": "primary-g4-s2-chinese-K075",
+   "topic_name": "字词含义",
+   "stem": "“春天的阳光明媚”中，“明”是什么意思？",
+   "options": [
+    "明亮",
+    "明白",
+    "公开",
+    "次日"
+   ],
+   "answer": "A",
+   "explanation": "“明媚的阳光”指阳光明亮、柔和。“明”在这里表示明亮。",
+   "difficulty": 1,
+   "bloom": "记忆",
+   "type": "single_choice",
+   "id": "pohw-CC07045"
+  },
+  {
+   "topic_id": "primary-g4-s2-chinese-K086",
+   "topic_name": "景物特点",
+   "stem": "“花朵红得很鲜艳，像一团团火焰。”这句话主要写出了花的什么特点？",
+   "options": [
+    "颜色鲜艳",
+    "声音响亮",
+    "形状细长",
+    "变化迅速"
+   ],
+   "answer": "A",
+   "explanation": "“红得很”“鲜艳”都直接写出了花的颜色特点。",
+   "difficulty": 1,
+   "bloom": "记忆",
+   "type": "single_choice",
+   "id": "pohw-CC07046"
+  },
+  {
+   "topic_id": "primary-g4-s2-chinese-K116",
+   "topic_name": "近义词选择",
+   "stem": "“请认真检查作业。”选出与句中“认真”意思最相近的词语：",
+   "options": [
+    "粗心",
+    "随便",
+    "仔细",
+    "迅速"
+   ],
+   "answer": "C",
+   "explanation": "“认真”和“仔细”都表示做事专心、细心。在“认真检查”这个语境中，两词意思相近。",
+   "difficulty": 2,
+   "bloom": "理解",
+   "type": "single_choice",
+   "id": "pohw-CC07047"
+  },
+  {
+   "topic_id": "primary-g4-s2-chinese-K087",
+   "topic_name": "标点符号",
+   "stem": "“这里的石钟乳真多啊____有的像老人，有的像卧龙。”括号里最合适的标点是？",
+   "options": [
+    "。",
+    "！",
+    "？",
+    "——"
+   ],
+   "answer": "B",
+   "explanation": "“真多啊”表达了强烈的感叹语气，应使用感叹号。",
+   "difficulty": 2,
+   "bloom": "理解",
+   "type": "single_choice",
+   "id": "pohw-CC07048"
+  },
+  {
+   "topic_id": "primary-g4-s2-chinese-K075",
+   "topic_name": "字词含义",
+   "stem": "“这里的风景优美”中，“景”是什么意思？",
+   "options": [
+    "景色",
+    "情况",
+    "仰慕",
+    "姓氏"
+   ],
+   "answer": "A",
+   "explanation": "“风景优美”说的是自然景色美丽，所以“景”指景色。",
+   "difficulty": 1,
+   "bloom": "记忆",
+   "type": "single_choice",
+   "id": "pohw-CC07049"
+  },
+  {
+   "topic_id": "primary-g4-s2-chinese-K067",
+   "topic_name": "句子变换",
+   "stem": "“难道这灿烂的日出不是伟大的奇观吗？”改为陈述句是？",
+   "options": [
+    "这灿烂的日出是伟大的奇观。",
+    "这灿烂的日出是不伟大的奇观。",
+    "这灿烂的日出难道是奇观吗？",
+    "这灿烂的日出真的是奇观。"
+   ],
+   "answer": "A",
+   "explanation": "反问句变陈述句，要去掉反问词并否定原意，原意为“是”。",
+   "difficulty": 2,
+   "bloom": "理解",
+   "type": "single_choice",
+   "id": "pohw-CC07050"
+  },
+  {
+   "topic_id": "primary-g4-s2-chinese-K111",
+   "topic_name": "过渡句辨析",
+   "stem": "下列哪个句子最适合作为进入景点的过渡句？",
+   "options": [
+    "这里的风景真美丽。",
+    "我们吃完饭就开始休息了。",
+    "转过石角，我们便来到了孔隙口。",
+    "今天的天气阳光明媚。"
+   ],
+   "answer": "C",
+   "explanation": "这个句子交代了从原来位置到孔隙口的变化，连接了前后的地点描写，起到过渡作用。",
+   "difficulty": 2,
+   "bloom": "理解",
+   "type": "single_choice",
+   "id": "pohw-CC07051"
+  },
+  {
+   "topic_id": "primary-g4-s2-chinese-K095",
+   "topic_name": "移步换景的游览顺序",
+   "stem": "下面哪一项最符合“移步换景”的写法？",
+   "options": [
+    "一直站在原地描写四周景物",
+    "随着脚步移动，按观察位置变化的顺序描写景物",
+    "只描写最喜欢的一处景物",
+    "按照景物的大小顺序描写"
+   ],
+   "answer": "B",
+   "explanation": "移步换景按照观察者脚步移动、观察位置变化的顺序来写，能让读者跟随作者依次看到不同景物。",
+   "difficulty": 1,
+   "bloom": "记忆",
+   "type": "single_choice",
+   "id": "pohw-CC07052"
+  },
+  {
+   "topic_id": "primary-g4-s2-chinese-K101",
+   "topic_name": "词语搭配",
+   "stem": "下面哪个动词与名词搭配最恰当？",
+   "options": [
+    "刷牙",
+    "洗书",
+    "吃衣服",
+    "喝桌子"
+   ],
+   "answer": "A",
+   "explanation": "“刷牙”是常见、恰当的动宾搭配；“洗书”“吃衣服”“喝桌子”都不符合词语的通常含义和用法。",
+   "difficulty": 1,
+   "bloom": "记忆",
+   "type": "single_choice",
+   "id": "pohw-CC07053"
+  },
+  {
+   "topic_id": "primary-g4-s2-chinese-K071",
+   "topic_name": "多音字读音",
+   "stem": "下面哪个词语中的“奔”读bèn？",
+   "options": [
+    "奔跑",
+    "奔向",
+    "奔走",
+    "投奔"
+   ],
+   "answer": "D",
+   "explanation": "“投奔”中的“奔”读bèn；“奔跑、奔向、奔走”中的“奔”都读bēn。判断多音字的读音，要结合具体词语。",
+   "difficulty": 1,
+   "bloom": "记忆",
+   "type": "single_choice",
+   "id": "pohw-CC07054"
+  },
+  {
+   "topic_id": "primary-g4-s2-chinese-K101",
+   "topic_name": "词语搭配",
+   "stem": "下面哪个词语搭配最恰当？",
+   "options": [
+    "阳光明媚",
+    "阳光茂密",
+    "阳光笔直",
+    "阳光香甜"
+   ],
+   "answer": "A",
+   "explanation": "“明媚”常与“阳光”搭配，形容阳光明亮柔和。“阳光茂密”“阳光笔直”“阳光香甜”都不符合通常的表达习惯。",
+   "difficulty": 2,
+   "bloom": "理解",
+   "type": "single_choice",
+   "id": "pohw-CC07055"
+  },
+  {
+   "topic_id": "primary-g4-s2-chinese-K101",
+   "topic_name": "词语搭配",
+   "stem": "下面哪个词语最适合填入“____听讲”？",
+   "options": [
+    "甜甜地",
+    "认真地",
+    "笔直地",
+    "茂密地"
+   ],
+   "answer": "B",
+   "explanation": "“认真”表示专心、用心，常用来修饰“听讲”，因此说“认真地听讲”。",
+   "difficulty": 1,
+   "bloom": "记忆",
+   "type": "single_choice",
+   "id": "pohw-CC07056"
+  },
+  {
+   "topic_id": "primary-g4-s2-chinese-K071",
+   "topic_name": "多音字读音",
+   "stem": "下面词语中，“系”字的读音与“系绳子”相同的是？",
+   "options": [
+    "关系",
+    "联系",
+    "系好鞋带",
+    "系统"
+   ],
+   "answer": "C",
+   "explanation": "“系绳子”和“系好鞋带”中的“系”表示打结、拴住，读jì；“关系”“联系”“系统”中的“系”读xì。",
+   "difficulty": 1,
+   "bloom": "记忆",
+   "type": "single_choice",
+   "id": "pohw-CC07057"
+  },
+  {
+   "topic_id": "primary-g4-s2-chinese-K111",
+   "topic_name": "过渡句辨析",
+   "stem": "前文写我们在山脚下看溪水，后文写竹林里的景象。下列哪句话最适合作为两段之间的过渡句？",
+   "options": [
+    "溪水清清的，像一面明亮的镜子。",
+    "后来，我们又沿着小路走进了竹林。",
+    "竹叶在风中轻轻摇动。",
+    "这真是一条美丽的小路。"
+   ],
+   "answer": "B",
+   "explanation": "前文写在山脚下看溪水，后文写竹林中的景象，这句话交代了游览地点的变化，衔接自然。",
+   "difficulty": 3,
+   "bloom": "应用",
+   "type": "single_choice",
+   "id": "pohw-CC07058"
+  },
+  {
+   "topic_id": "primary-g4-s2-chinese-K054",
+   "topic_name": "关联词语",
+   "stem": "填入括号最恰当的是：____在船里并排仰卧，刚合适，再没法容下一人。",
+   "options": [
+    "虽然",
+    "由于",
+    "所以",
+    "哪怕"
+   ],
+   "answer": "D",
+   "explanation": "“哪怕……也……”表示假设某种情况，结果仍然不变。句子强调船里空间很小，连多一个人都容不下。",
+   "difficulty": 2,
+   "bloom": "理解",
+   "type": "single_choice",
+   "id": "pohw-CC07059"
+  },
+  {
+   "topic_id": "primary-g4-s2-chinese-K104",
+   "topic_name": "词语辨析",
+   "stem": "形容水流声音很大，最合适的词语是？",
+   "options": [
+    "震耳欲聋",
+    "清脆响亮",
+    "鸦雀无声",
+    "娓娓道来"
+   ],
+   "answer": "A",
+   "explanation": "震耳欲聋形容声音极大，符合描写壮观水流的语境。",
+   "difficulty": 1,
+   "bloom": "记忆",
+   "type": "single_choice",
+   "id": "pohw-CC07060"
+  },
+  {
+   "topic_id": "primary-g4-s2-chinese-K117",
+   "topic_name": "逻辑顺序",
+   "stem": "描写日出过程，第一步通常写什么？",
+   "options": [
+    "太阳跳出海面",
+    "天边出现红霞",
+    "满天灿烂的光芒",
+    "乌云遮住太阳"
+   ],
+   "answer": "B",
+   "explanation": "根据《海上日出》，先是天边出现红光红霞，然后才是太阳升起。",
+   "difficulty": 2,
+   "bloom": "理解",
+   "type": "single_choice",
+   "id": "pohw-CC07061"
+  },
+  {
+   "topic_id": "primary-g4-s2-chinese-K085",
+   "topic_name": "景物及其所在地",
+   "stem": "游览过程中，石钟乳通常在哪里看到？",
+   "options": [
+    "路上",
+    "孔隙",
+    "内洞",
+    "外洞口"
+   ],
+   "answer": "C",
+   "explanation": "溪水汇入外洞口，仰卧通过孔隙，石钟乳在内洞，映山红可在路上看到。因此，石钟乳所在的地点是内洞。",
+   "difficulty": 2,
+   "bloom": "理解",
+   "type": "single_choice",
+   "id": "pohw-CC07062"
+  },
+  {
+   "topic_id": "primary-g4-s2-chinese-K112",
+   "topic_name": "过渡句选择",
+   "stem": "离开外洞进入内洞，最适合的衔接句是？",
+   "options": [
+    "内洞有很多石钟乳。",
+    "外洞非常宽阔。",
+    "泉水靠着右边，引导我们进入内洞。",
+    "我们大家都非常开心。"
+   ],
+   "answer": "C",
+   "explanation": "该句交代了进入内洞的路径和向导（泉水）。",
+   "difficulty": 2,
+   "bloom": "理解",
+   "type": "single_choice",
+   "id": "pohw-CC07063"
+  },
+  {
+   "topic_id": "primary-g4-s2-chinese-K054",
+   "topic_name": "关联词语",
+   "stem": "这本书____内容有趣，____让我学到了许多新知识。",
+   "options": [
+    "不是……而是……",
+    "如果……就……",
+    "不但……而且……",
+    "虽然……但是……"
+   ],
+   "answer": "C",
+   "explanation": "两个分句都在说这本书的优点，后一个分句进一步补充优点，表示递进。",
+   "difficulty": 2,
+   "bloom": "理解",
+   "type": "single_choice",
+   "id": "pohw-CC07064"
+  },
+  {
+   "topic_id": "primary-g4-s2-chinese-K116",
+   "topic_name": "近义词选择",
+   "stem": "选出与“漂亮”意思最相近的词语：",
+   "options": [
+    "丑陋",
+    "整齐",
+    "美丽",
+    "普通"
+   ],
+   "answer": "C",
+   "explanation": "“漂亮”和“美丽”都表示好看，意思相近。",
+   "difficulty": 2,
+   "bloom": "理解",
+   "type": "single_choice",
+   "id": "pohw-CC07065"
+  },
+  {
+   "topic_id": "primary-g4-s2-chinese-K116",
+   "topic_name": "近义词选择",
+   "stem": "选出与“灿烂”意思最相近的词语：",
+   "options": [
+    "绚烂",
+    "昏暗",
+    "微弱",
+    "平淡"
+   ],
+   "answer": "A",
+   "explanation": "“灿烂”和“绚烂”都可以形容光彩鲜明、耀眼，意思相近。",
+   "difficulty": 1,
+   "bloom": "记忆",
+   "type": "single_choice",
+   "id": "pohw-CC07066"
+  },
+  {
+   "topic_id": "primary-g4-s2-chinese-K116",
+   "topic_name": "近义词选择",
+   "stem": "选出与“立刻”意思最相近的词语：",
+   "options": [
+    "从前",
+    "慢慢",
+    "马上",
+    "最后"
+   ],
+   "answer": "C",
+   "explanation": "“立刻”和“马上”都表示紧接着就要做，意思相近。",
+   "difficulty": 1,
+   "bloom": "记忆",
+   "type": "single_choice",
+   "id": "pohw-CC07067"
+  },
+  {
+   "topic_id": "primary-g4-s2-chinese-K116",
+   "topic_name": "近义词选择",
+   "stem": "选出与“高兴”意思最相近的词语：",
+   "options": [
+    "悲伤",
+    "快乐",
+    "生气",
+    "紧张"
+   ],
+   "answer": "B",
+   "explanation": "“高兴”和“快乐”都表示心情愉快，意思相近。",
+   "difficulty": 1,
+   "bloom": "记忆",
+   "type": "single_choice",
+   "id": "pohw-CC07068"
+  },
+  {
+   "topic_id": "primary-g4-s2-chinese-K119",
+   "topic_name": "阅读推理",
+   "stem": "阅读：‘随着山势，溪流时而宽，时而窄...’。这里通过溪流的变化暗示了什么？",
+   "options": [
+    "溪水很干净",
+    "山坡的起伏变化",
+    "天气的变化",
+    "小鱼在游动"
+   ],
+   "answer": "B",
+   "explanation": "“随着山势”说明溪流的变化是由地形山势决定的。",
+   "difficulty": 3,
+   "bloom": "应用",
+   "type": "single_choice",
+   "id": "pohw-CC07069"
+  },
+  {
+   "topic_id": "primary-g4-s2-chinese-K088",
+   "topic_name": "段落理解",
+   "stem": "阅读：“一路迎着溪流。随着山势，溪流时而宽，时而窄，时而缓，时而急，溪声也时时变换调子。”这段话主要写了什么？",
+   "options": [
+    "溪流的颜色",
+    "溪流的变化",
+    "溪边的野花",
+    "山势的高低"
+   ],
+   "answer": "B",
+   "explanation": "“宽、窄、缓、急”写出了溪流宽窄和流速不断变化，因此这段话主要写溪流的变化。",
+   "difficulty": 3,
+   "bloom": "应用",
+   "type": "single_choice",
+   "id": "pohw-CC07070"
+  },
+  {
+   "topic_id": "primary-g4-s2-chinese-K088",
+   "topic_name": "段落理解",
+   "stem": "阅读：“秋风吹来，树叶由绿变黄，一片片慢慢飘落到地上。地面渐渐铺上了一层金色。”这段话主要写了什么？",
+   "options": [
+    "树叶的变化",
+    "秋天的天气",
+    "小朋友在扫地",
+    "大树的种类"
+   ],
+   "answer": "A",
+   "explanation": "“由绿变黄”说明颜色发生变化，“慢慢飘落”说明树叶的状态和位置发生变化，整段主要写树叶的变化。",
+   "difficulty": 3,
+   "bloom": "应用",
+   "type": "single_choice",
+   "id": "pohw-CC07071"
+  },
+  {
+   "topic_id": "primary-g4-s2-chinese-K088",
+   "topic_name": "段落理解",
+   "stem": "阅读：“雨停了，公园里的花朵挂着水珠，树叶显得格外鲜亮。泥土散发着清新的气味，小鸟在枝头欢快地叫着。”这段话主要写了什么？",
+   "options": [
+    "雨前的天气",
+    "雨后的公园景色",
+    "公园里的人们",
+    "小鸟怎样找食物"
+   ],
+   "answer": "B",
+   "explanation": "这段话写了雨后公园里的花草、树叶和空气，主要描绘雨后的公园景色。",
+   "difficulty": 2,
+   "bloom": "理解",
+   "type": "single_choice",
+   "id": "pohw-CC07072"
+  },
+  {
+   "topic_id": "primary-g4-s2-chinese-K052",
+   "topic_name": "修辞方法识别",
+   "stem": "“操场上传来一声鼓响，震得整座山都在发抖。”这句话运用了哪种修辞方法？",
+   "options": [
+    "比喻",
+    "夸张",
+    "拟人",
+    "设问"
+   ],
+   "answer": "B",
+   "explanation": "“震得整座山都在发抖”是对鼓声响亮程度的明显夸大，不能按字面理解，运用了夸张。",
+   "difficulty": 3,
+   "bloom": "应用",
+   "type": "single_choice",
+   "id": "pohw-CC07073"
+  },
+  {
+   "topic_id": "primary-g4-s2-chinese-K052",
+   "topic_name": "修辞方法识别",
+   "stem": "“春风悄悄地告诉我们，春天来了。”这句话运用了哪种修辞方法？",
+   "options": [
+    "比喻",
+    "拟人",
+    "排比",
+    "夸张"
+   ],
+   "answer": "B",
+   "explanation": "“悄悄地告诉我们”是人的动作，句子把春风当作人来写，赋予了春风人的行为。",
+   "difficulty": 1,
+   "bloom": "记忆",
+   "type": "single_choice",
+   "id": "pohw-CC07074"
+  },
+  {
+   "topic_id": "primary-g4-s2-chinese-K074",
+   "topic_name": "字词义辨析",
+   "stem": "“老师对我们的关怀无微不至。”中“无微不至”的意思是：",
+   "options": [
+    "没有微小的东西",
+    "每一处微小的地方都照顾到",
+    "不太重视",
+    "只有一点点关心"
+   ],
+   "answer": "B",
+   "explanation": "“无微不至”形容关怀、照顾得非常细致周到。句中说老师关怀我们，指老师照顾到了许多细微之处。",
+   "difficulty": 1,
+   "bloom": "记忆",
+   "type": "single_choice",
+   "id": "pohw-CC07075"
+  },
+  {
+   "topic_id": "primary-g4-s2-chinese-K052",
+   "topic_name": "修辞方法识别",
+   "stem": "“老师这样关心我们，难道我们能忘记吗？”这句话运用了哪种修辞方法？",
+   "options": [
+    "设问",
+    "拟人",
+    "反问",
+    "夸张"
+   ],
+   "answer": "C",
+   "explanation": "“难道……吗”用疑问句表达肯定意思：我们不能忘记老师的关心。句子不需要对方回答，属于反问。",
+   "difficulty": 3,
+   "bloom": "应用",
+   "type": "single_choice",
+   "id": "pohw-CC07076"
+  },
+  {
+   "topic_id": "primary-g4-s2-chinese-K052",
+   "topic_name": "修辞方法识别",
+   "stem": "“蓝蓝的天空，电线杆之间连着几痕细线，多么像五线谱啊！”这是什么修辞？",
+   "options": [
+    "拟人",
+    "反问",
+    "排比",
+    "比喻"
+   ],
+   "answer": "D",
+   "explanation": "句子把电线比作五线谱，电线与五线谱在排列形态上有相似之处，因此运用了比喻。",
+   "difficulty": 3,
+   "bloom": "应用",
+   "type": "single_choice",
+   "id": "pohw-CC07077"
+  },
+  {
+   "topic_id": "primary-g4-s2-chinese-K052",
+   "topic_name": "修辞方法识别",
+   "stem": "“谁是最可爱的人？是那些默默守护我们的英雄。”这句话运用了哪种修辞方法？",
+   "options": [
+    "反问",
+    "设问",
+    "比喻",
+    "排比"
+   ],
+   "answer": "B",
+   "explanation": "句子先提出“谁是最可爱的人”，接着自己回答“是……”属于自问自答，因此是设问。",
+   "difficulty": 3,
+   "bloom": "应用",
+   "type": "single_choice",
+   "id": "pohw-CC07078"
+  },
+  {
+   "topic_id": "primary-g4-s2-chinese-K099",
+   "topic_name": "英雄人物的精神品质分析",
+   "stem": "“雨来没理他，脚下像踩着风，一直朝后院跑去。”这句话表现了雨来的：",
+   "options": [
+    "调皮贪玩",
+    "机智果断",
+    "惊慌失措",
+    "鲁莽冲动"
+   ],
+   "answer": "B",
+   "explanation": "面对敌人，雨来反应迅速，说明他非常机智果断。",
+   "difficulty": 3,
+   "bloom": "应用",
+   "type": "single_choice",
+   "id": "pohw-CC07079"
+  },
+  {
+   "topic_id": "primary-g4-s2-chinese-K052",
+   "topic_name": "修辞方法识别",
+   "stem": "“风儿轻轻地吹，雨点悄悄地落，阳光暖暖地照。”这句话运用了哪种修辞方法？",
+   "options": [
+    "设问",
+    "排比",
+    "拟人",
+    "反问"
+   ],
+   "answer": "B",
+   "explanation": "三个分句结构相似，分别描写风、雨和阳光，连在一起增强了表达的气势，属于排比。",
+   "difficulty": 3,
+   "bloom": "应用",
+   "type": "single_choice",
+   "id": "pohw-CC07080"
+  },
+  {
+   "topic_id": "primary-g4-s2-chinese-K099",
+   "topic_name": "英雄人物的精神品质分析",
+   "stem": "下列哪一项不是描述雨来精神品质的词语？",
+   "options": [
+    "机智勇敢",
+    "宁死不屈",
+    "爱国守信",
+    "骄傲自满"
+   ],
+   "answer": "D",
+   "explanation": "雨来是小英雄，骄傲自满是贬义词，不符合其身份。",
+   "difficulty": 2,
+   "bloom": "理解",
+   "type": "single_choice",
+   "id": "pohw-CC07081"
+  },
+  {
+   "topic_id": "primary-g4-s2-chinese-K074",
+   "topic_name": "字词义辨析",
+   "stem": "下列词语中，描写英雄气概的一项是：",
+   "options": [
+    "眉清目秀",
+    "从容不迫",
+    "慌张失措",
+    "垂头丧气"
+   ],
+   "answer": "B",
+   "explanation": "从容不迫形容镇定、不慌不忙，常用于描写英雄人物。",
+   "difficulty": 1,
+   "bloom": "记忆",
+   "type": "single_choice",
+   "id": "pohw-CC07082"
+  },
+  {
+   "topic_id": "primary-g4-s2-chinese-K118",
+   "topic_name": "长文章的小标题概括",
+   "stem": "概括长文章小标题的原则不包括下列哪项？",
+   "options": [
+    "概括内容",
+    "语言简洁",
+    "尽量引用原话",
+    "结构一致"
+   ],
+   "answer": "C",
+   "explanation": "小标题通常需要自己提炼浓缩，不一定要引用原话。",
+   "difficulty": 3,
+   "bloom": "应用",
+   "type": "single_choice",
+   "id": "pohw-CC07083"
+  },
+  {
+   "topic_id": "primary-g4-s2-chinese-K118",
+   "topic_name": "长文章的小标题概括",
+   "stem": "给长文章拟写小标题，哪种做法最合适？",
+   "options": [
+    "挑选自己最喜欢的一句话作为标题",
+    "先划分文章的部分，再分别概括每部分的主要内容",
+    "只写每部分中出现的一个物件",
+    "统计每部分有多少个字"
+   ],
+   "answer": "B",
+   "explanation": "拟写小标题时，先根据空行、序号或内容变化划分文章部分，再抓住每部分的主要内容，用简短的话概括。",
+   "difficulty": 1,
+   "bloom": "记忆",
+   "type": "single_choice",
+   "id": "pohw-CC07084"
+  },
+  {
+   "topic_id": "primary-g4-s2-chinese-K099",
+   "topic_name": "英雄人物的精神品质分析",
+   "stem": "阅读语段：“雨来仰着脸，望着妈妈。妈妈还在打。雨来一矮身，钻到妈妈的双臂下面。”这段话体现了：",
+   "options": [
+    "雨来不怕妈妈",
+    "雨来顽皮灵活",
+    "雨来胆大妄为",
+    "雨来心情很难过"
+   ],
+   "answer": "B",
+   "explanation": "通过动作描写，展现了孩子天真、调皮、机灵的一面。",
+   "difficulty": 3,
+   "bloom": "应用",
+   "type": "single_choice",
+   "id": "pohw-CC07085"
+  },
+  {
+   "topic_id": "primary-g4-s2-chinese-K099",
+   "topic_name": "英雄人物的精神品质分析",
+   "stem": "雨来在夜校学习的内容，表现了他：",
+   "options": [
+    "学习成绩优异",
+    "热爱自己的祖国",
+    "非常调皮好动",
+    "很听老师的话"
+   ],
+   "answer": "B",
+   "explanation": "“我是中国人”等内容体现了早期爱国思想的萌发。",
+   "difficulty": 2,
+   "bloom": "理解",
+   "type": "single_choice",
+   "id": "pohw-CC07086"
+  },
+  {
+   "topic_id": "primary-g4-s2-chinese-K053",
+   "topic_name": "关联词使用",
+   "stem": "“____哈尔威船长牺牲了，____他伟大的精神永远活在人们心中。”括号内填入正确的是：",
+   "options": [
+    "因为……所以……",
+    "只要……就……",
+    "虽然……但是……",
+    "如果……就……"
+   ],
+   "answer": "C",
+   "explanation": "前后两句意思相反：船长虽然牺牲了，但他的精神仍然被人们铭记，属于转折关系。",
+   "difficulty": 2,
+   "bloom": "理解",
+   "type": "single_choice",
+   "id": "pohw-CC07087"
+  },
+  {
+   "topic_id": "primary-g4-s2-chinese-K053",
+   "topic_name": "关联词使用",
+   "stem": "“____天气突然变冷，____大家都穿上了厚衣服。”括号内填入正确的是：",
+   "options": [
+    "虽然……但是……",
+    "因为……所以……",
+    "如果……就……",
+    "不但……而且……"
+   ],
+   "answer": "B",
+   "explanation": "“天气突然变冷”是原因，“大家穿上了厚衣服”是结果，应用表示因果关系的“因为……所以……”。",
+   "difficulty": 2,
+   "bloom": "理解",
+   "type": "single_choice",
+   "id": "pohw-CC07088"
+  },
+  {
+   "topic_id": "primary-g4-s2-chinese-K053",
+   "topic_name": "关联词使用",
+   "stem": "“____山路十分陡峭，____登山队员没有退缩。”填入关联词，最恰当的是：",
+   "options": [
+    "如果……就……",
+    "不但……而且……",
+    "因为……所以……",
+    "虽然……但是……"
+   ],
+   "answer": "D",
+   "explanation": "“山路很陡”与“登山队员没有退缩”意思形成转折，应用“虽然……但是……”。",
+   "difficulty": 3,
+   "bloom": "应用",
+   "type": "single_choice",
+   "id": "pohw-CC07089"
+  },
+  {
+   "topic_id": "primary-g4-s2-chinese-K053",
+   "topic_name": "关联词使用",
+   "stem": "“____明天不下雨，____我们一起去公园。”括号内填入恰当的关联词：",
+   "options": [
+    "如果……就……",
+    "虽然……但是……",
+    "因为……所以……",
+    "一边……一边……"
+   ],
+   "answer": "A",
+   "explanation": "“明天不下雨”是假设的情况，“我们去公园”是这种情况下会做的事，属于假设关系。",
+   "difficulty": 3,
+   "bloom": "应用",
+   "type": "single_choice",
+   "id": "pohw-CC07090"
+  },
+  {
+   "topic_id": "primary-g4-s2-chinese-K053",
+   "topic_name": "关联词使用",
+   "stem": "“____认真检查，____能及时发现并改正错误。”括号内填入最恰当的关联词：",
+   "options": [
+    "只要……就……",
+    "只有……才……",
+    "因为……所以……",
+    "虽然……但是……"
+   ],
+   "answer": "B",
+   "explanation": "“认真检查”是“发现并改正错误”必需的条件，表示必要条件，因此用“只有……才……”。",
+   "difficulty": 3,
+   "bloom": "应用",
+   "type": "single_choice",
+   "id": "pohw-CC07091"
+  },
+  {
+   "topic_id": "primary-g4-s2-chinese-K053",
+   "topic_name": "关联词使用",
+   "stem": "“____认真观察，____能发现身边的变化。”括号内填入恰当的关联词：",
+   "options": [
+    "即使……也……",
+    "虽然……但是……",
+    "只要……就……",
+    "因为……所以……"
+   ],
+   "answer": "C",
+   "explanation": "只要认真观察，就能发现身边的变化，前一分句是后一分句成立的条件，表示条件关系。",
+   "difficulty": 2,
+   "bloom": "理解",
+   "type": "single_choice",
+   "id": "pohw-CC07092"
+  },
+  {
+   "topic_id": "primary-g4-s2-chinese-K081",
+   "topic_name": "描写手法应用",
+   "stem": "“听到比赛获胜的消息，乐乐的脸上露出了灿烂的笑容。”这句话主要运用了哪种描写手法？",
+   "options": [
+    "外貌描写",
+    "动作描写",
+    "神态描写",
+    "心理描写"
+   ],
+   "answer": "C",
+   "explanation": "“脸上露出了笑容”描写的是人物面部表情，因此属于神态描写。",
+   "difficulty": 3,
+   "bloom": "应用",
+   "type": "single_choice",
+   "id": "pohw-CC07093"
+  },
+  {
+   "topic_id": "primary-g4-s2-chinese-K072",
+   "topic_name": "多音字辨析",
+   "stem": "“在这个混乱的场面中，哈尔威船长巍然屹立。”句子中“混”的读音是：",
+   "options": [
+    "hún",
+    "hùn",
+    "hūn",
+    "hǔn"
+   ],
+   "answer": "B",
+   "explanation": "“混乱”表示杂乱、没有秩序，“混”在这个词中读hùn。",
+   "difficulty": 1,
+   "bloom": "记忆",
+   "type": "single_choice",
+   "id": "pohw-CC07094"
+  },
+  {
+   "topic_id": "primary-g4-s2-chinese-K066",
+   "topic_name": "古诗情境对应",
+   "stem": "“大雪满弓刀”描绘的画面最能表现将士怎样的志向？",
+   "options": [
+    "表达对家乡的思念",
+    "表现英勇杀敌的志向",
+    "赞美清廉的人格",
+    "描写闲适恬淡的生活"
+   ],
+   "answer": "B",
+   "explanation": "“大雪满弓刀”描绘了将士冒着风雪、手持弓刀的画面，表现出英勇无畏、奋勇杀敌的志向。",
+   "difficulty": 2,
+   "bloom": "理解",
+   "type": "single_choice",
+   "id": "pohw-CC07095"
+  },
+  {
+   "topic_id": "primary-g4-s2-chinese-K065",
+   "topic_name": "古诗名句积累",
+   "stem": "“寒雨连江夜入吴，平明送客楚山孤”中，“平明”的意思是：",
+   "options": [
+    "平常",
+    "黎明",
+    "明亮",
+    "中午"
+   ],
+   "answer": "B",
+   "explanation": "“平明”指天刚亮的时候，也就是黎明。诗句写的是清晨送别友人的情景。",
+   "difficulty": 1,
+   "bloom": "记忆",
+   "type": "single_choice",
+   "id": "pohw-CC07096"
+  },
+  {
+   "topic_id": "primary-g4-s2-chinese-K072",
+   "topic_name": "多音字辨析",
+   "stem": "“小队沿着山路继续行走。”句子中“行”的读音是：",
+   "options": [
+    "háng",
+    "xíng",
+    "hēng",
+    "xìng"
+   ],
+   "answer": "B",
+   "explanation": "“行走”表示走路，“行”读xíng；“银行”中的“行”读háng。",
+   "difficulty": 2,
+   "bloom": "理解",
+   "type": "single_choice",
+   "id": "pohw-CC07097"
+  },
+  {
+   "topic_id": "primary-g4-s2-chinese-K047",
+   "topic_name": "人物动作描写",
+   "stem": "“黄继光忽然站起来，张开双臂，向鱼鳞般的枪口辅去。”这段动作描写体现了：",
+   "options": [
+    "他的速度飞快",
+    "他的身体强壮",
+    "他的英勇无畏",
+    "他的战场经验"
+   ],
+   "answer": "C",
+   "explanation": "通过扑向火力的动作，展现出舍生忘死的品质。",
+   "difficulty": 3,
+   "bloom": "应用",
+   "type": "single_choice",
+   "id": "pohw-CC07098"
+  },
+  {
+   "topic_id": "primary-g4-s2-chinese-K104",
+   "topic_name": "词语辨析",
+   "stem": "上课铃响了，同学们立刻回到座位，教室渐渐____下来。",
+   "options": [
+    "安静",
+    "热闹",
+    "急忙",
+    "整齐"
+   ],
+   "answer": "B",
+   "explanation": "“安静”表示没有声音或不吵闹，适合形容教室里的状态；“热闹”不符合句意。",
+   "difficulty": 1,
+   "bloom": "记忆",
+   "type": "single_choice",
+   "id": "pohw-CC07099"
+  },
+  {
+   "topic_id": "primary-g4-s2-chinese-K104",
+   "topic_name": "词语辨析",
+   "stem": "下列词语中，哪一个不是描写人的高尚品质的？",
+   "options": [
+    "视死如归",
+    "刚正不阿",
+    "气急败坏",
+    "厚德载物"
+   ],
+   "answer": "C",
+   "explanation": "“视死如归”“刚正不阿”“厚德载物”都可以表现高尚品质；“气急败坏”形容因愤怒或着急而狼狈的样子，不是描写高尚品质的词语。",
+   "difficulty": 2,
+   "bloom": "理解",
+   "type": "single_choice",
+   "id": "pohw-CC07100"
+  },
+  {
+   "topic_id": "primary-g4-s2-chinese-K045",
+   "topic_name": "习作：我的“自画像”",
+   "stem": "写自己的外貌时，怎样写更容易让读者记住你？",
+   "options": [
+    "把脸、头发、五官和衣服逐项写得一样详细",
+    "选择一两个最有辨识度的特点来写",
+    "只写自己穿什么衣服",
+    "完全不写外貌"
+   ],
+   "answer": "B",
+   "explanation": "自画像习作要抓住最有特点的外貌，并用具体事情表现性格。只罗列许多外貌特征，反而不容易让读者记住。",
+   "difficulty": 1,
+   "bloom": "记忆",
+   "type": "single_choice",
+   "id": "pohw-CC07101"
+  },
+  {
+   "topic_id": "primary-g4-s2-chinese-K102",
+   "topic_name": "词语理解",
+   "stem": "哪句话中“胸怀大志”的使用最恰当？",
+   "options": [
+    "他胸怀大志，立志长大后成为一名科学家，为大家解决难题。",
+    "妹妹胸怀大志地一口气吃完了一块蛋糕。",
+    "小猫胸怀大志地躲进了纸箱。",
+    "雨点胸怀大志地落在窗台上。"
+   ],
+   "answer": "B",
+   "explanation": "“胸怀大志”强调心中有远大的志向，常用于描述人有长远的理想和抱负。B项符合这一意思。",
+   "difficulty": 2,
+   "bloom": "理解",
+   "type": "single_choice",
+   "id": "pohw-CC07102"
+  },
+  {
+   "topic_id": "primary-g4-s2-chinese-K102",
+   "topic_name": "词语理解",
+   "stem": "哪句话最能表现“小心翼翼”的意思？",
+   "options": [
+    "他小心翼翼地把热汤端到桌上。",
+    "他欣喜若狂地把热汤端到桌上。",
+    "他迫不及待地把热汤端到桌上。",
+    "他胸怀大志地把热汤端到桌上。"
+   ],
+   "answer": "B",
+   "explanation": "“小心翼翼”形容做事谨慎、十分小心。轻手轻脚地端热汤，说明他很谨慎。",
+   "difficulty": 1,
+   "bloom": "记忆",
+   "type": "single_choice",
+   "id": "pohw-CC07103"
+  },
+  {
+   "topic_id": "primary-g4-s2-chinese-K049",
+   "topic_name": "侧面描写深度解析",
+   "stem": "在描写人物时，通过描写“周围的人都吓呆了”来表现主角的勇敢。这属于：",
+   "options": [
+    "正面描写",
+    "侧面描写",
+    "外貌描写",
+    "心理描写"
+   ],
+   "answer": "B",
+   "explanation": "通过描写由于主角以外的其他人和物，来烘托主角。",
+   "difficulty": 3,
+   "bloom": "应用",
+   "type": "single_choice",
+   "id": "pohw-CC07104"
+  },
+  {
+   "topic_id": "primary-g4-s2-chinese-K110",
+   "topic_name": "语言表达简明",
+   "stem": "在自我介绍时，以下哪种开头最能快速吸引老师和同学？",
+   "options": [
+    "我叫王小明，今年十岁了。",
+    "我家里有三口人，性格开朗。",
+    "嘿！我就是那个‘书呆子’王小明。",
+    "我的爱好有很多，比如看书。"
+   ],
+   "answer": "C",
+   "explanation": "这个开头比较有趣，容易吸引注意。不过自我介绍还要根据场合选择合适的表达，并继续介绍必要信息。",
+   "difficulty": 2,
+   "bloom": "理解",
+   "type": "single_choice",
+   "id": "pohw-CC07105"
+  },
+  {
+   "topic_id": "primary-g4-s2-chinese-K104",
+   "topic_name": "词语辨析",
+   "stem": "大家猜今天可能会下雨，放学时天空____下起了雨。",
+   "options": [
+    "突然",
+    "果然",
+    "仍然",
+    "显然"
+   ],
+   "answer": "B",
+   "explanation": "“果然”表示事情和预想的一样。句中先写大家猜测要下雨，后写天空真的下起雨来，所以用“果然”最恰当。“突然”表示事情发生得出乎意料。",
+   "difficulty": 2,
+   "bloom": "理解",
+   "type": "single_choice",
+   "id": "pohw-CC07106"
+  },
+  {
+   "topic_id": "primary-g4-s2-chinese-K046",
+   "topic_name": "人物与品质对应",
+   "stem": "根据人物事迹或作品内容，下面哪项人物与品质对应正确？",
+   "options": [
+    "黄继光舍身堵枪眼，体现了忠于职守。",
+    "黄继光舍身堵枪眼，体现了视死如归。",
+    "哈尔威船长在灾难中坚守岗位，体现了视死如归。",
+    "王冕借《墨梅》表达了不改冰心的志向。"
+   ],
+   "answer": "B",
+   "explanation": "黄继光在战斗中舍身堵枪眼，体现了视死如归；“忠于职守”更适合描述哈尔威船长在灾难中坚守岗位。",
+   "difficulty": 1,
+   "bloom": "记忆",
+   "type": "single_choice",
+   "id": "pohw-CC07107"
+  },
+  {
+   "topic_id": "primary-g4-s2-chinese-K084",
+   "topic_name": "文章关键信息",
+   "stem": "根据题目提供的信息，哈尔威船长首先保护哪一群体？",
+   "options": [
+    "老人和船员",
+    "妇女儿童",
+    "所有乘客同时行动",
+    "船上的工作人员"
+   ],
+   "answer": "B",
+   "explanation": "题干说明船长首先保护妇女儿童，因此先被保护的是这一群体。",
+   "difficulty": 1,
+   "bloom": "记忆",
+   "type": "single_choice",
+   "id": "pohw-CC07108"
+  },
+  {
+   "topic_id": "primary-g4-s2-chinese-K062",
+   "topic_name": "反衬手法分析",
+   "stem": "灾难发生时，乘客们惊慌地喊叫，哈尔威船长却镇定地指挥大家逃生。这组对照主要突出了什么？",
+   "options": [
+    "突出船长临危不乱",
+    "说明船长不喜欢说话",
+    "表现船上十分安静",
+    "说明乘客都不害怕"
+   ],
+   "answer": "A",
+   "explanation": "周围的人都慌乱地喊叫，船长却沉着地安排救援，两种表现形成对照，突出船长临危不乱、沉着负责的品质。",
+   "difficulty": 3,
+   "bloom": "应用",
+   "type": "single_choice",
+   "id": "pohw-CC07109"
+  },
+  {
+   "topic_id": "primary-g4-s2-chinese-K062",
+   "topic_name": "反衬手法分析",
+   "stem": "阅读：“阴惨惨的薄雾笼罩着大海。哈尔威船长站在指挥台上，大声吼喝……”这段环境描写的作用是：",
+   "options": [
+    "展示大海的美丽",
+    "说明天气的寒冷",
+    "烘托灾难即将来临的紧张气氛",
+    "介绍客轮的行驶路线"
+   ],
+   "answer": "C",
+   "explanation": "阴惨惨的薄雾与船长大声指挥的紧急情景相互映衬，营造出压抑、紧张的氛围，暗示危险正在逼近。",
+   "difficulty": 3,
+   "bloom": "应用",
+   "type": "single_choice",
+   "id": "pohw-CC07110"
+  },
+  {
+   "topic_id": "primary-g4-s2-chinese-K050",
+   "topic_name": "修辞手法",
+   "stem": "“书籍是知识的海洋，书籍是进步的阶梯，书籍是心灵的良师。”这句话使用了什么修辞？",
+   "options": [
+    "比喻",
+    "拟人",
+    "排比",
+    "反问"
+   ],
+   "answer": "C",
+   "explanation": "三个分句都以“书籍是……”开头，结构相似、意思相关，连续表达了书籍的作用，使用了排比。",
+   "difficulty": 3,
+   "bloom": "应用",
+   "type": "single_choice",
+   "id": "pohw-CC07111"
+  },
+  {
+   "topic_id": "primary-g4-s2-chinese-K050",
+   "topic_name": "修辞手法",
+   "stem": "“北风呼啸，由于它的到访，花园里变得一片荒凉。”这句话使用了什么修辞？",
+   "options": [
+    "比喻",
+    "拟人",
+    "排比",
+    "反问"
+   ],
+   "answer": "B",
+   "explanation": "“到访”通常是人的行为，句子把北风写成会到访的客人，赋予了北风人的动作，使用了拟人。",
+   "difficulty": 3,
+   "bloom": "应用",
+   "type": "single_choice",
+   "id": "pohw-CC07112"
+  },
+  {
+   "topic_id": "primary-g4-s2-chinese-K050",
+   "topic_name": "修辞手法",
+   "stem": "“孩子们的笑脸像春天的花朵一样灿烂。”这句话使用了什么修辞？",
+   "options": [
+    "比喻",
+    "拟人",
+    "排比",
+    "反问"
+   ],
+   "answer": "A",
+   "explanation": "这里把孩子们灿烂的笑脸比作春天的花朵，表现笑脸的美好和充满生机，使用了比喻。",
+   "difficulty": 3,
+   "bloom": "应用",
+   "type": "single_choice",
+   "id": "pohw-CC07113"
+  },
+  {
+   "topic_id": "primary-g4-s2-chinese-K050",
+   "topic_name": "修辞手法",
+   "stem": "“小溪一路欢快地唱起歌来。”这句话使用了什么修辞？",
+   "options": [
+    "比喻",
+    "拟人",
+    "排比",
+    "反问"
+   ],
+   "answer": "B",
+   "explanation": "“唱起歌来”是人的动作，句子把小溪当作人来写，使用了拟人。",
+   "difficulty": 2,
+   "bloom": "理解",
+   "type": "single_choice",
+   "id": "pohw-CC07114"
+  },
+  {
+   "topic_id": "primary-g4-s2-chinese-K050",
+   "topic_name": "修辞手法",
+   "stem": "“弯弯的月亮像一条小船。”这句话使用了什么修辞？",
+   "options": [
+    "比喻",
+    "拟人",
+    "排比",
+    "反问"
+   ],
+   "answer": "A",
+   "explanation": "句子把弯弯的月亮比作小船，“像”是比喻词，月亮是本体，小船是喻体。",
+   "difficulty": 1,
+   "bloom": "记忆",
+   "type": "single_choice",
+   "id": "pohw-CC07115"
+  },
+  {
+   "topic_id": "primary-g4-s2-chinese-K050",
+   "topic_name": "修辞手法",
+   "stem": "“我们怎么能忘记老师的教导呢？”这句话使用了什么修辞？",
+   "options": [
+    "比喻",
+    "拟人",
+    "排比",
+    "反问"
+   ],
+   "answer": "D",
+   "explanation": "句子用“怎么能”提出疑问，但答案显而易见，实际表达的是“我们不能忘记老师的教导”，使用了反问。",
+   "difficulty": 2,
+   "bloom": "理解",
+   "type": "single_choice",
+   "id": "pohw-CC07116"
+  },
+  {
+   "topic_id": "primary-g4-s2-chinese-K108",
+   "topic_name": "语境辨析",
+   "stem": "上课铃响后，教室里很快____下来。",
+   "options": [
+    "安静",
+    "宁静",
+    "平静",
+    "安宁"
+   ],
+   "answer": "A",
+   "explanation": "“安静”形容没有吵闹声，也可形容环境平静。“宁静”常形容环境或心情平和、安宁；“平静”常形容心情或局面没有波动；“安宁”多指秩序正常、没有骚扰。句中描写教室没有声音，用“安静”。",
+   "difficulty": 2,
+   "bloom": "理解",
+   "type": "single_choice",
+   "id": "pohw-CC07117"
+  },
+  {
+   "topic_id": "primary-g4-s2-chinese-K060",
+   "topic_name": "动宾搭配",
+   "stem": "下列哪一组动词和宾语搭配恰当？",
+   "options": [
+    "举行婚礼",
+    "修建波浪",
+    "穿上围墙",
+    "劈开新衣"
+   ],
+   "answer": "A",
+   "explanation": "“举行”表示举办某种活动或仪式，“婚礼”可以举行；其他选项中的动词和宾语搭配不恰当。",
+   "difficulty": 2,
+   "bloom": "理解",
+   "type": "single_choice",
+   "id": "pohw-CC07118"
+  },
+  {
+   "topic_id": "primary-g4-s2-chinese-K103",
+   "topic_name": "词语结构",
+   "stem": "下列属于“AABB”式结构的词语是：",
+   "options": [
+    "昏头昏脑",
+    "一五一十",
+    "平平安安",
+    "可圈可点"
+   ],
+   "answer": "C",
+   "explanation": "“平平安安”中第一、二字相同，第三、四字相同，结构是AABB。",
+   "difficulty": 2,
+   "bloom": "理解",
+   "type": "single_choice",
+   "id": "pohw-CC07120"
+  },
+  {
+   "topic_id": "primary-g4-s2-chinese-K103",
+   "topic_name": "词语结构",
+   "stem": "下列属于“ABAB”式结构的词语是：",
+   "options": [
+    "红彤彤",
+    "讨论讨论",
+    "来来往往",
+    "无边无际"
+   ],
+   "answer": "B",
+   "explanation": "“讨论讨论”由“讨论”重复两次组成，属于ABAB式结构。",
+   "difficulty": 2,
+   "bloom": "理解",
+   "type": "single_choice",
+   "id": "pohw-CC07121"
+  },
+  {
+   "topic_id": "primary-g4-s2-chinese-K103",
+   "topic_name": "词语结构",
+   "stem": "下列属于“ABAC”式结构的词语是：",
+   "options": [
+    "清清楚楚",
+    "白雪皑皑",
+    "自言自语",
+    "研究研究"
+   ],
+   "answer": "C",
+   "explanation": "“自言自语”中第一、三字相同，第二、四字相同，属于ABAC式结构。",
+   "difficulty": 2,
+   "bloom": "理解",
+   "type": "single_choice",
+   "id": "pohw-CC07122"
+  },
+  {
+   "topic_id": "primary-g4-s2-chinese-K103",
+   "topic_name": "词语结构",
+   "stem": "下列属于“ABCC”式结构的词语是：",
+   "options": [
+    "高高兴兴",
+    "白发苍苍",
+    "讨论讨论",
+    "自言自语"
+   ],
+   "answer": "B",
+   "explanation": "“白发苍苍”末尾两个字相同，结构是ABCC。",
+   "difficulty": 2,
+   "bloom": "理解",
+   "type": "single_choice",
+   "id": "pohw-CC07123"
+  },
+  {
+   "topic_id": "primary-g4-s2-chinese-K073",
+   "topic_name": "字形书写",
+   "stem": "下面词语中，书写完全正确的一项是：",
+   "options": [
+    "进升",
+    "介绍",
+    "楼抱",
+    "辛副"
+   ],
+   "answer": "B",
+   "explanation": "“介绍”书写正确。“进升”应为“晋升”，“辛副”应为“幸福”，“搂抱”虽然是正确词语，但题目有两个正确选项，因此原题选项设置不严谨。可将“搂抱”改为“楼抱”，使正确答案唯一。",
+   "difficulty": 1,
+   "bloom": "记忆",
+   "type": "single_choice",
+   "id": "pohw-CC07124"
+  },
+  {
+   "topic_id": "primary-g4-s2-chinese-K113",
+   "topic_name": "近义词语的辨析与运用",
+   "stem": "他____了刚才发生的不快，重新和同学们玩了在一起。",
+   "options": [
+    "忘怀",
+    "忘掉",
+    "遗失",
+    "丢弃"
+   ],
+   "answer": "B",
+   "explanation": "忘怀通常出现在否定句中（难以忘怀），此处用忘掉最自然。",
+   "difficulty": 3,
+   "bloom": "应用",
+   "type": "single_choice",
+   "id": "pohw-CC07125"
+  },
+  {
+   "topic_id": "primary-g4-s2-chinese-K108",
+   "topic_name": "语境辨析",
+   "stem": "休息十分钟后，同学们____完成作业。",
+   "options": [
+    "连续",
+    "陆续",
+    "继续",
+    "持续"
+   ],
+   "answer": "C",
+   "explanation": "“继续”表示事情没有结束，接着做下去。“连续”强调一个接一个、不间断；“陆续”表示先后、有先有后；“持续”强调延续一段时间。句中“完成作业”表示接着做，用“继续”。",
+   "difficulty": 2,
+   "bloom": "理解",
+   "type": "single_choice",
+   "id": "pohw-CC07126"
+  },
+  {
+   "topic_id": "primary-g4-s2-chinese-K108",
+   "topic_name": "语境辨析",
+   "stem": "周末，爸爸带我去体育馆____篮球比赛。",
+   "options": [
+    "观看",
+    "观赏",
+    "观察",
+    "观望"
+   ],
+   "answer": "A",
+   "explanation": "“观看”指看，常用于观看比赛、演出等。“观赏”多指欣赏美好的景物或艺术品；“观察”强调仔细察看；“观望”指观望情况。句中搭配“比赛”，用“观看”最恰当。",
+   "difficulty": 2,
+   "bloom": "理解",
+   "type": "single_choice",
+   "id": "pohw-CC07127"
+  },
+  {
+   "topic_id": "primary-g4-s2-chinese-K108",
+   "topic_name": "语境辨析",
+   "stem": "在“他已经____了家乡的旧貌”中填入最恰当的词：",
+   "options": [
+    "忘记",
+    "忘怀",
+    "遗失",
+    "丢弃"
+   ],
+   "answer": "A",
+   "explanation": "“忘记”指不记得。“忘怀”多指难以忘掉某种经历或情感。“旧貌”是家乡过去的面貌，句中说的是不再记得，因此用“忘记”更恰当。",
+   "difficulty": 3,
+   "bloom": "应用",
+   "type": "single_choice",
+   "id": "pohw-CC07128"
+  },
+  {
+   "topic_id": "primary-g4-s2-chinese-K101",
+   "topic_name": "词语搭配",
+   "stem": "填入括号最恰当的词语：小人鱼悄悄地____开紫色的帘子。",
+   "options": [
+    "揭",
+    "掀",
+    "拉",
+    "举"
+   ],
+   "answer": "B",
+   "explanation": "“掀开帘子”是常见搭配，表示把帘子翻开；“揭开”常用于纸、盖子等，“举开”不符合表达习惯。",
+   "difficulty": 1,
+   "bloom": "记忆",
+   "type": "single_choice",
+   "id": "pohw-CC07129"
+  },
+  {
+   "topic_id": "primary-g4-s2-chinese-K108",
+   "topic_name": "语境辨析",
+   "stem": "妈妈看见天气预报说要下雨，便____我出门带上雨伞。",
+   "options": [
+    "提醒",
+    "通知",
+    "建议",
+    "命令"
+   ],
+   "answer": "A",
+   "explanation": "“提醒”指从旁指点，使对方注意。“通知”是把事情告诉有关的人；“建议”是提出自己的看法；“命令”是要求别人必须做某事。根据句意，妈妈是让“我”注意带伞，所以用“提醒”。",
+   "difficulty": 2,
+   "bloom": "理解",
+   "type": "single_choice",
+   "id": "pohw-CC07130"
+  },
+  {
+   "topic_id": "primary-g4-s2-chinese-K113",
+   "topic_name": "近义词语的辨析与运用",
+   "stem": "小明做题遇到了困难，老师没有责怪他，而是____他：“别灰心，再试一次。”",
+   "options": [
+    "鼓励",
+    "批评",
+    "责备",
+    "命令"
+   ],
+   "answer": "A",
+   "explanation": "“鼓励”指用言语或行动激发别人努力，符合老师对遇到困难的同学说“别灰心，再试一次”的语境；“表扬”则是对优点或成绩给予赞许。",
+   "difficulty": 3,
+   "bloom": "应用",
+   "type": "single_choice",
+   "id": "pohw-CC07131"
+  },
+  {
+   "topic_id": "primary-g4-s2-chinese-K113",
+   "topic_name": "近义词语的辨析与运用",
+   "stem": "小猫怕吵醒熟睡的孩子，便____地走进房间。",
+   "options": [
+    "悄悄",
+    "大声",
+    "慌忙",
+    "整齐"
+   ],
+   "answer": "A",
+   "explanation": "“悄悄”表示不声张、不让人察觉，适合描述小猫轻轻走进房间；“大声”表示声音响亮。",
+   "difficulty": 1,
+   "bloom": "记忆",
+   "type": "single_choice",
+   "id": "pohw-CC07132"
+  },
+  {
+   "topic_id": "primary-g4-s2-chinese-K120",
+   "topic_name": "阅读理解",
+   "stem": "巨人拆开围墙让孩子们进入花园后，花园恢复了哪个季节？",
+   "options": [
+    "夏天",
+    "春天",
+    "秋天",
+    "冬天"
+   ],
+   "answer": "B",
+   "explanation": "文中提到，巨人拆开围墙让孩子们进入花园后，花园恢复了春天。",
+   "difficulty": 1,
+   "bloom": "记忆",
+   "type": "single_choice",
+   "id": "pohw-CC07133"
+  },
+  {
+   "topic_id": "primary-g4-s2-chinese-K113",
+   "topic_name": "近义词语的辨析与运用",
+   "stem": "当王葆因为没能完成作业而苦恼时，他在幻想着宝葫芦能给他带来____。",
+   "options": [
+    "安慰",
+    "慰藉",
+    "爱护",
+    "保护"
+   ],
+   "answer": "B",
+   "explanation": "“慰藉”偏书面，常表示对心灵的抚慰，符合“幻想宝葫芦能带来寄托和安抚”的语境。",
+   "difficulty": 3,
+   "bloom": "应用",
+   "type": "single_choice",
+   "id": "pohw-CC07134"
+  },
+  {
+   "topic_id": "primary-g4-s2-chinese-K113",
+   "topic_name": "近义词语的辨析与运用",
+   "stem": "每一分钟都很____，我们要好好利用。",
+   "options": [
+    "珍贵",
+    "普通",
+    "平凡",
+    "廉价"
+   ],
+   "answer": "A",
+   "explanation": "“珍贵”表示价值大、值得珍惜；“宝贵”也有价值高的意思，但常强调特别重要、值得重视。这里说的是时间，常用“珍贵的时间”。",
+   "difficulty": 2,
+   "bloom": "理解",
+   "type": "single_choice",
+   "id": "pohw-CC07135"
+  },
+  {
+   "topic_id": "primary-g4-s2-chinese-K113",
+   "topic_name": "近义词语的辨析与运用",
+   "stem": "清晨的校园十分____，只听得见鸟儿的叫声。",
+   "options": [
+    "宁静",
+    "热闹",
+    "喧闹",
+    "吵闹"
+   ],
+   "answer": "A",
+   "explanation": "“宁静”强调环境安静，也可形容心情平静；“热闹”表示人多、气氛活跃，与清晨校园的情境不符。",
+   "difficulty": 1,
+   "bloom": "记忆",
+   "type": "single_choice",
+   "id": "pohw-CC07136"
+  },
+  {
+   "topic_id": "primary-g4-s2-chinese-K096",
+   "topic_name": "童话想象与现实心理",
+   "stem": "王葆希望宝葫芦替自己做事，这反映了他怎样的心理？",
+   "options": [
+    "他想用宝葫芦帮助大家种出更多粮食。",
+    "他想让宝葫芦替自己做事，省力地解决问题。",
+    "他想用宝葫芦变成学校里最受欢迎的人。",
+    "他想让宝葫芦带自己去寻找宝藏。"
+   ],
+   "answer": "B",
+   "explanation": "王葆希望宝葫芦替自己做事，省去努力，反映了想走捷径、逃避困难的心理。",
+   "difficulty": 2,
+   "bloom": "理解",
+   "type": "single_choice",
+   "id": "pohw-CC07137"
+  },
+  {
+   "topic_id": "primary-g4-s2-chinese-K113",
+   "topic_name": "近义词语的辨析与运用",
+   "stem": "老师把这道题的解法讲得很____，大家一下子就明白了。",
+   "options": [
+    "清楚",
+    "清洁",
+    "清凉",
+    "清淡"
+   ],
+   "answer": "A",
+   "explanation": "“清楚”表示明白、清晰，常用来形容说明、表达和思路；“清洁”表示干净，不能用来形容说明是否容易理解。",
+   "difficulty": 2,
+   "bloom": "理解",
+   "type": "single_choice",
+   "id": "pohw-CC07138"
+  },
+  {
+   "topic_id": "primary-g4-s2-chinese-K096",
+   "topic_name": "童话想象与现实心理",
+   "stem": "读童话时，哪种方法更有助于理解幻想背后的现实心理？",
+   "options": [
+    "只关注故事里出现了哪些奇幻事物，不考虑人物的想法",
+    "找出奇幻情节，思考人物的愿望或情感，并联系现实生活",
+    "把童话中的奇幻情节都当作现实中真实发生的事",
+    "只根据人物做了一件好事还是坏事来判断他"
+   ],
+   "answer": "B",
+   "explanation": "读童话时，既要关注奇幻情节，也要思考人物的愿望和情感，并联系生活中的相似经历，才能理解幻想背后的现实心理。",
+   "difficulty": 2,
+   "bloom": "理解",
+   "type": "single_choice",
+   "id": "pohw-CC07139"
+  },
+  {
+   "topic_id": "primary-g4-s2-chinese-K115",
+   "topic_name": "近义词连线",
+   "stem": "选择与“喧闹”意思最接近的词语：课间的走廊十分喧闹。",
+   "options": [
+    "安静",
+    "吵闹",
+    "整齐",
+    "明亮"
+   ],
+   "answer": "B",
+   "explanation": "“喧闹”和“吵闹”都表示声音大、热闹，意思相近；“安静”意思相反，“整齐”和“喧闹”意思不同，“明亮”也不是近义词。",
+   "difficulty": 1,
+   "bloom": "记忆",
+   "type": "single_choice",
+   "id": "pohw-CC07140"
   }
  ]
 }

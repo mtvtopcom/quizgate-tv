@@ -1,0 +1,506 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>添加题库</title>
+<style>
+:root{--bg:#f4f5f7;--card:#fff;--text:#1a1a1a;--dim:#6b7280;--line:#e5e7eb;--accent:#185fa5;--ok:#0f6e56;--bad:#a32d2d}
+@media(prefers-color-scheme:dark){:root{--bg:#111214;--card:#1c1d20;--text:#f2f2f2;--dim:#9aa0a6;--line:#2c2e33;--accent:#85b7eb;--ok:#5dcaa5;--bad:#f09595}}
+*{box-sizing:border-box}
+body{margin:0;padding:20px 16px 40px;background:var(--bg);color:var(--text);font:16px/1.6 -apple-system,BlinkMacSystemFont,"PingFang SC","Microsoft YaHei",sans-serif}
+h1{font-size:22px;font-weight:600;margin:0 0 4px}
+.sub{color:var(--dim);font-size:14px;margin:0 0 20px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:16px;margin-bottom:14px}
+.label{font-size:14px;color:var(--dim);margin-bottom:8px}
+input[type=text],select{width:100%;padding:12px;border:1px solid var(--line);border-radius:8px;background:transparent;color:var(--text);font-size:16px}
+input[type=file]{width:100%;font-size:14px;color:var(--dim)}
+.radio{display:flex;align-items:center;gap:8px;padding:8px 0;font-size:16px}
+.radio input{width:20px;height:20px;accent-color:var(--accent)}
+select:disabled{opacity:.45}
+button{width:100%;padding:16px;border:0;border-radius:12px;background:var(--accent);color:#fff;font-size:17px;font-weight:600;margin-top:6px}
+button:disabled{opacity:.5}
+#out{white-space:pre-wrap;margin-top:16px;padding:14px;border-radius:10px;display:none;font-size:14px;line-height:1.7}
+#out.ok{display:block;background:rgba(15,110,86,.10);color:var(--ok);border:1px solid rgba(15,110,86,.3)}
+#out.bad{display:block;background:rgba(163,45,45,.10);color:var(--bad);border:1px solid rgba(163,45,45,.3)}
+#out.busy{display:block;background:rgba(24,95,165,.08);color:var(--accent);border:1px solid rgba(24,95,165,.25)}
+.tip{font-size:13px;color:var(--dim);margin-top:8px}
+code{background:rgba(128,128,128,.15);padding:1px 5px;border-radius:4px;font-size:13px}
+</style>
+</head>
+<body>
+<h1>添加题库</h1>
+<p class="sub">手机和电视要连同一个 WiFi。文件只在两者之间传输，不上传外网。</p>
+
+<div class="card">
+  <div class="label">题库名称</div>
+  <input type="text" id="name" placeholder="例如：三年级期末复习" maxlength="24">
+</div>
+
+<div class="card">
+  <div class="label">导入方式</div>
+  <label class="radio"><input type="radio" name="mode" value="new" checked> 新建一个题库</label>
+  <label class="radio"><input type="radio" name="mode" value="merge"> 合并到已有题库</label>
+  <select id="target" disabled></select>
+</div>
+
+<div class="card">
+  <div class="label">选择文件</div>
+  <input type="file" id="file" accept=".txt,.csv,.json,.xlsx,.xls">
+  <p class="tip">支持 <code>txt</code> <code>csv</code> <code>xlsx</code> <code>xls</code> <code>json</code>。<br>
+  推荐格式与 <a href="https://github.com/mtvtopcom/k12-question-bank" target="_blank" rel="noopener">K12 题库工厂</a> 一致：表格 12 列
+  <code>topic_id</code> <code>topic_name</code> <code>stem</code> <code>option_a</code>…<code>option_d</code> <code>answer</code> <code>explanation</code> <code>difficulty</code> <code>bloom</code> <code>type</code>；
+  年级科目可从 <code>topic_id</code>（如 primary-g3-s1-math-K018）反推，也可额外加 <code>grade</code> <code>subject</code> 两列。<br>
+  也兼容旧格式：表头「年级、科目、题干、A、B、C、D、答案、解析」。</p>
+</div>
+
+<button id="go">开始导入</button>
+<div id="out"></div>
+
+<script>window.BANKS=__BANKS__;window.TOKEN="__TOKEN__";</script>
+<script src="/xlsx.full.min.js?t=__TOKEN__"></script>
+<script>
+(function(){
+  var $=function(id){return document.getElementById(id)};
+  var banks=(window.BANKS||[]).slice();
+
+  function esc(s){return String(s==null?'':s).replace(/[&<>"']/g,function(c){return{'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]})}
+
+  function renderBanks(){
+    var sel=$('target');
+    if(!banks.length){sel.innerHTML='<option value="">还没有自定义题库</option>';return}
+    sel.innerHTML=banks.map(function(b){return '<option value="'+esc(b.id)+'">'+esc(b.name)+'（'+b.count+' 题）</option>'}).join('');
+  }
+  renderBanks();
+
+  function currentMode(){return document.querySelector('input[name=mode]:checked').value}
+  Array.prototype.forEach.call(document.querySelectorAll('input[name=mode]'),function(r){
+    r.addEventListener('change',function(){ $('target').disabled = currentMode()!=='merge'; });
+  });
+
+  $('file').addEventListener('change',function(){
+    var f=$('file').files[0];
+    if(f && !$('name').value.trim()) $('name').value=f.name.replace(/\.[^.]+$/,'').slice(0,24);
+  });
+
+  function pick(o,keys){
+    for(var k in o){ if(!Object.prototype.hasOwnProperty.call(o,k))continue;
+      for(var i=0;i<keys.length;i++){
+        if(String(k).trim().toLowerCase()===keys[i].toLowerCase()) return o[k];
+      }
+    }
+    return '';
+  }
+
+  // ---- 字段归一化：同时认 K12 规范字段与旧中文表头 ----
+
+  function normSubject(v){
+    var s=String(v==null?'':v).trim().toLowerCase();
+    if(s==='语文'||s==='chinese')return '语文';
+    if(s==='数学'||s==='math')return '数学';
+    if(s==='英语'||s==='english')return '英语';
+    // 允许 "小学语文" 之类的复合值
+    if(s.indexOf('语文')>=0||s.indexOf('chinese')>=0)return '语文';
+    if(s.indexOf('数学')>=0||s.indexOf('math')>=0)return '数学';
+    if(s.indexOf('英语')>=0||s.indexOf('english')>=0)return '英语';
+    return String(v==null?'':v).trim();
+  }
+
+  // 返回 1–9；无法识别返回 0；幼儿园返回 -1（调用方跳过并计数）
+  function normGrade(v){
+    if(typeof v==='number')return (v>=1&&v<=9)?v:(v===0?-1:0);
+    var s=String(v==null?'':v).trim();
+    if(!s)return 0;
+    if(s.indexOf('幼儿园')>=0||/^kg/i.test(s)||/^kindergarten/i.test(s))return -1;
+    var m={'初一':7,'初二':8,'初三':9};
+    if(m[s])return m[s];
+    var cn=['一','二','三','四','五','六','七','八','九'];
+    for(var i=0;i<9;i++){ if(s===cn[i]+'年级'||s===cn[i])return i+1; }
+    // 「六年级上」「初二（上）」这类带册次的写法
+    var mc=/([一二三四五六七八九])\s*年级/.exec(s);
+    if(mc)return cn.indexOf(mc[1])+1;
+    var g=s.match(/g(?:rade)?\s*([1-9])/i);
+    if(g)return parseInt(g[1],10);
+    var n=parseInt(s,10);
+    return isNaN(n)?0:n;
+  }
+
+  // 1=上册 2=下册；无法识别默认上册
+  function normTerm(v){
+    var s=String(v==null?'':v).trim().toLowerCase();
+    if(s==='2'||s==='s2'||s.indexOf('下')>=0)return 2;
+    return 1;
+  }
+
+  function normAnswer(v){
+    if(typeof v==='number')return (v>=0&&v<=3)?v:-1;
+    var s=String(v==null?'':v).trim().toUpperCase();
+    var m=s.match(/[ABCD]/);
+    if(m)return 'ABCD'.indexOf(m[0]);
+    var n=parseInt(s,10);
+    return isNaN(n)?-1:n;
+  }
+
+  // K12 的 difficulty 1–4；也认中文「容易/中等/较难/难」
+  function normDifficulty(v){
+    var s=String(v==null?'':v).trim();
+    if(s==='容易'||s==='基础'||s==='简单')return 1;
+    if(s==='中等'||s==='一般')return 2;
+    if(s==='较难'||s==='提高')return 3;
+    if(s==='难'||s==='挑战')return 4;
+    var n=parseInt(s,10);
+    if(!isNaN(n))return Math.max(1,Math.min(4,n));
+    return 2;
+  }
+
+  function normBloom(v){
+    var s=String(v==null?'':v).trim();
+    var ok=['记忆','理解','应用','分析','评价','创造'];
+    return ok.indexOf(s)>=0?s:'';
+  }
+
+  // 解析 K12 的 topic_id，如 primary-g3-s1-math-K018
+  // 返回 {grade, subject, term}；幼儿园返回 {kg:true}；不合法返回 null
+  function parseTopicId(tid){
+    var t=String(tid==null?'':tid).trim().toLowerCase();
+    if(!t)return null;
+    if(/^kg-/.test(t)||/^kindergarten/.test(t))return {kg:true};
+    var p=t.split('-');
+    if(p.length<5)return null;
+    if(p[0]!=='primary'&&p[0]!=='junior')return null;
+    var gm=/^g([1-9])$/.exec(p[1]);
+    if(!gm)return null;
+    var subject=normSubject(p[3]);
+    if(subject!=='语文'&&subject!=='数学'&&subject!=='英语')return null;
+    return {grade:parseInt(gm[1],10),subject:subject,term:/^s2$/.test(p[2])?2:1};
+  }
+
+  // 统一成 K12 题目结构；幼儿园题返回 {kg:true} 由上层计数跳过
+  function normalizeItem(o){
+    if(!o||typeof o!=='object')return null;
+
+    var topicId=String(pick(o,['topic_id','topicid','知识点id','知识点ID'])||'').trim();
+    var topicName=String(pick(o,['topic_name','topicname','知识点','知识点名称','topic','单元'])||'').trim();
+    var parsed=parseTopicId(topicId);
+
+    var subject=normSubject(pick(o,['subject','科目']));
+    var grade=normGrade(pick(o,['grade','年级']));
+    var rawTerm=pick(o,['term','册次','学期']);
+    var term=normTerm(rawTerm);
+
+    // 幼儿园学段：本软件只有 1–9 年级，整题跳过并计数
+    if((parsed&&parsed.kg)||grade===-1)return {kg:true};
+
+    // 年级科目优先级：显式 grade/subject 字段 > topic_id 反推
+    if(parsed&&!parsed.kg){
+      if(subject!=='语文'&&subject!=='数学'&&subject!=='英语')subject=parsed.subject;
+      if(!(grade>=1&&grade<=9))grade=parsed.grade;
+      if(!String(rawTerm==null?'':rawTerm).trim())term=parsed.term;
+    }
+
+    var stem=String(pick(o,['stem','题干','题目','题目内容','question'])||'').trim();
+    var opts=pick(o,['options','选项']);
+    var options=[];
+    if(Object.prototype.toString.call(opts)==='[object Array]'){
+      options=opts.map(function(x){return String(x==null?'':x).trim()});
+    }else{
+      options=['A','B','C','D'].map(function(L){
+        return String(pick(o,[L,'option_'+L.toLowerCase(),'option'+L,
+                                '选项'+L,'opt'+L])||'').trim();
+      });
+    }
+    while(options.length<4)options.push('');
+    if(!options[0]&&options[1]){/* 保持原样，交给后端报错 */}
+
+    var ansIdx=normAnswer(pick(o,['answer','答案','正确答案','answerIndex']));
+
+    var out={
+      topic_id:topicId,
+      topic_name:topicName,
+      stem:stem,
+      options:options.slice(0,4),
+      explanation:String(pick(o,['explanation','解析','explain'])||'').trim(),
+      difficulty:normDifficulty(pick(o,['difficulty','难度'])),
+      bloom:normBloom(pick(o,['bloom','认知层级']))||'理解',
+      type:'single_choice',
+      // 后端分片与旧逻辑兜底用，不属于 K12 规范
+      subject:subject,
+      grade:grade,
+      term:term
+    };
+    if(ansIdx>=0){
+      out.answer='ABCD'.charAt(ansIdx);
+      out.answerIndex=ansIdx;
+    }else{
+      // 不塞 answer 字母，避免后端把非法答案当成 A
+      out.answerIndex=-1;
+    }
+    return out;
+  }
+
+  function splitInlineOptions(line){
+    var re=/(?:^|\s)([A-Da-d])\s*[.、．:：]\s*/g,marks=[],m;
+    while((m=re.exec(line))!==null){
+      marks.push({at:m.index+m[0].indexOf(m[1]),end:re.lastIndex,L:m[1].toUpperCase()});
+    }
+    var letters=marks.map(function(x){return x.L}).join('');
+    if(letters.indexOf('A')<0||letters.indexOf('B')<0)return null;
+    var out={};
+    for(var i=0;i<marks.length;i++){
+      var stop=i+1<marks.length?marks[i+1].at:line.length;
+      out[marks[i].L]=line.slice(marks[i].end,stop).trim();
+    }
+    return out;
+  }
+
+  function nonEmpty(s){return s.length>0}
+  function trimStr(s){return String(s==null?'':s).trim()}
+
+  // 把 "A. x　B. y　C. z　D. w" 或分行的 A./B./C./D. 填进 opts
+  function applyInlineOptions(value,opts){
+    var lines=String(value||'').split('\n');
+    for(var i=0;i<lines.length;i++){
+      var line=lines[i].trim();
+      if(!line)continue;
+      var inline=splitInlineOptions(line);
+      if(inline){
+        ['A','B','C','D'].forEach(function(L,j){ if(inline[L])opts[j]=inline[L] });
+        continue;
+      }
+      var one=/^([A-Da-d])\s*[.、．:：]\s*(.+)$/.exec(line);
+      if(one)opts['ABCD'.indexOf(one[1].toUpperCase())]=one[2].trim();
+    }
+  }
+
+  // 【知识点】值形如「长方形、正方形的特征与周长（primary-g3-s1-math-K018）」
+  function splitTopic(value){
+    var v=String(value||'').trim();
+    var m=/[（(]\s*([a-zA-Z]+-g\d+-s\d+-(?:chinese|math|english)-K\d+)\s*[）)]\s*$/.exec(v);
+    if(m)return {topic_name:v.slice(0,m.index).trim(),topic_id:m[1]};
+    return {topic_name:v,topic_id:''};
+  }
+
+  // 【年级】【科目】【册次】是本项目为手写场景加的扩展标签（K12 的 TXT 格式
+  // 没有年级科目字段，只能靠 topic_id 反推，家长手写不现实）
+  var K12_TAG=/^【(题干|选项|答案|解析|难度|知识点|题型|年级|科目|册次)】\s*([\s\S]*)$/;
+
+  function parseTxt(text){
+    text=text.replace(/^\uFEFF/,'').replace(/\r\n?/g,'\n');
+    var blocks=text.split(/\n\s*\n/),out=[],kg=0,subject='',grade=0,term=1;
+
+    for(var bi=0;bi<blocks.length;bi++){
+      var lines=blocks[bi].split('\n').map(trimStr).filter(nonEmpty);
+      if(!lines.length)continue;
+
+      var fields={},cur='';   // K12 的【】字段
+      var stem='',explanation='',answer=-1,opts=['','','',''];
+
+      for(var li=0;li<lines.length;li++){
+        var line=lines[li];
+
+        var tag=K12_TAG.exec(line);
+        if(tag){ cur=tag[1]; fields[cur]=(tag[2]||''); continue; }
+        if(cur){ fields[cur]+='\n'+line; continue; }
+
+        // ---- 旧格式（# 年级科目 / 答案 / 解析 / A. 选项 / 裸题干）----
+        var h=line.match(/^#\s*(.+)$/);
+        if(h){
+          var parts=h[1].split(/[\s,，|、]+/).filter(Boolean);
+          for(var pi=0;pi<parts.length;pi++){
+            var g=normGrade(parts[pi]); if(g>=1&&g<=9)grade=g;
+            var s=normSubject(parts[pi]);
+            if(s==='语文'||s==='数学'||s==='英语')subject=s;
+          }
+          continue;
+        }
+        var a=line.match(/^答案\s*[:：]?\s*(.+)$/);
+        if(a){answer=normAnswer(a[1]);continue}
+        var e=line.match(/^解析\s*[:：]?\s*(.+)$/);
+        if(e){explanation=e[1];continue}
+        var inline=splitInlineOptions(line);
+        if(inline){['A','B','C','D'].forEach(function(L,i){if(inline[L])opts[i]=inline[L]});continue}
+        var one=line.match(/^([A-Da-d])\s*[.、．:：]\s*(.+)$/);
+        if(one){opts['ABCD'.indexOf(one[1].toUpperCase())]=one[2].trim();continue}
+        stem=stem?stem+' '+line:line;
+      }
+
+      // ---- 合并 K12 字段与旧格式结果 ----
+      var topic={topic_name:'',topic_id:''};
+      var difficulty=2,bloom='';
+      if(fields['题干']!==undefined)stem=(fields['题干']||'').trim();
+      if(fields['选项']!==undefined){opts=['','','',''];applyInlineOptions(fields['选项'],opts)}
+      if(fields['答案']!==undefined)answer=normAnswer(fields['答案']);
+      if(fields['解析']!==undefined)explanation=(fields['解析']||'').trim();
+      if(fields['难度']!==undefined)difficulty=normDifficulty(fields['难度']);
+      if(fields['知识点']!==undefined)topic=splitTopic(fields['知识点']);
+      // 扩展标签：手写时直接写年级科目，不依赖 topic_id
+      if(fields['年级']!==undefined){
+        var fg=normGrade(fields['年级']);
+        if(fg>=1&&fg<=9)grade=fg;
+      }
+      if(fields['科目']!==undefined){
+        var fs=normSubject(fields['科目']);
+        if(fs==='语文'||fs==='数学'||fs==='英语')subject=fs;
+      }
+      if(fields['册次']!==undefined)term=normTerm(fields['册次']);
+
+      if(!stem&&!opts[0])continue;
+
+      var item={
+        topic_id:topic.topic_id,
+        topic_name:topic.topic_name,
+        stem:stem,
+        options:opts,
+        explanation:explanation,
+        difficulty:difficulty,
+        bloom:bloom||'理解',
+        type:'single_choice',
+        subject:subject,
+        grade:grade,
+        term:term
+      };
+      if(answer>=0){item.answer='ABCD'.charAt(answer);item.answerIndex=answer}
+      else item.answerIndex=-1;
+
+      // 幼儿园判定 + topic_id 反推年级科目
+      var parsed=parseTopicId(topic.topic_id);
+      if(parsed&&parsed.kg){kg++;continue}
+      if(parsed&&!parsed.kg){
+        if(item.subject!=='语文'&&item.subject!=='数学'&&item.subject!=='英语')item.subject=parsed.subject;
+        if(!(item.grade>=1&&item.grade<=9))item.grade=parsed.grade;
+        if(!item.term)item.term=parsed.term;
+      }
+      if(item.stem&&item.options[0])out.push(item);
+    }
+    return {questions:out,kg:kg};
+  }
+
+  // 统一收集：过滤空项，幼儿园题单独计数
+  function collect(arr){
+    var out=[],kg=0;
+    for(var i=0;i<arr.length;i++){
+      var it=normalizeItem(arr[i]);
+      if(!it)continue;
+      if(it.kg){kg++;continue}
+      out.push(it);
+    }
+    return {questions:out,kg:kg};
+  }
+
+  function parseJson(text){
+    var data=JSON.parse(text),arr;
+    if(Object.prototype.toString.call(data)==='[object Array]')arr=data;
+    else arr=data.questions||data.items||[];
+    return collect(arr);
+  }
+
+  function parseRows(rows){
+    return collect(rows);
+  }
+
+  function parseCsv(text){
+    var wb=XLSX.read(text,{type:'string'});
+    var sheet=wb.Sheets[wb.SheetNames[0]];
+    return parseRows(XLSX.utils.sheet_to_json(sheet,{defval:''}));
+  }
+
+  // Excel 在中文 Windows 上默认另存为 GBK；先按 UTF-8 解，出现替换字符再试 GBK。
+  function decodeText(bytes){
+    if(typeof TextDecoder==='undefined'){
+      var s='';
+      for(var i=0;i<bytes.length;i++)s+=String.fromCharCode(bytes[i]);
+      try{return decodeURIComponent(escape(s))}catch(e){return s}
+    }
+    var utf='';
+    try{utf=new TextDecoder('utf-8').decode(bytes)}catch(e){utf=''}
+    if(utf.indexOf('\uFFFD')>=0){
+      try{
+        var gbk=new TextDecoder('gbk').decode(bytes);
+        if(gbk.indexOf('\uFFFD')<0)return gbk;
+      }catch(e){}
+    }
+    return utf;
+  }
+
+  function readAsText(file){
+    return new Promise(function(res,rej){
+      var r=new FileReader();
+      r.onload=function(){res(String(r.result))};
+      r.onerror=function(){rej(new Error('读取文件失败'))};
+      r.readAsText(file,'utf-8');
+    });
+  }
+
+  function readAsBuffer(file){
+    return new Promise(function(res,rej){
+      var r=new FileReader();
+      r.onload=function(){res(r.result)};
+      r.onerror=function(){rej(new Error('读取文件失败'))};
+      r.readAsArrayBuffer(file);
+    });
+  }
+
+  function parseFile(file){
+    var ext=(file.name.split('.').pop()||'').toLowerCase();
+    if(ext==='json'){
+      return readAsBuffer(file).then(function(buf){return parseJson(decodeText(new Uint8Array(buf)))});
+    }
+    if(ext==='txt'){
+      return readAsBuffer(file).then(function(buf){return parseTxt(decodeText(new Uint8Array(buf)))});
+    }
+    if(ext==='csv'){
+      return readAsBuffer(file).then(function(buf){return parseCsv(decodeText(new Uint8Array(buf)))});
+    }
+    return readAsBuffer(file).then(function(buf){
+      var wb=XLSX.read(new Uint8Array(buf),{type:'array'});
+      var sheet=wb.Sheets[wb.SheetNames[0]];
+      var rows=XLSX.utils.sheet_to_json(sheet,{defval:''});
+      return parseRows(rows);
+    });
+  }
+
+  function show(msg,kind){
+    var o=$('out');o.className=kind||'';o.textContent=msg;
+  }
+
+  $('go').addEventListener('click',function(){
+    var file=$('file').files[0];
+    if(!file){show('请先选择文件','bad');return}
+    var btn=$('go');btn.disabled=true;
+    show('正在解析…','busy');
+    parseFile(file).then(function(res){
+      var questions=(res&&res.questions)||[], kg=(res&&res.kg)||0;
+      if(!questions.length)throw new Error('没有解析出题目。\n\n'
+        +'表格请确认表头为 K12 的 12 列（topic_id, topic_name, stem, option_a…option_d, '
+        +'answer, explanation, difficulty, bloom, type），或旧格式「年级、科目、题干、A、B、C、D、答案」。\n\n'
+        +'txt 请用【题干】【选项】【答案】分段，或旧的「# 一年级 数学」开头；题与题之间空一行。\n\n'
+        +'年级科目可从 topic_id（如 primary-g3-s1-math-K018）反推。');
+      var mode=currentMode(),target=$('target').value;
+      if(mode==='merge'&&!target)throw new Error('请选择要合并的题库');
+      var name=($('name').value||'').trim()||file.name.replace(/\.[^.]+$/,'');
+      show('正在上传 '+questions.length+' 题'
+        +(kg?'（另跳过幼儿园题 '+kg+' 题）':'')+'…','busy');
+      var url='/upload?t='+encodeURIComponent(window.TOKEN)
+        +'&name='+encodeURIComponent(name)
+        +'&mode='+mode+'&target='+encodeURIComponent(target);
+      return fetch(url,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({questions:questions})})
+        .then(function(r){return r.json()})
+        .then(function(r){
+          if(!r.ok)throw new Error((r.message||'导入失败')+(r.errors&&r.errors.length?'\n\n'+r.errors.join('\n'):''));
+          if(r.bankId&&!banks.some(function(b){return b.id===r.bankId})){
+            banks.unshift({id:r.bankId,name:r.bankName,count:r.accepted});renderBanks();
+          }
+          show('导入成功\n\n'+r.message+(r.errors&&r.errors.length?'\n\n'+r.errors.join('\n'):''),'ok');
+        });
+    }).catch(function(e){
+      show(e&&e.message?e.message:String(e),'bad');
+    }).then(function(){btn.disabled=false});
+  });
+  window.QG={parseTxt:parseTxt,parseJson:parseJson,parseRows:parseRows,parseCsv:parseCsv,
+    decodeText:decodeText,normalizeItem:normalizeItem,collect:collect,
+    parseTopicId:parseTopicId,normGrade:normGrade,normSubject:normSubject,
+    normAnswer:normAnswer,normDifficulty:normDifficulty};
+})();
+</script>
+</body>
+</html>

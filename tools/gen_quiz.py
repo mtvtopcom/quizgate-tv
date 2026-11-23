@@ -3,14 +3,28 @@
 """
 题库构建：把下面三份人工撰写的原始题库展开成 assets/quiz/<subject>_grade_<n>.json。
 
+输出结构采用开源项目 K12 题库工厂的统一题目 Schema（9 个必填字段：
+topic_id / topic_name / stem / options / answer / explanation / difficulty /
+bloom / type），见 docs/bank-format.md 与 k12_schema.py。
+
 - 三个科目各自独立成池：语文 / 数学 / 英语。设置页按「学段 → 年级 → 科目」选。
 - 每个池每个年级 8 题，够一轮不重复；不够时由 QuizBank 在同一科目内向下回退。
 - 所有题目为原创，不摘抄教材/教辅。新增题目直接改对应字典后重跑：
 
     python3 tools/gen_quiz.py
+
+- 1–6 年级还叠加了从 PoHW 导入的题目（id 以 pohw- 开头，见 tools/import_pohw.py）。
+  这些题不是本脚本生成的，重跑时会自动保留，不会被 8 道原创题覆盖。
+- 原创题的 topic_name / difficulty / bloom 来自 tools/original_topics.py，
+  与 tools/migrate_builtin_k12.py 共用同一份真源，重跑不会改变已迁移的数据。
 """
 import json
 import os
+import sys
+
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+import k12_schema as K                                   # noqa: E402
+from original_topics import ORIGINAL_TOPIC_INDEX, topic_for   # noqa: E402
 
 # (题干, 四个选项, 正确项下标, 解析)
 MATH = {
@@ -304,25 +318,49 @@ def main():
     for key, name, data in SUBJECTS:
         for grade, items in data.items():
             rows = []
+            stage = K.stage_of(grade)
+            topic_name, difficulty, bloom = topic_for(key, grade)
+            topic_id = K.make_topic_id(stage, grade, 1, key, ORIGINAL_TOPIC_INDEX)
             for i, (stem, opts, ans, exp) in enumerate(items, start=1):
                 assert len(opts) == 4, (key, grade, stem)
                 assert 0 <= ans < 4, (key, grade, stem)
                 assert len(set(opts)) == 4, ("选项重复", key, grade, stem)
                 rows.append({
-                    "id": "%s%d-%03d" % (key[0], grade, i),
-                    "subject": name,
+                    # K12 统一题目 Schema，见 docs/bank-format.md
+                    "topic_id": topic_id,
+                    "topic_name": topic_name,
                     "stem": stem,
-                    "options": opts,
-                    "answerIndex": ans,
+                    "options": list(opts),
+                    "answer": K.answer_letter(ans),
                     "explanation": exp,
+                    "difficulty": difficulty,
+                    "bloom": bloom,
+                    "type": "single_choice",
+                    # 扩展字段：去重与迁移追溯用，不属于 K12 规范
+                    "id": "%s%d-%03d" % (key[0], grade, i),
                 })
-            doc = {"version": 2, "subject": name, "grade": grade, "items": rows}
+            doc = {"version": 3, "schema": "k12-question-bank/v1",
+                   "subject": name, "grade": grade, "items": rows}
             path = os.path.join(OUT, "%s_grade_%d.json" % (key, grade))
+            # 从 PoHW 导入的题（pohw-*）不是本脚本生成的：重跑时保留，
+            # 否则一次 gen_quiz.py 就会把合并后的题库打回 8 道题。
+            imported = []
+            if os.path.exists(path):
+                try:
+                    with open(path, encoding="utf-8") as f:
+                        imported = [q for q in json.load(f).get("items", [])
+                                    if str(q.get("id", "")).startswith("pohw-")]
+                except Exception:
+                    imported = []
+            own = len(rows)
+            doc["items"] = rows + imported
             with open(path, "w", encoding="utf-8") as f:
                 json.dump(doc, f, ensure_ascii=False, indent=1)
                 f.write("\n")
-            total += len(rows)
-            print("%-3s 年级 %d: %d 题 -> %s" % (name, grade, len(rows), os.path.basename(path)))
+            total += own
+            print("%-3s 年级 %d: 原创 %d + 导入 %d = %d 题 -> %s"
+                  % (name, grade, own, len(imported), len(doc["items"]),
+                     os.path.basename(path)))
     print("total: %d 题（%d 科 × 9 个年级 × 8）" % (total, len(SUBJECTS)))
 
 
