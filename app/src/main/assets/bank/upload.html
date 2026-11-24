@@ -72,6 +72,7 @@ code{background:rgba(128,128,128,.15);padding:1px 5px;border-radius:4px;font-siz
 <div class="card">
   <div class="label">3. 题库名称</div>
   <input type="text" id="name" placeholder="例如：三年级期末复习（不填就用文件名）" maxlength="24">
+  <p class="tip" id="name-tip"></p>
 </div>
 
 <button id="go">开始导入</button>
@@ -87,16 +88,48 @@ code{background:rgba(128,128,128,.15);padding:1px 5px;border-radius:4px;font-siz
   function esc(s){return String(s==null?'':s).replace(/[&<>"']/g,function(c){return{'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]})}
 
   function renderBanks(){
-    var sel=$('target');
+    var sel=$('target'), prev=sel?sel.value:'';
     if(!banks.length){sel.innerHTML='<option value="">还没有自定义题库</option>';return}
     sel.innerHTML=banks.map(function(b){return '<option value="'+esc(b.id)+'">'+esc(b.name)+'（'+b.count+' 题）</option>'}).join('');
+    // 上传成功后会重排列表，尽量保住家长已经选中的合并目标。
+    if(prev&&banks.some(function(b){return b.id===prev})) sel.value=prev;
   }
   renderBanks();
+  updateNameTip();
 
   function currentMode(){return document.querySelector('input[name=mode]:checked').value}
   Array.prototype.forEach.call(document.querySelectorAll('input[name=mode]'),function(r){
-    r.addEventListener('change',function(){ $('target').disabled = currentMode()!=='merge'; });
+    r.addEventListener('change',function(){
+      $('target').disabled = currentMode()!=='merge';
+      updateNameTip();
+    });
   });
+
+  // 同名提示：电视端遇到同名题库会直接按合并 + 排重处理，先在这里说清楚，
+  // 免得家长以为新建了两个库。
+  function sameName(name){
+    var want=String(name||'').trim().toLowerCase();
+    if(!want)return null;
+    for(var i=0;i<banks.length;i++){
+      if(String(banks[i].name||'').trim().toLowerCase()===want)return banks[i];
+    }
+    return null;
+  }
+
+  function updateNameTip(){
+    var tip=$('name-tip'), hit=sameName($('name').value);
+    if(currentMode()!=='new'){
+      tip.textContent='合并时只往选中的那个题库里加题，与库里已有题目重复的会被跳过。';
+      return;
+    }
+    if(hit){
+      tip.textContent='已有同名题库「'+hit.name+'」（'+hit.count+' 题）。继续导入会自动合并到它，'
+        +'并按题干排重，重复的题不会重复添加。';
+    }else{
+      tip.textContent='名字和已有题库相同时，会自动合并到那个题库并排重。';
+    }
+  }
+  $('name').addEventListener('input',updateNameTip);
 
   function fmtSize(n){
     if(n>=1024*1024)return (n/1024/1024).toFixed(1)+' MB';
@@ -114,7 +147,7 @@ code{background:rgba(128,128,128,.15);padding:1px 5px;border-radius:4px;font-siz
     pick.classList.add('picked');
     $('filepick-text').textContent=f.name;
     $('file-meta').textContent='已选择 '+fmtSize(f.size)+' · 点这里可以重新选择';
-    if(!$('name').value.trim()) $('name').value=f.name.replace(/\.[^.]+$/,'').slice(0,24);
+    if(!$('name').value.trim()){ $('name').value=f.name.replace(/\.[^.]+$/,'').slice(0,24); updateNameTip(); }
   });
 
   function pick(o,keys){
@@ -542,10 +575,26 @@ code{background:rgba(128,128,128,.15);padding:1px 5px;border-radius:4px;font-siz
         .then(function(r){return r.json()})
         .then(function(r){
           if(!r.ok)throw new Error((r.message||'导入失败')+(r.errors&&r.errors.length?'\n\n'+r.errors.join('\n'):''));
-          if(r.bankId&&!banks.some(function(b){return b.id===r.bankId})){
-            banks.unshift({id:r.bankId,name:r.bankName,count:r.accepted});renderBanks();
-          }
-          show('导入成功\n\n'+r.message+(r.errors&&r.errors.length?'\n\n'+r.errors.join('\n'):''),'ok');
+          var dup=(typeof r.duplicated==='number')?r.duplicated:(r.skipped||0);
+          var total=(typeof r.total==='number'&&r.total>0)?r.total:r.accepted;
+          var hit=null;
+          for(var i=0;i<banks.length;i++){ if(banks[i].id===r.bankId){hit=banks[i];break} }
+          if(hit){hit.name=r.bankName;hit.count=total}
+          else banks.unshift({id:r.bankId,name:r.bankName,count:total});
+          renderBanks();
+          updateNameTip();
+          var lines=[
+            r.merged?('导入成功 · 已合并到「'+r.bankName+'」'):('导入成功 · 新建「'+r.bankName+'」'),
+            '本次新增 '+r.accepted+' 题'
+              +(dup>0?(' · 重复跳过 '+dup+' 题'):' · 无重复题')
+              +' · 题库现共 '+total+' 题'
+          ];
+          if(r.kindergarten)lines.push('幼儿园题跳过 '+r.kindergarten+' 题（本软件只支持 1–9 年级）');
+          if(r.errors&&r.errors.length)lines.push('未通过校验 '+r.errors.length+' 条：\n'+r.errors.join('\n'));
+          show(lines.join('\n'),'ok');
+          // 顶部横幅单独给一句结果，手机在页面底部也能立刻看到。
+          setStatus('上传成功：新增 '+r.accepted+' 题'
+            +(dup>0?(' · 重复 '+dup+' 题'):' · 无重复'),'ok');
         });
     }).catch(function(e){
       show(e&&e.message?e.message:String(e),'bad');

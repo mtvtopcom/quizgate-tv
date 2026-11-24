@@ -59,6 +59,8 @@ public final class Core {
         q.options = opts;
         q.answer = idx;
         q.explain = "正确答案：" + ans;
+        q.subject = "数学";
+        q.topic = "口算";
         return q;
     }
 }

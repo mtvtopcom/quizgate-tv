@@ -67,8 +67,14 @@ public final class BankStore {
         public String message = "";
         public String bankId = "";
         public String bankName = "";
+        /** 本次真正新增的题数（已排重）。 */
         public int accepted = 0;
+        /** 与已有题目重复、排重后跳过的题数。 */
         public int skipped = 0;
+        /** 导入完成后该题库的总题数。 */
+        public int total = 0;
+        /** true = 本次是合并（指定合并或同名自动合并），不是新建。 */
+        public boolean merged = false;
         /** 因属于幼儿园学段而跳过的题数（本软件只有 1–9 年级）。 */
         public int kindergarten = 0;
         public final List<String> errors = new ArrayList<>();
@@ -153,24 +159,31 @@ public final class BankStore {
         ImportResult r = new ImportResult();
         if (questions.isEmpty()) return fail(r, "没有可导入的题目");
         if (questions.size() > MAX_IMPORT) return fail(r, "单次最多导入 " + MAX_IMPORT + " 题");
+        // 同一份文件里重复出现的题也要排重，不然新建的库里一上来就有重复题。
+        List<BankQuestion> unique = dedupe(questions);
+        int dup = questions.size() - unique.size();
+        if (unique.isEmpty()) return fail(r, "本次 " + questions.size() + " 题全部重复，没有新题可导入");
         String safeName = cleanName(name);
         String id = newId();
         File dir = new File(root, id);
         if (!dir.mkdirs()) return fail(r, "无法创建题库目录");
         try {
-            writeShards(dir, questions);
+            writeShards(dir, unique);
             Meta m = new Meta();
             m.id = id;
             m.name = safeName;
             m.createdAt = System.currentTimeMillis();
-            m.count = questions.size();
-            m.counts = countOf(questions);
+            m.count = unique.size();
+            m.counts = countOf(unique);
             writeMeta(dir, m);
             r.ok = true;
             r.bankId = id;
             r.bankName = safeName;
-            r.accepted = questions.size();
-            r.message = "已新建「" + safeName + "」，共 " + questions.size() + " 题";
+            r.accepted = unique.size();
+            r.skipped = dup;
+            r.total = unique.size();
+            r.message = "已新建「" + safeName + "」：导入 " + unique.size() + " 题"
+                    + dupText(dup) + "，题库共 " + unique.size() + " 题";
             return r;
         } catch (Exception e) {
             deleteRec(dir);
@@ -188,17 +201,18 @@ public final class BankStore {
         if (m == null) return fail(r, "题库信息损坏，无法追加");
 
         List<BankQuestion> all = readAllShards(dir);
+        // 排重键用「去掉所有空白 + 转小写」的题干：同一道题换个排版不该算新题。
+        // seen 同时覆盖「与库里已有题重复」和「本次上传内部重复」两种情况。
         Set<String> seen = new HashSet<>();
-        for (BankQuestion q : all) seen.add(q.stem);
+        for (BankQuestion q : all) seen.add(stemKey(q.stem));
 
         int skipped = 0;
         for (BankQuestion q : questions) {
             if (all.size() >= MAX_BANK) {
-                r.skipped = skipped;
                 r.errors.add("题库已达上限 " + MAX_BANK + " 题，剩余题目未导入");
                 break;
             }
-            if (!seen.add(q.stem)) {
+            if (!seen.add(stemKey(q.stem))) {
                 skipped++;
                 continue;
             }
@@ -211,16 +225,42 @@ public final class BankStore {
             writeMeta(dir, m);
             invalidate(id);
             r.ok = true;
+            r.merged = true;
             r.bankId = id;
             r.bankName = m.name;
             r.accepted = questions.size() - skipped;
             r.skipped = skipped;
-            r.message = "已合并到「" + m.name + "」，新增 " + r.accepted + " 题"
-                    + (skipped > 0 ? "，跳过重复 " + skipped + " 题" : "");
+            r.total = all.size();
+            r.message = "已并入「" + m.name + "」：新增 " + r.accepted + " 题"
+                    + dupText(skipped) + "，题库共 " + all.size() + " 题";
             return r;
         } catch (Exception e) {
             return fail(r, "写入失败：" + e.getClass().getSimpleName());
         }
+    }
+
+    /** 同名题库：上传新库时如果名字撞了，自动按合并处理并排重，不建第二个同名库。 */
+    private Meta findByName(String name) {
+        String raw = trim(name);
+        if (raw.isEmpty()) return null;
+        String want = cleanName(raw);
+        for (Meta m : list()) {
+            if (cleanName(m.name).equalsIgnoreCase(want)) return m;
+        }
+        return null;
+    }
+
+    private static String dupText(int dup) {
+        return dup > 0 ? "，重复跳过 " + dup + " 题" : "";
+    }
+
+    private static List<BankQuestion> dedupe(List<BankQuestion> in) {
+        List<BankQuestion> out = new ArrayList<>(in.size());
+        Set<String> seen = new HashSet<>();
+        for (BankQuestion q : in) {
+            if (seen.add(stemKey(q.stem))) out.add(q);
+        }
+        return out;
     }
 
     public boolean delete(String id) {
@@ -354,9 +394,24 @@ public final class BankStore {
             return r;
         }
 
-        ImportResult out = "merge".equals(mode)
-                ? merge(targetId, parsed)
-                : create(name, parsed);
+        ImportResult out;
+        if ("merge".equals(mode)) {
+            out = merge(targetId, parsed);
+        } else {
+            // 同名题库不新建第二个：家长往往是「补一批题再传一次」，建同名库会一半题在
+            // 一个库里、一半在另一个库里，抽题时只认当前选中的那个，看起来就像丢题。
+            Meta same = findByName(name);
+            if (same != null) {
+                out = merge(same.id, parsed);
+                if (out.ok) {
+                    out.message = "已有同名题库「" + same.name + "」，已按同名合并并排重：新增 "
+                            + out.accepted + " 题" + dupText(out.skipped)
+                            + "，题库共 " + out.total + " 题";
+                }
+            } else {
+                out = create(name, parsed);
+            }
+        }
         out.errors.addAll(0, r.errors);
         out.kindergarten = r.kindergarten;
         if (out.ok && r.kindergarten > 0) {
@@ -727,6 +782,18 @@ public final class BankStore {
         if (t.isEmpty()) t = "我的题库";
         if (t.length() > 24) t = t.substring(0, 24);
         return t;
+    }
+
+    /** 排重键：去掉所有空白（含全角空格）并转小写。同一题换个排版不该被当成新题。 */
+    static String stemKey(String stem) {
+        if (stem == null) return "";
+        StringBuilder sb = new StringBuilder(stem.length());
+        for (int i = 0; i < stem.length(); i++) {
+            char c = stem.charAt(i);
+            if (Character.isWhitespace(c) || c == '\u3000') continue;
+            sb.append(Character.toLowerCase(c));
+        }
+        return sb.toString();
     }
 
     private static String trim(String s) {

@@ -30,6 +30,10 @@ public final class QuizBank {
         public String[] options = new String[]{"", "", "", ""};
         public int answer = 0;
         public String explain = "";
+        /** 科目中文名（语文/数学/英语），遮罩右上角用。 */
+        public String subject = "";
+        /** 知识点（K12 的 topic_name），题库没写就是空串。 */
+        public String topic = "";
         /** 用户题库缺当前年级题目、已回退默认题库；只在第一次回退时置 true。 */
         public boolean fallback = false;
     }
@@ -141,6 +145,8 @@ public final class QuizBank {
         out.options = src.options.clone();
         out.answer = src.answerIndex;
         out.explain = src.explanation;
+        out.subject = src.subject;
+        out.topic = src.topicName;
         out.answer = shuffle(out.options, out.answer, r);
         return out;
     }
@@ -158,6 +164,8 @@ public final class QuizBank {
             out.options = src.options.clone();
             out.answer = src.answer;
             out.explain = src.explain;
+            out.subject = src.subject;
+            out.topic = src.topic;
             out.answer = shuffle(out.options, out.answer, r);
             return out;
         }
@@ -171,6 +179,8 @@ public final class QuizBank {
             out.options = src.options.clone();
             out.answer = src.answer;
             out.explain = src.explain;
+            out.subject = src.subject;
+            out.topic = src.topic;
             out.answer = shuffle(out.options, out.answer, r);
             return out;
         }
@@ -181,6 +191,8 @@ public final class QuizBank {
         q.options = new String[]{"句子结束用句号。", "句子结束用逗号，", "句子结束用顿号、", "句子结束用分号；"};
         q.answer = 0;
         q.explain = "陈述句末尾用句号。";
+        q.subject = "语文";
+        q.topic = "标点符号";
         q.answer = shuffle(q.options, q.answer, r);
         return q;
     }
@@ -226,6 +238,8 @@ public final class QuizBank {
                     q.answer = parseAnswer(o);
                     if (q.answer < 0 || q.answer > 3) continue;
                     q.explain = o.optString("explanation", "");
+                    q.subject = BankStore.subjectName(subjectKey);
+                    q.topic = o.optString("topic_name", "");
                     list.add(q);
                 }
             }

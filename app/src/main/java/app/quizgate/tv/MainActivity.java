@@ -446,9 +446,28 @@ public class MainActivity extends Activity {
         bankManager = new BankManagerView(this, new BankManagerView.Host() {
             @Override public void closeBankManager() { hideBankManager(); }
             @Override public void toast(String msg) { MainActivity.this.toast(msg); }
+            @Override public void onBankSwitched(String name) {
+                // 换了题库，题量分布跟着变：不重新选年级就可能在新题库里抽不到题。
+                hideBankManager();
+                promptGradeAfterBankSwitch(name);
+            }
         }, bankStore, prefs);
         root.addView(bankManager, new FrameLayout.LayoutParams(-1, -1));
         blockFocusBelow();
+    }
+
+    /** 题库切换成功后的提醒：明确告诉家长「去重新设置题目年级」，可直接跳过去。 */
+    private void promptGradeAfterBankSwitch(String bankName) {
+        mountOption(new OptionPanel(this, "题库已切换",
+                "已切换到「" + bankName + "」。不同题库的题目分布不一样，"
+                        + "请重新设置一次题目年级，否则可能出不来题。",
+                new String[]{"去设置题目年级", "稍后再说"},
+                null, new int[]{1, 0}, -1, "", 0, 0,
+                v -> {
+                    hideOptionPanel();
+                    if (v == 1) openStagePanel();
+                },
+                this::hideOptionPanel));
     }
 
     private void hideBankManager() {

@@ -32,6 +32,7 @@ public class MaskView extends FrameLayout {
 
     private final TextView stemView;
     private final TextView kicker;
+    private final TextView metaView;
     private final TextView feedback;
     private final TextView hint;
     private final TextView nextBtn;
@@ -67,8 +68,25 @@ public class MaskView extends FrameLayout {
         // 否则题干换两行时品牌会被挤出屏幕（模拟器实测）。
         box.setPadding(Ui.dp(c, 72), Ui.dp(c, 28), Ui.dp(c, 72), Ui.dp(c, 28));
 
+        // 顶部一行：左边是到点说明，右边小字标出这题属于哪一科、考的是哪个知识点。
+        // 两者同一行，不额外占高度 —— 540dp 的电视上竖向空间很紧。
+        LinearLayout topRow = Ui.row(c);
+        topRow.setGravity(Gravity.CENTER_VERTICAL);
+
         kicker = Ui.label(c, "本次观看时间到", 20, Ui.DIM);
-        box.addView(kicker);
+        kicker.setMaxLines(1);
+        kicker.setEllipsize(TextUtils.TruncateAt.END);
+        topRow.addView(kicker, new LinearLayout.LayoutParams(0, -2, 1f));
+
+        metaView = Ui.label(c, "", 15, Ui.DIM);
+        metaView.setGravity(Gravity.END);
+        metaView.setMaxLines(1);
+        metaView.setEllipsize(TextUtils.TruncateAt.END);
+        metaView.setMaxWidth(Ui.dp(c, 300));
+        metaView.setPadding(Ui.dp(c, 16), 0, 0, 0);
+        topRow.addView(metaView, new LinearLayout.LayoutParams(-2, -2));
+
+        box.addView(topRow);
 
         stemView = Ui.title(c, "", 30);
         stemView.setGravity(Gravity.CENTER);
@@ -174,6 +192,13 @@ public class MaskView extends FrameLayout {
         hint.setVisibility(View.VISIBLE);
         brandRow.setVisibility(View.VISIBLE);
         stemView.setText(q.stem);
+        // 右上角：学科 · 知识点。题库没写知识点时只显示学科，不显示多余的分隔符。
+        String meta = q.subject == null ? "" : q.subject.trim();
+        if (q.topic != null && !q.topic.trim().isEmpty()) {
+            meta = meta.isEmpty() ? q.topic.trim() : meta + " · " + q.topic.trim();
+        }
+        metaView.setText(meta);
+        metaView.setVisibility(meta.isEmpty() ? View.GONE : View.VISIBLE);
         // 用户题库缺当前年级题目时只提示一次，不占额外高度：改写顶部这行说明。
         if (q.fallback) {
             kicker.setTextSize(TypedValue.COMPLEX_UNIT_DIP, 17);

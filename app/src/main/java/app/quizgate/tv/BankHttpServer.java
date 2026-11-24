@@ -46,8 +46,11 @@ public final class BankHttpServer {
     private static final int SOCKET_TIMEOUT = 30000;
 
     public interface Listener {
-        /** 上传成功、题库有变化时回调（在服务线程里，调用方自己切主线程）。 */
-        void onBankChanged();
+        /**
+         * 上传成功、题库有变化时回调（在服务线程里，调用方自己切主线程）。
+         * 带上导入结果，电视端才能把「新增多少、重复多少」直接显示出来。
+         */
+        void onBankChanged(BankStore.ImportResult r);
     }
 
     private final Context ctx;
@@ -183,7 +186,7 @@ public final class BankHttpServer {
                 String body = readBody(in, len);
                 BankStore.ImportResult r = store.importJson(
                         query.get("name"), query.get("mode"), query.get("target"), body);
-                if (r.ok && listener != null) listener.onBankChanged();
+                if (r.ok && listener != null) listener.onBankChanged(r);
                 send(s, 200, "application/json; charset=utf-8", resultJson(r));
                 return;
             }
@@ -234,6 +237,9 @@ public final class BankHttpServer {
                 .append(",\"bankName\":\"").append(esc(r.bankName)).append("\"")
                 .append(",\"accepted\":").append(r.accepted)
                 .append(",\"skipped\":").append(r.skipped)
+                .append(",\"duplicated\":").append(r.skipped)
+                .append(",\"total\":").append(r.total)
+                .append(",\"merged\":").append(r.merged)
                 .append(",\"kindergarten\":").append(r.kindergarten)
                 .append(",\"errors\":[");
         for (int i = 0; i < r.errors.size(); i++) {
