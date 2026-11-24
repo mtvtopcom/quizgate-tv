@@ -49,11 +49,53 @@ public final class Prefs {
 
     public int subject() { return clamp(sp.getInt("subject", SUBJECT_MATH), 0, 2); }
 
-    public void setSubject(int v) { sp.edit().putInt("subject", clamp(v, 0, 2)).commit(); }
+    /** 1.5.0：单选改多选；兼容只有 subject 的老数据（取这一科）。 */
+    public int subjectMask() {
+        int m = sp.getInt("subjectMask", 0) & 0x7;
+        if (m == 0) m = 1 << subject();
+        return m;
+    }
+
+    public void setSubjectMask(int mask) {
+        int m = mask & 0x7;
+        if (m == 0) m = 1 << SUBJECT_MATH;   // 至少留一科，不能出现「什么题都不出」
+        int primary = 0;
+        while (primary < 3 && (m & (1 << primary)) == 0) primary++;
+        if (primary > 2) primary = SUBJECT_MATH;
+        // subject 仍写成主科目（最低位），老代码/旧快照读它不会拿到空值
+        sp.edit().putInt("subjectMask", m).putInt("subject", primary).commit();
+    }
+
+    public void setSubject(int v) { setSubjectMask(1 << clamp(v, 0, 2)); }
 
     public String subjectKey() { return SUBJECT_KEYS[subject()]; }
 
     public String subjectName() { return SUBJECT_NAMES[subject()]; }
+
+    /** 已选科目（语文/数学/英语 顺序，用「+」连接），设置页那一行显示用。 */
+    public String subjectText() {
+        StringBuilder sb = new StringBuilder();
+        int m = subjectMask();
+        for (int i = 0; i < 3; i++) {
+            if ((m & (1 << i)) == 0) continue;
+            if (sb.length() > 0) sb.append('+');
+            sb.append(SUBJECT_NAMES[i]);
+        }
+        return sb.length() == 0 ? SUBJECT_NAMES[SUBJECT_MATH] : sb.toString();
+    }
+
+    /** 抽题用的科目 key 列表，至少一个。 */
+    public String[] subjectKeys() {
+        int m = subjectMask();
+        int n = Integer.bitCount(m);
+        if (n == 0) return new String[]{SUBJECT_KEYS[SUBJECT_MATH]};
+        String[] out = new String[n];
+        int k = 0;
+        for (int i = 0; i < 3; i++) {
+            if ((m & (1 << i)) != 0) out[k++] = SUBJECT_KEYS[i];
+        }
+        return out;
+    }
 
     /**
      * 当前使用的题库：{@code builtin} 或 filesDir/banks 下的题库 id。

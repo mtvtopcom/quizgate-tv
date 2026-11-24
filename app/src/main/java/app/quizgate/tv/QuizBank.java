@@ -40,6 +40,7 @@ public final class QuizBank {
     private final Map<String, List<Q>> cache = new HashMap<>();
     private final Map<String, String> lastStem = new HashMap<>();
     private boolean pendingFallback = false;
+    private String lastPickedSubject = "";
 
     public QuizBank(Context ctx) {
         this.ctx = ctx.getApplicationContext();
@@ -58,6 +59,32 @@ public final class QuizBank {
         for (int i = 0; i < 4; i++) opts[i] = copy[idx[i]];
         for (int i = 0; i < 4; i++) if (idx[i] == answerIdx) return i;
         return 0;
+    }
+
+    /**
+     * 1.5.0：科目可多选，每次出题在已选科目里挑一科。
+     *
+     * <p>多科时尽量不连续出同一科（两科轮换比随机更像「轮流出题」）；
+     * 只有一科时就是原来的单选行为。
+     */
+    public Q nextAny(int grade, int floor, Random r) {
+        String[] keys = prefs.subjectKeys();
+        String key;
+        if (keys.length <= 1) {
+            key = keys.length == 1 ? keys[0] : prefs.subjectKey();
+        } else {
+            int start = r.nextInt(keys.length);
+            key = keys[start];
+            for (int i = 0; i < keys.length; i++) {
+                String cand = keys[(start + i) % keys.length];
+                if (!cand.equals(lastPickedSubject)) {
+                    key = cand;
+                    break;
+                }
+            }
+        }
+        lastPickedSubject = key;
+        return next(key, grade, floor, r);
     }
 
     /**

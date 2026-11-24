@@ -26,32 +26,52 @@ button:disabled{opacity:.5}
 #out.busy{display:block;background:rgba(24,95,165,.08);color:var(--accent);border:1px solid rgba(24,95,165,.25)}
 .tip{font-size:13px;color:var(--dim);margin-top:8px}
 code{background:rgba(128,128,128,.15);padding:1px 5px;border-radius:4px;font-size:13px}
+/* 选择文件：原来只有一行细窄的原生控件，手机上看不清也难点。改成整块点按区域。 */
+.hidden-file{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0 0 0 0);border:0}
+.filepick{display:flex;align-items:center;justify-content:center;gap:10px;min-height:104px;padding:16px;border:2px dashed var(--accent);border-radius:12px;background:rgba(24,95,165,.06);color:var(--accent);font-size:17px;font-weight:600;text-align:center;cursor:pointer;transition:background .15s}
+.filepick:active{background:rgba(24,95,165,.16)}
+.filepick.picked{border-style:solid;background:rgba(15,110,86,.08);border-color:var(--ok);color:var(--ok)}
+.filepick-plus{font-size:24px;line-height:1;font-weight:400}
+.filepick-name{display:block;max-width:100%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+/* 导入状态：原来只写在页面最下方，手机点完按钮根本看不到。改成固定在顶部。 */
+#status{position:fixed;left:0;right:0;top:0;z-index:50;display:none;padding:12px 16px;font-size:15px;font-weight:600;text-align:center;line-height:1.4;box-shadow:0 2px 10px rgba(0,0,0,.18)}
+#status.show{display:block}
+#status.busy{background:var(--accent);color:#fff}
+#status.busy::before{content:"";display:inline-block;width:13px;height:13px;margin-right:8px;border:2px solid rgba(255,255,255,.45);border-top-color:#fff;border-radius:50%;vertical-align:-2px;animation:spin .8s linear infinite}
+#status.ok{background:var(--ok);color:#fff}
+#status.bad{background:var(--bad);color:#fff}
+@keyframes spin{to{transform:rotate(360deg)}}
 </style>
 </head>
 <body>
 <h1>添加题库</h1>
 <p class="sub">手机和电视要连同一个 WiFi。文件只在两者之间传输，不上传外网。</p>
+<div id="status" role="status" aria-live="polite"></div>
 
 <div class="card">
-  <div class="label">题库名称</div>
-  <input type="text" id="name" placeholder="例如：三年级期末复习" maxlength="24">
+  <div class="label">1. 选择文件</div>
+  <label class="filepick" id="filepick" for="file">
+    <span class="filepick-plus">＋</span>
+    <span class="filepick-name" id="filepick-text">点击选择文件</span>
+  </label>
+  <input type="file" id="file" class="hidden-file" accept=".txt,.csv,.json,.xlsx,.xls">
+  <p class="tip" id="file-meta">支持 <code>txt</code> <code>csv</code> <code>xlsx</code> <code>xls</code> <code>json</code>。<br>
+  推荐格式与 <a href="https://github.com/mtvtopcom/k12-question-bank" target="_blank" rel="noopener">K12 题库工厂</a> 一致：表格 12 列
+  <code>topic_id</code> <code>topic_name</code> <code>stem</code> <code>option_a</code>…<code>option_d</code> <code>answer</code> <code>explanation</code> <code>difficulty</code> <code>bloom</code> <code>type</code>；
+  年级科目可从 <code>topic_id</code>（如 primary-g3-s1-math-K018）反推，也可额外加 <code>grade</code> <code>subject</code> 两列。<br>
+  也兼容旧格式：表头「年级、科目、题干、A、B、C、D、答案、解析」。</p>
 </div>
 
 <div class="card">
-  <div class="label">导入方式</div>
+  <div class="label">2. 导入方式</div>
   <label class="radio"><input type="radio" name="mode" value="new" checked> 新建一个题库</label>
   <label class="radio"><input type="radio" name="mode" value="merge"> 合并到已有题库</label>
   <select id="target" disabled></select>
 </div>
 
 <div class="card">
-  <div class="label">选择文件</div>
-  <input type="file" id="file" accept=".txt,.csv,.json,.xlsx,.xls">
-  <p class="tip">支持 <code>txt</code> <code>csv</code> <code>xlsx</code> <code>xls</code> <code>json</code>。<br>
-  推荐格式与 <a href="https://github.com/mtvtopcom/k12-question-bank" target="_blank" rel="noopener">K12 题库工厂</a> 一致：表格 12 列
-  <code>topic_id</code> <code>topic_name</code> <code>stem</code> <code>option_a</code>…<code>option_d</code> <code>answer</code> <code>explanation</code> <code>difficulty</code> <code>bloom</code> <code>type</code>；
-  年级科目可从 <code>topic_id</code>（如 primary-g3-s1-math-K018）反推，也可额外加 <code>grade</code> <code>subject</code> 两列。<br>
-  也兼容旧格式：表头「年级、科目、题干、A、B、C、D、答案、解析」。</p>
+  <div class="label">3. 题库名称</div>
+  <input type="text" id="name" placeholder="例如：三年级期末复习（不填就用文件名）" maxlength="24">
 </div>
 
 <button id="go">开始导入</button>
@@ -78,9 +98,23 @@ code{background:rgba(128,128,128,.15);padding:1px 5px;border-radius:4px;font-siz
     r.addEventListener('change',function(){ $('target').disabled = currentMode()!=='merge'; });
   });
 
+  function fmtSize(n){
+    if(n>=1024*1024)return (n/1024/1024).toFixed(1)+' MB';
+    if(n>=1024)return Math.round(n/1024)+' KB';
+    return n+' B';
+  }
+
   $('file').addEventListener('change',function(){
-    var f=$('file').files[0];
-    if(f && !$('name').value.trim()) $('name').value=f.name.replace(/\.[^.]+$/,'').slice(0,24);
+    var f=$('file').files[0], pick=$('filepick');
+    if(!f){
+      pick.classList.remove('picked');
+      $('filepick-text').textContent='点击选择文件';
+      return;
+    }
+    pick.classList.add('picked');
+    $('filepick-text').textContent=f.name;
+    $('file-meta').textContent='已选择 '+fmtSize(f.size)+' · 点这里可以重新选择';
+    if(!$('name').value.trim()) $('name').value=f.name.replace(/\.[^.]+$/,'').slice(0,24);
   });
 
   function pick(o,keys){
@@ -459,15 +493,35 @@ code{background:rgba(128,128,128,.15);padding:1px 5px;border-radius:4px;font-siz
     });
   }
 
+  var statusTimer=null;
+  function setStatus(msg,kind){
+    var s=$('status');
+    if(!msg){s.className='';s.textContent='';return}
+    s.className='show '+(kind||'');
+    s.textContent=msg;
+    if(statusTimer){clearTimeout(statusTimer);statusTimer=null}
+    if(kind==='ok')statusTimer=setTimeout(function(){s.className=''},6000);
+  }
+
+  function setBtn(text,busy){var b=$('go');b.textContent=text;b.disabled=!!busy}
+
   function show(msg,kind){
     var o=$('out');o.className=kind||'';o.textContent=msg;
+    if(kind==='ok')setStatus('导入完成','ok');
+    else if(kind==='bad')setStatus(String(msg).split('\n')[0],'bad');
   }
 
   $('go').addEventListener('click',function(){
     var file=$('file').files[0];
-    if(!file){show('请先选择文件','bad');return}
-    var btn=$('go');btn.disabled=true;
-    show('正在解析…','busy');
+    if(!file){
+      show('请先选择文件','bad');
+      $('filepick').scrollIntoView({block:'center'});
+      return;
+    }
+    $('out').className='';$('out').textContent='';
+    setBtn('正在解析文件…',true);
+    setStatus('已开始导入：正在解析文件…','busy');
+    window.scrollTo({top:0,behavior:'smooth'});
     parseFile(file).then(function(res){
       var questions=(res&&res.questions)||[], kg=(res&&res.kg)||0;
       if(!questions.length)throw new Error('没有解析出题目。\n\n'
@@ -478,7 +532,8 @@ code{background:rgba(128,128,128,.15);padding:1px 5px;border-radius:4px;font-siz
       var mode=currentMode(),target=$('target').value;
       if(mode==='merge'&&!target)throw new Error('请选择要合并的题库');
       var name=($('name').value||'').trim()||file.name.replace(/\.[^.]+$/,'');
-      show('正在上传 '+questions.length+' 题'
+      setBtn('正在上传 '+questions.length+' 题…',true);
+      setStatus('正在上传 '+questions.length+' 题'
         +(kg?'（另跳过幼儿园题 '+kg+' 题）':'')+'…','busy');
       var url='/upload?t='+encodeURIComponent(window.TOKEN)
         +'&name='+encodeURIComponent(name)
@@ -494,7 +549,7 @@ code{background:rgba(128,128,128,.15);padding:1px 5px;border-radius:4px;font-siz
         });
     }).catch(function(e){
       show(e&&e.message?e.message:String(e),'bad');
-    }).then(function(){btn.disabled=false});
+    }).then(function(){setBtn('开始导入',false)});
   });
   window.QG={parseTxt:parseTxt,parseJson:parseJson,parseRows:parseRows,parseCsv:parseCsv,
     decodeText:decodeText,normalizeItem:normalizeItem,collect:collect,

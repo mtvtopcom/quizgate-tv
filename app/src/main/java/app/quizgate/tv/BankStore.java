@@ -55,6 +55,11 @@ public final class BankStore {
         public String name = "";
         public long createdAt = 0L;
         public int count = 0;
+        /**
+         * 科目 → 年级题数（下标 = 年级 1–9）。导入时写入 meta.json；
+         * 1.4.0 之前建的题库没有这份数据，由 {@link #stats(String)} 扫一次回填。
+         */
+        public Map<String, int[]> counts = new HashMap<>();
     }
 
     public static final class ImportResult {
@@ -70,11 +75,14 @@ public final class BankStore {
     }
 
     private final File root;
+    private final Context app;
     private final Map<String, List<BankQuestion>> cache = new HashMap<>();
     private String cachedId = "";
+    private final Map<String, BankStats> statsCache = new HashMap<>();
 
     public BankStore(Context c) {
-        root = new File(c.getApplicationContext().getFilesDir(), "banks");
+        app = c.getApplicationContext();
+        root = new File(app.getFilesDir(), "banks");
         if (!root.isDirectory() && !root.mkdirs()) {
             Log.w(TAG, "banks dir unavailable: " + root);
         }
@@ -106,6 +114,39 @@ public final class BankStore {
         return m == null ? 0 : m.count;
     }
 
+    /**
+     * 题库题量统计（科目 × 年级）。
+     *
+     * <p>内置题库读构建期索引；用户题库优先 meta.json 的 counts，1.4.0 之前建的
+     * 题库没有这份数据，这里扫一次分片并回填 —— 只读文本数 {@code "stem"} 键，
+     * 不做整棵 JSON 解析，10 万题的库也不会把电视堆打爆。
+     */
+    public BankStats stats(String id) {
+        if (BUILTIN_ID.equals(id)) return BankStats.builtin(app);
+        if (!validId(id)) return BankStats.empty();
+        synchronized (statsCache) {
+            BankStats hit = statsCache.get(id);
+            if (hit != null) return hit;
+        }
+        File dir = new File(root, id);
+        if (!dir.isDirectory()) return BankStats.empty();
+        Meta m = readMeta(dir);
+        if (m == null) return BankStats.empty();
+        if (m.counts.isEmpty()) {
+            m.counts = scanCounts(dir);
+            try {
+                writeMeta(dir, m);      // 回填，下次直接读
+            } catch (Exception e) {
+                Log.w(TAG, "counts backfill failed: " + id);
+            }
+        }
+        BankStats s = fromCounts(m.counts);
+        synchronized (statsCache) {
+            statsCache.put(id, s);
+        }
+        return s;
+    }
+
     // ---------------- 新建 / 合并 / 删除 ----------------
 
     public ImportResult create(String name, List<BankQuestion> questions) {
@@ -123,6 +164,7 @@ public final class BankStore {
             m.name = safeName;
             m.createdAt = System.currentTimeMillis();
             m.count = questions.size();
+            m.counts = countOf(questions);
             writeMeta(dir, m);
             r.ok = true;
             r.bankId = id;
@@ -165,6 +207,7 @@ public final class BankStore {
         try {
             writeShards(dir, all);
             m.count = all.size();
+            m.counts = countOf(all);
             writeMeta(dir, m);
             invalidate(id);
             r.ok = true;
@@ -231,6 +274,9 @@ public final class BankStore {
                 cache.clear();
                 cachedId = "";
             }
+        }
+        synchronized (statsCache) {
+            statsCache.remove(id);
         }
     }
 
@@ -486,6 +532,69 @@ public final class BankStore {
         return out;
     }
 
+    /** 从题目列表直接算分科分年级题数（导入时顺手写进 meta.json，零额外读取）。 */
+    private static Map<String, int[]> countOf(List<BankQuestion> list) {
+        Map<String, int[]> out = new HashMap<>();
+        for (BankQuestion q : list) {
+            String key = subjectKeyOf(q.subject);
+            if (!"chinese".equals(key) && !"math".equals(key) && !"english".equals(key)) continue;
+            if (q.grade < 1 || q.grade > 9) continue;
+            int[] row = out.get(key);
+            if (row == null) {
+                row = new int[10];
+                out.put(key, row);
+            }
+            row[q.grade]++;
+        }
+        return out;
+    }
+
+    /** 老题库的 counts 回填：文件名就是分片键（q_&lt;subject&gt;_&lt;grade&gt;.json）。 */
+    private Map<String, int[]> scanCounts(File dir) {
+        Map<String, int[]> out = new HashMap<>();
+        File[] files = dir.listFiles((d, n) -> n.startsWith("q_") && n.endsWith(".json"));
+        if (files == null) return out;
+        for (File f : files) {
+            String name = f.getName();
+            int a = name.indexOf("q_") + 2;
+            int b = name.lastIndexOf('_');
+            int c = name.lastIndexOf('.');
+            if (a < 2 || b <= a || c <= b) continue;
+            String key = name.substring(a, b);
+            if (!"chinese".equals(key) && !"math".equals(key) && !"english".equals(key)) continue;
+            int grade;
+            try {
+                grade = Integer.parseInt(name.substring(b + 1, c));
+            } catch (Exception e) {
+                continue;
+            }
+            if (grade < 1 || grade > 9) continue;
+            int items;
+            try {
+                items = BankStats.countStemKeys(readText(f));
+            } catch (Exception e) {
+                continue;
+            }
+            int[] row = out.get(key);
+            if (row == null) {
+                row = new int[10];
+                out.put(key, row);
+            }
+            row[grade] += items;
+        }
+        return out;
+    }
+
+    private static BankStats fromCounts(Map<String, int[]> counts) {
+        BankStats s = BankStats.empty();
+        for (String key : Prefs.SUBJECT_KEYS) {
+            int[] row = counts.get(key);
+            if (row == null) continue;
+            for (int g = 1; g <= 9; g++) s.put(key, g, row[g]);
+        }
+        return s;
+    }
+
     private List<BankQuestion> parseShard(File f) {
         List<BankQuestion> out = new ArrayList<>();
         if (!f.isFile()) return out;
@@ -542,10 +651,24 @@ public final class BankStore {
             m.name = cleanName(o.optString("name", "未命名题库"));
             m.createdAt = o.optLong("createdAt", 0L);
             m.count = o.optInt("count", 0);
+            m.counts = parseCounts(o.optJSONObject("counts"));
             return m;
         } catch (Exception e) {
             return null;
         }
+    }
+
+    private static Map<String, int[]> parseCounts(JSONObject c) {
+        Map<String, int[]> out = new HashMap<>();
+        if (c == null) return out;
+        for (String key : Prefs.SUBJECT_KEYS) {
+            JSONArray a = c.optJSONArray(key);
+            if (a == null || a.length() != 10) continue;
+            int[] row = new int[10];
+            for (int g = 0; g < 10; g++) row[g] = Math.max(0, a.optInt(g, 0));
+            out.put(key, row);
+        }
+        return out;
     }
 
     private void writeMeta(File dir, Meta m) throws Exception {
@@ -554,6 +677,15 @@ public final class BankStore {
         o.put("name", m.name);
         o.put("createdAt", m.createdAt);
         o.put("count", m.count);
+        JSONObject counts = new JSONObject();
+        for (String key : Prefs.SUBJECT_KEYS) {
+            int[] row = m.counts.get(key);
+            if (row == null) continue;
+            JSONArray a = new JSONArray();
+            for (int i = 0; i < 10; i++) a.put(row[i]);
+            counts.put(key, a);
+        }
+        if (counts.length() > 0) o.put("counts", counts);
         atomicWrite(new File(dir, "meta.json"), o.toString());
     }
 

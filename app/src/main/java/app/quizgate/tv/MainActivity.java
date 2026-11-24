@@ -57,6 +57,8 @@ public class MainActivity extends Activity {
     private LinearLayout guardBody;
     /** 选时长 / 选年级的自绘面板。null = 没打开。 */
     private OptionPanel optionPanel;
+    /** 题目科目多选面板。null = 没打开。 */
+    private SubjectPanel subjectPanel;
     /** 题库管理页。null = 没打开。 */
     private BankManagerView bankManager;
     private BankStore bankStore;
@@ -611,6 +613,8 @@ public class MainActivity extends Activity {
 
     private void mountOption(OptionPanel p) {
         hideOptionPanel();
+        if (subjectPanel != null && subjectPanel.getParent() != null) root.removeView(subjectPanel);
+        subjectPanel = null;
         optionPanel = p;
         root.addView(p, new FrameLayout.LayoutParams(-1, -1));
         blockFocusBelow();
@@ -622,6 +626,34 @@ public class MainActivity extends Activity {
         blockFocusBelow();
         View t = focusTarget();
         if (t != null) t.post(t::requestFocus);
+    }
+
+    private void mountSubject(SubjectPanel p) {
+        hideOptionPanel();
+        if (subjectPanel != null && subjectPanel.getParent() != null) root.removeView(subjectPanel);
+        subjectPanel = p;
+        root.addView(p, new FrameLayout.LayoutParams(-1, -1));
+        blockFocusBelow();
+    }
+
+    private void hideSubjectPanel() {
+        if (subjectPanel != null && subjectPanel.getParent() != null) root.removeView(subjectPanel);
+        subjectPanel = null;
+        blockFocusBelow();
+    }
+
+    /** 当前题库的题量统计；bankStore 没建过就建一次。 */
+    private BankStats stats() {
+        if (bankStore == null) bankStore = new BankStore(this);
+        return bankStore.stats(prefs.activeBankId());
+    }
+
+    private static String countLabel(int n) {
+        return n > 0 ? String.format(java.util.Locale.CHINA, "%,d 题", n) : "暂无数据";
+    }
+
+    private static String fmtNum(int n) {
+        return String.format(java.util.Locale.CHINA, "%,d", n);
     }
 
     /** 本次时长：1 / 5 / 10 / 15 / 30 分钟，或自定义（数字键盘）。 */
@@ -652,12 +684,16 @@ public class MainActivity extends Activity {
                 }, this::hideOptionPanel));
     }
 
-    /** 年级三步：学段 → 年级 → 科目（语文 / 数学 / 英语）。 */
+    /** 年级三步：学段 → 年级 → 科目（语文 / 数学 / 英语，可多选）。 */
     private void openStagePanel() {
+        BankStats st = stats();
         String[] labels = {"小学", "初中"};
+        String[] subs = {countLabel(st.stageTotal(Prefs.STAGE_PRIMARY)),
+                countLabel(st.stageTotal(Prefs.STAGE_JUNIOR))};
         int[] vals = {Prefs.STAGE_PRIMARY, Prefs.STAGE_JUNIOR};
-        mountOption(new OptionPanel(this, "题目年级 · 选学段", labels, vals, prefs.stage(),
-                "", 0, 0,
+        mountOption(new OptionPanel(this, "题目年级 · 选学段",
+                "当前题库共 " + fmtNum(st.total()) + " 题 · 0 题的选项显示「暂无数据」",
+                labels, subs, vals, prefs.stage(), "", 0, 0,
                 this::openGradePanel, this::hideOptionPanel));
     }
 
@@ -667,29 +703,45 @@ public class MainActivity extends Activity {
                 ? new String[]{"初一", "初二", "初三"}
                 : new String[]{"1 年级", "2 年级", "3 年级", "4 年级", "5 年级", "6 年级"};
         int[] vals = junior ? new int[]{7, 8, 9} : new int[]{1, 2, 3, 4, 5, 6};
+        BankStats st = stats();
+        String[] subs = new String[vals.length];
+        for (int i = 0; i < vals.length; i++) subs[i] = countLabel(st.gradeTotal(vals[i]));
         int cur = prefs.grade();
         if (junior && cur < 7) cur = 7;
         if (!junior && cur > 6) cur = 3;
         mountOption(new OptionPanel(this, "题目年级 · " + (junior ? "初中" : "小学"),
-                labels, vals, cur, "", 0, 0,
+                (junior ? "初中" : "小学") + "共 " + fmtNum(st.stageTotal(stage)) + " 题",
+                labels, subs, vals, cur, "", 0, 0,
                 g -> openSubjectPanel(stage, g),
                 this::openStagePanel));   // BACK 退回上一步选学段
     }
 
     private void openSubjectPanel(int stage, int grade) {
-        String[] labels = Prefs.SUBJECT_NAMES;
-        int[] vals = {Prefs.SUBJECT_CHINESE, Prefs.SUBJECT_MATH, Prefs.SUBJECT_ENGLISH};
-        mountOption(new OptionPanel(this, "题目科目", labels, vals, prefs.subject(),
-                "", 0, 0,
-                s -> {
-                    prefs.setStage(stage);
-                    prefs.setGrade(grade);
-                    prefs.setSubject(s);
-                    hideOptionPanel();
-                    refresh();
-                    toast("出题：" + gradeText());
-                },
-                () -> openGradePanel(stage)));   // BACK 退回上一步选年级
+        BankStats st = stats();
+        String[] subs = new String[3];
+        for (int i = 0; i < 3; i++) {
+            subs[i] = countLabel(st.at(Prefs.SUBJECT_KEYS[i], grade));
+        }
+        String gradeName = stage == Prefs.STAGE_JUNIOR
+                ? new String[]{"初一", "初二", "初三"}[Math.max(0, Math.min(2, grade - 7))]
+                : grade + " 年级";
+        mountSubject(new SubjectPanel(this, "题目科目 · " + gradeName,
+                "本年级共 " + fmtNum(st.gradeTotal(grade)) + " 题 · 可多选，到点轮流出题",
+                Prefs.SUBJECT_NAMES, subs, prefs.subjectMask(),
+                new SubjectPanel.Listener() {
+                    @Override public void onSave(int mask) {
+                        prefs.setStage(stage);
+                        prefs.setGrade(grade);
+                        prefs.setSubjectMask(mask);
+                        hideSubjectPanel();
+                        refresh();
+                        toast("出题：" + gradeText());
+                    }
+                    @Override public void onBack() {
+                        hideSubjectPanel();
+                        openGradePanel(stage);
+                    }
+                }));
     }
 
     private String gradeText() {
@@ -701,7 +753,7 @@ public class MainActivity extends Activity {
         } else {
             base = "小学 · " + Math.max(1, Math.min(6, g)) + " 年级";
         }
-        return base + " · " + prefs.subjectName();
+        return base + " · " + prefs.subjectText();
     }
 
     // ---------- 会话 ----------
@@ -1155,7 +1207,7 @@ public class MainActivity extends Activity {
             View c = root.getChildAt(i);
             if (c == upgrade || c == codeOverlay || c == recovery || c == gate
                     || c == logPanel || c == guardPanel || c == optionPanel || c == authPanel
-                    || c == bankManager) return c;
+                    || c == subjectPanel || c == bankManager) return c;
         }
         return null;
     }
@@ -1256,7 +1308,7 @@ public class MainActivity extends Activity {
         if (focusInited) return;
         if (gate != null && gate.getParent() != null) return;
         if (recovery != null || codeOverlay != null || upgrade != null || logPanel != null) return;
-        if (guardPanel != null || optionPanel != null || authPanel != null) return;
+        if (guardPanel != null || optionPanel != null || subjectPanel != null || authPanel != null) return;
         View t = focusTarget();
         if (t == null) return;
         focusInited = true;
@@ -1471,6 +1523,10 @@ public class MainActivity extends Activity {
         if (top != null && top == optionPanel) {
             // 选值 / 数字键盘：整个面板自路由，按键一个都不许漏给背后的设置页
             if (optionPanel.consumeKey(e)) return true;
+            return true;
+        }
+        if (top != null && top == subjectPanel) {
+            if (subjectPanel.consumeKey(e)) return true;
             return true;
         }
         if (top != null && top == authPanel) {

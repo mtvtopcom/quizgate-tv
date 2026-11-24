@@ -88,7 +88,9 @@ public final class BankManagerView extends FrameLayout {
         setFocusable(true);
 
         LinearLayout panel = Ui.col(c);
-        panel.setPadding(Ui.dp(c, 44), Ui.dp(c, 18), Ui.dp(c, 44), Ui.dp(c, 14));
+        // 底部留 36dp 安全区：1080p 电视普遍有 overscan（画面过扫描），原来只留 14dp 时
+        // 「添加题库 / 删除选中」贴着屏幕下沿，在真机上会被切掉半行（用户报的遮挡）。
+        panel.setPadding(Ui.dp(c, 44), Ui.dp(c, 18), Ui.dp(c, 44), Ui.dp(c, 36));
         addView(panel, new FrameLayout.LayoutParams(-1, -1));
 
         // 标题行
@@ -103,7 +105,7 @@ public final class BankManagerView extends FrameLayout {
         head.addView(title, new LinearLayout.LayoutParams(0, -2, 1f));
         panel.addView(head);
 
-        TextView sub = Ui.label(c, "方向键选择 · OK 确认 · 返回键退出", 15, Ui.DIM);
+        TextView sub = Ui.label(c, "方向键选择 · OK 确认 · 左右键到添加/删除 · 返回键退出", 15, Ui.DIM);
         LinearLayout.LayoutParams slp = new LinearLayout.LayoutParams(-1, -2);
         slp.topMargin = Ui.dp(c, 4);
         slp.bottomMargin = Ui.dp(c, 10);
@@ -151,10 +153,14 @@ public final class BankManagerView extends FrameLayout {
         listBox.removeAllViews();
         items.clear();
 
-        items.add(makeItem(0, "默认题库", "随软件自带 · 只读", BankStore.BUILTIN_ID));
+        items.add(makeItem(0, "默认题库", "随软件自带 · 只读",
+                BankStats.builtin(ctx), 0));
         for (int i = 0; i < metas.size(); i++) {
             BankStore.Meta m = metas.get(i);
-            items.add(makeItem(i + 1, m.name, "我的题库 · " + m.count + " 题", m.id));
+            // counts 为空 = 1.4.0 之前建的库，先占位「统计中」，后台扫完再刷新，
+            // 不能在主线程读几 MB 分片，遥控器会像卡死一样。
+            BankStats st = m.counts.isEmpty() ? null : store.stats(m.id);
+            items.add(makeItem(i + 1, m.name, "我的题库", st, m.count));
         }
         for (int i = 0; i < items.size(); i++) {
             LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(-1, -2);
@@ -164,9 +170,32 @@ public final class BankManagerView extends FrameLayout {
         sel = Math.max(0, Math.min(sel, n + 1));
         lastItem = Math.max(0, Math.min(lastItem, n - 1));
         paint();
+        loadStatsAsync();
     }
 
-    private View makeItem(int idx, String name, String sub, String bankId) {
+    private final java.util.Set<String> statsTried = new java.util.HashSet<>();
+    private boolean statsLoading = false;
+
+    /** 老题库的分科题数：后台扫一次并回填 meta.json，只跑一次。 */
+    private void loadStatsAsync() {
+        if (statsLoading) return;
+        final List<BankStore.Meta> todo = new ArrayList<>();
+        for (BankStore.Meta m : metas) {
+            if (m.counts.isEmpty() && !statsTried.contains(m.id)) todo.add(m);
+        }
+        if (todo.isEmpty()) return;
+        statsLoading = true;
+        for (BankStore.Meta m : todo) statsTried.add(m.id);
+        new Thread(() -> {
+            for (BankStore.Meta m : todo) store.stats(m.id);
+            post(() -> {
+                statsLoading = false;
+                if (isAttachedToWindow() && qrLayer == null) refreshList();
+            });
+        }, "bank-stats").start();
+    }
+
+    private View makeItem(int idx, String name, String sub, BankStats st, int count) {
         LinearLayout row = Ui.col(ctx);
         row.setPadding(Ui.dp(ctx, 16), Ui.dp(ctx, 10), Ui.dp(ctx, 16), Ui.dp(ctx, 10));
 
@@ -174,11 +203,15 @@ public final class BankManagerView extends FrameLayout {
         line.setGravity(Gravity.CENTER_VERTICAL);
         TextView t = Ui.title(ctx, name, 20);
         line.addView(t, new LinearLayout.LayoutParams(0, -2, 1f));
-        if (bankId.equals(prefs.activeBankId())) {
+        if (bankIdOf(idx).equals(prefs.activeBankId())) {
             line.addView(Ui.label(ctx, "使用中", 14, Ui.OK));
         }
         row.addView(line);
         row.addView(Ui.label(ctx, sub, 14, Ui.DIM));
+        TextView nums = Ui.label(ctx, countsLine(st, count), 13, Ui.DIM);
+        LinearLayout.LayoutParams nlp = new LinearLayout.LayoutParams(-1, -2);
+        nlp.topMargin = Ui.dp(ctx, 2);
+        row.addView(nums, nlp);
 
         row.setClickable(true);
         row.setOnClickListener(v -> {
@@ -188,6 +221,25 @@ public final class BankManagerView extends FrameLayout {
             activate();
         });
         return row;
+    }
+
+    /** 下标 0 是默认题库，其余按 metas 顺序取 id。 */
+    private String bankIdOf(int idx) {
+        if (idx == 0) return BankStore.BUILTIN_ID;
+        if (idx >= 1 && idx <= metas.size()) return metas.get(idx - 1).id;
+        return "";
+    }
+
+    private String countsLine(BankStats st, int fallbackTotal) {
+        if (st == null) return "分科题数统计中…";
+        int total = st.total() > 0 ? st.total() : fallbackTotal;
+        return "共 " + fmt(total) + " 题 · 语文 " + fmt(st.subjectTotal("chinese"))
+                + " · 数学 " + fmt(st.subjectTotal("math"))
+                + " · 英语 " + fmt(st.subjectTotal("english"));
+    }
+
+    private static String fmt(int n) {
+        return String.format(java.util.Locale.CHINA, "%,d", n);
     }
 
     private void paint() {
@@ -405,7 +457,12 @@ public final class BankManagerView extends FrameLayout {
         if (k == KeyEvent.KEYCODE_DPAD_UP) { move(-1); return true; }
         if (k == KeyEvent.KEYCODE_DPAD_DOWN) { move(1); return true; }
         if (k == KeyEvent.KEYCODE_DPAD_LEFT || k == KeyEvent.KEYCODE_DPAD_RIGHT) {
-            if (sel >= n) {
+            if (sel < n) {
+                // 中间某项要删除时，往下走会经过它后面的题库、把 lastItem 冲掉，
+                // 所以从题库项直接左右跳到按钮，保留当前这一项作为删除目标。
+                sel = (k == KeyEvent.KEYCODE_DPAD_LEFT) ? n + 1 : n;
+                paint();
+            } else {
                 sel = (sel == n) ? n + 1 : n;
                 paint();
             }

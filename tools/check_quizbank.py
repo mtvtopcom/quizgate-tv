@@ -107,6 +107,28 @@ def main():
     if total_items != 9731:
         fail(f"题库总题量应为 9731，实际 {total_items}")
 
+    # 题量索引：电视端「题库管理 / 题目年级」直接读 counts.json 显示题数，
+    # 题库改了却没重跑生成脚本会显示旧数字，必须在这里拦住。
+    counts_path = QUIZ_DIR / "counts.json"
+    try:
+        idx = json.loads(counts_path.read_text(encoding="utf-8"))
+    except Exception as e:
+        fail(f"counts.json 缺失或损坏（运行 python3 tools/gen_bank_counts.py）: {e}")
+        idx = None
+    if idx is not None:
+        if idx.get("version") != 1:
+            fail(f"counts.json version 应为 1，实际 {idx.get('version')}")
+        for key in SUBJECTS:
+            row = (idx.get("counts") or {}).get(key)
+            if not isinstance(row, list) or len(row) != 10:
+                fail(f"counts.json 的 {key} 必须是长度 10 的数组")
+                continue
+            for grade in range(1, 10):
+                want = EXPECTED[(key, grade)][0]
+                if row[grade] != want:
+                    fail(f"counts.json {key} {grade} 年级应为 {want}，实际 {row[grade]}"
+                         "（重跑 python3 tools/gen_bank_counts.py）")
+
     if errors:
         for e in errors:
             print("QUIZBANK_FAIL " + e, file=sys.stderr)

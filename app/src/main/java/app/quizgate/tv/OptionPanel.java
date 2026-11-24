@@ -2,6 +2,9 @@ package app.quizgate.tv;
 
 import android.content.Context;
 import android.graphics.Typeface;
+import android.text.Spannable;
+import android.text.SpannableStringBuilder;
+import android.text.style.AbsoluteSizeSpan;
 import android.view.Gravity;
 import android.view.KeyEvent;
 import android.view.ViewGroup;
@@ -33,7 +36,10 @@ public class OptionPanel extends FrameLayout {
 
     private final Context ctx;
     private final String title;
+    private final String sub;
     private final String[] labels;
+    /** 与 labels 等长；第二行小字（题数）。"暂无数据" 表示该选项没有题目、不可选。 */
+    private final String[] subs;
     private final int[] values;
     private final int current;
     private final String unit;
@@ -49,6 +55,7 @@ public class OptionPanel extends FrameLayout {
     private int[] keyValues = new int[0];
     private TextView display;
     private TextView msg;
+    private TextView note;
     private final StringBuilder buf = new StringBuilder();
 
     /**
@@ -58,10 +65,24 @@ public class OptionPanel extends FrameLayout {
      */
     public OptionPanel(Context c, String title, String[] labels, int[] values, int current,
                        String unit, int min, int max, OnPick onPick, Runnable onCancel) {
+        this(c, title, "", labels, null, values, current, unit, min, max, onPick, onCancel);
+    }
+
+    /**
+     * 带题数的选值面板（题目年级三级选择用）。
+     *
+     * @param sub  标题下的说明，如「小学共 9,659 题」
+     * @param subs 每个按钮第二行的小字（题数）；传 {@code "暂无数据"} 的按钮不可选
+     */
+    public OptionPanel(Context c, String title, String sub, String[] labels, String[] subs,
+                       int[] values, int current, String unit, int min, int max,
+                       OnPick onPick, Runnable onCancel) {
         super(c);
         this.ctx = c;
         this.title = title;
+        this.sub = sub == null ? "" : sub;
         this.labels = labels;
+        this.subs = subs;
         this.values = values;
         this.current = current;
         this.unit = unit == null ? "" : unit;
@@ -100,24 +121,36 @@ public class OptionPanel extends FrameLayout {
 
         box.addView(Ui.title(ctx, title, 28));
 
-        TextView sub = Ui.label(ctx, "方向键选择 · OK 确认 · BACK 取消", 16, Ui.DIM);
+        if (!this.sub.isEmpty()) {
+            TextView line = Ui.label(ctx, this.sub, 17, Ui.DIM);
+            LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(-1, -2);
+            lp.topMargin = Ui.dp(ctx, 6);
+            box.addView(line, lp);
+        }
+
+        TextView hint = Ui.label(ctx, "方向键选择 · OK 确认 · BACK 取消", 15, Ui.DIM);
         LinearLayout.LayoutParams slp = new LinearLayout.LayoutParams(-1, -2);
-        slp.topMargin = Ui.dp(ctx, 8);
-        box.addView(sub, slp);
+        slp.topMargin = Ui.dp(ctx, 6);
+        box.addView(hint, slp);
 
         boolean custom = !unit.isEmpty();
         int n = values.length + (custom ? 1 : 0);
         LinearLayout row = Ui.row(ctx);
-        LinearLayout.LayoutParams rlp = new LinearLayout.LayoutParams(-1, Ui.dp(ctx, 76));
-        rlp.topMargin = Ui.dp(ctx, 20);
+        // 带题数时按钮要高一些：两行文字（名称 22sp + 题数 13sp）在 76dp 里会挤。
+        int rowH = subs == null ? 76 : 96;
+        LinearLayout.LayoutParams rlp = new LinearLayout.LayoutParams(-1, Ui.dp(ctx, rowH));
+        rlp.topMargin = Ui.dp(ctx, 18);
         box.addView(row, rlp);
 
         keys = new TextView[n];
         keyValues = new int[n];
         for (int i = 0; i < n; i++) {
             boolean isCustom = custom && i == values.length;
-            TextView b = Ui.label(ctx, isCustom ? "自定义" : labels[i], isCustom ? 22 : 26, Ui.TEXT);
+            String line2 = (!isCustom && subs != null && i < subs.length) ? subs[i] : null;
+            TextView b = Ui.label(ctx, "", isCustom ? 22 : (line2 == null ? 26 : 22), Ui.TEXT);
+            b.setText(keyText(isCustom ? "自定义" : labels[i], line2));
             b.setGravity(Gravity.CENTER);
+            b.setLineSpacing(Ui.dp(ctx, 3), 1f);
             // 自绘选中：系统的 focused 态和这里的高亮会同时亮两个黄块（实测）
             b.setFocusable(false);
             b.setClickable(true);
@@ -132,6 +165,13 @@ public class OptionPanel extends FrameLayout {
             if (!isCustom && values[i] == current) sel = i;
         }
 
+        note = Ui.label(ctx, "", 15, Ui.BAD);
+        note.setGravity(Gravity.CENTER);
+        LinearLayout.LayoutParams nlp = new LinearLayout.LayoutParams(-1, -2);
+        nlp.topMargin = Ui.dp(ctx, 6);
+        box.addView(note, nlp);
+        note.setVisibility(GONE);
+
         if (custom) {
             TextView foot = Ui.label(ctx,
                     "「自定义」可输入 " + min + "–" + max + " " + unit + "，用遥控器数字键或屏幕键盘",
@@ -145,10 +185,35 @@ public class OptionPanel extends FrameLayout {
 
     private void choose(int i) {
         if (i >= 0 && i < values.length) {
+            if (isDisabled(i)) {
+                setNote("「" + labels[i] + "」暂无题目，换一个试试");
+                return;
+            }
             onPick.onValue(values[i]);
             return;
         }
         if (!unit.isEmpty()) showNumpad();
+    }
+
+    /** subs 里写「暂无数据」的按钮不可选（0 题的学段/年级/科目）。 */
+    private boolean isDisabled(int i) {
+        return subs != null && i >= 0 && i < subs.length && "暂无数据".equals(subs[i]);
+    }
+
+    /** 按钮两行文字：名称 + 题数（第二行小一号）；没有题数时保持单行。 */
+    private CharSequence keyText(String label, String line2) {
+        if (line2 == null || line2.isEmpty()) return label;
+        SpannableStringBuilder sb = new SpannableStringBuilder(label);
+        sb.append('\n').append(line2);
+        sb.setSpan(new AbsoluteSizeSpan(Ui.dp(ctx, 13)), label.length() + 1, sb.length(),
+                Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+        return sb;
+    }
+
+    private void setNote(String s) {
+        if (note == null) return;
+        note.setText(s);
+        note.setVisibility(VISIBLE);
     }
 
     // ---------- 第二级：数字键盘 ----------
@@ -269,22 +334,24 @@ public class OptionPanel extends FrameLayout {
 
     /** 选中态一律自绘：黄底黑字；当前生效值用黄框标出来。 */
     private void paint() {
+        if (note != null && step == STEP_CHOOSE) note.setVisibility(GONE);
         for (int i = 0; i < keys.length; i++) {
             if (keys[i] == null) continue;
             boolean on = (i == sel);
             boolean cur = (step == STEP_CHOOSE && keyValues[i] == current && keyValues[i] != CUSTOM);
+            boolean off = step == STEP_CHOOSE && isDisabled(i);
             if (on) {
                 keys[i].setBackground(Ui.box(ctx, Ui.ACCENT, Ui.ACCENT,
                         Ui.dp(ctx, 2), 12));
-                keys[i].setTextColor(0xFF20160A);
+                keys[i].setTextColor(off ? 0xFF6B7075 : 0xFF20160A);
             } else if (cur) {
                 keys[i].setBackground(Ui.box(ctx, 0x1AFDC90C, Ui.ACCENT,
                         Ui.dp(ctx, 2), 12));
-                keys[i].setTextColor(Ui.ACCENT);
+                keys[i].setTextColor(off ? 0xFF6B7075 : Ui.ACCENT);
             } else {
                 keys[i].setBackground(Ui.box(ctx, 0x1AFFFFFF, 0x33FFFFFF,
                         Ui.dp(ctx, 1), 12));
-                keys[i].setTextColor(Ui.TEXT);
+                keys[i].setTextColor(off ? 0xFF5A5F64 : Ui.TEXT);
             }
         }
     }
