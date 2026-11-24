@@ -101,10 +101,10 @@ public final class BankManagerView extends FrameLayout {
         setFocusable(true);
 
         LinearLayout panel = Ui.col(c);
-        // 底部留 48dp 安全区：1080p 电视普遍有 overscan（画面过扫描），1.4.0 只留 14dp 时
-        // 「添加题库 / 删除选中」在真机上被切掉半行（用户反复报的遮挡）。48dp ≈ 96px，
-        // 常见 3%–7% 的过扫描都吃不掉。
-        panel.setPadding(Ui.dp(c, 44), Ui.dp(c, 18), Ui.dp(c, 44), Ui.dp(c, 48));
+        // 底部不再用固定 padding 兜底：14dp→36dp→48dp 都还在真机上被切，说明这台电视的
+        // overscan 比常见值大。改用「按钮行 + 下面一段按权重撑开的留白」，按钮始终落在
+        // 屏高约 3/4 处（1080p 上底边 ≈ 830px），底部再切 20% 也切不到它。
+        panel.setPadding(Ui.dp(c, 44), Ui.dp(c, 18), Ui.dp(c, 44), 0);
         addView(panel, new FrameLayout.LayoutParams(-1, -1));
 
         // 标题行。返回入口不放这里：顶部这块在电视上没法用遥控器点到（不在焦点/按键路由里），
@@ -129,23 +129,34 @@ public final class BankManagerView extends FrameLayout {
         panel.addView(scroll, new LinearLayout.LayoutParams(-1, 0, 1f));
 
         // 底部两个按钮：添加题库 + 返回上一级。返回放这里是因为顶部那块在电视上点不到。
+        // 上面压一条细分割线，让按钮行看起来是「底部工具条」，不是孤零零浮在画面中间。
+        View line = new View(c);
+        line.setBackgroundColor(0x26FFFFFF);
+        LinearLayout.LayoutParams llp = new LinearLayout.LayoutParams(-1, Ui.dp(c, 1));
+        llp.topMargin = Ui.dp(c, 14);
+        panel.addView(line, llp);
+
         LinearLayout foot = Ui.row(c);
         addBtn = Ui.label(ctx, "＋ 添加题库（手机扫码）", 18, Ui.TEXT);
         backBtn = Ui.label(ctx, "← 返回上一级", 18, Ui.TEXT);
         for (TextView b : new TextView[]{addBtn, backBtn}) {
             b.setGravity(Gravity.CENTER);
-            b.setPadding(0, Ui.dp(c, 14), 0, Ui.dp(c, 14));
+            b.setPadding(0, Ui.dp(c, 16), 0, Ui.dp(c, 16));
             b.setClickable(true);
         }
         LinearLayout.LayoutParams flp = new LinearLayout.LayoutParams(0, -2, 1.5f);
-        flp.topMargin = Ui.dp(c, 10);
+        flp.topMargin = Ui.dp(c, 12);
         flp.rightMargin = Ui.dp(c, 6);
         foot.addView(addBtn, flp);
         LinearLayout.LayoutParams blp = new LinearLayout.LayoutParams(0, -2, 1f);
-        blp.topMargin = Ui.dp(c, 10);
+        blp.topMargin = Ui.dp(c, 12);
         blp.leftMargin = Ui.dp(c, 6);
         foot.addView(backBtn, blp);
         panel.addView(foot);
+
+        // 按钮下面的安全区：和列表按 0.42 : 1 分剩余高度，题库再多也挤不下来。
+        View bottomSafe = new View(c);
+        panel.addView(bottomSafe, new LinearLayout.LayoutParams(-1, 0, 0.42f));
 
         addBtn.setOnClickListener(v -> { sel = n; paint(); activate(); });
         backBtn.setOnClickListener(v -> { sel = n + 1; paint(); activate(); });
@@ -493,7 +504,7 @@ public final class BankManagerView extends FrameLayout {
         }
 
         String url = "http://" + ip + ":" + server.port() + "/?t=" + server.token();
-        int qrSize = Ui.dp(ctx, 176);
+        int qrSize = Ui.dp(ctx, 168);
         Bitmap bmp = QrCode.make(url, qrSize);
 
         FrameLayout layer = new FrameLayout(ctx);
@@ -554,7 +565,9 @@ public final class BankManagerView extends FrameLayout {
 
         FrameLayout.LayoutParams clp = new FrameLayout.LayoutParams(
                 Ui.dp(ctx, 300), -2);
-        clp.gravity = Gravity.CENTER;
+        // 靠上摆而不是垂直居中：卡片下方还有 4 行排查提示，居中最容易顶到被 overscan 吃掉的区域。
+        clp.gravity = Gravity.CENTER_HORIZONTAL | Gravity.TOP;
+        clp.topMargin = Ui.dp(ctx, 26);
         layer.addView(card, clp);
         addView(layer, new FrameLayout.LayoutParams(-1, -1));
         qrLayer = layer;
