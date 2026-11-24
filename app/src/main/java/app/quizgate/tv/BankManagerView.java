@@ -101,9 +101,10 @@ public final class BankManagerView extends FrameLayout {
         setFocusable(true);
 
         LinearLayout panel = Ui.col(c);
-        // 底部留 36dp 安全区：1080p 电视普遍有 overscan（画面过扫描），原来只留 14dp 时
-        // 「添加题库 / 删除选中」贴着屏幕下沿，在真机上会被切掉半行（用户报的遮挡）。
-        panel.setPadding(Ui.dp(c, 44), Ui.dp(c, 18), Ui.dp(c, 44), Ui.dp(c, 36));
+        // 底部留 48dp 安全区：1080p 电视普遍有 overscan（画面过扫描），1.4.0 只留 14dp 时
+        // 「添加题库 / 删除选中」在真机上被切掉半行（用户反复报的遮挡）。48dp ≈ 96px，
+        // 常见 3%–7% 的过扫描都吃不掉。
+        panel.setPadding(Ui.dp(c, 44), Ui.dp(c, 18), Ui.dp(c, 44), Ui.dp(c, 48));
         addView(panel, new FrameLayout.LayoutParams(-1, -1));
 
         // 标题行。返回入口不放这里：顶部这块在电视上没法用遥控器点到（不在焦点/按键路由里），
@@ -174,6 +175,14 @@ public final class BankManagerView extends FrameLayout {
             LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(-1, -2);
             lp.bottomMargin = Ui.dp(ctx, 8);
             listBox.addView(items.get(i), lp);
+        }
+        // 空状态：一个用户题库都没有时给一句引导，别让家长对着「默认题库」猜怎么加。
+        if (metas.isEmpty()) {
+            TextView empty = Ui.label(ctx,
+                    "还没有自定义题库。按下方「＋ 添加题库」，用手机扫码上传 txt / csv / xlsx / json。",
+                    15, Ui.DIM);
+            empty.setPadding(Ui.dp(ctx, 16), Ui.dp(ctx, 12), Ui.dp(ctx, 16), Ui.dp(ctx, 12));
+            listBox.addView(empty, new LinearLayout.LayoutParams(-1, -2));
         }
         sel = Math.max(0, Math.min(sel, n + 1));
         lastItem = Math.max(0, Math.min(lastItem, n - 1));
@@ -484,7 +493,7 @@ public final class BankManagerView extends FrameLayout {
         }
 
         String url = "http://" + ip + ":" + server.port() + "/?t=" + server.token();
-        int qrSize = Ui.dp(ctx, 190);
+        int qrSize = Ui.dp(ctx, 176);
         Bitmap bmp = QrCode.make(url, qrSize);
 
         FrameLayout layer = new FrameLayout(ctx);
@@ -535,7 +544,10 @@ public final class BankManagerView extends FrameLayout {
         qrStatus.setVisibility(View.GONE);
 
         TextView hint = Ui.label(ctx,
-                "上传成功后这里会显示结果，列表自动刷新\n按返回键关闭", 13, Ui.DIM);
+                "打不开：同一 WiFi、关 VPN\n"
+                        + "路由器「AP 隔离」需关闭\n"
+                        + "浏览器跳 https 改回 http\n"
+                        + "微信提示风险选「继续访问」", 13, Ui.DIM);
         hint.setGravity(Gravity.CENTER);
         hint.setPadding(0, Ui.dp(ctx, 6), 0, 0);
         card.addView(hint);
@@ -546,6 +558,7 @@ public final class BankManagerView extends FrameLayout {
         layer.addView(card, clp);
         addView(layer, new FrameLayout.LayoutParams(-1, -1));
         qrLayer = layer;
+        keepScreenOn(true);
         removeCallbacks(qrWatch);
         postDelayed(qrWatch, 3000L);
     }
@@ -572,7 +585,22 @@ public final class BankManagerView extends FrameLayout {
         }
     }
 
+    /**
+     * 二维码页开着时别让电视息屏：小米电视息屏后会断 WiFi，家长扫码时连不上，
+     * 表现就是「二维码扫了打不开网页」。
+     */
+    private void keepScreenOn(boolean on) {
+        if (!(ctx instanceof android.app.Activity)) return;
+        android.view.Window w = ((android.app.Activity) ctx).getWindow();
+        if (on) {
+            w.addFlags(android.view.WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
+        } else {
+            w.clearFlags(android.view.WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
+        }
+    }
+
     private void closeQr() {
+        keepScreenOn(false);
         removeCallbacks(qrWatch);
         qrImage = null;
         qrAddr = null;
@@ -584,6 +612,7 @@ public final class BankManagerView extends FrameLayout {
 
     @Override
     protected void onDetachedFromWindow() {
+        keepScreenOn(false);
         removeCallbacks(qrWatch);
         qrLayer = null;
         qrStatus = null;
