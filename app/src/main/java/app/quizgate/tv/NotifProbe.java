@@ -21,8 +21,14 @@ public class NotifProbe extends NotificationListenerService {
     private static final String TAG = "QuizGate";
     private BroadcastReceiver screenRx;
 
+    /** 媒体暂停需要读当前活动通知；只在本服务被系统绑定期间非空。 */
+    private static volatile NotifProbe active;
+
+    public static NotifProbe active() { return active; }
+
     @Override public void onListenerConnected() {
         super.onListenerConnected();
+        active = this;
         Prefs p = new Prefs(this);
         int phase = p.phase();
         Log.i(TAG, "notif_connected phase=" + phase + " remaining=" + Core.fmt(p.remainingMs()));
@@ -78,6 +84,7 @@ public class NotifProbe extends NotificationListenerService {
     }
 
     @Override public void onListenerDisconnected() {
+        active = null;
         super.onListenerDisconnected();
         Log.i(TAG, "notif_disconnected");
     }

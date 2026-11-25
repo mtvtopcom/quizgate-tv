@@ -57,8 +57,13 @@ public class GateService extends Service implements MaskView.Host {
     private final Handler h = new Handler(Looper.getMainLooper());
 
     private MaskView mask;
+    private BlockView block;
     private MiniView mini;
+    /** 本轮遮罩已经暂停过播放；解锁后复位，下一轮才会再暂停。 */
+    private boolean pausedForQuiz = false;
     private long remaining;
+    /** 连续观看累计（只在亮屏且 RUNNING 时增长），与余额分开记账。 */
+    private long watchMs;
     private long lastTick;
     private int tickCount;
     private boolean running;
@@ -114,6 +119,7 @@ public class GateService extends Service implements MaskView.Host {
         registerScreenReceiver();
 
         remaining = prefs.remainingMs();
+        watchMs = prefs.watchMs();
         lastTick = SystemClock.uptimeMillis();
 
         long hb = prefs.heartbeatAt();
@@ -164,10 +170,21 @@ public class GateService extends Service implements MaskView.Host {
             int ovMin = intent.getIntExtra("durationMin", 0);
             long ovMs = intent.getLongExtra("remainingMs", -1L);
             if (ovMin > 0) prefs.setDurationMin(ovMin);
-            remaining = ovMs > 0 ? ovMs : prefs.durationMin() * 60_000L;
-            prefs.saveSnapshot(Prefs.RUNNING, remaining);
+            long base = prefs.mode() == GateRules.MODE_BANK
+                    ? prefs.balanceMs() : prefs.durationMin() * 60_000L;
+            remaining = ovMs > 0 ? ovMs : base;
+            int startPhase = Prefs.RUNNING;
+            // 时间银行：余额不够最低门槛就不能开始看，先进入答题遮罩攒时间
+            if (prefs.mode() == GateRules.MODE_BANK
+                    && remaining < prefs.minBankMin() * 60_000L) startPhase = Prefs.LOCKED;
+            if (!prefs.inWindow()) startPhase = Prefs.OUT;
+            prefs.saveSnapshot(startPhase, remaining);
+            if (prefs.ruleDayKey().isEmpty()) {
+                prefs.saveRuleState(0, 0, 0, 0L, prefs.balanceMs(), 0L, 0L, prefs.logicalDayKey());
+            }
             prefs.markStartHint(START_HINT_MS);
-            Log.i(TAG, "start_hint show " + START_HINT_MS + "ms remaining=" + Core.fmt(remaining));
+            Log.i(TAG, "start_hint show " + START_HINT_MS + "ms remaining=" + Core.fmt(remaining)
+                    + " phase=" + Prefs.phaseName(startPhase));
         } else {
             remaining = prefs.remainingMs();
         }
@@ -205,10 +222,15 @@ public class GateService extends Service implements MaskView.Host {
                 Log.i(TAG, "stable " + (STABLE_MS / 1000) + "s -> 崩溃计数归零");
             }
 
+            // 规则引擎先于计时：跨天重置 / 强制休息到期 / 每日时段切换都要在本帧生效
+            enforceRules();
+            if (mask != null) mask.tick();
+            if (block != null) updateBlockInfo();
+
             // 熄屏期间被挂起的遮罩：一旦判定「屏幕真的亮了」再挂，避免遮罩把电视唤醒
-            if (prefs.phase() == Prefs.LOCKED && pendingMask && screenOn()) {
+            if (Prefs.lockedLike(prefs.phase()) && pendingMask && screenOn()) {
                 pendingMask = false;
-                showMask();
+                reconcile();
             }
 
             // 锁屏态盯住窗口层级：HOME 键普通应用拦不住（系统在 PhoneWindowManager
@@ -218,6 +240,15 @@ public class GateService extends Service implements MaskView.Host {
             if (prefs.phase() == Prefs.RUNNING) {
                 if (screenOn()) {
                     remaining -= delta;
+                    watchMs += delta;
+                    // 连续观看达标：强制休息，本帧不再扣余额
+                    if (watchMs >= prefs.watchLimitMin() * 60_000L) {
+                        prefs.tickRuleState(prefs.mode() == GateRules.MODE_BANK
+                                ? remaining : prefs.balanceMs(), watchMs);
+                        enterRest();
+                        h.postDelayed(this, TICK_MS);
+                        return;
+                    }
                     if (remaining <= 0) {
                         remaining = 0;
                         lock();
@@ -227,6 +258,8 @@ public class GateService extends Service implements MaskView.Host {
                 }
                 if (++tickCount % 5 == 0) {              // 约 1s 一次心跳
                     prefs.tickSnapshot(remaining);
+                    prefs.tickRuleState(prefs.mode() == GateRules.MODE_BANK
+                            ? remaining : prefs.balanceMs(), watchMs);
                     updateMini();
                     // 点「开始计时」后应用界面就关了，只有服务在跑。每 60s 刷新一次
                     // 「最后在线」，否则家长看到的是上次打开应用的时间，失联时长会虚高。
@@ -247,11 +280,122 @@ public class GateService extends Service implements MaskView.Host {
         }
     };
 
+    // ---------- 规则引擎：跨天 / 时段 / 强制休息 ----------
+
+    /** 每秒检查一次即可（ticker 里每帧调用，内部自己按秒节流不必要：Calendar 取得起）。 */
+    private void enforceRules() {
+        String day = prefs.logicalDayKey();
+        if (!day.equals(prefs.ruleDayKey())) {
+            boolean clearedBalance = prefs.resetDailyRules(day);
+            watchMs = prefs.watchMs();
+            if (clearedBalance) remaining = 0;
+            Log.i(TAG, "daily_reset day=" + day + " clearBalance=" + clearedBalance);
+        }
+
+        int p = prefs.phase();
+        if (p == Prefs.REST && prefs.restLeftMs() <= 0) {
+            prefs.saveRuleState(prefs.streak(), prefs.wrongToday(), prefs.unlockToday(),
+                    prefs.cooldownUntil(), prefs.balanceMs(), watchMs, 0L, prefs.ruleDayKey());
+            resumeAfterBlock("rest_done");
+            return;
+        }
+
+        boolean inWindow = prefs.inWindow();
+        // 家长口令应急解锁：时段外也放行，但 watchMs 继续累计，休息照常触发
+        if (!inWindow && !prefs.parentUnlocked()
+                && (p == Prefs.RUNNING || p == Prefs.LOCKED)) {
+            enterOut();
+        } else if (inWindow && p == Prefs.OUT) {
+            resumeAfterBlock("window_open");
+        }
+    }
+
+    private void enterOut() {
+        prefs.saveSnapshot(Prefs.OUT, remaining);
+        removeMask();
+        removeMini();
+        showBlock();
+        updateNotification();
+        Log.i(TAG, "enter_out window=" + prefs.windowStart() + "-" + prefs.windowEnd());
+    }
+
+    private void enterRest() {
+        long until = System.currentTimeMillis() + Math.max(1, prefs.restMin()) * 60_000L;
+        long bal = prefs.mode() == GateRules.MODE_BANK ? remaining : prefs.balanceMs();
+        prefs.saveRuleState(prefs.streak(), prefs.wrongToday(), prefs.unlockToday(),
+                prefs.cooldownUntil(), bal, 0L, until, prefs.ruleDayKey());
+        // 连续观看计时清零，否则休息结束的下一帧又会立刻触发休息
+        watchMs = 0L;
+        prefs.saveSnapshot(Prefs.REST, remaining);
+        removeMask();
+        removeMini();
+        pausedForQuiz = false;   // 休息结束后的第一轮答题仍要暂停播放
+        showBlock();
+        updateNotification();
+        Log.i(TAG, "enter_rest " + prefs.restMin() + "min until=" + until);
+    }
+
+    private void resumeAfterBlock(String why) {
+        removeBlock();
+        int target = remaining > 0 ? Prefs.RUNNING : Prefs.LOCKED;
+        prefs.saveSnapshot(target, remaining);
+        lastTick = SystemClock.uptimeMillis();
+        reconcile();
+        updateNotification();
+        Log.i(TAG, "resume_after_block " + why + " -> " + Prefs.phaseName(target));
+    }
+
+    private void showBlock() {
+        if (block != null) return;
+        if (!screenOn()) { pendingMask = true; return; }
+        block = new BlockView(this, new BlockView.Host() {
+            @Override public Prefs prefs() { return prefs; }
+            @Override public void onPinOk() { GateService.this.onPinOk(); }
+        });
+        try {
+            wm.addView(block, maskLp());
+            Log.i(TAG, "block_add ok phase=" + Prefs.phaseName(prefs.phase()));
+            updateBlockInfo();
+        } catch (Throwable t) {
+            Log.e(TAG, "block_add failed: " + t);
+            block = null;
+        }
+    }
+
+    private void removeBlock() {
+        if (block == null) return;
+        try { wm.removeViewImmediate(block); } catch (Throwable ignore) { }
+        block = null;
+        Log.i(TAG, "block_remove");
+    }
+
+    private void updateBlockInfo() {
+        if (block == null) return;
+        if (prefs.phase() == Prefs.REST) {
+            block.setInfo("强制休息",
+                    "连续观看 " + prefs.watchLimitMin() + " 分钟，休息 " + prefs.restMin() + " 分钟后再看",
+                    prefs.restLeftMs());
+        } else {
+            block.setInfo("不在答题时段",
+                    "每日 " + fmtMin(prefs.windowStart()) + " – " + fmtMin(prefs.windowEnd())
+                            + " 可以答题解锁", 0L);
+        }
+    }
+
+    private static String fmtMin(int m) {
+        return String.format(java.util.Locale.US, "%02d:%02d", m / 60, m % 60);
+    }
+
     // ---------- 状态机 ----------
 
     private void lock() {
         Log.i(TAG, "lock at 0 (screen=" + screenOn() + ")");
+        if (!prefs.inWindow() && !prefs.parentUnlocked()) {
+            enterOut();
+            return;
+        }
         prefs.saveSnapshot(Prefs.LOCKED, 0);
+        if (prefs.mode() == GateRules.MODE_BANK) prefs.tickRuleState(0L, watchMs);
         remaining = 0;
         removeMini();
         if (screenOn()) {
@@ -329,15 +473,55 @@ public class GateService extends Service implements MaskView.Host {
         }
     }
 
-    @Override public void onSolved() {
-        int ext = prefs.extendMin() * 60_000;
-        remaining = Math.max(1, remaining) + ext;
-        prefs.saveSnapshot(Prefs.RUNNING, remaining);
-        removeMask();
-        lastTick = SystemClock.uptimeMillis();
-        updateMini();
-        updateNotification();
-        Log.i(TAG, "solved +" + prefs.extendMin() + "min -> " + Core.fmt(remaining));
+    /** 答对：累加连对/余额，按当前模式判断是否放行。返回 true 时宿主会在 700ms 后摘遮罩。 */
+    @Override public boolean onCorrect() {
+        int mode = prefs.mode();
+        int streak = prefs.streak() + 1;
+        int unlockToday = prefs.unlockToday();
+        long balance = prefs.balanceMs()
+                + (mode == GateRules.MODE_BANK ? prefs.perAnswerMin() * 60_000L : 0L);
+        int need = GateRules.needed(mode, prefs.fixedNeed(), prefs.firstNeed(),
+                prefs.stepAdd(), unlockToday);
+        boolean unlocked = GateRules.unlocked(mode, balance,
+                prefs.minBankMin() * 60_000L, streak, need);
+
+        if (unlocked) {
+            if (mode == GateRules.MODE_UNLOCK) unlockToday++;
+            streak = 0;   // 下一轮重新计数：固定 N 仍是 N 题，阶梯用 stepAdd
+            if (mode == GateRules.MODE_BANK) {
+                remaining = balance;
+            } else {
+                remaining = Math.max(1, remaining) + prefs.extendMin() * 60_000L;
+            }
+        }
+        prefs.saveRuleState(streak, prefs.wrongToday(), unlockToday, prefs.cooldownUntil(),
+                balance, watchMs, prefs.restUntil(), prefs.ruleDayKey());
+
+        if (unlocked) {
+            prefs.saveSnapshot(Prefs.RUNNING, remaining);
+            lastTick = SystemClock.uptimeMillis();
+            pausedForQuiz = false;
+            // 与旧版一致：先让绿色反馈显示 700ms，再摘遮罩、把时间交给观看
+            h.postDelayed(() -> {
+                removeMask();
+                updateMini();
+                updateNotification();
+            }, 700);
+        }
+        Log.i(TAG, "correct mode=" + mode + " streak=" + streak + "/" + need
+                + " balance=" + Core.fmt(balance) + " unlocked=" + unlocked);
+        return unlocked;
+    }
+
+    /** 答错：连对归零；冷却按当日累计次数 5/10/20/30 秒，绝对时间落盘。 */
+    @Override public long onWrong() {
+        int wrong = prefs.wrongToday() + 1;
+        long cd = GateRules.cooldownApplies(prefs.mode()) ? GateRules.cooldownMs(wrong) : 0L;
+        long until = cd > 0 ? System.currentTimeMillis() + cd : 0L;
+        prefs.saveRuleState(0, wrong, prefs.unlockToday(), until,
+                prefs.balanceMs(), watchMs, prefs.restUntil(), prefs.ruleDayKey());
+        Log.i(TAG, "wrong #" + wrong + " cooldown=" + cd + "ms");
+        return cd;
     }
 
     @Override public void onPinOk() {
@@ -347,8 +531,19 @@ public class GateService extends Service implements MaskView.Host {
         // 到点锁定时 remaining 已归零，直接切 RUNNING 会立刻再次 lock()，所以给一段
         // 宽限时间继续计时，长度沿用「答对延长」的分钟数（家长接管等同授权续时）。
         long grace = Math.max(1, prefs.extendMin()) * 60_000L;
-        remaining = Math.max(remaining, grace);
+        long bal = prefs.balanceMs();
+        if (prefs.mode() == GateRules.MODE_BANK) {
+            bal = Math.max(bal, grace);
+            remaining = bal;
+        } else {
+            remaining = Math.max(remaining, grace);
+        }
+        // 家长接管：重置连续观看计时，但余额继续按真实消耗扣
+        watchMs = 0L;
+        prefs.saveRuleState(prefs.streak(), prefs.wrongToday(), prefs.unlockToday(),
+                prefs.cooldownUntil(), bal, 0L, 0L, prefs.ruleDayKey());
         prefs.saveSnapshot(Prefs.RUNNING, remaining);
+        pausedForQuiz = false;
         App.parentUnlocked = true;
         prefs.setParentUnlocked(true);   // 进程被系统回收后仍免密，doStart() 会清掉
         Log.i(TAG, "pin ok -> 会话继续 remaining=" + Core.fmt(remaining));
@@ -378,6 +573,7 @@ public class GateService extends Service implements MaskView.Host {
         h.removeCallbacks(ticker);
         h.removeCallbacks(hintDismiss);
         removeMask();
+        removeBlock();
         removeMini();
         // 家长主动结束 = 这次服务是健康的，不能因为「短会话反复起停」被算成异常启动
         prefs.markStable();
@@ -391,12 +587,20 @@ public class GateService extends Service implements MaskView.Host {
         int p = prefs.phase();
         if (p == Prefs.LOCKED) {
             removeMini();
+            removeBlock();
             showMask();
+        } else if (p == Prefs.REST || p == Prefs.OUT) {
+            removeMini();
+            removeMask();
+            showBlock();
         } else if (p == Prefs.RUNNING) {
             removeMask();
+            removeBlock();
+            pausedForQuiz = false;
             if (remaining <= MINI_THRESHOLD_MS || prefs.startHintOn()) showMini(); else removeMini();
         } else {
             removeMask();
+            removeBlock();
             removeMini();
         }
     }
@@ -433,6 +637,10 @@ public class GateService extends Service implements MaskView.Host {
         try {
             wm.addView(mask, maskLp());
             Log.i(TAG, "mask_add ok");
+            if (prefs.pauseOnQuiz() && !pausedForQuiz) {
+                pausedForQuiz = true;
+                MediaControl.pause(this);
+            }
         } catch (Throwable t) {
             Log.e(TAG, "mask_add failed: " + t);
             mask = null;
@@ -541,7 +749,8 @@ public class GateService extends Service implements MaskView.Host {
 
     private void updateNotification() {
         NotificationManager nm = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
-        String s = prefs.phase() == Prefs.LOCKED ? "已锁定，等待答题" : "剩余 " + Core.fmt(remaining);
+        String s = Prefs.lockedLike(prefs.phase())
+                ? Prefs.phaseName(prefs.phase()) : "剩余 " + Core.fmt(remaining);
         try { nm.notify(NOTIF_ID, buildNotification(s, true)); } catch (Throwable ignore) { }
     }
 
@@ -562,8 +771,9 @@ public class GateService extends Service implements MaskView.Host {
                     offE = e;
                     Log.i(TAG, "screen_off u=" + u + " e=" + e);
                     // 屏幕黑了就别再挂着遮罩：避免任何窗口层面的副作用把屏幕点回来
-                    if (mask != null) {
+                    if (mask != null || block != null) {
                         removeMask();
+                        removeBlock();
                         pendingMask = true;
                         Log.i(TAG, "mask_detached（息屏）");
                     }
@@ -596,6 +806,7 @@ public class GateService extends Service implements MaskView.Host {
         App.gateAlive = false;
         h.removeCallbacks(ticker);
         removeMask();
+        removeBlock();
         removeMini();
         if (screenRx != null) {
             try { unregisterReceiver(screenRx); } catch (Throwable ignore) { }

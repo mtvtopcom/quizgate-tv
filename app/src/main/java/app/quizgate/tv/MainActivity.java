@@ -38,6 +38,10 @@ public class MainActivity extends Activity {
 
     private TextView valueDuration, valueExtend, valueGrade, valuePin, valueRecovery, valueGuard;
     private TextView valueVersion, valueLog;
+    /** 1.6.0 规则引擎设置行。 */
+    private TextView valueMode, valueFixedNeed, valueFirstNeed, valueStepAdd,
+            valuePer, valueMinBank, valueWindow, valueWatchLimit, valueRest,
+            valueReset, valuePause, valueCarryOver;
     private TextView anchorWarn;
     /** 设置页的第一项（本次时长）。顶部返回按钮在 1.2.9 删掉后，焦点默认落在这里。 */
     private View firstRow;
@@ -47,6 +51,7 @@ public class MainActivity extends Activity {
     /** 首页（只看运行状态）；设置页是原来的 contentScroll，两者在同一个 Activity 里切换。 */
     private View homeRoot;
     private TextView homePhase, homeTime, homeGuard, homeAuth, homeAnchor, homeBanner, homeBtnStart;
+    private TextView homeBtnMode;
     /** 首页状态读数左侧的色条：待机灰、计时黄、锁定红。 */
     private View homeBar;
     /** 设置页里的「运行日志」子页；null = 没打开。 */
@@ -147,6 +152,18 @@ public class MainActivity extends Activity {
 
         valueDuration = addRow("本次时长", this::openDurationPanel);
         valueExtend = addRow("答对延长", this::openExtendPanel);
+        valueMode = addRow("答题模式", this::openModePanel);
+        valueFixedNeed = addRow("连对题数", this::openFixedNeedPanel);
+        valueFirstNeed = addRow("首次解锁题数", this::openFirstNeedPanel);
+        valueStepAdd = addRow("之后每次题数", this::openStepAddPanel);
+        valuePer = addRow("每题攒分钟", this::openPerAnswerPanel);
+        valueMinBank = addRow("最低观看时长", this::openMinBankPanel);
+        valueWindow = addRow("每日答题时段", this::openWindowPanel);
+        valueWatchLimit = addRow("连续观看上限", this::openWatchLimitPanel);
+        valueRest = addRow("强制休息", this::openRestPanel);
+        valueReset = addRow("每日重置", this::openResetPanel);
+        valuePause = addRow("答题暂停播放", this::togglePauseOnQuiz);
+        valueCarryOver = addRow("余额跨天", this::toggleBalanceCarryOver);
         valueGrade = addRow("题目年级", this::openStagePanel);
         valueBank = addRow("题库管理", this::showBankManager);
         valuePin = addRow("家长口令", this::promptSetPin);
@@ -243,6 +260,16 @@ public class MainActivity extends Activity {
         glp.topMargin = Ui.dp(this, 8);
         info.addView(homeGuard, glp);
 
+        // 首页直接切换答题模式：四个按钮已经占满 540dp 下的横向空间，
+        // 这里做成状态卡片里可点的一行，不新增第四颗按钮。
+        homeBtnMode = Ui.label(this, "答题模式：答题延时 ›", 17, Ui.ACCENT);
+        homeBtnMode.setFocusable(true);
+        homeBtnMode.setClickable(true);
+        homeBtnMode.setOnClickListener(v -> openModePanel());
+        LinearLayout.LayoutParams mlp = new LinearLayout.LayoutParams(-2, -2);
+        mlp.topMargin = Ui.dp(this, 6);
+        info.addView(homeBtnMode, mlp);
+
         homeBanner = Ui.label(this, "", 19, Ui.BLACK);
         homeBanner.setBackgroundColor(Ui.BAD);
         homeBanner.setPadding(Ui.dp(this, 20), Ui.dp(this, 12), Ui.dp(this, 20), Ui.dp(this, 12));
@@ -295,6 +322,7 @@ public class MainActivity extends Activity {
         LinearLayout.LayoutParams slp = new LinearLayout.LayoutParams(-2, -2);
         slp.leftMargin = Ui.dp(this, 20);
         btns.addView(settings, slp);
+
         LinearLayout.LayoutParams blp = new LinearLayout.LayoutParams(-1, -2);
         blp.topMargin = Ui.dp(this, 16);
         home.addView(btns, blp);
@@ -701,6 +729,156 @@ public class MainActivity extends Activity {
                     refresh();
                     toast("答对延长：+ " + v + " 分钟");
                 }, this::hideOptionPanel));
+    }
+
+    // ---------- 1.6.0 规则引擎设置 ----------
+
+    private void openModePanel() {
+        String[] labels = {"答题延时", "连对答题", "答题解锁", "答题积累"};
+        int[] vals = {GateRules.MODE_DELAY, GateRules.MODE_STREAK,
+                GateRules.MODE_UNLOCK, GateRules.MODE_BANK};
+        mountOption(new OptionPanel(this, "答题模式", labels, vals, prefs.mode(),
+                "", 0, 0,
+                v -> {
+                    prefs.setMode(v);
+                    hideOptionPanel();
+                    refresh();
+                    toast("答题模式：" + GateRules.modeName(v));
+                }, this::hideOptionPanel));
+    }
+
+    private void openFixedNeedPanel() {
+        String[] labels = {"1", "2", "3", "5", "10"};
+        int[] vals = {1, 2, 3, 5, 10};
+        mountOption(new OptionPanel(this, "连对题数（固定）", labels, vals, prefs.fixedNeed(),
+                "题", 1, 10,
+                v -> { prefs.setFixedNeed(v); hideOptionPanel(); refresh(); toast("连对题数：" + v + " 题"); },
+                this::hideOptionPanel));
+    }
+
+    private void openFirstNeedPanel() {
+        String[] labels = {"3", "5", "8", "10"};
+        int[] vals = {3, 5, 8, 10};
+        mountOption(new OptionPanel(this, "首次解锁题数", labels, vals, prefs.firstNeed(),
+                "题", 1, 20,
+                v -> { prefs.setFirstNeed(v); hideOptionPanel(); refresh(); toast("首次解锁：" + v + " 题"); },
+                this::hideOptionPanel));
+    }
+
+    private void openStepAddPanel() {
+        String[] labels = {"1", "2", "3", "5"};
+        int[] vals = {1, 2, 3, 5};
+        mountOption(new OptionPanel(this, "之后每次题数", labels, vals, prefs.stepAdd(),
+                "题", 1, 10,
+                v -> { prefs.setStepAdd(v); hideOptionPanel(); refresh(); toast("之后每次：" + v + " 题"); },
+                this::hideOptionPanel));
+    }
+
+    private void openPerAnswerPanel() {
+        String[] labels = {"1", "2", "3", "5", "10"};
+        int[] vals = {1, 2, 3, 5, 10};
+        mountOption(new OptionPanel(this, "每答对一题攒多少分钟", labels, vals, prefs.perAnswerMin(),
+                "分钟", 1, 60,
+                v -> { prefs.setPerAnswerMin(v); hideOptionPanel(); refresh(); toast("每题攒：" + v + " 分钟"); },
+                this::hideOptionPanel));
+    }
+
+    private void openMinBankPanel() {
+        String[] labels = {"5", "10", "15", "20", "30"};
+        int[] vals = {5, 10, 15, 20, 30};
+        mountOption(new OptionPanel(this, "攒够多少分钟才能看", labels, vals, prefs.minBankMin(),
+                "分钟", 1, 240,
+                v -> { prefs.setMinBankMin(v); hideOptionPanel(); refresh(); toast("最低观看：" + v + " 分钟"); },
+                this::hideOptionPanel));
+    }
+
+    private static String clockText(int min) {
+        return String.format(java.util.Locale.US, "%02d:%02d", min / 60, min % 60);
+    }
+
+    private void openWindowPanel() {
+        int[] vals = {0, 360, 720, 1080, 1320};
+        String[] labels = new String[vals.length];
+        for (int i = 0; i < vals.length; i++) labels[i] = clockText(vals[i]);
+        mountOption(new OptionPanel(this, "答题时段 · 开始", labels, vals, prefs.windowStart(),
+                "分钟", 0, 1439, this::openWindowEndPanel, this::hideOptionPanel));
+    }
+
+    private void openWindowEndPanel(int start) {
+        int[] vals = {0, 360, 720, 1080, 1320, 1440};
+        String[] labels = new String[vals.length];
+        for (int i = 0; i < vals.length; i++) labels[i] = clockText(vals[i]);
+        mountOption(new OptionPanel(this, "答题时段 · 结束（早于开始=跨午夜）",
+                labels, vals, prefs.windowEnd(), "分钟", 0, 1440,
+                end -> {
+                    prefs.setWindow(start, end);
+                    hideOptionPanel();
+                    refresh();
+                    toast("答题时段：" + clockText(start) + " – " + clockText(end));
+                }, this::openWindowPanel));
+    }
+
+    private void openWatchLimitPanel() {
+        String[] labels = {"10", "20", "30", "45", "60"};
+        int[] vals = {10, 20, 30, 45, 60};
+        mountOption(new OptionPanel(this, "连续观看上限（分钟）", labels, vals, prefs.watchLimitMin(),
+                "分钟", 1, 240,
+                v -> { prefs.setWatchLimitMin(v); hideOptionPanel(); refresh(); toast("看满 " + v + " 分钟强制休息"); },
+                this::hideOptionPanel));
+    }
+
+    private void openRestPanel() {
+        String[] labels = {"10", "20", "30", "45", "60"};
+        int[] vals = {10, 20, 30, 45, 60};
+        mountOption(new OptionPanel(this, "强制休息 · 观看分钟", labels, vals, prefs.watchLimitMin(),
+                "分钟", 1, 240, this::openRestMinutesPanel, this::hideOptionPanel));
+    }
+
+    private void openRestMinutesPanel(int watchMin) {
+        String[] labels = {"5", "10", "15", "20", "30"};
+        int[] vals = {5, 10, 15, 20, 30};
+        mountOption(new OptionPanel(this, "强制休息 · 休息分钟", labels, vals, prefs.restMin(),
+                "分钟", 1, 120,
+                v -> {
+                    prefs.setWatchLimitMin(watchMin);
+                    prefs.setRestMin(v);
+                    hideOptionPanel();
+                    refresh();
+                    toast("看满 " + watchMin + " 分钟，休息 " + v + " 分钟");
+                }, this::openRestPanel));
+    }
+
+    private void openResetPanel() {
+        String[] labels = {"跨天 0 点", "固定时刻"};
+        int[] vals = {0, 1};
+        mountOption(new OptionPanel(this, "每日计数重置", labels, vals,
+                prefs.fixedResetMoment() ? 1 : 0, "", 0, 0,
+                v -> { if (v == 0) { prefs.setResetMode(false, 0); hideOptionPanel(); refresh(); }
+                       else openResetMomentPanel(); }, this::hideOptionPanel));
+    }
+
+    private void openResetMomentPanel() {
+        int[] vals = {0, 120, 360, 480, 720};
+        String[] labels = new String[vals.length];
+        for (int i = 0; i < vals.length; i++) labels[i] = clockText(vals[i]);
+        mountOption(new OptionPanel(this, "固定重置时刻", labels, vals, prefs.resetAtMin(),
+                "分钟", 0, 1439,
+                v -> { prefs.setResetMode(true, v); hideOptionPanel(); refresh(); toast("每日 " + clockText(v) + " 重置"); },
+                this::openResetPanel));
+    }
+
+    private void togglePauseOnQuiz() {
+        boolean v = !prefs.pauseOnQuiz();
+        prefs.setPauseOnQuiz(v);
+        refresh();
+        toast("答题时暂停播放：" + (v ? "开启" : "关闭"));
+    }
+
+    private void toggleBalanceCarryOver() {
+        boolean v = !prefs.balanceCarryOver();
+        prefs.setBalanceCarryOver(v);
+        refresh();
+        toast("余额跨天：" + (v ? "保留" : "清零"));
     }
 
     /** 年级三步：学段 → 年级 → 科目（语文 / 数学 / 英语，可多选）。 */
@@ -1260,6 +1438,20 @@ public class MainActivity extends Activity {
         if (valueDuration == null) return;
         valueDuration.setText(prefs.durationMin() + " 分钟");
         valueExtend.setText("+ " + prefs.extendMin() + " 分钟");
+        valueMode.setText(GateRules.modeName(prefs.mode()));
+        if (homeBtnMode != null) homeBtnMode.setText("答题模式：" + GateRules.modeName(prefs.mode()) + " ›");
+        valueFixedNeed.setText(prefs.fixedNeed() + " 题");
+        valueFirstNeed.setText(prefs.firstNeed() + " 题");
+        valueStepAdd.setText("+ " + prefs.stepAdd() + " 题");
+        valuePer.setText(prefs.perAnswerMin() + " 分钟/题");
+        valueMinBank.setText(prefs.minBankMin() + " 分钟");
+        valueWindow.setText(clockText(prefs.windowStart()) + " – " + clockText(prefs.windowEnd()));
+        valueWatchLimit.setText(prefs.watchLimitMin() + " 分钟");
+        valueRest.setText(prefs.restMin() + " 分钟");
+        valueReset.setText(prefs.fixedResetMoment()
+                ? clockText(prefs.resetAtMin()) : "跨天 0 点");
+        valuePause.setText(prefs.pauseOnQuiz() ? "暂停" : "不暂停");
+        valueCarryOver.setText(prefs.balanceCarryOver() ? "保留" : "清零");
         valueGrade.setText(gradeText());
         if (valueBank != null) valueBank.setText(bankName());
         valuePin.setText(prefs.hasPin() ? "已设置" : "未设置");
@@ -1420,6 +1612,12 @@ public class MainActivity extends Activity {
         } else if (p == Prefs.LOCKED) {
             phase = "已锁定 · 等待答题";
             big = "0:00";
+        } else if (p == Prefs.REST) {
+            phase = "强制休息中";
+            big = Core.fmt(prefs.restLeftMs());
+        } else if (p == Prefs.OUT) {
+            phase = "不在答题时段";
+            big = "--:--";
         } else {
             phase = "计时中";
             big = Core.fmt(prefs.remainingMs());
@@ -1443,7 +1641,7 @@ public class MainActivity extends Activity {
             bar = 0xFF3A3A3A;                 // 灰：待机，不抢注意力
             time = 0xFF6B7075;
             phase = Ui.DIM;
-        } else if (p == Prefs.LOCKED) {
+        } else if (Prefs.lockedLike(p)) {
             bar = Ui.BAD;
             time = Ui.TEXT;
             phase = Ui.BAD;

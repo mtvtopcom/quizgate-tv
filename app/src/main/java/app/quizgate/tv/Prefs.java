@@ -16,7 +16,13 @@ import javax.crypto.spec.PBEKeySpec;
  * 快照规则（决策文档 ADR-1）：tick 用 apply（可丢），状态迁移用 commit（不可丢）。
  */
 public final class Prefs {
-    public static final int IDLE = 0, RUNNING = 1, LOCKED = 2;
+    /** IDLE/RUNNING/LOCKED 是 1.5.0 就有的三态；REST/OUT 是规则引擎新增的「锁定变体」。 */
+    public static final int IDLE = 0, RUNNING = 1, LOCKED = 2, REST = 3, OUT = 4;
+
+    /** 锁定变体：这些 phase 都必须挂遮罩、不扣观看时长。 */
+    public static boolean lockedLike(int p) {
+        return p == LOCKED || p == REST || p == OUT;
+    }
 
     private static final String F = "gate";
     private static final int PBKDF2_ITER = 60000;
@@ -38,6 +44,83 @@ public final class Prefs {
 
     public int extendMin() { return sp.getInt("extendMin", 5); }
     public void setExtendMin(int v) { sp.edit().putInt("extendMin", clamp(v, 1, 60)).commit(); }
+
+    // ---------- 规则引擎设置（1.6.0） ----------
+    /** 首页四种模式其实是「产出方式 × 门槛策略」的模板，见 GateRules。 */
+    public int mode() { return clamp(sp.getInt("mode", GateRules.MODE_DELAY), 0, 3); }
+    public void setMode(int v) { sp.edit().putInt("mode", clamp(v, 0, 3)).commit(); }
+
+    /** 连对答题：需要连对几题（1..10）。 */
+    public int fixedNeed() { return sp.getInt("fixedNeed", 2); }
+    public void setFixedNeed(int v) { sp.edit().putInt("fixedNeed", clamp(v, 1, 10)).commit(); }
+
+    /** 答题解锁：首次需要几题（1..20）。 */
+    public int firstNeed() { return sp.getInt("firstNeed", 5); }
+    public void setFirstNeed(int v) { sp.edit().putInt("firstNeed", clamp(v, 1, 20)).commit(); }
+
+    /** 答题解锁：首次之后每次新增几题（1..10）。 */
+    public int stepAdd() { return sp.getInt("stepAdd", 2); }
+    public void setStepAdd(int v) { sp.edit().putInt("stepAdd", clamp(v, 1, 10)).commit(); }
+
+    /** 答题积累：每答对一题攒多少分钟（1..60）。 */
+    public int perAnswerMin() { return sp.getInt("perAnswerMin", 1); }
+    public void setPerAnswerMin(int v) { sp.edit().putInt("perAnswerMin", clamp(v, 1, 60)).commit(); }
+
+    /** 答题积累：余额至少多少分钟才允许开始观看（1..240）。 */
+    public int minBankMin() { return sp.getInt("minBankMin", 10); }
+    public void setMinBankMin(int v) { sp.edit().putInt("minBankMin", clamp(v, 1, 240)).commit(); }
+
+    /** 每日答题时段（本地分钟数）。默认 0..1440 = 全天，避免老用户升级后突然被锁死。 */
+    public int windowStart() { return clamp(sp.getInt("windowStart", 0), 0, 1440); }
+    public int windowEnd() { return clamp(sp.getInt("windowEnd", 1440), 0, 1440); }
+    public void setWindow(int start, int end) {
+        sp.edit().putInt("windowStart", clamp(start, 0, 1440))
+                .putInt("windowEnd", clamp(end, 0, 1440)).commit();
+    }
+    public boolean inWindow() {
+        return GateRules.inWindow(minuteOfDay(), windowStart(), windowEnd());
+    }
+
+    /** 连续观看上限 / 强制休息时长（分钟）。 */
+    public int watchLimitMin() { return sp.getInt("watchLimitMin", 30); }
+    public void setWatchLimitMin(int v) { sp.edit().putInt("watchLimitMin", clamp(v, 1, 240)).commit(); }
+    public int restMin() { return sp.getInt("restMin", 10); }
+    public void setRestMin(int v) { sp.edit().putInt("restMin", clamp(v, 1, 120)).commit(); }
+
+    /** 每日计数重置方式：false = 跨天 0 点重置；true = 固定时刻重置。 */
+    public boolean fixedResetMoment() { return sp.getBoolean("fixedResetMoment", false); }
+    public int resetAtMin() { return clamp(sp.getInt("resetAtMin", 0), 0, 1439); }
+    public void setResetMode(boolean fixedMoment, int atMin) {
+        sp.edit().putBoolean("fixedResetMoment", fixedMoment)
+                .putInt("resetAtMin", clamp(atMin, 0, 1439)).commit();
+    }
+
+    /** 出题时暂停正在播放的节目，默认开。 */
+    public boolean pauseOnQuiz() { return sp.getBoolean("pauseOnQuiz", true); }
+    public void setPauseOnQuiz(boolean v) { sp.edit().putBoolean("pauseOnQuiz", v).commit(); }
+
+    public int minuteOfDay() {
+        java.util.Calendar c = java.util.Calendar.getInstance();
+        return c.get(java.util.Calendar.HOUR_OF_DAY) * 60 + c.get(java.util.Calendar.MINUTE);
+    }
+
+    /** [今天 key, 昨天 key]，格式 yyyyMMdd。给 GateRules.logicalDay 用。 */
+    public String[] dayKeys() {
+        java.util.Calendar c = java.util.Calendar.getInstance();
+        java.text.SimpleDateFormat f = new java.text.SimpleDateFormat("yyyyMMdd", java.util.Locale.US);
+        String today = f.format(c.getTime());
+        c.add(java.util.Calendar.DAY_OF_MONTH, -1);
+        return new String[]{today, f.format(c.getTime())};
+    }
+
+    public String todayKey() { return dayKeys()[0]; }
+
+    /** 当前规则下的逻辑日；跨天检测每秒做一次，成本只有一个 Calendar。 */
+    public String logicalDayKey() {
+        String[] keys = dayKeys();
+        return GateRules.logicalDay(keys[0], keys[1], minuteOfDay(),
+                fixedResetMoment(), resetAtMin());
+    }
 
     /** 学段：0 = 小学（1-6 年级），1 = 初中（初一/初二/初三 = 7/8/9 年级）。 */
     public static final int STAGE_PRIMARY = 0, STAGE_JUNIOR = 1;
@@ -156,7 +239,14 @@ public final class Prefs {
     // ---------- 会话快照 ----------
     public int phase() { return sp.getInt("phase", IDLE); }
 
-    public long remainingMs() { return sp.getLong("remainingMs", durationMin() * 60_000L); }
+    /**
+     * 恢复时的可信时长。答题积累模式下「剩余时间」就是余额池，
+     * 不能拿旧的 durationMin 冒充，否则强停复活后余额会凭空回到初始时长。
+     */
+    public long remainingMs() {
+        if (mode() == GateRules.MODE_BANK) return balanceMs();
+        return sp.getLong("remainingMs", durationMin() * 60_000L);
+    }
 
     /** 状态迁移：必须落盘，否则「崩溃/升级 = 免费续杯」。 */
     public void saveSnapshot(int phase, long remainingMs) {
@@ -169,6 +259,58 @@ public final class Prefs {
     }
 
     public long heartbeatAt() { return sp.getLong("heartbeatAt", 0L); }
+
+    // ---------- 规则引擎会话状态（1.6.0） ----------
+    public int streak() { return sp.getInt("streak", 0); }
+    public int wrongToday() { return sp.getInt("wrongToday", 0); }
+    public int unlockToday() { return sp.getInt("unlockToday", 0); }
+    /** 墙上时钟毫秒，0 = 不在冷却。重启后仍按绝对时间续算。 */
+    public long cooldownUntil() { return sp.getLong("cooldownUntil", 0L); }
+    public long cooldownLeftMs() { return Math.max(0L, cooldownUntil() - System.currentTimeMillis()); }
+
+    /** 答题攒下的可观看时长；只增不因「结束会话」清零（跨天是否清零由 carryOver 决定）。 */
+    public long balanceMs() { return sp.getLong("balanceMs", 0L); }
+    public boolean balanceCarryOver() { return sp.getBoolean("balanceCarryOver", true); }
+    public void setBalanceCarryOver(boolean v) { sp.edit().putBoolean("balanceCarryOver", v).commit(); }
+
+    /** 连续观看时长：锁屏、休息、答题期间都不累加。 */
+    public long watchMs() { return sp.getLong("watchMs", 0L); }
+    /** 强制休息截止时刻（墙上时钟），0 = 不在休息。 */
+    public long restUntil() { return sp.getLong("restUntil", 0L); }
+    public long restLeftMs() { return Math.max(0L, restUntil() - System.currentTimeMillis()); }
+    public String ruleDayKey() { return sp.getString("ruleDayKey", ""); }
+
+    /**
+     * 规则状态一次性落盘。答对/答错/跨天重置都走这里，避免「连对加了、冷却没写」这种
+     * 断电后的半截状态。
+     */
+    public void saveRuleState(int streak, int wrongToday, int unlockToday, long cooldownUntil,
+                              long balanceMs, long watchMs, long restUntil, String dayKey) {
+        sp.edit()
+                .putInt("streak", Math.max(0, streak))
+                .putInt("wrongToday", Math.max(0, wrongToday))
+                .putInt("unlockToday", Math.max(0, unlockToday))
+                .putLong("cooldownUntil", Math.max(0L, cooldownUntil))
+                .putLong("balanceMs", Math.max(0L, balanceMs))
+                .putLong("watchMs", Math.max(0L, watchMs))
+                .putLong("restUntil", Math.max(0L, restUntil))
+                .putString("ruleDayKey", dayKey == null ? "" : dayKey)
+                .commit();
+    }
+
+    /** 心跳允许丢：余额/连续观看每秒写一次就够，用 apply 不阻塞主线程。 */
+    public void tickRuleState(long balanceMs, long watchMs) {
+        sp.edit().putLong("balanceMs", Math.max(0L, balanceMs))
+                .putLong("watchMs", Math.max(0L, watchMs))
+                .putLong("heartbeatAt", System.currentTimeMillis()).apply();
+    }
+
+    /** 当日计数归零；余额默认保留，只有家长明确开了「跨天清余额」才清。 */
+    public boolean resetDailyRules(String newDayKey) {
+        long bal = balanceCarryOver() ? balanceMs() : 0L;
+        saveRuleState(0, 0, 0, 0L, bal, 0L, 0L, newDayKey);
+        return !balanceCarryOver();
+    }
 
     public void addGap(long ms) {
         long v = sp.getLong("serviceGapMs", 0L) + ms;
@@ -185,6 +327,9 @@ public final class Prefs {
 
     public void resetSession() {
         saveSnapshot(IDLE, durationMin() * 60_000L);
+        // 答题积累模式下余额是「劳动所得」，结束会话不能清；只清当日过程态。
+        String day = ruleDayKey().isEmpty() ? logicalDayKey() : ruleDayKey();
+        saveRuleState(0, wrongToday(), unlockToday(), 0L, balanceMs(), 0L, 0L, day);
         clearStartHint();
     }
 
@@ -452,7 +597,11 @@ public final class Prefs {
     }
 
     public static String phaseName(int p) {
-        return p == RUNNING ? "计时中" : p == LOCKED ? "已锁定" : "未开始";
+        if (p == RUNNING) return "计时中";
+        if (p == LOCKED) return "已锁定";
+        if (p == REST) return "强制休息";
+        if (p == OUT) return "时段外";
+        return "未开始";
     }
 
     private static int clamp(int v, int lo, int hi) { return v < lo ? lo : (v > hi ? hi : v); }

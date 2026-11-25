@@ -18,7 +18,10 @@ import java.util.Random;
 public class MaskView extends FrameLayout {
 
     public interface Host {
-        void onSolved();
+        /** 答对：宿主负责累加连对/余额/解锁阈值。返回 true = 已解锁，宿主会在反馈后摘遮罩。 */
+        boolean onCorrect();
+        /** 答错：宿主负责清连对、计冷却。返回剩余冷却毫秒，0 = 只换题。 */
+        long onWrong();
         void onPinOk();
     }
 
@@ -47,6 +50,8 @@ public class MaskView extends FrameLayout {
     private boolean answering = false;
     /** 答错后停在解析页，等用户按「下一题」才继续。true 时除 OK 外的按键一律吞掉。 */
     private boolean waitNext = false;
+    /** 答错冷却的截止 uptime；>0 时下一题按钮不可用。落盘真源在 Prefs.cooldownUntil。 */
+    private long cooldownUntilWall = 0L;
     /** 当前选中的选项。遮罩在悬浮窗里，不能靠焦点树，只能自己记。 */
     private int sel = 0;
 
@@ -151,7 +156,7 @@ public class MaskView extends FrameLayout {
         nextBtn.setBackground(selectedBg());
         nextBtn.setClickable(true);
         nextBtn.setFocusable(false);   // 悬浮窗焦点树不可靠，按键由 dispatchKeyEvent 路由
-        nextBtn.setOnClickListener(v -> { if (waitNext) nextQuestion(); });
+        nextBtn.setOnClickListener(v -> { if (waitNext && !cooling()) nextQuestion(); });
         LinearLayout.LayoutParams nlp = new LinearLayout.LayoutParams(-1, Ui.dp(c, 46));
         nlp.topMargin = Ui.dp(c, 12);
         box.addView(nextBtn, nlp);
@@ -174,6 +179,39 @@ public class MaskView extends FrameLayout {
 
         addView(box, new FrameLayout.LayoutParams(-1, -1));
         nextQuestion();
+        // 进程在冷却期间被强停/重启：Prefs 里还有截止时刻，遮罩重建后接着罚等
+        long cd = prefs.cooldownLeftMs();
+        if (cd > 0) enterCooldown(cd);
+    }
+
+    private void enterCooldown(long ms) {
+        waitNext = true;
+        cooldownUntilWall = System.currentTimeMillis() + Math.max(0L, ms);
+        answering = false;
+        hint.setVisibility(View.GONE);
+        brandRow.setVisibility(View.GONE);
+        nextBtn.setVisibility(View.VISIBLE);
+        updateCooldownLabel(ms);
+    }
+
+    /** 由 GateService 的 ticker 每 200ms 调一次，刷新冷却读秒。 */
+    public void tick() {
+        if (cooldownUntilWall <= 0) return;
+        long left = cooldownUntilWall - System.currentTimeMillis();
+        if (left <= 0) {
+            cooldownUntilWall = 0L;
+            nextBtn.setText("下一题  ▶");
+            return;
+        }
+        updateCooldownLabel(left);
+    }
+
+    private void updateCooldownLabel(long left) {
+        nextBtn.setText("冷却中 " + ((left + 999) / 1000) + " 秒");
+    }
+
+    private boolean cooling() {
+        return cooldownUntilWall > 0 && cooldownUntilWall > System.currentTimeMillis();
     }
 
     @Override
@@ -185,6 +223,7 @@ public class MaskView extends FrameLayout {
     }
 
     public void nextQuestion() {
+        cooldownUntilWall = 0L;
         q = bank.nextAny(grade, floorGrade, rnd);
         answering = false;
         waitNext = false;
@@ -200,12 +239,16 @@ public class MaskView extends FrameLayout {
         metaView.setText(meta);
         metaView.setVisibility(meta.isEmpty() ? View.GONE : View.VISIBLE);
         // 用户题库缺当前年级题目时只提示一次，不占额外高度：改写顶部这行说明。
+        int need = GateRules.needed(prefs.mode(), prefs.fixedNeed(), prefs.firstNeed(),
+                prefs.stepAdd(), prefs.unlockToday());
+        String prog = GateRules.progressText(prefs.mode(), prefs.streak(), need,
+                prefs.balanceMs(), prefs.minBankMin() * 60_000L);
         if (q.fallback) {
             kicker.setTextSize(TypedValue.COMPLEX_UNIT_DIP, 17);
-            kicker.setText("本次观看时间到 · 该题库无此题，已用默认题库");
+            kicker.setText(prog + " · 已用默认题库");
         } else {
             kicker.setTextSize(TypedValue.COMPLEX_UNIT_DIP, 20);
-            kicker.setText("本次观看时间到");
+            kicker.setText(prog);
         }
         for (int i = 0; i < 4; i++) opts[i].setText(q.options[i]);
         feedback.setText("");
@@ -253,29 +296,55 @@ public class MaskView extends FrameLayout {
         select(row * 2 + col);
     }
 
+    private String unlockText() {
+        int mode = prefs.mode();
+        if (mode == GateRules.MODE_BANK) {
+            return "攒够 " + prefs.minBankMin() + " 分钟，开始观看";
+        }
+        if (mode == GateRules.MODE_DELAY) {
+            return "答对了，延长 " + extendMin + " 分钟";
+        }
+        return "连对达标，解锁 " + prefs.extendMin() + " 分钟";
+    }
+
     private void answer(int i) {
-        if (answering || pinVisible || q == null) return;
+        if (answering || pinVisible || q == null || cooling()) return;
         answering = true;
         boolean ok = (i == q.answer);
         if (ok) {
             opts[i].setBackgroundColor(0xFF1F6F45);
+            // 宿主累加连对/余额；返回 true 时宿主会在反馈展示后摘掉遮罩
+            boolean unlocked = host.onCorrect();
             feedback.setTextColor(Ui.OK);
-            feedback.setText("答对了，延长 " + extendMin + " 分钟");
-            postDelayed(host::onSolved, 700);
+            if (unlocked) {
+                feedback.setText(unlockText());
+            } else {
+                int need = GateRules.needed(prefs.mode(), prefs.fixedNeed(), prefs.firstNeed(),
+                        prefs.stepAdd(), prefs.unlockToday());
+                feedback.setText(GateRules.progressText(prefs.mode(), prefs.streak(), need,
+                        prefs.balanceMs(), prefs.minBankMin() * 60_000L));
+                postDelayed(this::nextQuestion, 700);
+            }
         } else {
             opts[i].setBackgroundColor(0x8C6B1D1D);
             opts[q.answer].setBackgroundColor(0xFF1F6F45);
             feedback.setTextColor(Ui.BAD);
             String ex = q.explain == null || q.explain.isEmpty() ? "" : "　" + q.explain;
-            feedback.setText("正确答案是「" + q.options[q.answer] + "」" + ex);
+            long cd = host.onWrong();
+            feedback.setText("正确答案是「" + q.options[q.answer] + "」" + ex
+                    + (cd > 0 ? "　冷却 " + (cd / 1000) + " 秒" : ""));
             // 不自动跳题：解析要留给用户看完，亮出「下一题」，他按 OK / 点这一行才继续。
             // 540dp 高的电视上「解析两行 + 按钮 + 品牌角标」会顶出屏幕，等按钮出现时先收起
             // 提示行与品牌行，返回下一题时恢复。
-            waitNext = true;
-            hint.setVisibility(View.GONE);
-            brandRow.setVisibility(View.GONE);
-            nextBtn.setText("下一题  ▶");
-            nextBtn.setVisibility(View.VISIBLE);
+            if (cd > 0) {
+                enterCooldown(cd);
+            } else {
+                waitNext = true;
+                hint.setVisibility(View.GONE);
+                brandRow.setVisibility(View.GONE);
+                nextBtn.setText("下一题  ▶");
+                nextBtn.setVisibility(View.VISIBLE);
+            }
         }
     }
 
@@ -369,7 +438,7 @@ public class MaskView extends FrameLayout {
                 // 免得用户以为还能改答案，或者按键漏到下层正在播放的应用。
                 if (k == KeyEvent.KEYCODE_DPAD_CENTER || k == KeyEvent.KEYCODE_ENTER
                         || k == KeyEvent.KEYCODE_NUMPAD_ENTER) {
-                    nextQuestion();
+                    if (!cooling()) nextQuestion();
                     return true;
                 }
                 return true;
