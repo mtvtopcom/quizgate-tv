@@ -51,6 +51,7 @@ public class MainActivity extends Activity {
     /** 首页（只看运行状态）；设置页是原来的 contentScroll，两者在同一个 Activity 里切换。 */
     private View homeRoot;
     private TextView homePhase, homeTime, homeGuard, homeAuth, homeAnchor, homeBanner, homeBtnStart;
+    private TextView homeModeLabel;
     private TextView homeBtnMode;
     /** 首页状态读数左侧的色条：待机灰、计时黄、锁定红。 */
     private View homeBar;
@@ -260,15 +261,12 @@ public class MainActivity extends Activity {
         glp.topMargin = Ui.dp(this, 8);
         info.addView(homeGuard, glp);
 
-        // 首页直接切换答题模式：四个按钮已经占满 540dp 下的横向空间，
-        // 这里做成状态卡片里可点的一行，不新增第四颗按钮。
-        homeBtnMode = Ui.label(this, "答题模式：答题延时 ›", 17, Ui.ACCENT);
-        homeBtnMode.setFocusable(true);
-        homeBtnMode.setClickable(true);
-        homeBtnMode.setOnClickListener(v -> openModePanel());
+        // 首页状态卡只显示当前模式；可点入口在底部「模式」按钮（D2 上顶部文字进不了焦点树）。
+        homeModeLabel = Ui.label(this, "答题模式：答题延时 ›", 17, Ui.ACCENT);
+        homeModeLabel.setGravity(Gravity.START);
         LinearLayout.LayoutParams mlp = new LinearLayout.LayoutParams(-2, -2);
         mlp.topMargin = Ui.dp(this, 6);
-        info.addView(homeBtnMode, mlp);
+        info.addView(homeModeLabel, mlp);
 
         homeBanner = Ui.label(this, "", 19, Ui.BLACK);
         homeBanner.setBackgroundColor(Ui.BAD);
@@ -322,6 +320,15 @@ public class MainActivity extends Activity {
         LinearLayout.LayoutParams slp = new LinearLayout.LayoutParams(-2, -2);
         slp.leftMargin = Ui.dp(this, 20);
         btns.addView(settings, slp);
+
+        // 第四颗按钮用紧凑宽度：三颗 200dp + 这颗 150dp + 间距仍在 960dp 视口内。
+        homeBtnMode = Ui.homeKey(this, "模式", false);
+        homeBtnMode.setMinWidth(Ui.dp(this, 150));
+        homeBtnMode.setMinHeight(Ui.dp(this, 56));
+        homeBtnMode.setOnClickListener(v -> openModePanel());
+        LinearLayout.LayoutParams mblp = new LinearLayout.LayoutParams(-2, -2);
+        mblp.leftMargin = Ui.dp(this, 12);
+        btns.addView(homeBtnMode, mblp);
 
         LinearLayout.LayoutParams blp = new LinearLayout.LayoutParams(-1, -2);
         blp.topMargin = Ui.dp(this, 16);
@@ -1439,7 +1446,7 @@ public class MainActivity extends Activity {
         valueDuration.setText(prefs.durationMin() + " 分钟");
         valueExtend.setText("+ " + prefs.extendMin() + " 分钟");
         valueMode.setText(GateRules.modeName(prefs.mode()));
-        if (homeBtnMode != null) homeBtnMode.setText("答题模式：" + GateRules.modeName(prefs.mode()) + " ›");
+        if (homeModeLabel != null) homeModeLabel.setText("答题模式：" + GateRules.modeName(prefs.mode()) + " ›");
         valueFixedNeed.setText(prefs.fixedNeed() + " 题");
         valueFirstNeed.setText(prefs.firstNeed() + " 题");
         valueStepAdd.setText("+ " + prefs.stepAdd() + " 题");
