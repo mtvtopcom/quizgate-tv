@@ -145,11 +145,9 @@ public class GateService extends Service implements MaskView.Host {
      */
     private boolean admitBoot() {
         prefs.consumeCrash();
-        // 总开关关闭时不挂任何窗口、也不起计时：用户主动停了软件，回桌面不能被拉起来
-        if (!prefs.gateOn()) {
-            Log.i(TAG, "gate_off -> 守护未启动");
-            return false;
-        }
+        // 总开关判断已移到 onStartCommand（那里拿得到 action，能正确放行 ENABLE）。
+        // 这里只做熔断检查：若还在这里按 gateOn 判死，点「启动软件」时 gateOn 尚未置位，
+        // ENABLE 会被误杀（D1 实测）。
         if (prefs.safeMode()) {
             Log.e(TAG, "safe_mode 连续 " + Prefs.MAX_CRASH + " 次崩溃（最后一次 " + prefs.crashInfo()
                     + "）-> 停止守护，不再重启");

@@ -1629,6 +1629,10 @@ public class MainActivity extends Activity {
             homeGuard.setText("守护状态：" + txt);
             homeGuard.setTextColor(color);
         }
+        // 总开关由服务在 onStartCommand 里异步置位（ENABLE 才会 setGateOn(true)），
+        // onClick 里同步 refresh 会读到旧值，按钮卡在「启动软件」。这里每秒校正一次。
+        if (homeBtnGate != null) homeBtnGate.setText(prefs.gateOn() ? "停止软件" : "启动软件");
+        if (homeBtnQuiz != null) homeBtnQuiz.setText("答题：" + (prefs.quizOn() ? "开" : "停"));
     }
 
     /** 当前页面该先给谁焦点。1.2.9 起设置页顶部没有返回按钮了，落在第一项「本次时长」上。 */
