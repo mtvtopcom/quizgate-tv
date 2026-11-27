@@ -133,11 +133,18 @@ public class GateService extends Service implements MaskView.Host {
         lastTick = SystemClock.uptimeMillis();
 
         long hb = prefs.heartbeatAt();
-        if (hb > 0) {
+        // 只有「本该在守护」的会话才谈缺口。软件已停止时心跳停在停止那一刻，
+        // 把这段算成缺口，下次点启动就会弹「约 1610 分钟」这种上一天的数字（D2 实测）。
+        // 注意这里读的是落盘值：ENABLE 要到 onStartCommand 才 setGateOn(true)，
+        // 所以家长主动启动这条路径天然不记缺口，不用靠事后清理。
+        if (hb > 0 && prefs.gateOn()) {
             long gap = System.currentTimeMillis() - hb;
             if (gap > 120_000L) {
-                prefs.addGap(gap);
-                prefs.markInterrupted(gap);
+                // 超过 6 小时按 6 小时记：整天没开机时具体分钟数已没参考价值，
+                // 也免得 serviceGapMs 被几十万分钟的一次待机撑爆。
+                long capped = Math.min(gap, 6 * 3600_000L);
+                prefs.addGap(capped);
+                prefs.markInterrupted(capped);
                 Log.i(TAG, "service_gap=" + (gap / 1000) + "s（守护被系统终止过，这段时间不扣时）");
             }
         }
