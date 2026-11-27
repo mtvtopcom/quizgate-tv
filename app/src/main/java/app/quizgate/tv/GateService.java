@@ -230,6 +230,9 @@ public class GateService extends Service implements MaskView.Host {
         }
         if (ACTION_ENABLE.equals(action)) {
             prefs.setGateOn(true);
+            // 家长主动启动＝新会话，之前停止/升级期间留下的旧缺口作废，
+            // 否则会在首页弹出「上次守护被系统终止了 · 1610 分钟」这种陈旧提示。
+            prefs.clearInterrupted();
             prefs.setParentUnlocked(false);
             App.parentUnlocked = false;
             int p = prefs.phase();
@@ -242,6 +245,9 @@ public class GateService extends Service implements MaskView.Host {
                         && remaining < prefs.minBankMin() * 60_000L) p = Prefs.LOCKED;
                 prefs.saveSnapshot(p, remaining);
             } else {
+                // 已经有会话（RUNNING/LOCKED）时沿用剩余，不重判门槛：
+                // 答题积累的余额是「能断续使用的可看时长」，攒够后再看一半、停一下再启动，
+                // 剩下的余额应当能接着用，不能要求重新攒满门槛。
                 remaining = prefs.remainingMs();
             }
             if (!prefs.quizOn() && prefs.phase() == Prefs.LOCKED) {

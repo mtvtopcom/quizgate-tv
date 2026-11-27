@@ -2179,6 +2179,9 @@ public class MainActivity extends Activity {
     private void maybeShowInterruptNotice() {
         long gap = prefs.interruptedGapMs();
         if (gap <= 0) return;
+        // 软件没在守护时谈不上「守护被终止」，文案里的「已按原剩余时间继续」也不成立。
+        // 未启动就把旧缺口清掉，免得家长下次点启动时弹一条昨天的记录。
+        if (!prefs.gateOn()) { prefs.clearInterrupted(); return; }
         if (gate != null && gate.getParent() != null) return;   // 口令键盘还盖着，等它关掉再说
         prefs.clearInterrupted();
 

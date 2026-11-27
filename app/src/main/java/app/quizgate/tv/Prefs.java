@@ -40,12 +40,15 @@ public final class Prefs {
 
     // ---------- 设置 ----------
     /**
-     * 软件总开关。老用户（已设口令或已有会话）升级后默认继续运行；
-     * 全新安装默认关闭，等家长在首页主动点「启动软件」，避免装上就突然锁屏。
+     * 软件总开关。老数据（1.6.0 之前没有这个键）只在「正在计时/锁定/休息/时段外」时
+     * 默认继续守护；停在 IDLE 的按未启动处理。
+     * <p>不能按 hasPin() 判：旧版「结束本次会话」后 phase 停在 IDLE 但口令还在，
+     * 那样升级后首页会同时显示「停止软件」和「未开始 · 待机」，家长以为在守护，
+     * 实际不锁屏也不计时。全新安装同理，等家长主动点「启动软件」。
      */
     public boolean gateOn() {
         if (sp.contains("gateOn")) return sp.getBoolean("gateOn", false);
-        return hasPin() || phase() != IDLE;
+        return phase() != IDLE;
     }
     public void setGateOn(boolean v) { sp.edit().putBoolean("gateOn", v).commit(); }
 
