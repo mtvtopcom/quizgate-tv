@@ -221,16 +221,32 @@ public final class Prefs {
     }
 
     /**
-     * 1.3.0：家长在锁屏遮罩上输对过一次口令后，到「开始新一局计时」为止进设置不再要口令。
+     * 家长豁免态有效期。1.6.0 新流程取消了「开始新一局」（原本在那里清除家长态），
+     * 若不设时限，输一次口令后时段/休息豁免会永久有效——全局规则形同虚设。
+     * 5 分钟够家长改完设置，到点自动失效，不需要额外操作。
+     */
+    private static final long PARENT_UNLOCK_MS = 5 * 60_000L;
+
+    /**
+     * 1.3.0：家长在锁屏遮罩上输对过一次口令后，进设置不再要口令。
      *
      * <p><b>必须落盘</b>：小米电视回桌面 / 待机会强停第三方进程，只放进程内静态变量
      * 活不过这一下，家长刚解锁完、按 HOME 再回来又被要一次口令。卸载重装会随
      * gate prefs 一起清掉，不会把解锁状态带到新安装。
+     *
+     * <p>1.6.0 起带 5 分钟时限：墙上时钟（强停后仍按真实时间算）。老数据没有时间戳，
+     * 视作已过期，避免升级后沿用一段来历不明的豁免。
      */
-    public boolean parentUnlocked() { return sp.getBoolean("parentUnlocked", false); }
+    public boolean parentUnlocked() {
+        if (!sp.getBoolean("parentUnlocked", false)) return false;
+        long at = sp.getLong("parentUnlockedAt", 0L);
+        return at > 0 && System.currentTimeMillis() - at < PARENT_UNLOCK_MS;
+    }
 
     public void setParentUnlocked(boolean v) {
-        sp.edit().putBoolean("parentUnlocked", v).commit();
+        sp.edit().putBoolean("parentUnlocked", v)
+                .putLong("parentUnlockedAt", v ? System.currentTimeMillis() : 0L)
+                .commit();
     }
 
     /**
