@@ -39,6 +39,23 @@ public final class Prefs {
     }
 
     // ---------- 设置 ----------
+    /**
+     * 软件总开关。老用户（已设口令或已有会话）升级后默认继续运行；
+     * 全新安装默认关闭，等家长在首页主动点「启动软件」，避免装上就突然锁屏。
+     */
+    public boolean gateOn() {
+        if (sp.contains("gateOn")) return sp.getBoolean("gateOn", false);
+        return hasPin() || phase() != IDLE;
+    }
+    public void setGateOn(boolean v) { sp.edit().putBoolean("gateOn", v).commit(); }
+
+    /**
+     * 答题开关。关掉后不弹题、不扣观看时长，但每日时段与强制休息仍然生效。
+     * 连对/余额/冷却状态保留，重新开启时接着原来的状态。
+     */
+    public boolean quizOn() { return sp.getBoolean("quizOn", true); }
+    public void setQuizOn(boolean v) { sp.edit().putBoolean("quizOn", v).commit(); }
+
     public int durationMin() { return sp.getInt("durationMin", 30); }
     public void setDurationMin(int v) { sp.edit().putInt("durationMin", clamp(v, 1, 240)).commit(); }
 

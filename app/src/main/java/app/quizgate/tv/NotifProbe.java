@@ -32,6 +32,12 @@ public class NotifProbe extends NotificationListenerService {
         Prefs p = new Prefs(this);
         int phase = p.phase();
         Log.i(TAG, "notif_connected phase=" + phase + " remaining=" + Core.fmt(p.remainingMs()));
+        // 总开关关闭 = 用户主动停了守护，系统重新绑定也不能把它拉回来
+        if (!p.gateOn()) {
+            Log.i(TAG, "gate_off -> 不复活服务");
+            unregisterSelf();
+            return;
+        }
         // 熔断期间不复活：系统重新绑定通知监听是最高频的拉起路径，这里必须挡住
         if (p.safeMode()) {
             Log.e(TAG, "safe_mode -> 不再复活服务");

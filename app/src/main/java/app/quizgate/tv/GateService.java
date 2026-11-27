@@ -34,6 +34,11 @@ public class GateService extends Service implements MaskView.Host {
     public static final String ACTION_START = "app.quizgate.tv.START";
     public static final String ACTION_RESTORE = "app.quizgate.tv.RESTORE";
     public static final String ACTION_EXIT = "app.quizgate.tv.EXIT";
+    /** 流程重构：总开关决定服务在不在，答题开关决定出不出题。 */
+    public static final String ACTION_ENABLE = "app.quizgate.tv.ENABLE";
+    public static final String ACTION_DISABLE = "app.quizgate.tv.DISABLE";
+    public static final String ACTION_QUIZ_ON = "app.quizgate.tv.QUIZ_ON";
+    public static final String ACTION_QUIZ_OFF = "app.quizgate.tv.QUIZ_OFF";
 
     private static final String CHANNEL = "gate";
     private static final int NOTIF_ID = 1001;
@@ -140,6 +145,11 @@ public class GateService extends Service implements MaskView.Host {
      */
     private boolean admitBoot() {
         prefs.consumeCrash();
+        // 总开关关闭时不挂任何窗口、也不起计时：用户主动停了软件，回桌面不能被拉起来
+        if (!prefs.gateOn()) {
+            Log.i(TAG, "gate_off -> 守护未启动");
+            return false;
+        }
         if (prefs.safeMode()) {
             Log.e(TAG, "safe_mode 连续 " + Prefs.MAX_CRASH + " 次崩溃（最后一次 " + prefs.crashInfo()
                     + "）-> 停止守护，不再重启");
@@ -161,11 +171,65 @@ public class GateService extends Service implements MaskView.Host {
             return START_NOT_STICKY;
         }
 
-        if (ACTION_EXIT.equals(action)) {
-            exitSession();
+        if (ACTION_DISABLE.equals(action)) {
+            // 总开关：彻底停下守护，通知监听也不会再把它拉起来
+            prefs.setGateOn(false);
+            running = false;
+            h.removeCallbacks(ticker);
+            h.removeCallbacks(hintDismiss);
+            removeMask();
+            removeBlock();
+            removeMini();
+            prefs.setParentUnlocked(false);
+            App.parentUnlocked = false;
+            notify("守护已停止");
+            stopForeground(true);
+            stopSelf();
             return START_NOT_STICKY;
         }
-        if (ACTION_START.equals(action)) {
+        if (!prefs.gateOn() && !ACTION_ENABLE.equals(action)) {
+            Log.i(TAG, "gate_off -> 忽略 action=" + action);
+            stopSelf();
+            return START_NOT_STICKY;
+        }
+        if (ACTION_QUIZ_ON.equals(action) || ACTION_QUIZ_OFF.equals(action)) {
+            boolean on = ACTION_QUIZ_ON.equals(action);
+            prefs.setQuizOn(on);
+            Log.i(TAG, "quiz_switch=" + on);
+            if (!on && prefs.phase() == Prefs.LOCKED) {
+                if (remaining <= 0) remaining = Math.max(1, prefs.durationMin()) * 60_000L;
+                prefs.saveSnapshot(Prefs.RUNNING, remaining);
+            }
+            reconcile();
+            updateNotification();
+            return START_STICKY;
+        }
+        if (ACTION_ENABLE.equals(action)) {
+            prefs.setGateOn(true);
+            prefs.setParentUnlocked(false);
+            App.parentUnlocked = false;
+            int p = prefs.phase();
+            if (p == Prefs.IDLE) {
+                long base = prefs.mode() == GateRules.MODE_BANK
+                        ? prefs.balanceMs() : prefs.durationMin() * 60_000L;
+                remaining = base;
+                p = Prefs.RUNNING;
+                if (prefs.quizOn() && prefs.mode() == GateRules.MODE_BANK
+                        && remaining < prefs.minBankMin() * 60_000L) p = Prefs.LOCKED;
+                prefs.saveSnapshot(p, remaining);
+            } else {
+                remaining = prefs.remainingMs();
+            }
+            if (!prefs.quizOn() && prefs.phase() == Prefs.LOCKED) {
+                if (remaining <= 0) remaining = Math.max(1, prefs.durationMin()) * 60_000L;
+                prefs.saveSnapshot(Prefs.RUNNING, remaining);
+            }
+            if (!prefs.inWindow()) prefs.saveSnapshot(Prefs.OUT, remaining);
+            if (prefs.ruleDayKey().isEmpty()) {
+                prefs.saveRuleState(0, 0, 0, 0L, prefs.balanceMs(), 0L, 0L, prefs.logicalDayKey());
+            }
+            notify("守护已启动");
+        } else if (ACTION_START.equals(action)) {
             // 测试钩子：--ei durationMin 1 / --el remainingMs 4000，仅用于现场调试
             int ovMin = intent.getIntExtra("durationMin", 0);
             long ovMs = intent.getLongExtra("remainingMs", -1L);
@@ -239,7 +303,9 @@ public class GateService extends Service implements MaskView.Host {
 
             if (prefs.phase() == Prefs.RUNNING) {
                 if (screenOn()) {
-                    remaining -= delta;
+                    // 答题关掉后不扣时长：用户选的是「不答题直接看」，但 watchMs 照常累加，
+                    // 每日时段与强制休息仍然生效（全局规则是天花板）。
+                    if (prefs.quizOn()) remaining -= delta;
                     watchMs += delta;
                     // 连续观看达标：强制休息，本帧不再扣余额
                     if (watchMs >= prefs.watchLimitMin() * 60_000L) {
@@ -249,7 +315,7 @@ public class GateService extends Service implements MaskView.Host {
                         h.postDelayed(this, TICK_MS);
                         return;
                     }
-                    if (remaining <= 0) {
+                    if (remaining <= 0 && prefs.quizOn()) {
                         remaining = 0;
                         lock();
                         h.postDelayed(this, TICK_MS);   // 锁定后本帧立刻结束，避免 updateMini 把读秒窗又加回来
@@ -293,6 +359,13 @@ public class GateService extends Service implements MaskView.Host {
         }
 
         int p = prefs.phase();
+        // 答题关掉后不该继续停留在答题遮罩：直接放行观看，但全局规则照管
+        if (!prefs.quizOn() && p == Prefs.LOCKED) {
+            if (remaining <= 0) remaining = Math.max(1, prefs.durationMin()) * 60_000L;
+            prefs.saveSnapshot(Prefs.RUNNING, remaining);
+            resumeAfterBlock("quiz_off");
+            return;
+        }
         if (p == Prefs.REST && prefs.restLeftMs() <= 0) {
             prefs.saveRuleState(prefs.streak(), prefs.wrongToday(), prefs.unlockToday(),
                     prefs.cooldownUntil(), prefs.balanceMs(), watchMs, 0L, prefs.ruleDayKey());
@@ -337,7 +410,7 @@ public class GateService extends Service implements MaskView.Host {
 
     private void resumeAfterBlock(String why) {
         removeBlock();
-        int target = remaining > 0 ? Prefs.RUNNING : Prefs.LOCKED;
+        int target = (remaining > 0 || !prefs.quizOn()) ? Prefs.RUNNING : Prefs.LOCKED;
         prefs.saveSnapshot(target, remaining);
         lastTick = SystemClock.uptimeMillis();
         reconcile();
@@ -389,6 +462,7 @@ public class GateService extends Service implements MaskView.Host {
     // ---------- 状态机 ----------
 
     private void lock() {
+        if (!prefs.quizOn()) return;   // 答题关掉后不进答题遮罩
         Log.i(TAG, "lock at 0 (screen=" + screenOn() + ")");
         if (!prefs.inWindow() && !prefs.parentUnlocked()) {
             enterOut();
@@ -525,11 +599,9 @@ public class GateService extends Service implements MaskView.Host {
     }
 
     @Override public void onPinOk() {
-        // 家长在遮罩上输对口令 = 「我要进设置改东西」，不是「结束这一局」。
-        // 1.4.0 起会话继续计时：phase 从 LOCKED 切回 RUNNING，遮罩由 reconcile() 摘掉；
-        // 真正要结束会话走首页的「结束本次会话」，那里是独立的 PIN_CONFIRM 二次确认。
-        // 到点锁定时 remaining 已归零，直接切 RUNNING 会立刻再次 lock()，所以给一段
-        // 宽限时间继续计时，长度沿用「答对延长」的分钟数（家长接管等同授权续时）。
+        // 家长在遮罩上输对口令 = 「临时放行一段时间去改设置」，不是「停止软件」。
+        // 新流程没有会话概念：软件总开关仍开着，家长豁免标记暂时跳过时段限制；
+        // 输对口令后给一段宽限继续观看，但不会停止守护。
         long grace = Math.max(1, prefs.extendMin()) * 60_000L;
         long bal = prefs.balanceMs();
         if (prefs.mode() == GateRules.MODE_BANK) {
@@ -538,7 +610,8 @@ public class GateService extends Service implements MaskView.Host {
         } else {
             remaining = Math.max(remaining, grace);
         }
-        // 家长接管：重置连续观看计时，但余额继续按真实消耗扣
+        // 家长临时放行：清掉连续观看计时与休息截止，这是有意保留的家长豁免；
+        // 软件总开关不受影响，全局规则在下一轮照常生效。
         watchMs = 0L;
         prefs.saveRuleState(prefs.streak(), prefs.wrongToday(), prefs.unlockToday(),
                 prefs.cooldownUntil(), bal, 0L, 0L, prefs.ruleDayKey());
