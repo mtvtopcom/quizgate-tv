@@ -56,6 +56,8 @@ public class MainActivity extends Activity {
     private View homeRoot;
     private TextView homePhase, homeTime, homeGuard, homeAuth, homeAnchor, homeBanner;
     private TextView homeBtnGate, homeBtnMode, homeBtnSet;
+    /** 答题积累专属：进软件页面手动答题攒时间，与锁屏遮罩同一套答题界面。 */
+    private TextView homeBtnEarn;
     private TextView homeModeLabel;
     /** 首页状态读数左侧的色条：待机灰、计时黄、锁定红。 */
     private View homeBar;
@@ -464,24 +466,38 @@ public class MainActivity extends Activity {
         View spacer = new View(this);
         home.addView(spacer, new LinearLayout.LayoutParams(-1, 0, 1f));
 
-        // 一行三颗：启动/停止软件 · 答题方式 · 设置。
-        // 1080p 电视有效视口 960dp，宽度 300+300+160 + 两处 18dp 间距 = 796dp，留得下 overscan。
-        // 「答题开/停」不再单独占按钮：它已经收进「答题方式」里的「答题关」。
-        LinearLayout row = Ui.row(this);
-        row.setGravity(Gravity.CENTER);
+        // 两行按钮：
+        //   行1：启动/停止软件 · 答题加时间（只在答题积累且运行中时出现）
+        //   行2：答题方式 · 短名 · 设置
+        // 「答题开/停」不单独占按钮：开/停语义收在「答题方式」里的「答题关」。
+        LinearLayout row1 = Ui.row(this);
+        row1.setGravity(Gravity.CENTER);
         homeBtnGate = Ui.homeKey(this, "启动软件", true);
-        homeBtnGate.setMinWidth(Ui.dp(this, 300));
+        homeBtnGate.setMinWidth(Ui.dp(this, 320));
         homeBtnGate.setMinHeight(Ui.dp(this, 58));
         homeBtnGate.setOnClickListener(v -> toggleGate());
-        row.addView(homeBtnGate);
+        row1.addView(homeBtnGate);
 
+        homeBtnEarn = Ui.homeKey(this, "答题加时间", false);
+        homeBtnEarn.setMinWidth(Ui.dp(this, 300));
+        homeBtnEarn.setMinHeight(Ui.dp(this, 58));
+        homeBtnEarn.setOnClickListener(v -> openEarnQuiz());
+        homeBtnEarn.setVisibility(View.GONE);
+        LinearLayout.LayoutParams belp = new LinearLayout.LayoutParams(-2, -2);
+        belp.leftMargin = Ui.dp(this, 18);
+        row1.addView(homeBtnEarn, belp);
+
+        LinearLayout.LayoutParams r1lp = new LinearLayout.LayoutParams(-1, -2);
+        r1lp.topMargin = Ui.dp(this, 16);
+        home.addView(row1, r1lp);
+
+        LinearLayout row2 = Ui.row(this);
+        row2.setGravity(Gravity.CENTER);
         homeBtnMode = Ui.homeKey(this, "答题方式", false);
-        homeBtnMode.setMinWidth(Ui.dp(this, 300));
+        homeBtnMode.setMinWidth(Ui.dp(this, 320));
         homeBtnMode.setMinHeight(Ui.dp(this, 58));
         homeBtnMode.setOnClickListener(v -> showModeConfig());
-        LinearLayout.LayoutParams bmlp = new LinearLayout.LayoutParams(-2, -2);
-        bmlp.leftMargin = Ui.dp(this, 18);
-        row.addView(homeBtnMode, bmlp);
+        row2.addView(homeBtnMode);
 
         homeBtnSet = Ui.homeKey(this, "设置", false);
         homeBtnSet.setMinWidth(Ui.dp(this, 160));
@@ -489,13 +505,13 @@ public class MainActivity extends Activity {
         homeBtnSet.setOnClickListener(v -> showSettings());
         LinearLayout.LayoutParams slp = new LinearLayout.LayoutParams(-2, -2);
         slp.leftMargin = Ui.dp(this, 18);
-        row.addView(homeBtnSet, slp);
+        row2.addView(homeBtnSet, slp);
 
-        LinearLayout.LayoutParams rlp = new LinearLayout.LayoutParams(-1, -2);
-        rlp.topMargin = Ui.dp(this, 16);
-        home.addView(row, rlp);
+        LinearLayout.LayoutParams r2lp = new LinearLayout.LayoutParams(-1, -2);
+        r2lp.topMargin = Ui.dp(this, 12);
+        home.addView(row2, r2lp);
 
-        TextView hint = Ui.label(this, "方向键选择 · OK 确认 · 启动软件后进设置/答题方式需要家长口令",
+        TextView hint = Ui.label(this, "方向键选择 · OK 确认 · 在本页面不计时，回电视继续",
                 16, Ui.DIM);
         hint.setGravity(Gravity.CENTER);
         LinearLayout.LayoutParams hlp = new LinearLayout.LayoutParams(-1, -2);
@@ -1222,6 +1238,42 @@ public class MainActivity extends Activity {
         refresh();
     }
 
+    /**
+     * 「答题加时间」按钮只在「答题积累 + 已启动 + 答题开」时出现：
+     * 其他方式答对就直接续时，不存在余额这东西，摆一颗按钮只会让家长误解。
+     * 休息中/时段外也收起来——那两段是天花板，不允许靠答题绕过。
+     */
+    private void refreshEarnButton() {
+        if (homeBtnEarn == null) return;
+        int p = prefs.phase();
+        boolean show = prefs.gateOn() && prefs.quizOn()
+                && prefs.mode() == GateRules.MODE_BANK
+                && p != Prefs.REST && p != Prefs.OUT && p != Prefs.IDLE;
+        homeBtnEarn.setVisibility(show ? View.VISIBLE : View.GONE);
+    }
+
+    /** 打开有偿答题遮罩：答对一题加固定分钟，返回键结束。 */
+    private void openEarnQuiz() {
+        if (!prefs.gateOn()) {
+            toast("先启动软件");
+            return;
+        }
+        if (!prefs.quizOn() || prefs.mode() != GateRules.MODE_BANK) {
+            toast("只有「答题积累」方式可以答题加时间");
+            return;
+        }
+        int p = prefs.phase();
+        if (p == Prefs.REST) {
+            toast("强制休息中，休息结束后再攒时间");
+            return;
+        }
+        if (p == Prefs.OUT) {
+            toast("当前不在答题时段，先看时段设置");
+            return;
+        }
+        startService(new Intent(this, GateService.class).setAction(GateService.ACTION_EARN_QUIZ));
+    }
+
     private void startSession() {
         if (prefs.safeMode()) {
             toast("守护处于安全模式，先在「守护状态」里恢复");
@@ -1724,6 +1776,7 @@ public class MainActivity extends Activity {
             homeBtnMode.setText("答题方式 · " + GateRules.shortName(
                     prefs.quizOn() ? prefs.mode() : GateRules.MODE_OFF));
         }
+        refreshEarnButton();
         refreshModePicker();
         valueFixedNeed.setText(prefs.fixedNeed() + " 题");
         valueFirstNeed.setText(prefs.firstNeed() + " 题");
@@ -1904,14 +1957,25 @@ public class MainActivity extends Activity {
             phase = "守护恢复中…";
             big = "--:--";
         } else if (p == Prefs.LOCKED) {
-            phase = "已锁定 · 等待答题";
-            big = "0:00";
+            // 答题积累的锁定是「余额不够门槛」，余额本身还在，直接显示攒了多少比 0:00 有用
+            if (prefs.mode() == GateRules.MODE_BANK && prefs.remainingMs() > 0) {
+                phase = "余额不足 · 点「答题加时间」";
+                big = Core.fmt(prefs.remainingMs());
+            } else {
+                phase = "已锁定 · 等待答题";
+                big = "0:00";
+            }
         } else if (p == Prefs.REST) {
             phase = "强制休息中";
             big = Core.fmt(prefs.restLeftMs());
         } else if (p == Prefs.OUT) {
             phase = "不在答题时段";
             big = "--:--";
+        } else if (App.uiVisible && p == Prefs.RUNNING) {
+            // 在软件自己的页面里不扣时（服务端同步跳过累加），数字不动要说明原因，
+            // 否则家长会以为计时坏了。切回电视这一行立刻变回「计时中」。
+            phase = "计时暂停 · 正在使用本软件";
+            big = Core.fmt(prefs.remainingMs());
         } else if (!prefs.quizOn()) {
             // 答题关：不出题、也不扣观看时长，大字改成「距强制休息」的倒计时，
             // 否则家长看到的是一个永远不动的数字，会以为计时坏了。
@@ -2224,6 +2288,9 @@ public class MainActivity extends Activity {
     @Override protected void onResume() {
         super.onResume();
         Anchor.touch(this);   // 刷新「最后在线」，卸载时才能算出失联多久
+        // 软件自己的页面不扣时：进页面暂停，离开（onPause）恢复，见 GateService.ACTION_UI_STATE
+        App.uiVisible = true;
+        notifyUiVisible(true);
         autoRestore();
         refresh();
         // 从系统授权页回来：授权面板还在就重新查一遍，缺的项会自动变 ✓
@@ -2237,6 +2304,25 @@ public class MainActivity extends Activity {
     @Override protected void onPause() {
         super.onPause();
         h.removeCallbacks(uiTick);
+        // 离开软件（回电视/桌面）＝开始计时。埋在 onPause 里发，服务收到就立刻按 phase 上窗，
+        // 孩子按 HOME 切走也拦不住这一下。
+        App.uiVisible = false;
+        notifyUiVisible(false);
+    }
+
+    /**
+     * 只在软件已启动时才发：服务没跑的时候 startService 会把它拉起来，
+     * 那就变成「打开首页→退出」凭空启动守护了。
+     */
+    private void notifyUiVisible(boolean visible) {
+        if (!prefs.gateOn()) return;
+        try {
+            startService(new Intent(this, GateService.class)
+                    .setAction(GateService.ACTION_UI_STATE)
+                    .putExtra(GateService.EXTRA_VISIBLE, visible));
+        } catch (Throwable ignore) {
+            // 服务刚被系统回收时这里可能抛，下一秒的 tick 会按静态标记自愈
+        }
     }
 
     private void toast(String s) {

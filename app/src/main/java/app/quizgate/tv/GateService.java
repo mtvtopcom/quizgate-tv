@@ -44,6 +44,17 @@ public class GateService extends Service implements MaskView.Host {
      * 其他方式用「本次时长」起手，两者含义不同，不重算就会把余额当成剩余时长继续扣。
      */
     public static final String ACTION_APPLY_MODE = "app.quizgate.tv.APPLY_MODE";
+    /**
+     * 1.6.0：界面可见性上报。软件自己的页面不该计时（那不是看电视），
+     * visible=true 暂停计时，false 立刻按当前 phase 恢复窗口与计时。
+     */
+    public static final String ACTION_UI_STATE = "app.quizgate.tv.UI_STATE";
+    /** 答题积累：打开「答题加时间」遮罩（有偿答题，答对加余额，不算解锁）。 */
+    public static final String ACTION_EARN_QUIZ = "app.quizgate.tv.EARN_QUIZ";
+    /** 关闭「答题加时间」遮罩（返回键 / 攒够了）。 */
+    public static final String ACTION_EARN_EXIT = "app.quizgate.tv.EARN_EXIT";
+    /** ACTION_UI_STATE 的 extra：界面是否可见。 */
+    public static final String EXTRA_VISIBLE = "visible";
 
     private static final String CHANNEL = "gate";
     private static final int NOTIF_ID = 1001;
@@ -67,6 +78,10 @@ public class GateService extends Service implements MaskView.Host {
     private final Handler h = new Handler(Looper.getMainLooper());
 
     private MaskView mask;
+    /** 「答题加时间」遮罩。刻意与 mask 分开：reconcile 由 phase 驱动，会无条件摘 mask，
+     *  加时间是 RUNNING 状态下的主动行为，不能被 reconcile 顺手摘掉。 */
+    private MaskView earnView;
+    private boolean uiVisible;
     private BlockView block;
     private MiniView mini;
     /** 本轮遮罩已经暂停过播放；解锁后复位，下一轮才会再暂停。 */
@@ -235,8 +250,40 @@ public class GateService extends Service implements MaskView.Host {
             updateNotification();
             return START_STICKY;
         }
+        if (ACTION_UI_STATE.equals(action)) {
+            boolean v = intent.getBooleanExtra(EXTRA_VISIBLE, false);
+            if (v != uiVisible) {
+                uiVisible = v;
+                Log.i(TAG, "ui_state=" + v + " phase=" + Prefs.phaseName(prefs.phase()));
+                // 离开软件这一刻立刻按当前 phase 上窗：时段外/休息到点/余额耗尽都在这时补挂
+                reconcile();
+            }
+            return START_STICKY;
+        }
+        if (ACTION_EARN_QUIZ.equals(action)) {
+            if (!prefs.quizOn() || prefs.mode() != GateRules.MODE_BANK) {
+                Log.i(TAG, "earn_skip mode=" + GateRules.modeName(prefs.mode())
+                        + " quiz=" + prefs.quizOn());
+                return START_STICKY;
+            }
+            int ep = prefs.phase();
+            if (ep == Prefs.REST || ep == Prefs.OUT) {
+                // 休息与时段是天花板：不能靠答题绕过
+                Log.i(TAG, "earn_skip phase=" + Prefs.phaseName(ep));
+                return START_STICKY;
+            }
+            showEarn();
+            return START_STICKY;
+        }
+        if (ACTION_EARN_EXIT.equals(action)) {
+            dismissEarn();
+            return START_STICKY;
+        }
         if (ACTION_ENABLE.equals(action)) {
             prefs.setGateOn(true);
+            // 家长是在首页点「启动软件」的：App.uiVisible 此刻为 true，
+            // 不同步过来的话服务会以为人在看电视，一启动就开始扣时。
+            uiVisible = App.uiVisible;
             // 家长主动启动＝新会话，之前停止/升级期间留下的旧缺口作废，
             // 否则会在首页弹出「上次守护被系统终止了 · 1610 分钟」这种陈旧提示。
             prefs.clearInterrupted();
@@ -268,6 +315,7 @@ public class GateService extends Service implements MaskView.Host {
             notify("守护已启动");
         } else if (ACTION_START.equals(action)) {
             // 测试钩子：--ei durationMin 1 / --el remainingMs 4000，仅用于现场调试
+            uiVisible = App.uiVisible;
             int ovMin = intent.getIntExtra("durationMin", 0);
             long ovMs = intent.getLongExtra("remainingMs", -1L);
             if (ovMin > 0) prefs.setDurationMin(ovMin);
@@ -339,7 +387,11 @@ public class GateService extends Service implements MaskView.Host {
             if (prefs.phase() == Prefs.LOCKED) keepMaskOnTop();
 
             if (prefs.phase() == Prefs.RUNNING) {
-                if (screenOn()) {
+                // 软件自己的界面不是电视内容：在首页/设置/答题方式/题库管理里停留不扣时，
+                // 也不累加连续观看（否则家长坐着调参数就被强制休息）。
+                // 「答题加时间」遮罩开着同样算在软件里 —— earnView 非空时也不计时。
+                boolean inApp = inAppSurface();
+                if (screenOn() && !inApp) {
                     // 答题关掉后不扣时长：用户选的是「不答题直接看」，但 watchMs 照常累加，
                     // 每日时段与强制休息仍然生效（全局规则是天花板）。
                     if (prefs.quizOn()) remaining -= delta;
@@ -457,6 +509,8 @@ public class GateService extends Service implements MaskView.Host {
 
     private void showBlock() {
         if (block != null) return;
+        // 同 showMask：软件页面里不盖遮罩。时段/休息状态照常推进，回电视立刻呈现。
+        if (inAppSurface()) { Log.i(TAG, "block_skip（软件页面）"); return; }
         if (!screenOn()) { pendingMask = true; return; }
         block = new BlockView(this, new BlockView.Host() {
             @Override public Prefs prefs() { return prefs; }
@@ -635,8 +689,40 @@ public class GateService extends Service implements MaskView.Host {
         return cd;
     }
 
+    /**
+     * 「答题加时间」答对一题：余额 +perAnswerMin，封顶 120 分钟。
+     * 刻意不走 onCorrect()：那条路径会改 streak / unlockToday / 判定解锁门槛，
+     * 而「主动攒时间」不该消耗阶梯计数，也不该因为攒够门槛就立刻把遮罩摘掉。
+     *
+     * @return 累加后的余额毫秒
+     */
+    @Override public long onEarnCorrect() {
+        long add = Math.max(1, prefs.perAnswerMin()) * 60_000L;
+        long cap = GateRules.BANK_MAX_MIN * 60_000L;
+        long before = prefs.balanceMs();
+        long bal = Math.min(cap, before + add);
+        remaining = bal;
+        int p = prefs.phase();
+        // 在软件页面里余额攒够门槛时，phase 直接从 LOCKED 转 RUNNING，回电视就能看
+        if (p == Prefs.LOCKED && bal >= prefs.minBankMin() * 60_000L) {
+            prefs.saveSnapshot(Prefs.RUNNING, remaining);
+        } else {
+            prefs.saveRuleState(prefs.streak(), prefs.wrongToday(), prefs.unlockToday(),
+                    prefs.cooldownUntil(), bal, watchMs, prefs.restUntil(), prefs.ruleDayKey());
+            prefs.saveSnapshot(p, remaining);
+        }
+        updateMini();
+        updateNotification();
+        Log.i(TAG, "earn +" + (add / 60_000L) + "min " + Core.fmt(before)
+                + " -> " + Core.fmt(bal) + (bal >= cap ? "（已封顶）" : ""));
+        return bal;
+    }
+
+    @Override public void onEarnExit() {
+        dismissEarn();
+    }
+
     @Override public void onPinOk() {
-        // 家长在遮罩上输对口令 = 「临时放行一段时间去改设置」，不是「停止软件」。
         // 新流程没有会话概念：软件总开关仍开着，家长豁免标记暂时跳过时段限制；
         // 输对口令后给一段宽限继续观看，但不会停止守护。
         long grace = Math.max(1, prefs.extendMin()) * 60_000L;
@@ -695,6 +781,14 @@ public class GateService extends Service implements MaskView.Host {
 
     private void reconcile() {
         int p = prefs.phase();
+        // 家长在软件自己的页面里：一律不挂窗。否则在设置页调参数会被锁屏遮罩盖住，
+        // 也没法点「答题加时间」。phase 照常推进，等回到电视（ui_state=false）再 reconcile 补挂。
+        if (inAppSurface()) {
+            removeMask();
+            removeBlock();
+            removeMini();
+            return;
+        }
         if (p == Prefs.LOCKED) {
             removeMini();
             removeBlock();
@@ -734,8 +828,20 @@ public class GateService extends Service implements MaskView.Host {
         return lp;
     }
 
+    /**
+     * 此刻「人不在看电视」：要么停在软件页面，要么正在用加时间遮罩答题。
+     * 两个条件都成立时不扣时、也不挂锁屏窗。抽出来是因为 tick / reconcile / showMask /
+     * showBlock 四处都要判同一个语义，各写一份迟早漂移。
+     */
+    private boolean inAppSurface() {
+        return uiVisible || earnView != null;
+    }
+
     private void showMask() {
         if (mask != null) return;
+        // 家长正在软件自己的页面里（设置/答题方式/加时间）：不挂窗，
+        // 否则锁屏遮罩会把正在操作的界面盖住。离开时 ACTION_UI_STATE 会补挂。
+        if (inAppSurface()) { Log.i(TAG, "mask_skip（软件页面）"); return; }
         if (!screenOn()) {                 // 双保险：屏幕黑着绝不加窗
             pendingMask = true;
             Log.i(TAG, "mask_skip（屏幕未亮）");
@@ -762,6 +868,40 @@ public class GateService extends Service implements MaskView.Host {
         try { wm.removeViewImmediate(mask); } catch (Throwable ignore) { }
         mask = null;
         Log.i(TAG, "mask_remove");
+    }
+
+    /**
+     * 「答题加时间」遮罩：答题积累模式下，家长/孩子在软件页面主动答几题把余额攒上去。
+     * 与锁屏遮罩用两套字段，reconcile 不碰它；只能由 BACK / 答完后主动关闭。
+     */
+    private void showEarn() {
+        if (earnView != null) return;
+        if (!screenOn()) { Log.i(TAG, "earn_skip（屏幕未亮）"); return; }
+        earnView = new MaskView(this, prefs, bank, this, true);
+        try {
+            wm.addView(earnView, earnLp());
+            Log.i(TAG, "earn_add ok balance=" + Core.fmt(prefs.balanceMs()));
+        } catch (Throwable t) {
+            Log.e(TAG, "earn_add failed: " + t);
+            earnView = null;
+        }
+    }
+
+    private void dismissEarn() {
+        if (earnView == null) return;
+        try { wm.removeViewImmediate(earnView); } catch (Throwable ignore) { }
+        earnView = null;
+        Log.i(TAG, "earn_remove balance=" + Core.fmt(prefs.balanceMs()));
+        updateMini();
+        updateNotification();
+    }
+
+    private WindowManager.LayoutParams earnLp() {
+        WindowManager.LayoutParams lp = maskLp();
+        lp.setTitle("QuizGateEarn");
+        // 加时间不是「锁屏」，背景不必压到几乎全黑，家长能看出还在自己软件里
+        lp.dimAmount = 0.80f;
+        return lp;
     }
 
     private void showMini() {

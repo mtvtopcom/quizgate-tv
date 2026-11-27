@@ -23,6 +23,13 @@ public class MaskView extends FrameLayout {
         /** 答错：宿主负责清连对、计冷却。返回剩余冷却毫秒，0 = 只换题。 */
         long onWrong();
         void onPinOk();
+        /**
+         * 「答题加时间」模式答对一题：只往余额里加固定分钟，不参与解锁/连对阶梯。
+         * 返回累加后的余额毫秒，供遮罩顶部显示。
+         */
+        long onEarnCorrect();
+        /** 退出「答题加时间」：宿主摘掉自己的加时间窗口（不是锁屏遮罩）。 */
+        void onEarnExit();
     }
 
     private final Prefs prefs;
@@ -32,6 +39,12 @@ public class MaskView extends FrameLayout {
     private final int grade;
     private final int floorGrade;
     private final int extendMin;
+    /**
+     * true = 「答题加时间」：答题积累模式下由家长在主界面主动打开，
+     * 答对只往余额里加分钟、接着出下一题，返回键随时退出。
+     * false = 锁屏答题：答对判定门槛，达标才摘遮罩，返回键吞掉。
+     */
+    private final boolean earn;
 
     private final TextView stemView;
     private final TextView kicker;
@@ -56,10 +69,15 @@ public class MaskView extends FrameLayout {
     private int sel = 0;
 
     public MaskView(Context c, Prefs prefs, QuizBank bank, Host host) {
+        this(c, prefs, bank, host, false);
+    }
+
+    public MaskView(Context c, Prefs prefs, QuizBank bank, Host host, boolean earn) {
         super(c);
         this.prefs = prefs;
         this.bank = bank;
         this.host = host;
+        this.earn = earn;
         this.grade = prefs.grade();
         this.floorGrade = prefs.floorGrade();
         this.extendMin = prefs.extendMin();
@@ -143,7 +161,10 @@ public class MaskView extends FrameLayout {
         flp.topMargin = Ui.dp(c, 14);
         box.addView(feedback, flp);
 
-        hint = Ui.label(c, "按 1–4 或方向键选择，OK 确认　·　菜单键 = 家长", 16, Ui.DIM);
+        hint = Ui.label(c, earn
+                        ? "方向键选择 · OK 确认　·　返回键结束加时间"
+                        : "按 1–4 或方向键选择，OK 确认　·　菜单键 = 家长",
+                16, Ui.DIM);
         hint.setGravity(Gravity.CENTER);
         LinearLayout.LayoutParams hlp = new LinearLayout.LayoutParams(-1, -2);
         hlp.topMargin = Ui.dp(c, 16);
@@ -237,13 +258,20 @@ public class MaskView extends FrameLayout {
             meta = meta.isEmpty() ? q.topic.trim() : meta + " · " + q.topic.trim();
         }
         metaView.setText(meta);
-        metaView.setVisibility(meta.isEmpty() ? View.GONE : View.VISIBLE);
+        // 加时间模式顶部要写「已攒多少」，右边让给学科信息会挤，直接收起来
+        metaView.setVisibility(meta.isEmpty() || earn ? View.GONE : View.VISIBLE);
         // 用户题库缺当前年级题目时只提示一次，不占额外高度：改写顶部这行说明。
         int need = GateRules.needed(prefs.mode(), prefs.fixedNeed(), prefs.firstNeed(),
                 prefs.stepAdd(), prefs.unlockToday());
         String prog = GateRules.progressText(prefs.mode(), prefs.streak(), need,
                 prefs.balanceMs(), prefs.minBankMin() * 60_000L);
-        if (q.fallback) {
+        if (earn) {
+            // 加时间模式不关心门槛，只显示「现在攒了多少、答对能加多少」
+            kicker.setTextSize(TypedValue.COMPLEX_UNIT_DIP, 18);
+            String t = "答题加时间 · 已攒 " + Core.fmt(prefs.balanceMs())
+                    + " · 答对 +" + Math.max(1, prefs.perAnswerMin()) + " 分钟";
+            kicker.setText(q.fallback ? t + " · 已用默认题库" : t);
+        } else if (q.fallback) {
             kicker.setTextSize(TypedValue.COMPLEX_UNIT_DIP, 17);
             kicker.setText(prog + " · 已用默认题库");
         } else {
@@ -313,6 +341,22 @@ public class MaskView extends FrameLayout {
         boolean ok = (i == q.answer);
         if (ok) {
             opts[i].setBackgroundColor(0xFF1F6F45);
+            if (earn) {
+                // 加时间：只加余额，不判门槛、不改连对，答完自动换下一题接着攒
+                long bal = host.onEarnCorrect();
+                feedback.setTextColor(Ui.OK);
+                String t = "＋" + Math.max(1, prefs.perAnswerMin()) + " 分钟，已攒 " + Core.fmt(bal);
+                if (bal >= GateRules.BANK_MAX_MIN * 60_000L) {
+                    t = "＋" + Math.max(1, prefs.perAnswerMin()) + " 分钟，已攒 "
+                            + Core.fmt(bal) + "（已到上限）";
+                }
+                feedback.setText(t);
+                kicker.setTextSize(TypedValue.COMPLEX_UNIT_DIP, 18);
+                kicker.setText("答题加时间 · 已攒 " + Core.fmt(bal)
+                        + " · 答对 +" + Math.max(1, prefs.perAnswerMin()) + " 分钟");
+                postDelayed(this::nextQuestion, 700);
+                return;
+            }
             // 宿主累加连对/余额；返回 true 时宿主会在反馈展示后摘掉遮罩
             boolean unlocked = host.onCorrect();
             feedback.setTextColor(Ui.OK);
@@ -431,8 +475,16 @@ public class MaskView extends FrameLayout {
             return true;   // 面板开着时其余键一律吞掉，别漏给下层应用
         }
         if (e.getAction() == KeyEvent.ACTION_DOWN) {
-            if (k == KeyEvent.KEYCODE_BACK) return true;                 // 吞掉返回
-            if (k == KeyEvent.KEYCODE_MENU) { showPin(); return true; }  // 家长入口
+            if (k == KeyEvent.KEYCODE_BACK) {
+                // 加时间不是锁屏，返回键必须能退出；锁屏模式照旧吞掉
+                if (earn) { host.onEarnExit(); return true; }
+                return true;
+            }
+            if (k == KeyEvent.KEYCODE_MENU) {
+                if (earn) return true;      // 加时间模式下没有「家长口令」入口
+                showPin();
+                return true;
+            }
             if (waitNext) {
                 // 答错后停在解析页：只有 OK / 回车进入下一题，其余按键吞掉，
                 // 免得用户以为还能改答案，或者按键漏到下层正在播放的应用。

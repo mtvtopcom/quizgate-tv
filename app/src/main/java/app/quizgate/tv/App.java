@@ -50,6 +50,17 @@ public class App extends Application {
      */
     static volatile BankHttpServer bankServer;
 
+    /**
+     * 家长此刻是不是在「答题续时」自己的界面里（首页/设置/答题方式/题库管理）。
+     *
+     * <p>为什么要有它：本软件页面不是电视内容，停留在这里不该扣观看时长。
+     * {@link GateService} 的计时循环据此暂停，回到电视（Activity onPause）立刻恢复。
+     * <p>为什么用静态字段＋服务 action 双通道：静态字段给同一进程内的即时判断，
+     * action 让服务在「刚切走」这一刻就 reconcile；进程被系统杀掉后静态字段归 false，
+     * 正好等价于「不在软件里」，行为正确。
+     */
+    static volatile boolean uiVisible;
+
     @Override public void onCreate() {
         super.onCreate();
         final Context ctx = getApplicationContext();

@@ -30,6 +30,12 @@ public final class GateRules {
     /** 门槛策略：单题 / 连对固定 N / 阶梯首 M 后 +K。 */
     public static final int TH_SINGLE = 0, TH_FIXED = 1, TH_LADDER = 2;
 
+    /**
+     * 答题积累的余额上限（分钟）。攒到这里就停止累加：
+     * 一是防止一口气答几十题攒出一整天，二是防止 balanceMs 被无限撑大。
+     */
+    public static final int BANK_MAX_MIN = 120;
+
     public static int payout(int mode) {
         return mode == MODE_BANK ? PAYOUT_BANK : PAYOUT_IMMEDIATE;
     }
