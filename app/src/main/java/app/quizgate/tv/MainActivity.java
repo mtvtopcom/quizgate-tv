@@ -38,8 +38,8 @@ public class MainActivity extends Activity {
 
     private TextView valueDuration, valueExtend, valueGrade, valuePin, valueRecovery, valueGuard;
     private TextView valueVersion, valueLog;
-    /** 1.6.0 规则引擎设置行。 */
-    private TextView valueMode, valueFixedNeed, valueFirstNeed, valueStepAdd,
+    /** 1.6.0 规则引擎设置行（只在「答题方式」页里按方式显示）。 */
+    private TextView valueFixedNeed, valueFirstNeed, valueStepAdd,
             valuePer, valueMinBank, valueWindow, valueWatchLimit, valueRest,
             valueReset, valuePause, valueCarryOver;
     private TextView anchorWarn;
@@ -55,11 +55,22 @@ public class MainActivity extends Activity {
     /** 首页（只看运行状态）；设置页是原来的 contentScroll，两者在同一个 Activity 里切换。 */
     private View homeRoot;
     private TextView homePhase, homeTime, homeGuard, homeAuth, homeAnchor, homeBanner;
-    private TextView homeBtnGate, homeBtnQuiz;
+    private TextView homeBtnGate, homeBtnMode, homeBtnSet;
     private TextView homeModeLabel;
-    private TextView homeBtnMode;
     /** 首页状态读数左侧的色条：待机灰、计时黄、锁定红。 */
     private View homeBar;
+    /**
+     * 「答题方式」页：竖直排的 5 条单选（4 种方式 + 答题关）。
+     * 单选行自己记一份「●/○」和摘要，refresh 时按 prefs 重画，不做 RadioGroup
+     * （电视遥控器上 RadioGroup 的焦点跨行行为不可控，D2 上还踩过假焦点）。
+     */
+    private LinearLayout modePickBox;
+    private TextView modeIntro, modeSectionLabel, modeOffNote;
+    private final java.util.List<TextView> modeBullets = new ArrayList<>();
+    private final java.util.List<TextView> modeNames = new ArrayList<>();
+    private final java.util.List<TextView> modeSummaries = new ArrayList<>();
+    private final int[] modeIds = {GateRules.MODE_DELAY, GateRules.MODE_STREAK,
+            GateRules.MODE_UNLOCK, GateRules.MODE_BANK, GateRules.MODE_OFF};
     /** 设置页里的「运行日志」子页；null = 没打开。 */
     private FrameLayout logPanel;
     private TextView logBody;
@@ -157,9 +168,12 @@ public class MainActivity extends Activity {
         content.addView(anchorWarn, awlp);
         anchorWarn.setVisibility(View.GONE);
 
+        // 答题方式页的选择区（只在「答题方式」页显示）。放在参数行之前：
+        // 家长点进来先看到「有哪几种方式、现在用哪种」，再往下才是这一种的参数。
+        buildModePicker();
+
         valueDuration = addRow("本次时长", this::openDurationPanel);
         valueExtend = addRow("答对延长", this::openExtendPanel);
-        valueMode = addRow("答题模式", this::openModePanel);
         valueFixedNeed = addRow("连对题数", this::openFixedNeedPanel);
         valueFirstNeed = addRow("首次解锁题数", this::openFirstNeedPanel);
         valueStepAdd = addRow("之后每次题数", this::openStepAddPanel);
@@ -180,8 +194,8 @@ public class MainActivity extends Activity {
         valueGuard = addRow("守护状态", this::showGuardPanel);
         valueVersion = addRow("当前版本", () -> toast(versionText()));
 
-        // 顶部返回按钮删掉后，进设置页的默认焦点落在这里
-        firstRow = (View) valueDuration.getParent();
+        // 顶部返回按钮删掉后，进设置页的默认焦点落在「每日答题时段」上
+        firstRow = (View) valueWindow.getParent();
 
         // 授权自检后面原本是一大段日志文字，直接铺在设置页上又长又像报错。
         // 现在只在自检下面留一个入口，点进去是独立子页。
@@ -194,6 +208,150 @@ public class MainActivity extends Activity {
         bblp.topMargin = Ui.dp(this, 22);
         content.addView(backBottom, bblp);
         backBottom.setOnClickListener(v -> showHome());
+    }
+
+    // ---------- 答题方式页：5 条单选 + 按需参数 ----------
+
+    /**
+     * 答题方式页的选择区。一页式：5 条单选在上，参数在下面只出这一种方式要用的行，
+     * 选完立刻生效，不需要「保存」，也不再跳第二个页面。
+     */
+    private void buildModePicker() {
+        modeIntro = Ui.label(this, "选一种答题方式，选中即生效；下面的设置只显示这种方式要用的参数。",
+                18, Ui.DIM);
+        modeIntro.setVisibility(View.GONE);
+        LinearLayout.LayoutParams ilp = new LinearLayout.LayoutParams(-1, -2);
+        ilp.topMargin = Ui.dp(this, 12);
+        content.addView(modeIntro, ilp);
+
+        modePickBox = Ui.col(this);
+        modePickBox.setVisibility(View.GONE);
+        LinearLayout.LayoutParams blp = new LinearLayout.LayoutParams(-1, -2);
+        blp.topMargin = Ui.dp(this, 10);
+        content.addView(modePickBox, blp);
+
+        for (int i = 0; i < modeIds.length; i++) {
+            final int mode = modeIds[i];
+            LinearLayout row = Ui.row(this);
+            row.setBackgroundResource(R.drawable.opt_bg);
+            row.setFocusable(true);
+            row.setClickable(true);
+            row.setGravity(Gravity.CENTER_VERTICAL);
+            row.setPadding(Ui.dp(this, 24), Ui.dp(this, 13), Ui.dp(this, 26), Ui.dp(this, 13));
+
+            // 自绘单选符号：RadioGroup 在电视遥控器上跨行换焦点不可控，D2 还踩过假焦点
+            TextView bullet = Ui.label(this, "○", 24, Ui.DIM);
+            row.addView(bullet, new LinearLayout.LayoutParams(Ui.dp(this, 32), -2));
+
+            TextView name = Ui.label(this, GateRules.modeName(mode), 24, Ui.TEXT);
+            row.addView(name, new LinearLayout.LayoutParams(-2, -2));
+
+            TextView sum = Ui.label(this, "", 18, Ui.DIM);
+            sum.setGravity(Gravity.END);
+            LinearLayout.LayoutParams slp = new LinearLayout.LayoutParams(0, -2, 1f);
+            slp.leftMargin = Ui.dp(this, 18);
+            row.addView(sum, slp);
+
+            LinearLayout.LayoutParams rlp = new LinearLayout.LayoutParams(-1, -2);
+            rlp.topMargin = Ui.dp(this, 10);
+            modePickBox.addView(row, rlp);
+
+            row.setOnClickListener(v -> {
+                settingsFocus = v;
+                onModePicked(mode);
+            });
+
+            modeBullets.add(bullet);
+            modeNames.add(name);
+            modeSummaries.add(sum);
+        }
+
+        modeSectionLabel = Ui.label(this, "", 18, Ui.DIM);
+        modeSectionLabel.setVisibility(View.GONE);
+        LinearLayout.LayoutParams mlp = new LinearLayout.LayoutParams(-1, -2);
+        mlp.topMargin = Ui.dp(this, 22);
+        content.addView(modeSectionLabel, mlp);
+
+        modeOffNote = Ui.label(this,
+                "答题关：不再出题，也不扣观看时长；每日答题时段与强制休息照旧生效。\n"
+                        + "首页大字改为显示「距强制休息」的倒计时。",
+                19, Ui.TEXT);
+        modeOffNote.setBackgroundResource(R.drawable.opt_bg);
+        modeOffNote.setPadding(Ui.dp(this, 26), Ui.dp(this, 18), Ui.dp(this, 26), Ui.dp(this, 18));
+        modeOffNote.setVisibility(View.GONE);
+        LinearLayout.LayoutParams olp = new LinearLayout.LayoutParams(-1, -2);
+        olp.topMargin = Ui.dp(this, 14);
+        content.addView(modeOffNote, olp);
+    }
+
+    /** 点某一条方式：已经是这个状态就不重复写盘，避免无谓的 commit + 重排。 */
+    private void onModePicked(int mode) {
+        boolean active = mode == GateRules.MODE_OFF
+                ? !prefs.quizOn()
+                : (prefs.quizOn() && prefs.mode() == mode);
+        if (active) {
+            toast("已经是「" + GateRules.modeName(mode) + "」");
+            return;
+        }
+        applyModeChoice(mode);
+    }
+
+    /**
+     * 切换答题方式。本地先写盘再通知服务：startService 是异步的，
+     * 先写才能让本页立刻按新状态重排；服务那边只负责「按新方式重算本局时长」。
+     */
+    private void applyModeChoice(int mode) {
+        boolean running = prefs.gateOn();
+        if (mode == GateRules.MODE_OFF) {
+            prefs.setQuizOn(false);
+            if (running) startService(new Intent(this, GateService.class)
+                    .setAction(GateService.ACTION_QUIZ_OFF));
+        } else {
+            prefs.setMode(mode);
+            prefs.setQuizOn(true);
+            if (running) startService(new Intent(this, GateService.class)
+                    .setAction(GateService.ACTION_APPLY_MODE));
+        }
+        applyRows(true);
+        refresh();
+        toast("答题方式：" + GateRules.modeName(mode));
+    }
+
+    /** 单选行的 ●/○ 与右侧摘要，全部按当前 prefs 重画。 */
+    private void refreshModePicker() {
+        if (modePickBox == null) return;
+        boolean on = prefs.quizOn();
+        int cur = prefs.mode();
+        for (int i = 0; i < modeIds.length; i++) {
+            int m = modeIds[i];
+            boolean active = on ? (m == cur && m != GateRules.MODE_OFF) : (m == GateRules.MODE_OFF);
+            modeBullets.get(i).setText(active ? "●" : "○");
+            modeBullets.get(i).setTextColor(active ? Ui.ACCENT : Ui.DIM);
+            modeNames.get(i).setTextColor(active ? Ui.ACCENT : Ui.TEXT);
+            modeSummaries.get(i).setText(modeSummary(m));
+        }
+    }
+
+    /** 每条方式的当前参数摘要：家长不点进去也能看出现在是什么规则。 */
+    private String modeSummary(int mode) {
+        switch (mode) {
+            case GateRules.MODE_STREAK:
+                return "连对 " + prefs.fixedNeed() + " 题解锁";
+            case GateRules.MODE_UNLOCK:
+                return "首次 " + prefs.firstNeed() + " 题 · 之后每次 +" + prefs.stepAdd() + " 题";
+            case GateRules.MODE_BANK:
+                return "每题攒 " + prefs.perAnswerMin() + " 分钟 · 满 "
+                        + prefs.minBankMin() + " 分钟可看";
+            case GateRules.MODE_OFF:
+                return "不答题 · 只保留时段与强制休息";
+            default:
+                return "锁屏答 1 题 · 答对 +" + prefs.extendMin() + " 分钟";
+        }
+    }
+
+    /** 首页/状态卡里的方式文案：答题关时显示「答题关」，不显示上次的方式。 */
+    private String modeText() {
+        return GateRules.modeName(prefs.quizOn() ? prefs.mode() : GateRules.MODE_OFF);
     }
 
     // ---------- 首页：电视风格，只放运行状态 ----------
@@ -306,49 +464,39 @@ public class MainActivity extends Activity {
         View spacer = new View(this);
         home.addView(spacer, new LinearLayout.LayoutParams(-1, 0, 1f));
 
-        // 第一行：软件总开关 + 答题开关。启动软件后全局规则常驻，答题开关只管出不出题。
-        LinearLayout row1 = Ui.row(this);
-        row1.setGravity(Gravity.CENTER);
+        // 一行三颗：启动/停止软件 · 答题方式 · 设置。
+        // 1080p 电视有效视口 960dp，宽度 300+300+160 + 两处 18dp 间距 = 796dp，留得下 overscan。
+        // 「答题开/停」不再单独占按钮：它已经收进「答题方式」里的「答题关」。
+        LinearLayout row = Ui.row(this);
+        row.setGravity(Gravity.CENTER);
         homeBtnGate = Ui.homeKey(this, "启动软件", true);
-        homeBtnGate.setMinWidth(Ui.dp(this, 260));
-        homeBtnGate.setMinHeight(Ui.dp(this, 56));
+        homeBtnGate.setMinWidth(Ui.dp(this, 300));
+        homeBtnGate.setMinHeight(Ui.dp(this, 58));
         homeBtnGate.setOnClickListener(v -> toggleGate());
-        row1.addView(homeBtnGate);
+        row.addView(homeBtnGate);
 
-        homeBtnQuiz = Ui.homeKey(this, "答题：开", false);
-        homeBtnQuiz.setMinWidth(Ui.dp(this, 220));
-        homeBtnQuiz.setMinHeight(Ui.dp(this, 56));
-        homeBtnQuiz.setOnClickListener(v -> toggleQuiz());
-        LinearLayout.LayoutParams qp = new LinearLayout.LayoutParams(-2, -2);
-        qp.leftMargin = Ui.dp(this, 18);
-        row1.addView(homeBtnQuiz, qp);
-
-        LinearLayout.LayoutParams r1lp = new LinearLayout.LayoutParams(-1, -2);
-        r1lp.topMargin = Ui.dp(this, 16);
-        home.addView(row1, r1lp);
-
-        // 第二行：选答题方式 / 设置。题库管理仍在设置页里，不单独占首页按钮。
-        LinearLayout row2 = Ui.row(this);
-        row2.setGravity(Gravity.CENTER);
-        homeBtnMode = Ui.homeKey(this, "选答题方式", false);
-        homeBtnMode.setMinWidth(Ui.dp(this, 260));
-        homeBtnMode.setMinHeight(Ui.dp(this, 54));
+        homeBtnMode = Ui.homeKey(this, "答题方式", false);
+        homeBtnMode.setMinWidth(Ui.dp(this, 300));
+        homeBtnMode.setMinHeight(Ui.dp(this, 58));
         homeBtnMode.setOnClickListener(v -> showModeConfig());
-        row2.addView(homeBtnMode);
+        LinearLayout.LayoutParams bmlp = new LinearLayout.LayoutParams(-2, -2);
+        bmlp.leftMargin = Ui.dp(this, 18);
+        row.addView(homeBtnMode, bmlp);
 
-        TextView settings = Ui.homeKey(this, "设置", false);
-        settings.setMinWidth(Ui.dp(this, 180));
-        settings.setMinHeight(Ui.dp(this, 54));
-        settings.setOnClickListener(v -> showSettings());
+        homeBtnSet = Ui.homeKey(this, "设置", false);
+        homeBtnSet.setMinWidth(Ui.dp(this, 160));
+        homeBtnSet.setMinHeight(Ui.dp(this, 58));
+        homeBtnSet.setOnClickListener(v -> showSettings());
         LinearLayout.LayoutParams slp = new LinearLayout.LayoutParams(-2, -2);
         slp.leftMargin = Ui.dp(this, 18);
-        row2.addView(settings, slp);
+        row.addView(homeBtnSet, slp);
 
-        LinearLayout.LayoutParams r2lp = new LinearLayout.LayoutParams(-1, -2);
-        r2lp.topMargin = Ui.dp(this, 12);
-        home.addView(row2, r2lp);
+        LinearLayout.LayoutParams rlp = new LinearLayout.LayoutParams(-1, -2);
+        rlp.topMargin = Ui.dp(this, 16);
+        home.addView(row, rlp);
 
-        TextView hint = Ui.label(this, "方向键选择 · OK 确认 · 选答题方式后可直接改该方式的规则", 16, Ui.DIM);
+        TextView hint = Ui.label(this, "方向键选择 · OK 确认 · 启动软件后进设置/答题方式需要家长口令",
+                16, Ui.DIM);
         hint.setGravity(Gravity.CENTER);
         LinearLayout.LayoutParams hlp = new LinearLayout.LayoutParams(-1, -2);
         hlp.topMargin = Ui.dp(this, 10);
@@ -368,7 +516,7 @@ public class MainActivity extends Activity {
         maybeInitFocus();
     }
 
-    /** 设置页受口令保护；本次 Activity 里解锁过一次就不再反复问。 */
+    /** 设置页：软件已启动时受口令保护，未启动免密（见 gate()）；本次会话解锁过就不再反复问。 */
     private void showSettings() {
         showingSettings = true;
         showingModeConfig = false;
@@ -379,9 +527,9 @@ public class MainActivity extends Activity {
         applyRows(false);
         focusInited = false;
         refresh();
-        if (!settingsUnlocked) gate();
+        boolean opened = settingsUnlocked || gate();
         blockFocusBelow();
-        if (settingsUnlocked) maybeInitFocus();
+        if (opened) maybeInitFocus();
     }
 
     /**
@@ -390,21 +538,22 @@ public class MainActivity extends Activity {
      */
     private void applyRows(boolean modeConfig) {
         int mode = prefs.mode();
-        boolean common = modeConfig;
-        boolean ladder = modeConfig && mode == GateRules.MODE_UNLOCK;
-        boolean bank = modeConfig && mode == GateRules.MODE_BANK;
+        // 答题关 = 不出题（Prefs.quizOn == false），此时一条参数都不显示，只留一段说明。
+        boolean off = modeConfig && !prefs.quizOn();
+        boolean params = modeConfig && !off;
         boolean global = !modeConfig;
-        row(valueDuration, common);
-        row(valueExtend, common && mode != GateRules.MODE_BANK);
-        row(valueMode, modeConfig);
-        row(valueFixedNeed, modeConfig && mode == GateRules.MODE_STREAK);
-        row(valueFirstNeed, ladder);
-        row(valueStepAdd, ladder);
-        row(valuePer, bank);
-        row(valueMinBank, bank);
-        row(valueCarryOver, bank);
-        row(valueGrade, common);
-        row(valuePause, common);
+        row(valueDuration, params && GateRules.usesDuration(mode));
+        row(valueExtend, params && GateRules.usesExtend(mode));
+        row(valueFixedNeed, params && GateRules.usesFixedNeed(mode));
+        row(valueFirstNeed, params && GateRules.usesLadder(mode));
+        row(valueStepAdd, params && GateRules.usesLadder(mode));
+        row(valuePer, params && GateRules.usesBankParams(mode));
+        row(valueMinBank, params && GateRules.usesBankParams(mode));
+        row(valueCarryOver, params && GateRules.usesBankParams(mode));
+        // 题目年级与「答题暂停播放」是全局项（年级是孩子属性，暂停播放对所有方式都适用），
+        // 所以留在设置页，不随模式显隐。
+        row(valueGrade, global);
+        row(valuePause, global);
         row(valueWindow, global);
         row(valueWatchLimit, global);
         row(valueRest, global);
@@ -415,8 +564,17 @@ public class MainActivity extends Activity {
         row(valueGuard, global);
         row(valueVersion, global);
         row(valueLog, global);
-        settingsTitle.setText(modeConfig ? "答题方式 · " + GateRules.modeName(mode) : "设置");
-        firstRow = (View) (modeConfig ? valueDuration : valueWindow).getParent();
+        if (modeIntro != null) modeIntro.setVisibility(modeConfig ? View.VISIBLE : View.GONE);
+        if (modePickBox != null) modePickBox.setVisibility(modeConfig ? View.VISIBLE : View.GONE);
+        if (modeSectionLabel != null) {
+            modeSectionLabel.setVisibility(params ? View.VISIBLE : View.GONE);
+            modeSectionLabel.setText(GateRules.modeName(mode) + " · 设置");
+        }
+        if (modeOffNote != null) modeOffNote.setVisibility(off ? View.VISIBLE : View.GONE);
+        settingsTitle.setText(modeConfig ? "答题方式" : "设置");
+        firstRow = modeConfig
+                ? (View) (modePickBox != null ? modePickBox.getChildAt(0) : null)
+                : (View) valueWindow.getParent();
     }
 
     private static void row(TextView value, boolean show) {
@@ -424,7 +582,10 @@ public class MainActivity extends Activity {
         if (v != null) v.setVisibility(show ? View.VISIBLE : View.GONE);
     }
 
-    /** 从首页「选答题方式」进入，只显示当前模式的参数；改完即生效，不用再回设置页找。 */
+    /**
+     * 从首页「答题方式」进入。一页式：5 条单选在上，下面只显示选中那一种方式的参数，
+     * 答题关时整块参数换成一段说明；选中即生效，不用回设置页再找。
+     */
     private void showModeConfig() {
         showingSettings = true;
         showingModeConfig = true;
@@ -435,9 +596,9 @@ public class MainActivity extends Activity {
         applyRows(true);
         focusInited = false;
         refresh();
-        if (!settingsUnlocked) gate();
+        boolean opened = settingsUnlocked || gate();
         blockFocusBelow();
-        if (settingsUnlocked) maybeInitFocus();
+        if (opened) maybeInitFocus();
     }
 
     // ---------- 授权自检与自愈 ----------
@@ -815,22 +976,6 @@ public class MainActivity extends Activity {
 
     // ---------- 1.6.0 规则引擎设置 ----------
 
-    private void openModePanel() {
-        String[] labels = {"答题延时", "连对答题", "答题解锁", "答题积累"};
-        int[] vals = {GateRules.MODE_DELAY, GateRules.MODE_STREAK,
-                GateRules.MODE_UNLOCK, GateRules.MODE_BANK};
-        mountOption(new OptionPanel(this, "答题模式", labels, vals, prefs.mode(),
-                "", 0, 0,
-                v -> {
-                    prefs.setMode(v);
-                    hideOptionPanel();
-                    // 选完模式直接进该模式的专属配置页，不再让用户回设置页找参数
-                    applyRows(true);
-                    refresh();
-                    toast("答题方式：" + GateRules.modeName(v));
-                }, this::hideOptionPanel));
-    }
-
     private void openFixedNeedPanel() {
         String[] labels = {"1", "2", "3", "5", "10"};
         int[] vals = {1, 2, 3, 5, 10};
@@ -1039,41 +1184,41 @@ public class MainActivity extends Activity {
 
     // ---------- 会话 ----------
 
-    /** 软件总开关：启动后守护常驻并执行全局规则；停止后完全不锁屏，也不会被系统拉起。 */
+    /**
+     * 软件总开关。
+     *
+     * <p>启动：免密（家长主动要开，没有需要防的人），但必须先有口令、授权齐全。
+     * <p>停止：<b>要口令</b>——这是唯一的「彻底关掉」出口，孩子拿到遥控器就能停掉的话，
+     * 整套限制等于没有。刚输过口令 1 分钟内不重复问（家长刚在设置里输完就点停止是常态）。
+     */
     private void toggleGate() {
         if (!prefs.hasPin()) {
             toast("先设置 6 位家长口令");
             promptSetPin();
             return;
         }
+        if (prefs.gateOn()) {
+            if (prefs.authFresh()) {
+                doDisableGate();
+                return;
+            }
+            promptPinConfirm("停止软件",
+                    "停止后不再锁屏、不再出题，每日时段与强制休息也一并失效，直到重新启动。",
+                    this::doDisableGate);
+            return;
+        }
         if (!authComplete()) {
             showAuthGate();
             return;
         }
-        boolean on = !prefs.gateOn();
-        Intent i = new Intent(this, GateService.class);
-        if (on) {
-            i.setAction(GateService.ACTION_ENABLE);
-            startForegroundService(i);
-        } else {
-            i.setAction(GateService.ACTION_DISABLE);
-            startService(i);
-        }
-        toast(on ? "软件已启动" : "软件已停止");
+        startForegroundService(new Intent(this, GateService.class).setAction(GateService.ACTION_ENABLE));
+        toast("软件已启动");
         refresh();
     }
 
-    /** 答题开关：只决定出不出题，不影响软件在不在运行；时段与休息照旧生效。 */
-    private void toggleQuiz() {
-        if (!prefs.gateOn()) {
-            toast("请先启动软件");
-            return;
-        }
-        boolean on = !prefs.quizOn();
-        Intent i = new Intent(this, GateService.class)
-                .setAction(on ? GateService.ACTION_QUIZ_ON : GateService.ACTION_QUIZ_OFF);
-        startService(i);
-        toast(on ? "答题已开启" : "答题已停止，锁屏仍在运行");
+    private void doDisableGate() {
+        startService(new Intent(this, GateService.class).setAction(GateService.ACTION_DISABLE));
+        toast("软件已停止，不再锁屏");
         refresh();
     }
 
@@ -1398,12 +1543,22 @@ public class MainActivity extends Activity {
 
     // ---------- 口令门禁 ----------
 
-    private void gate() {
-        if (!prefs.hasPin()) { promptSetPin(); return; }
+    /**
+     * 口令门禁。返回 true 表示已放行（免密或本会话已解锁），false 表示已弹面板等口令。
+     *
+     * <p>1.6.0：软件没启动时不管设置还是答题方式都不问口令——此时根本没有限制在生效，
+     * 反复要口令只会让第一次上手的人卡住。一旦启动，两条入口都要口令。
+     * <p>免密分支<b>不</b>把 settingsUnlocked 置 true：否则家长先免密进设置、再回首页点
+     * 启动软件，同一个 Activity 里设置就永久敞开了。
+     */
+    private boolean gate() {
+        if (!prefs.hasPin()) { promptSetPin(); return false; }
+        if (!prefs.gateOn()) return true;
         // 1.3.0：解锁过一次（比如在锁屏遮罩上输过口令）后，到开始计时为止进设置不再要口令。
         // 落盘的标记优先，进程被系统回收后重进应用仍然免密；开始计时会重新上锁，见 doStart()。
-        if (App.parentUnlocked || prefs.parentUnlocked()) { settingsUnlocked = true; return; }
+        if (App.parentUnlocked || prefs.parentUnlocked()) { settingsUnlocked = true; return true; }
         showUnlockPin();
+        return false;
     }
 
     private void promptSetPin() {
@@ -1439,6 +1594,7 @@ public class MainActivity extends Activity {
                         if (prefs.setPin(s)) {
                             pinMode = PIN_UNLOCK;
                             settingsUnlocked = true;
+                            prefs.markAuth();
                             App.parentUnlocked = true;
                             prefs.setParentUnlocked(true);
                             hidePinOverlay();
@@ -1468,6 +1624,8 @@ public class MainActivity extends Activity {
                 boolean confirm = (pinMode == PIN_CONFIRM);
                 Runnable act = pinConfirm;
                 pinConfirm = null;
+                // 1 分钟内「停止软件」不再重复要口令（家长刚输完就点停止是常态）
+                prefs.markAuth();
                 hidePinOverlay();
                 if (confirm) {
                     // 结束会话：口令通过才执行，别把「谁能按到遥控器谁就能停」留在首页
@@ -1560,11 +1718,13 @@ public class MainActivity extends Activity {
         if (valueDuration == null) return;
         valueDuration.setText(prefs.durationMin() + " 分钟");
         valueExtend.setText("+ " + prefs.extendMin() + " 分钟");
-        valueMode.setText(GateRules.modeName(prefs.mode()));
-        if (homeModeLabel != null) homeModeLabel.setText("答题方式：" + GateRules.modeName(prefs.mode()));
+        if (homeModeLabel != null) homeModeLabel.setText("答题方式：" + modeText());
         if (homeBtnGate != null) homeBtnGate.setText(prefs.gateOn() ? "停止软件" : "启动软件");
-        if (homeBtnQuiz != null) homeBtnQuiz.setText("答题：" + (prefs.quizOn() ? "开" : "停"));
-        if (homeBtnMode != null) homeBtnMode.setText("选答题方式 · " + GateRules.modeName(prefs.mode()));
+        if (homeBtnMode != null) {
+            homeBtnMode.setText("答题方式 · " + GateRules.shortName(
+                    prefs.quizOn() ? prefs.mode() : GateRules.MODE_OFF));
+        }
+        refreshModePicker();
         valueFixedNeed.setText(prefs.fixedNeed() + " 题");
         valueFirstNeed.setText(prefs.firstNeed() + " 题");
         valueStepAdd.setText("+ " + prefs.stepAdd() + " 题");
@@ -1632,7 +1792,6 @@ public class MainActivity extends Activity {
         // 总开关由服务在 onStartCommand 里异步置位（ENABLE 才会 setGateOn(true)），
         // onClick 里同步 refresh 会读到旧值，按钮卡在「启动软件」。这里每秒校正一次。
         if (homeBtnGate != null) homeBtnGate.setText(prefs.gateOn() ? "停止软件" : "启动软件");
-        if (homeBtnQuiz != null) homeBtnQuiz.setText("答题：" + (prefs.quizOn() ? "开" : "停"));
     }
 
     /** 当前页面该先给谁焦点。1.2.9 起设置页顶部没有返回按钮了，落在第一项「本次时长」上。 */
@@ -1732,7 +1891,12 @@ public class MainActivity extends Activity {
         int p = prefs.phase();
         boolean alive = App.gateAlive;
         String phase, big;
-        if (p == Prefs.IDLE) {
+        if (!prefs.gateOn()) {
+            // 停止软件后 phase 仍是上次的快照（服务只是 stopSelf，没改 phase），
+            // 不先判总开关就会显示「守护恢复中…」的红字，跟下面「软件已停止」自相矛盾。
+            phase = "未启动 · 待机";
+            big = "--:--";
+        } else if (p == Prefs.IDLE) {
             phase = "未开始 · 待机";
             big = "--:--";
         } else if (!alive) {
@@ -1748,6 +1912,12 @@ public class MainActivity extends Activity {
         } else if (p == Prefs.OUT) {
             phase = "不在答题时段";
             big = "--:--";
+        } else if (!prefs.quizOn()) {
+            // 答题关：不出题、也不扣观看时长，大字改成「距强制休息」的倒计时，
+            // 否则家长看到的是一个永远不动的数字，会以为计时坏了。
+            long left = prefs.watchLimitMin() * 60_000L - prefs.watchMs();
+            phase = "答题关 · 距强制休息";
+            big = Core.fmt(Math.max(0L, left));
         } else {
             phase = "计时中";
             big = Core.fmt(prefs.remainingMs());
@@ -1767,8 +1937,8 @@ public class MainActivity extends Activity {
     private void styleHomeReadout(int p, boolean alive) {
         if (homeBar == null || homeTime == null || homePhase == null) return;
         int bar, time, phase;
-        if (p == Prefs.IDLE) {
-            bar = 0xFF3A3A3A;                 // 灰：待机，不抢注意力
+        if (!prefs.gateOn() || p == Prefs.IDLE) {
+            bar = 0xFF3A3A3A;                 // 灰：待机 / 已停止，不抢注意力
             time = 0xFF6B7075;
             phase = Ui.DIM;
         } else if (Prefs.lockedLike(p)) {

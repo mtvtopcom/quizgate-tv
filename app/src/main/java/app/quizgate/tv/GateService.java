@@ -39,6 +39,11 @@ public class GateService extends Service implements MaskView.Host {
     public static final String ACTION_DISABLE = "app.quizgate.tv.DISABLE";
     public static final String ACTION_QUIZ_ON = "app.quizgate.tv.QUIZ_ON";
     public static final String ACTION_QUIZ_OFF = "app.quizgate.tv.QUIZ_OFF";
+    /**
+     * 1.6.0：在首页「答题方式」页切换方式后调用。只 setMode 不够——时间银行用余额起手、
+     * 其他方式用「本次时长」起手，两者含义不同，不重算就会把余额当成剩余时长继续扣。
+     */
+    public static final String ACTION_APPLY_MODE = "app.quizgate.tv.APPLY_MODE";
 
     private static final String CHANNEL = "gate";
     private static final int NOTIF_ID = 1001;
@@ -198,6 +203,27 @@ public class GateService extends Service implements MaskView.Host {
                 if (remaining <= 0) remaining = Math.max(1, prefs.durationMin()) * 60_000L;
                 prefs.saveSnapshot(Prefs.RUNNING, remaining);
             }
+            reconcile();
+            updateNotification();
+            return START_STICKY;
+        }
+        if (ACTION_APPLY_MODE.equals(action)) {
+            prefs.setQuizOn(true);
+            int mode = prefs.mode();
+            int p = prefs.phase();
+            // 会话已开始就按新方式重算时长基准：时间银行是「余额」，其余是「本次时长」。
+            // OUT / REST 只换基准不动阶段（时段外、休息中不该被切方式打断）。
+            if (p != Prefs.IDLE) {
+                boolean bank = GateRules.payout(mode) == GateRules.PAYOUT_BANK;
+                remaining = bank ? prefs.balanceMs() : Math.max(1, prefs.durationMin()) * 60_000L;
+                int target = p;
+                if (p == Prefs.RUNNING || p == Prefs.LOCKED) {
+                    target = (bank && remaining < prefs.minBankMin() * 60_000L)
+                            ? Prefs.LOCKED : Prefs.RUNNING;
+                }
+                prefs.saveSnapshot(target, remaining);
+            }
+            Log.i(TAG, "apply_mode=" + GateRules.modeName(mode) + " rem=" + remaining);
             reconcile();
             updateNotification();
             return START_STICKY;

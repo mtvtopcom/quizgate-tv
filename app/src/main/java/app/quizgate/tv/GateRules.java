@@ -17,6 +17,13 @@ public final class GateRules {
 
     public static final int MODE_DELAY = 0, MODE_STREAK = 1, MODE_UNLOCK = 2, MODE_BANK = 3;
 
+    /**
+     * 「答题关」不是第五种规则，而是「不出题」这个状态本身（Prefs.quizOn == false）。
+     * 只在 UI 层用这个值表示，绝不写进 Prefs.mode（那里保持 0..3），
+     * 这样家长切回来时还是上次那种方式，不用另存字段。
+     */
+    public static final int MODE_OFF = -1;
+
     /** 时间产出：答对立即续一段观看时长 / 答对攒进余额。 */
     public static final int PAYOUT_IMMEDIATE = 0, PAYOUT_BANK = 1;
 
@@ -40,9 +47,40 @@ public final class GateRules {
             case MODE_STREAK: return "连对答题";
             case MODE_UNLOCK: return "答题解锁";
             case MODE_BANK: return "答题积累";
+            case MODE_OFF: return "答题关";
             default: return "答题延时";
         }
     }
+
+    /** 首页按钮只放得下短名（一行三颗按钮，1080p 视口只有 960dp 宽）。 */
+    public static String shortName(int mode) {
+        switch (mode) {
+            case MODE_STREAK: return "连对";
+            case MODE_UNLOCK: return "解锁";
+            case MODE_BANK: return "积累";
+            case MODE_OFF: return "关";
+            default: return "延时";
+        }
+    }
+
+    // ---------- 答题方式页的「按需显示」判定 ----------
+    // 放在规则层而不是 MainActivity 里堆 if：以后加方式只要改这里。
+
+    /** 是否用「本次时长」起手（时间银行按余额起手，不用它）。 */
+    public static boolean usesDuration(int mode) {
+        return mode != MODE_OFF && payout(mode) == PAYOUT_IMMEDIATE;
+    }
+
+    /** 答对后是否立即续一段时长（只有即时产出用「答对延长」）。 */
+    public static boolean usesExtend(int mode) {
+        return usesDuration(mode);
+    }
+
+    public static boolean usesFixedNeed(int mode) { return mode == MODE_STREAK; }
+
+    public static boolean usesLadder(int mode) { return mode == MODE_UNLOCK; }
+
+    public static boolean usesBankParams(int mode) { return mode == MODE_BANK; }
 
     /**
      * 本轮需要连对多少题。阶梯模式按「当天已经成功解锁过几次」取值：

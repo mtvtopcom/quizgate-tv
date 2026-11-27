@@ -249,6 +249,20 @@ public final class Prefs {
                 .commit();
     }
 
+    /** 1.6.0：输对口令后 1 分钟内，「停止软件」不再重复要口令（家长刚输完就点停止是常态）。 */
+    private static final long AUTH_REUSE_MS = 60_000L;
+
+    /** 最近一次输对口令（任何用途）的墙上时间；0 = 从没输过。 */
+    public long lastAuthAt() { return sp.getLong("lastAuthAt", 0L); }
+
+    public void markAuth() { sp.edit().putLong("lastAuthAt", System.currentTimeMillis()).commit(); }
+
+    /** 1 分钟内刚验过口令：停止软件这类高危操作可以直接放行。 */
+    public boolean authFresh() {
+        long at = lastAuthAt();
+        return at > 0 && System.currentTimeMillis() - at < AUTH_REUSE_MS;
+    }
+
     /**
      * 1.2.9 之前只有「年级 1-9」，没有学段。老用户升上来时按已有年级推断，
      * 别让一个设了 8 年级的电视突然显示「小学」。
