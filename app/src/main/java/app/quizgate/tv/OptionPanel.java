@@ -78,6 +78,16 @@ public class OptionPanel extends FrameLayout {
     }
 
     /**
+     * 带说明行的普通选值面板。「起看门槛」用它讲清楚「每次开始看之前要攒够多少」，
+     * 光看标题和「10 分钟」，家长会以为这是「最少要看多久」。
+     */
+    public OptionPanel(Context c, String title, String sub, String[] labels, int[] values,
+                       int current, String unit, int min, int max, OnPick onPick, Runnable onCancel) {
+        this(c, title, sub, labels, null, values, current, unit, min, max,
+                false, false, onPick, onCancel);
+    }
+
+    /**
      * 钟点版：预设值仍用分钟数（labels 显示成 08:00 这样），只有「自定义」改成
      * 按「X 点 X 分」输入。家长不用再心算「19 点 30 分 = 1170 分钟」。
      */

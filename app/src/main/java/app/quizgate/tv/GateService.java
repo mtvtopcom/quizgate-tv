@@ -96,7 +96,7 @@ public class GateService extends Service implements MaskView.Host {
     /** 本轮遮罩已经暂停过播放；解锁后复位，下一轮才会再暂停。 */
     private boolean pausedForQuiz = false;
     private long remaining;
-    /** 连续观看累计（只在亮屏且 RUNNING 时增长），与余额分开记账。 */
+    /** 本次启动以来的累计观看时长（只在亮屏且 RUNNING 时增长），与余额分开记账。 */
     private long watchMs;
     private long lastTick;
     private int tickCount;
@@ -223,6 +223,11 @@ public class GateService extends Service implements MaskView.Host {
         if (ACTION_DISABLE.equals(action)) {
             // 总开关：彻底停下守护，通知监听也不会再把它拉起来
             prefs.setGateOn(false);
+            // 停止软件＝这次防护结束，下次启动重新计时：累计观看清零，正在休息的直接解除
+            // （否则重启后的第一帧会因为「休息已到期」再闪一次遮罩）。
+            prefs.resetWatchAndRest();
+            watchMs = 0L;
+            if (prefs.phase() == Prefs.REST) prefs.saveSnapshot(Prefs.RUNNING, prefs.remainingMs());
             running = false;
             h.removeCallbacks(ticker);
             h.removeCallbacks(hintDismiss);
@@ -326,18 +331,19 @@ public class GateService extends Service implements MaskView.Host {
             App.parentUnlocked = false;
             App.uiUnlocked = false;
             int p = prefs.phase();
-            if (p == Prefs.IDLE) {
-                long base = prefs.mode() == GateRules.MODE_BANK
-                        ? prefs.balanceMs() : prefs.durationMin() * 60_000L;
-                remaining = base;
-                p = Prefs.RUNNING;
-                if (prefs.quizOn() && prefs.mode() == GateRules.MODE_BANK
-                        && remaining < prefs.minBankMin() * 60_000L) p = Prefs.LOCKED;
+            boolean bank = prefs.quizOn() && prefs.mode() == GateRules.MODE_BANK;
+            if (bank) {
+                // 答题积累：余额（ruleState.balanceMs）才是权威值，每次「启动软件」都按
+                // 起看门槛重判一次 —— 满门槛直接看，不足先出题，攒够才放行。
+                // 余额不清零：这次没看完的部分留在账上，下次启动接着用（只是要重新过门槛）。
+                remaining = prefs.balanceMs();
+                p = remaining >= prefs.minBankMin() * 60_000L ? Prefs.RUNNING : Prefs.LOCKED;
                 prefs.saveSnapshot(p, remaining);
+            } else if (p == Prefs.IDLE) {
+                remaining = prefs.durationMin() * 60_000L;
+                prefs.saveSnapshot(Prefs.RUNNING, remaining);
             } else {
-                // 已经有会话（RUNNING/LOCKED）时沿用剩余，不重判门槛：
-                // 答题积累的余额是「能断续使用的可看时长」，攒够后再看一半、停一下再启动，
-                // 剩下的余额应当能接着用，不能要求重新攒满门槛。
+                // 其余方式的「本次时长」本来就是断续使用的，沿用上次剩余
                 remaining = prefs.remainingMs();
             }
             if (!prefs.quizOn() && prefs.phase() == Prefs.LOCKED) {
@@ -410,7 +416,7 @@ public class GateService extends Service implements MaskView.Host {
                 Log.i(TAG, "stable " + (STABLE_MS / 1000) + "s -> 崩溃计数归零");
             }
 
-            // 规则引擎先于计时：跨天重置 / 强制休息到期 / 看电视时间切换都要在本帧生效
+            // 规则引擎先于计时：跨天重置 / 休息到期 / 看电视时间切换都要在本帧生效
             enforceRules();
             if (mask != null) mask.tick();
             if (block != null) updateBlockInfo();
@@ -427,16 +433,16 @@ public class GateService extends Service implements MaskView.Host {
 
             if (prefs.phase() == Prefs.RUNNING) {
                 // 软件自己的界面不是电视内容：在首页/设置/答题方式/题库管理里停留不扣时，
-                // 也不累加连续观看（否则家长坐着调参数就被强制休息）。
+                // 也不累加观看时长（否则家长坐着调参数就会攒够休息）。
                 // 「答题加时间」遮罩开着同样算在软件里 —— earnView 非空时也不计时。
                 boolean inApp = inAppSurface();
                 if (screenOn() && !inApp) {
                     // 答题关掉后不扣时长：用户选的是「不答题直接看」，但 watchMs 照常累加，
-                    // 看电视时间与强制休息仍然生效（全局规则是天花板）。
+                    // 看电视时间与休息规则仍然生效（全局规则是天花板）。
                     if (prefs.quizOn()) remaining -= delta;
                     watchMs += delta;
-                    // 连续观看达标：强制休息，本帧不再扣余额
-                    if (watchMs >= prefs.watchLimitMin() * 60_000L) {
+                    // 看满阈值：进入休息，本帧不再扣余额。「不休息」时整条规则跳过。
+                    if (prefs.restOn() && watchMs >= prefs.watchLimitMin() * 60_000L) {
                         prefs.tickRuleState(prefs.mode() == GateRules.MODE_BANK
                                 ? remaining : prefs.balanceMs(), watchMs);
                         enterRest();
@@ -474,7 +480,7 @@ public class GateService extends Service implements MaskView.Host {
         }
     };
 
-    // ---------- 规则引擎：跨天 / 看电视时间 / 强制休息 ----------
+    // ---------- 规则引擎：跨天 / 看电视时间 / 看多久歇多久 ----------
 
     /** 每秒检查一次即可（ticker 里每帧调用，内部自己按秒节流不必要：Calendar 取得起）。 */
     private void enforceRules() {
@@ -492,6 +498,13 @@ public class GateService extends Service implements MaskView.Host {
             if (remaining <= 0) remaining = Math.max(1, prefs.durationMin()) * 60_000L;
             prefs.saveSnapshot(Prefs.RUNNING, remaining);
             resumeAfterBlock("quiz_off");
+            return;
+        }
+        if (p == Prefs.REST && !prefs.restOn()) {
+            // 家长在休息中途把「看多久」改成「不休息」：立刻放行，不用等这一轮走完
+            prefs.saveRuleState(prefs.streak(), prefs.wrongToday(), prefs.unlockToday(),
+                    prefs.cooldownUntil(), prefs.balanceMs(), watchMs, 0L, prefs.ruleDayKey());
+            resumeAfterBlock("rest_off");
             return;
         }
         if (p == Prefs.REST && prefs.restLeftMs() <= 0) {
@@ -525,7 +538,7 @@ public class GateService extends Service implements MaskView.Host {
         long bal = prefs.mode() == GateRules.MODE_BANK ? remaining : prefs.balanceMs();
         prefs.saveRuleState(prefs.streak(), prefs.wrongToday(), prefs.unlockToday(),
                 prefs.cooldownUntil(), bal, 0L, until, prefs.ruleDayKey());
-        // 连续观看计时清零，否则休息结束的下一帧又会立刻触发休息
+        // 累计观看清零，否则休息结束的下一帧又会立刻触发休息
         watchMs = 0L;
         prefs.saveSnapshot(Prefs.REST, remaining);
         removeMask();
@@ -575,8 +588,10 @@ public class GateService extends Service implements MaskView.Host {
     private void updateBlockInfo() {
         if (block == null) return;
         if (prefs.phase() == Prefs.REST) {
-            block.setInfo("强制休息",
-                    "连续观看 " + prefs.watchLimitMin() + " 分钟，休息 " + prefs.restMin() + " 分钟后再看",
+            // 「强制休息」这个词 1.6.2 起换成「看多久歇多久」这条规则，遮罩上只说事实：
+            // 看满多少分钟、现在要歇多久、还剩多久。
+            block.setInfo("该休息了",
+                    "看满 " + prefs.watchLimitMin() + " 分钟，休息 " + prefs.restMin() + " 分钟后再看",
                     prefs.restLeftMs());
         } else {
             block.setInfo("不在看电视时间",
@@ -772,7 +787,7 @@ public class GateService extends Service implements MaskView.Host {
         } else {
             remaining = Math.max(remaining, grace);
         }
-        // 家长临时放行：清掉连续观看计时与休息截止，这是有意保留的家长豁免；
+        // 家长临时放行：清掉累计观看与休息截止，这是有意保留的家长豁免；
         // 软件总开关不受影响，全局规则在下一轮照常生效。
         watchMs = 0L;
         prefs.saveRuleState(prefs.streak(), prefs.wrongToday(), prefs.unlockToday(),
@@ -968,7 +983,7 @@ public class GateService extends Service implements MaskView.Host {
         try {
             wm.addView(mini, lp);
             long v = prefs.startHintOn() ? remaining : watchableMs();
-            String cap = prefs.startHintOn() ? "本次时长" : "可看时长";
+            String cap = miniCaption(prefs.startHintOn());
             mini.setRemaining(v);
             mini.setCaption(cap);
             Log.i(TAG, "mini_show remaining=" + Core.fmt(v) + " caption=" + cap);
@@ -999,14 +1014,23 @@ public class GateService extends Service implements MaskView.Host {
     }
 
     /**
-     * 此刻电视上真正能看多久。答题关不扣 remaining，能看的是「距强制休息」；
+     * 此刻电视上真正能看多久。答题关不扣 remaining，能看的是「距休息」；
      * 其余方式（含答题积累的余额池）看的就是 remaining。
      */
     private long watchableMs() {
         if (!prefs.quizOn()) {
+            // 答题关 + 不休息：没有可倒数的上限，就报「本次已看」。向上走的数字永远在变，
+            // 不会像冻结的 remaining 那样让家长以为计时坏了（1.6.1 报过同一个问题）。
+            if (!prefs.restOn()) return watchMs;
             return Math.max(0L, prefs.watchLimitMin() * 60_000L - watchMs);
         }
         return remaining;
+    }
+
+    /** 读秒窗标题。答题关 + 不休息时数的是「已看」而不是「可看」，标题必须跟着换。 */
+    private String miniCaption(boolean startHint) {
+        if (startHint) return "本次时长";
+        return (!prefs.quizOn() && !prefs.restOn()) ? "本次已看" : "可看时长";
     }
 
     private void updateMini() {
@@ -1023,7 +1047,7 @@ public class GateService extends Service implements MaskView.Host {
         if (mini != null) {
             long v = hint ? remaining : watchableMs();
             mini.setRemaining(v);
-            mini.setCaption(hint ? "本次时长" : "可看时长");
+            mini.setCaption(miniCaption(hint));
         }
     }
 

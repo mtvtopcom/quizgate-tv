@@ -40,7 +40,7 @@ public class MainActivity extends Activity {
     private TextView valueVersion, valueLog;
     /** 1.6.0 规则引擎设置行（只在「答题方式」页里按方式显示）。 */
     private TextView valueFixedNeed, valueFirstNeed, valueStepAdd,
-            valuePer, valueMinBank, valueWindow, valueWatchLimit, valueRest,
+            valuePer, valueMinBank, valueWindow, valueRest,
             valueReset, valuePause, valueCarryOver;
     private TextView anchorWarn;
     /** 设置页的第一项（本次时长）。顶部返回按钮在 1.2.9 删掉后，焦点默认落在这里。 */
@@ -69,7 +69,7 @@ public class MainActivity extends Activity {
      * （电视遥控器上 RadioGroup 的焦点跨行行为不可控，D2 上还踩过假焦点）。
      */
     private LinearLayout modePickBox;
-    private TextView modeIntro, modeSectionLabel, modeOffNote;
+    private TextView modeIntro, modeSectionLabel, modeOffNote, modeBankNote;
     private final java.util.List<TextView> modeBullets = new ArrayList<>();
     private final java.util.List<TextView> modeNames = new ArrayList<>();
     private final java.util.List<TextView> modeSummaries = new ArrayList<>();
@@ -181,10 +181,11 @@ public class MainActivity extends Activity {
         valueFirstNeed = addRow("首次解锁题数", this::openFirstNeedPanel);
         valueStepAdd = addRow("之后每次题数", this::openStepAddPanel);
         valuePer = addRow("每题攒分钟", this::openPerAnswerPanel);
-        valueMinBank = addRow("最低观看时长", this::openMinBankPanel);
+        valueMinBank = addRow("起看门槛", this::openMinBankPanel);
         valueWindow = addRow("看电视时间", this::openWindowPanel);
-        valueWatchLimit = addRow("连续观看上限", this::openWatchLimitPanel);
-        valueRest = addRow("强制休息", this::openRestPanel);
+        // 「连续观看上限」和「强制休息」原本是同一个键（watchLimitMin）的两个入口，
+        // 改一个另一个跟着变，家长以为是两条设置打架。1.6.2 只留这一行。
+        valueRest = addRow("看多久歇多久", this::openRestPanel);
         valueReset = addRow("每日重置", this::openResetPanel);
         valuePause = addRow("答题暂停播放", this::togglePauseOnQuiz);
         valueCarryOver = addRow("余额跨天", this::toggleBalanceCarryOver);
@@ -269,6 +270,16 @@ public class MainActivity extends Activity {
             modeSummaries.add(sum);
         }
 
+        // 答题积累专属说明：余额跨会话保留，家长需要一处能看到「现在攒了多少、
+        // 门槛是多少、答一题加多少」。只在选中该方式时显示，文本由 refresh() 按当前值填。
+        modeBankNote = Ui.label(this, "", 19, Ui.TEXT);
+        modeBankNote.setBackgroundResource(R.drawable.opt_bg);
+        modeBankNote.setPadding(Ui.dp(this, 26), Ui.dp(this, 18), Ui.dp(this, 26), Ui.dp(this, 18));
+        modeBankNote.setVisibility(View.GONE);
+        LinearLayout.LayoutParams nlp = new LinearLayout.LayoutParams(-1, -2);
+        nlp.topMargin = Ui.dp(this, 14);
+        content.addView(modeBankNote, nlp);
+
         modeSectionLabel = Ui.label(this, "", 18, Ui.DIM);
         modeSectionLabel.setVisibility(View.GONE);
         LinearLayout.LayoutParams mlp = new LinearLayout.LayoutParams(-1, -2);
@@ -276,8 +287,8 @@ public class MainActivity extends Activity {
         content.addView(modeSectionLabel, mlp);
 
         modeOffNote = Ui.label(this,
-                "答题关：不再出题，也不扣观看时长；看电视时间与强制休息照旧生效。\n"
-                        + "首页大字改为显示「距强制休息」的倒计时。",
+                "答题关：不再出题，也不扣观看时长；看电视时间与休息规则照旧生效。\n"
+                        + "首页大字显示「距休息」的倒计时；设了「不休息」就改成「本次已看」。",
                 19, Ui.TEXT);
         modeOffNote.setBackgroundResource(R.drawable.opt_bg);
         modeOffNote.setPadding(Ui.dp(this, 26), Ui.dp(this, 18), Ui.dp(this, 26), Ui.dp(this, 18));
@@ -315,6 +326,12 @@ public class MainActivity extends Activity {
             if (running) startService(new Intent(this, GateService.class)
                     .setAction(GateService.ACTION_APPLY_MODE));
         }
+        if (!running) {
+            // 没在守护时切方式 = 下一次「启动软件」是新会话：把上次的剩余快照作废，
+            // 否则「答题积累」剩下的 5 分钟会被「答题延时」当成自己的本次时长。
+            // （答题积累的余额存在 ruleState 里，不受这行影响，下次启动照样能用。）
+            prefs.saveSnapshot(Prefs.IDLE, Math.max(1, prefs.durationMin()) * 60_000L);
+        }
         applyRows(true);
         refresh();
         toast("答题方式：" + GateRules.modeName(mode));
@@ -343,10 +360,12 @@ public class MainActivity extends Activity {
             case GateRules.MODE_UNLOCK:
                 return "首次 " + prefs.firstNeed() + " 题 · 之后每次 +" + prefs.stepAdd() + " 题";
             case GateRules.MODE_BANK:
-                return "每题攒 " + prefs.perAnswerMin() + " 分钟 · 满 "
+                // 余额是这个模式的核心状态，摘要里直接写「已攒多少」，家长不用点进参数才知道。
+                // 用 mm:ss 而不是整分钟：0:24 显示成「0 分钟」会让人以为余额是 0。
+                return "已攒 " + Core.fmt(prefs.balanceMs()) + " · 满 "
                         + prefs.minBankMin() + " 分钟可看";
             case GateRules.MODE_OFF:
-                return "不答题 · 只保留看电视时间与强制休息";
+                return "不答题 · 只保留看电视时间与休息规则";
             default:
                 return "锁屏答 1 题 · 答对 +" + prefs.extendMin() + " 分钟";
         }
@@ -355,6 +374,18 @@ public class MainActivity extends Activity {
     /** 首页/状态卡里的方式文案：答题关时显示「答题关」，不显示上次的方式。 */
     private String modeText() {
         return GateRules.modeName(prefs.quizOn() ? prefs.mode() : GateRules.MODE_OFF);
+    }
+
+    /**
+     * 首页的方式行。答题积累停着的时候把余额也写出来：这个模式的余额跨会话保留，
+     * 家长在启动前就能看到孩子攒了多少，不用先进设置。运行中大字本身就是余额，不重复写。
+     */
+    private String homeModeLine() {
+        String s = "答题方式：" + modeText();
+        if (prefs.quizOn() && prefs.mode() == GateRules.MODE_BANK && !prefs.gateOn()) {
+            s += " · 已攒 " + Core.fmt(prefs.balanceMs());
+        }
+        return s;
     }
 
     // ---------- 首页：电视风格，只放运行状态 ----------
@@ -570,7 +601,6 @@ public class MainActivity extends Activity {
         row(valueGrade, global);
         row(valuePause, global);
         row(valueWindow, global);
-        row(valueWatchLimit, global);
         row(valueRest, global);
         row(valueReset, global);
         row(valueBank, global);
@@ -584,6 +614,10 @@ public class MainActivity extends Activity {
         if (modeSectionLabel != null) {
             modeSectionLabel.setVisibility(params ? View.VISIBLE : View.GONE);
             modeSectionLabel.setText(GateRules.modeName(mode) + " · 设置");
+        }
+        if (modeBankNote != null) {
+            modeBankNote.setVisibility(params && mode == GateRules.MODE_BANK
+                    ? View.VISIBLE : View.GONE);
         }
         if (modeOffNote != null) modeOffNote.setVisibility(off ? View.VISIBLE : View.GONE);
         settingsTitle.setText(modeConfig ? "答题方式" : "设置");
@@ -1030,10 +1064,20 @@ public class MainActivity extends Activity {
     private void openMinBankPanel() {
         String[] labels = {"5", "10", "15", "20", "30"};
         int[] vals = {5, 10, 15, 20, 30};
-        mountOption(new OptionPanel(this, "攒够多少分钟才能看", labels, vals, prefs.minBankMin(),
+        mountOption(new OptionPanel(this, "起看门槛（分钟）",
+                "每次启动软件时，余额满这么多分钟才能直接看；不够会先出题，攒够才放行。"
+                        + "当前已攒 " + Core.fmt(prefs.balanceMs()) + "。",
+                labels, vals, prefs.minBankMin(),
                 "分钟", 1, 240,
-                v -> { prefs.setMinBankMin(v); hideOptionPanel(); refresh(); toast("最低观看：" + v + " 分钟"); },
-                this::hideOptionPanel));
+                v -> {
+                    prefs.setMinBankMin(v);
+                    hideOptionPanel();
+                    // 运行中改门槛立刻按新值重判：调低后余额够就不用再答一题才解屏
+                    if (prefs.gateOn()) startService(new Intent(this, GateService.class)
+                            .setAction(GateService.ACTION_APPLY_MODE));
+                    refresh();
+                    toast("起看门槛：满 " + v + " 分钟才能开始看");
+                }, this::hideOptionPanel));
     }
 
     private static String clockText(int min) {
@@ -1059,6 +1103,15 @@ public class MainActivity extends Activity {
     private static String windowText(int start, int end) {
         String t = clockText(start) + " – " + clockText(end);
         return start == end ? t + "（等同全天）" : t;
+    }
+
+    /**
+     * 设置行右侧：两个数字都要露出来。只显示「10 分钟」的话，家长看不出那是歇多久
+     * 还是看多久——这正是原来两行设置互相打架的根源。
+     */
+    private String restText() {
+        if (!prefs.restOn()) return "不休息";
+        return "看 " + prefs.watchLimitMin() + " 分 · 歇 " + prefs.restMin() + " 分";
     }
 
     /** 预设值仍是分钟数，但显示成钟点；「自定义」走 OptionPanel 的 X 点 X 分输入。 */
@@ -1101,33 +1154,45 @@ public class MainActivity extends Activity {
                 }, this::openWindowPanel));
     }
 
-    private void openWatchLimitPanel() {
-        String[] labels = {"10", "20", "30", "45", "60"};
-        int[] vals = {10, 20, 30, 45, 60};
-        mountOption(new OptionPanel(this, "连续观看上限（分钟）", labels, vals, prefs.watchLimitMin(),
-                "分钟", 1, 240,
-                v -> { prefs.setWatchLimitMin(v); hideOptionPanel(); refresh(); toast("看满 " + v + " 分钟强制休息"); },
-                this::hideOptionPanel));
-    }
-
+    /**
+     * 「看多久歇多久」两级面板：先选看多久（含「不休息」），再选歇多久。
+     *
+     * <p>1.6.1 及以前这里是两行——「连续观看上限」和「强制休息」，可它们写的是同一个键
+     * {@code watchLimitMin}：家长改上面那行，下面那行的「观看分钟」跟着变，看起来就是
+     * 两条设置互相覆盖。合并成一行后，一个入口管两个数字，规则在标题里就说完了。
+     */
     private void openRestPanel() {
-        String[] labels = {"10", "20", "30", "45", "60"};
-        int[] vals = {10, 20, 30, 45, 60};
-        mountOption(new OptionPanel(this, "强制休息 · 观看分钟", labels, vals, prefs.watchLimitMin(),
-                "分钟", 1, 240, this::openRestMinutesPanel, this::hideOptionPanel));
+        String[] labels = {"不休息", "10", "20", "30", "45", "60"};
+        int[] vals = {0, 10, 20, 30, 45, 60};
+        String cur = prefs.restOn()
+                ? "现在：看满 " + prefs.watchLimitMin() + " 分钟，歇 " + prefs.restMin() + " 分钟"
+                : "现在：不休息，只受「看电视时间」限制";
+        mountOption(new OptionPanel(this, "看多久歇多久 · 看多久", cur,
+                labels, vals, prefs.watchLimitMin(), "分钟", 1, 240, false, false,
+                v -> {
+                    if (v == 0) {
+                        prefs.setWatchLimitMin(0);
+                        hideOptionPanel();
+                        refresh();
+                        toast("已关闭休息：只受「看电视时间」限制");
+                        return;
+                    }
+                    openRestMinutesPanel(v);
+                }, this::hideOptionPanel));
     }
 
     private void openRestMinutesPanel(int watchMin) {
         String[] labels = {"5", "10", "15", "20", "30"};
         int[] vals = {5, 10, 15, 20, 30};
-        mountOption(new OptionPanel(this, "强制休息 · 休息分钟", labels, vals, prefs.restMin(),
-                "分钟", 1, 120,
+        mountOption(new OptionPanel(this, "看多久歇多久 · 歇多久",
+                "看满 " + watchMin + " 分钟就锁屏，到点自动恢复；休息中不能答题",
+                labels, vals, prefs.restMin(), "分钟", 1, 120, false, false,
                 v -> {
                     prefs.setWatchLimitMin(watchMin);
                     prefs.setRestMin(v);
                     hideOptionPanel();
                     refresh();
-                    toast("看满 " + watchMin + " 分钟，休息 " + v + " 分钟");
+                    toast("看满 " + watchMin + " 分钟，歇 " + v + " 分钟");
                 }, this::openRestPanel));
     }
 
@@ -1258,7 +1323,8 @@ public class MainActivity extends Activity {
                 return;
             }
             promptPinConfirm("停止软件",
-                    "停止后不再锁屏、不再出题，看电视时间与强制休息也一并失效，直到重新启动。",
+                    "停止后不再锁屏、不再出题，看电视时间与休息规则也一并失效，直到重新启动。"
+                            + "下次启动时「看多久歇多久」从 0 重新计。",
                     this::doDisableGate);
             return;
         }
@@ -1305,7 +1371,7 @@ public class MainActivity extends Activity {
         }
         int p = prefs.phase();
         if (p == Prefs.REST) {
-            toast("强制休息中，休息结束后再攒时间");
+            toast("休息中，休息结束后再攒时间");
             return;
         }
         if (p == Prefs.OUT) {
@@ -1811,7 +1877,7 @@ public class MainActivity extends Activity {
         if (valueDuration == null) return;
         valueDuration.setText(prefs.durationMin() + " 分钟");
         valueExtend.setText("+ " + prefs.extendMin() + " 分钟");
-        if (homeModeLabel != null) homeModeLabel.setText("答题方式：" + modeText());
+        if (homeModeLabel != null) homeModeLabel.setText(homeModeLine());
         if (homeBtnGate != null) homeBtnGate.setText(prefs.gateOn() ? "停止软件" : "启动软件");
         // 三颗核心按钮等宽，按钮上只写功能名；当前方式在状态卡里单独一行显示
         if (homeBtnMode != null) homeBtnMode.setText("答题方式");
@@ -1821,10 +1887,15 @@ public class MainActivity extends Activity {
         valueFirstNeed.setText(prefs.firstNeed() + " 题");
         valueStepAdd.setText("+ " + prefs.stepAdd() + " 题");
         valuePer.setText(prefs.perAnswerMin() + " 分钟/题");
-        valueMinBank.setText(prefs.minBankMin() + " 分钟");
+        valueMinBank.setText("满 " + prefs.minBankMin() + " 分钟");
+        if (modeBankNote != null) {
+            modeBankNote.setText("当前已攒 " + Core.fmt(prefs.balanceMs()) + "；余额满 "
+                    + prefs.minBankMin() + " 分钟才能开始看。\n"
+                    + "不到门槛会先出题，答对一题 +" + prefs.perAnswerMin()
+                    + " 分钟，攒够才放行；余额不会清零，下次启动接着用。");
+        }
         valueWindow.setText(windowText(prefs.windowStart(), prefs.windowEnd()));
-        valueWatchLimit.setText(prefs.watchLimitMin() + " 分钟");
-        valueRest.setText(prefs.restMin() + " 分钟");
+        valueRest.setText(restText());
         valueReset.setText(prefs.fixedResetMoment()
                 ? clockText(prefs.resetAtMin()) : "跨天 0 点");
         valuePause.setText(prefs.pauseOnQuiz() ? "暂停" : "不暂停");
@@ -2008,7 +2079,7 @@ public class MainActivity extends Activity {
                 big = "0:00";
             }
         } else if (p == Prefs.REST) {
-            phase = "强制休息中";
+            phase = "休息中 · 到点自动恢复";
             big = Core.fmt(prefs.restLeftMs());
         } else if (p == Prefs.OUT) {
             // 看电视时间之外：大字显示「还有多久到看电视时间」，
@@ -2017,13 +2088,14 @@ public class MainActivity extends Activity {
             big = waitText(GateRules.secondsUntilWindow(prefs.secondOfDay(),
                     prefs.windowStart(), prefs.windowEnd()) * 1000L);
         } else if (!prefs.quizOn()) {
-            // 答题关：不出题、也不扣观看时长，大字改成「距强制休息」的倒计时。
-            // 必须排在下面「在软件里计时暂停」之前：那个分支会显示 remaining，
-            // 而答题关根本不消耗 remaining，家长看到的永远是最初设的 30:00，
-            // 会以为计时坏了（用户报的「一直都是初始时间没变」）。
-            long left = prefs.watchLimitMin() * 60_000L - prefs.watchMs();
-            phase = "答题关 · 距强制休息";
-            big = Core.fmt(Math.max(0L, left));
+            // 答题关：不出题、也不扣观看时长，大字显示「距休息」的倒计时；
+            // 选「不休息」时没有上限可倒数，改成向上走的「本次已看」——数字一直在动，
+            // 不会像冻结的 remaining 那样让家长以为计时坏了（1.6.1 报过这个问题）。
+            // 必须排在下面「在软件里计时暂停」之前：那个分支显示的是不消耗的 remaining。
+            phase = prefs.restOn() ? "答题关 · 距休息" : "答题关 · 本次已看";
+            big = waitText(prefs.restOn()
+                    ? Math.max(0L, prefs.watchLimitMin() * 60_000L - prefs.watchMs())
+                    : prefs.watchMs());
         } else if (App.uiVisible && p == Prefs.RUNNING) {
             // 在软件自己的页面里不扣时（服务端同步跳过累加），数字不动要说明原因，
             // 否则家长会以为计时坏了。切回电视这一行立刻变回「计时中」。
@@ -2035,6 +2107,9 @@ public class MainActivity extends Activity {
         }
         if (homePhase != null) homePhase.setText(phase);
         if (homeTime != null) homeTime.setText(big);
+        // 总开关是服务异步置位的：停止后 refresh() 可能还读到 gateOn=true，
+        // 「已攒」就刷不出来。这行跟状态卡一起每秒重算，代价只有一次字符串拼接。
+        if (homeModeLabel != null) homeModeLabel.setText(homeModeLine());
         styleHomeReadout(p, alive);
         if (logBody != null && logPanel != null && logPanel.getVisibility() == View.VISIBLE) {
             logBody.setText(logText());

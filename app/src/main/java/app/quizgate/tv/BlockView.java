@@ -10,7 +10,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 /**
- * 全局锁定变体（看电视时间外 / 强制休息）用的全屏遮罩。
+ * 全局锁定变体（看电视时间外 / 休息规则）用的全屏遮罩。
  * 比答题遮罩简单：只显示原因和倒计时；家长入口仍是菜单键口令。
  */
 public class BlockView extends FrameLayout {

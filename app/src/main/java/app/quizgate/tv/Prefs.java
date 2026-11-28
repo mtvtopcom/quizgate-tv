@@ -53,7 +53,7 @@ public final class Prefs {
     public void setGateOn(boolean v) { sp.edit().putBoolean("gateOn", v).commit(); }
 
     /**
-     * 答题开关。关掉后不弹题、不扣观看时长，但看电视时间与强制休息仍然生效。
+     * 答题开关。关掉后不弹题、不扣观看时长，但看电视时间与休息规则仍然生效。
      * 连对/余额/冷却状态保留，重新开启时接着原来的状态。
      */
     public boolean quizOn() { return sp.getBoolean("quizOn", true); }
@@ -86,7 +86,7 @@ public final class Prefs {
     public int perAnswerMin() { return sp.getInt("perAnswerMin", 1); }
     public void setPerAnswerMin(int v) { sp.edit().putInt("perAnswerMin", clamp(v, 1, 60)).commit(); }
 
-    /** 答题积累：余额至少多少分钟才允许开始观看（1..240）。 */
+    /** 答题积累·起看门槛：每次启动软件时，余额满这么多分钟才直接放行（1..240）。 */
     public int minBankMin() { return sp.getInt("minBankMin", 10); }
     public void setMinBankMin(int v) { sp.edit().putInt("minBankMin", clamp(v, 1, 240)).commit(); }
 
@@ -101,11 +101,18 @@ public final class Prefs {
         return GateRules.inWindow(minuteOfDay(), windowStart(), windowEnd());
     }
 
-    /** 连续观看上限 / 强制休息时长（分钟）。 */
+    /**
+     * 休息规则的「看多久」阈值（分钟）；0 = 不休息。
+     * <p>1.6.1 及以前这个键被做成了两个设置行——「连续观看上限」和「强制休息 · 观看分钟」，
+     * 改一个另一个跟着变，家长看来就是两条设置互相打架。1.6.2 删掉重复那行，
+     * 只留「看多久歇多久」，键名和默认值都不动，老数据直接沿用。
+     */
     public int watchLimitMin() { return sp.getInt("watchLimitMin", 30); }
-    public void setWatchLimitMin(int v) { sp.edit().putInt("watchLimitMin", clamp(v, 1, 240)).commit(); }
+    public void setWatchLimitMin(int v) { sp.edit().putInt("watchLimitMin", clamp(v, 0, 240)).commit(); }
     public int restMin() { return sp.getInt("restMin", 10); }
     public void setRestMin(int v) { sp.edit().putInt("restMin", clamp(v, 1, 120)).commit(); }
+    /** 休息规则开关：「看多久」选「不休息」时 watchLimitMin = 0。 */
+    public boolean restOn() { return watchLimitMin() > 0; }
 
     /** 每日计数重置方式：false = 跨天 0 点重置；true = 固定时刻重置。 */
     public boolean fixedResetMoment() { return sp.getBoolean("fixedResetMoment", false); }
@@ -334,12 +341,20 @@ public final class Prefs {
     public boolean balanceCarryOver() { return sp.getBoolean("balanceCarryOver", true); }
     public void setBalanceCarryOver(boolean v) { sp.edit().putBoolean("balanceCarryOver", v).commit(); }
 
-    /** 连续观看时长：锁屏、休息、答题期间都不累加。 */
+    /** 本次启动以来的累计观看时长：锁屏、休息、答题期间都不累加。 */
     public long watchMs() { return sp.getLong("watchMs", 0L); }
-    /** 强制休息截止时刻（墙上时钟），0 = 不在休息。 */
+    /** 休息截止时刻（墙上时钟），0 = 不在休息。 */
     public long restUntil() { return sp.getLong("restUntil", 0L); }
     public long restLeftMs() { return Math.max(0L, restUntil() - System.currentTimeMillis()); }
     public String ruleDayKey() { return sp.getString("ruleDayKey", ""); }
+
+    /**
+     * 停止软件＝这次防护结束：累计观看与休息截止一并清掉，下次启动从 0 重新计。
+     * <p>只清这两个。连对/冷却/余额是孩子的「学习成果」，停止再启动要能接着用。
+     */
+    public void resetWatchAndRest() {
+        sp.edit().putLong("watchMs", 0L).putLong("restUntil", 0L).commit();
+    }
 
     /**
      * 规则状态一次性落盘。答对/答错/跨天重置都走这里，避免「连对加了、冷却没写」这种
@@ -359,7 +374,7 @@ public final class Prefs {
                 .commit();
     }
 
-    /** 心跳允许丢：余额/连续观看每秒写一次就够，用 apply 不阻塞主线程。 */
+    /** 心跳允许丢：余额/累计观看每秒写一次就够，用 apply 不阻塞主线程。 */
     public void tickRuleState(long balanceMs, long watchMs) {
         sp.edit().putLong("balanceMs", Math.max(0L, balanceMs))
                 .putLong("watchMs", Math.max(0L, watchMs))
@@ -660,7 +675,7 @@ public final class Prefs {
     public static String phaseName(int p) {
         if (p == RUNNING) return "计时中";
         if (p == LOCKED) return "已锁定";
-        if (p == REST) return "强制休息";
+        if (p == REST) return "休息中";
         if (p == OUT) return "不在看电视时间";
         return "未开始";
     }
