@@ -10,7 +10,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 /**
- * 全局锁定变体（每日时段外 / 强制休息）用的全屏遮罩。
+ * 全局锁定变体（看电视时间外 / 强制休息）用的全屏遮罩。
  * 比答题遮罩简单：只显示原因和倒计时；家长入口仍是菜单键口令。
  */
 public class BlockView extends FrameLayout {
@@ -142,7 +142,7 @@ public class BlockView extends FrameLayout {
         if (e.getAction() == KeyEvent.ACTION_DOWN) {
             if (k == KeyEvent.KEYCODE_MENU) { showPin(); return true; }
             if (k == KeyEvent.KEYCODE_BACK) return true;
-            return true;   // 时段外/休息期一律不把按键漏给下层播放器
+            return true;   // 看电视时间外/休息期一律不把按键漏给下层播放器
         }
         return super.dispatchKeyEvent(e);
     }

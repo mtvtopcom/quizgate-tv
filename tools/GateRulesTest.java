@@ -43,6 +43,15 @@ public final class GateRulesTest {
         yes("window overnight morning", GateRules.inWindow(120, 1320, 240));
         yes("window overnight middle", !GateRules.inWindow(720, 1320, 240));
 
+        eq("wait full day", 0L, GateRules.secondsUntilWindow(36000, 0, 1440));
+        eq("wait inside window", 0L, GateRules.secondsUntilWindow(64860, 1080, 1260));
+        eq("wait before window", 600L, GateRules.secondsUntilWindow(34800, 590, 1440));
+        eq("wait seconds precision", 30L, GateRules.secondsUntilWindow(35370, 590, 1440));
+        eq("wait after window next day", 75600L, GateRules.secondsUntilWindow(75600, 1080, 1260));
+        eq("wait overnight evening inside", 0L, GateRules.secondsUntilWindow(82800, 1320, 240));
+        eq("wait overnight morning inside", 0L, GateRules.secondsUntilWindow(7200, 1320, 240));
+        eq("wait overnight outside", 36000L, GateRules.secondsUntilWindow(43200, 1320, 240));
+
         eq("day cross-day", 0L, "20261125".equals(
                 GateRules.logicalDay("20261125", "20261124", 10, false, 0)) ? 0L : 1L);
         eq("day fixed before", 0L, "20261124".equals(

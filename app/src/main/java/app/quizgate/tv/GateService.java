@@ -59,9 +59,13 @@ public class GateService extends Service implements MaskView.Host {
     private static final String CHANNEL = "gate";
     private static final int NOTIF_ID = 1001;
     private static final long TICK_MS = 200L;
-    private static final long MINI_THRESHOLD_MS = 30_000L;
-    /** 点「开始计时」后右下角亮 5 秒，告诉家长这次设了多久；之后仍按原逻辑只在最后 30 秒出现。 */
+    /** 点「开始计时」后右下角先把标题写成「本次时长」5 秒，之后切回「可看时长」。 */
     private static final long START_HINT_MS = 5_000L;
+    /**
+     * 退出软件（回电视）后右下角读秒窗只亮 10 秒就自己收掉，不再常驻。
+     * 常显会被小米判成「带系统悬浮窗」强停进程，而且家长不需要一直盯着它。
+     */
+    private static final long MINI_AUTO_HIDE_MS = 10_000L;
     /**
      * 服务活过这么久才算「稳定」，崩溃计数归零。
      * <p>取 60s 的理由：崩溃循环的典型特征是「起来就炸」（毫秒级到几秒级），而正常的一次
@@ -84,6 +88,11 @@ public class GateService extends Service implements MaskView.Host {
     private boolean uiVisible;
     private BlockView block;
     private MiniView mini;
+    /**
+     * true = 本次离页展示的 10 秒已经用完（或人已回到软件页面），读秒窗不再挂。
+     * 只有下一次「离开软件页面」才重新放行 10 秒；进程内状态即可，强停后由服务重建时重排。
+     */
+    private boolean miniPaused;
     /** 本轮遮罩已经暂停过播放；解锁后复位，下一轮才会再暂停。 */
     private boolean pausedForQuiz = false;
     private long remaining;
@@ -109,9 +118,24 @@ public class GateService extends Service implements MaskView.Host {
      */
     private final Runnable hintDismiss = () -> {
         prefs.clearStartHint();
-        if (running && prefs.phase() == Prefs.RUNNING && remaining > MINI_THRESHOLD_MS) removeMini();
+        // 这里只把「本次时长」标题切回「可看时长」，不摘窗；
+        // 摘窗由 miniExpire 按离页 10 秒的时限负责，两者互不干扰。
+        updateMini();
         Log.i(TAG, "start_hint dismissed");
     };
+    /** 离页读秒窗的 10 秒展示到期：收起来并抑制，直到下次离开软件页面。 */
+    private final Runnable miniExpire = () -> {
+        miniPaused = true;
+        removeMini();
+        Log.i(TAG, "mini_auto_hide after " + MINI_AUTO_HIDE_MS + "ms");
+    };
+
+    /** 重新排一次「离页 10 秒后收起」；只在人不在软件页面、且确实挂了读秒窗时有意义。 */
+    private void scheduleMiniAutoHide() {
+        h.removeCallbacks(miniExpire);
+        if (uiVisible || mini == null) return;
+        h.postDelayed(miniExpire, MINI_AUTO_HIDE_MS);
+    }
     /** 设备适配期的诊断开关：每 5 秒输出一行 inter/disp，用来观察厂商电源键到底改了什么。 */
     private static final boolean DIAG = true;
 
@@ -207,6 +231,7 @@ public class GateService extends Service implements MaskView.Host {
             removeMini();
             prefs.setParentUnlocked(false);
             App.parentUnlocked = false;
+            App.uiUnlocked = false;
             notify("守护已停止");
             stopForeground(true);
             stopSelf();
@@ -234,7 +259,7 @@ public class GateService extends Service implements MaskView.Host {
             int mode = prefs.mode();
             int p = prefs.phase();
             // 会话已开始就按新方式重算时长基准：时间银行是「余额」，其余是「本次时长」。
-            // OUT / REST 只换基准不动阶段（时段外、休息中不该被切方式打断）。
+            // OUT / REST 只换基准不动阶段（看电视时间外、休息中不该被切方式打断）。
             if (p != Prefs.IDLE) {
                 boolean bank = GateRules.payout(mode) == GateRules.PAYOUT_BANK;
                 remaining = bank ? prefs.balanceMs() : Math.max(1, prefs.durationMin()) * 60_000L;
@@ -254,9 +279,19 @@ public class GateService extends Service implements MaskView.Host {
             boolean v = intent.getBooleanExtra(EXTRA_VISIBLE, false);
             if (v != uiVisible) {
                 uiVisible = v;
+                h.removeCallbacks(miniExpire);
+                if (v) {
+                    // 回到软件页面：立刻收掉读秒窗。软件页面挂系统窗会被小米强停进程。
+                    miniPaused = true;
+                    removeMini();
+                } else {
+                    // 退出软件回电视：本次给 10 秒读秒窗，到点由 miniExpire 收起。
+                    miniPaused = false;
+                }
                 Log.i(TAG, "ui_state=" + v + " phase=" + Prefs.phaseName(prefs.phase()));
-                // 离开软件这一刻立刻按当前 phase 上窗：时段外/休息到点/余额耗尽都在这时补挂
+                // 离开软件这一刻立刻按当前 phase 上窗：看电视时间外/休息到点/余额耗尽都在这时补挂
                 reconcile();
+                scheduleMiniAutoHide();
             }
             return START_STICKY;
         }
@@ -268,7 +303,7 @@ public class GateService extends Service implements MaskView.Host {
             }
             int ep = prefs.phase();
             if (ep == Prefs.REST || ep == Prefs.OUT) {
-                // 休息与时段是天花板：不能靠答题绕过
+                // 休息与看电视时间是天花板：不能靠答题绕过
                 Log.i(TAG, "earn_skip phase=" + Prefs.phaseName(ep));
                 return START_STICKY;
             }
@@ -289,6 +324,7 @@ public class GateService extends Service implements MaskView.Host {
             prefs.clearInterrupted();
             prefs.setParentUnlocked(false);
             App.parentUnlocked = false;
+            App.uiUnlocked = false;
             int p = prefs.phase();
             if (p == Prefs.IDLE) {
                 long base = prefs.mode() == GateRules.MODE_BANK
@@ -350,6 +386,9 @@ public class GateService extends Service implements MaskView.Host {
         running = true;
         scheduleHintDismiss();   // START 或 RESTORE 都要重排：新进程只负责剩下的那几秒
         reconcile();
+        // 进程被强停后由 NotifProbe RESTORE 复活时，uiVisible 可能已是 false 且小窗已挂，
+        // 这里补排 10 秒收起，避免新进程又把读秒窗永久留在电视上。
+        scheduleMiniAutoHide();
         h.removeCallbacks(ticker);
         h.post(ticker);
         updateNotification();
@@ -371,7 +410,7 @@ public class GateService extends Service implements MaskView.Host {
                 Log.i(TAG, "stable " + (STABLE_MS / 1000) + "s -> 崩溃计数归零");
             }
 
-            // 规则引擎先于计时：跨天重置 / 强制休息到期 / 每日时段切换都要在本帧生效
+            // 规则引擎先于计时：跨天重置 / 强制休息到期 / 看电视时间切换都要在本帧生效
             enforceRules();
             if (mask != null) mask.tick();
             if (block != null) updateBlockInfo();
@@ -393,7 +432,7 @@ public class GateService extends Service implements MaskView.Host {
                 boolean inApp = inAppSurface();
                 if (screenOn() && !inApp) {
                     // 答题关掉后不扣时长：用户选的是「不答题直接看」，但 watchMs 照常累加，
-                    // 每日时段与强制休息仍然生效（全局规则是天花板）。
+                    // 看电视时间与强制休息仍然生效（全局规则是天花板）。
                     if (prefs.quizOn()) remaining -= delta;
                     watchMs += delta;
                     // 连续观看达标：强制休息，本帧不再扣余额
@@ -435,7 +474,7 @@ public class GateService extends Service implements MaskView.Host {
         }
     };
 
-    // ---------- 规则引擎：跨天 / 时段 / 强制休息 ----------
+    // ---------- 规则引擎：跨天 / 看电视时间 / 强制休息 ----------
 
     /** 每秒检查一次即可（ticker 里每帧调用，内部自己按秒节流不必要：Calendar 取得起）。 */
     private void enforceRules() {
@@ -463,7 +502,7 @@ public class GateService extends Service implements MaskView.Host {
         }
 
         boolean inWindow = prefs.inWindow();
-        // 家长口令应急解锁：时段外也放行，但 watchMs 继续累计，休息照常触发
+        // 家长口令应急解锁：看电视时间外也放行，但 watchMs 继续累计，休息照常触发
         if (!inWindow && !prefs.parentUnlocked()
                 && (p == Prefs.RUNNING || p == Prefs.LOCKED)) {
             enterOut();
@@ -509,7 +548,7 @@ public class GateService extends Service implements MaskView.Host {
 
     private void showBlock() {
         if (block != null) return;
-        // 同 showMask：软件页面里不盖遮罩。时段/休息状态照常推进，回电视立刻呈现。
+        // 同 showMask：软件页面里不盖遮罩。看电视时间/休息状态照常推进，回电视立刻呈现。
         if (inAppSurface()) { Log.i(TAG, "block_skip（软件页面）"); return; }
         if (!screenOn()) { pendingMask = true; return; }
         block = new BlockView(this, new BlockView.Host() {
@@ -540,9 +579,9 @@ public class GateService extends Service implements MaskView.Host {
                     "连续观看 " + prefs.watchLimitMin() + " 分钟，休息 " + prefs.restMin() + " 分钟后再看",
                     prefs.restLeftMs());
         } else {
-            block.setInfo("不在答题时段",
-                    "每日 " + fmtMin(prefs.windowStart()) + " – " + fmtMin(prefs.windowEnd())
-                            + " 可以答题解锁", 0L);
+            block.setInfo("不在看电视时间",
+                    "每天 " + fmtMin(prefs.windowStart()) + " – " + fmtMin(prefs.windowEnd())
+                            + " 可以看电视", 0L);
         }
     }
 
@@ -723,7 +762,7 @@ public class GateService extends Service implements MaskView.Host {
     }
 
     @Override public void onPinOk() {
-        // 新流程没有会话概念：软件总开关仍开着，家长豁免标记暂时跳过时段限制；
+        // 新流程没有会话概念：软件总开关仍开着，家长豁免标记暂时跳过看电视时间限制；
         // 输对口令后给一段宽限继续观看，但不会停止守护。
         long grace = Math.max(1, prefs.extendMin()) * 60_000L;
         long bal = prefs.balanceMs();
@@ -742,6 +781,8 @@ public class GateService extends Service implements MaskView.Host {
         pausedForQuiz = false;
         App.parentUnlocked = true;
         prefs.setParentUnlocked(true);   // 进程被系统回收后仍免密，doStart() 会清掉
+        // 遮罩上刚输对口令，紧接着打开软件首页：三颗按钮不该再问第二次
+        App.uiUnlocked = true;
         Log.i(TAG, "pin ok -> 会话继续 remaining=" + Core.fmt(remaining));
         // 正在按键分发过程中移除窗口会出问题，抛到下一帧再做
         h.post(() -> {
@@ -801,7 +842,9 @@ public class GateService extends Service implements MaskView.Host {
             removeMask();
             removeBlock();
             pausedForQuiz = false;
-            if (remaining <= MINI_THRESHOLD_MS || prefs.startHintOn()) showMini(); else removeMini();
+            // 回电视就开始显示「可看时长」，一直挂到最后（锁定/休息/看电视时间外时摘掉）。
+            // 复用原来的右下角读秒窗，只是不再等最后 30 秒才出现。
+            updateMini();
         } else {
             removeMask();
             removeBlock();
@@ -906,6 +949,8 @@ public class GateService extends Service implements MaskView.Host {
 
     private void showMini() {
         if (mini != null) return;
+        // 屏幕没亮不加窗：跟遮罩一样，绝不让一个小读秒窗把电视点亮
+        if (!screenOn()) return;
         mini = new MiniView(this);
         WindowManager.LayoutParams lp = new WindowManager.LayoutParams(
                 WindowManager.LayoutParams.WRAP_CONTENT,
@@ -922,10 +967,15 @@ public class GateService extends Service implements MaskView.Host {
         lp.setTitle("QuizGateMini");
         try {
             wm.addView(mini, lp);
-            mini.setRemaining(remaining);
-            mini.setCaption(prefs.startHintOn() ? "本次时长" : "剩余");
-            Log.i(TAG, "mini_show remaining=" + Core.fmt(remaining)
-                    + " caption=" + (prefs.startHintOn() ? "本次时长" : "剩余"));
+            long v = prefs.startHintOn() ? remaining : watchableMs();
+            String cap = prefs.startHintOn() ? "本次时长" : "可看时长";
+            mini.setRemaining(v);
+            mini.setCaption(cap);
+            Log.i(TAG, "mini_show remaining=" + Core.fmt(v) + " caption=" + cap);
+            // 只要是在电视上出现的读秒窗，一律从出现那刻起算 10 秒。
+            // 不能只在 ACTION_UI_STATE 里排：看电视时间到点自动放行、息屏后亮屏补窗
+            // 都会走到这里，那些路径没有 ui_state 变更，漏排就成了常驻小窗。
+            if (!uiVisible) scheduleMiniAutoHide();
         } catch (Throwable t) {
             Log.e(TAG, "mini_add failed: " + t);
             mini = null;
@@ -948,20 +998,32 @@ public class GateService extends Service implements MaskView.Host {
         }
     }
 
+    /**
+     * 此刻电视上真正能看多久。答题关不扣 remaining，能看的是「距强制休息」；
+     * 其余方式（含答题积累的余额池）看的就是 remaining。
+     */
+    private long watchableMs() {
+        if (!prefs.quizOn()) {
+            return Math.max(0L, prefs.watchLimitMin() * 60_000L - watchMs);
+        }
+        return remaining;
+    }
+
     private void updateMini() {
-        if (prefs.phase() != Prefs.RUNNING) {   // 双重保险：非计时态绝不允许读秒窗存在
+        // 非计时态、人还在软件页面里、或本次离页 10 秒已用完：一律不挂读秒窗。
+        // 软件页面里挂窗会被小米当成「带系统悬浮窗」强停进程；
+        // 10 秒后自动收起是家长明确要求，避免一个读秒窗常驻电视。
+        if (miniPaused || prefs.phase() != Prefs.RUNNING || inAppSurface()) {
             removeMini();
             return;
         }
+        if (!screenOn()) return;   // 息屏不挂窗；已经挂着的留着，不主动点亮屏幕
         boolean hint = prefs.startHintOn();
-        if (hint || remaining <= MINI_THRESHOLD_MS) {
-            if (mini == null) showMini();
-            if (mini != null) {
-                mini.setRemaining(remaining);
-                mini.setCaption(hint ? "本次时长" : "剩余");
-            }
-        } else if (mini != null) {
-            removeMini();
+        if (mini == null) showMini();
+        if (mini != null) {
+            long v = hint ? remaining : watchableMs();
+            mini.setRemaining(v);
+            mini.setCaption(hint ? "本次时长" : "可看时长");
         }
     }
 

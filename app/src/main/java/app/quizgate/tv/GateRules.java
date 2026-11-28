@@ -115,7 +115,7 @@ public final class GateRules {
     }
 
     /**
-     * 是否处于每日答题时段。start == end 视为全天；start &gt; end 表示跨午夜。
+     * 是否处于「看电视时间」内。start == end 视为全天；start &gt; end 表示跨午夜。
      * minuteOfDay 取 0..1439（本地墙上时钟）。
      */
     public static boolean inWindow(int minuteOfDay, int start, int end) {
@@ -124,6 +124,22 @@ public final class GateRules {
         if (start == end) return true;
         if (start < end) return minuteOfDay >= start && minuteOfDay < end;
         return minuteOfDay >= start || minuteOfDay < end;
+    }
+
+    /**
+     * 距离下一次「到看电视时间」还有多少秒（0..86400）。
+     * <p>时间窗内或全天返回 0；窗外返回到 start 的距离，跨午夜窗口也适用。
+     * 例如 9:40:00、窗口 9:50–24:00 → 600；23:30、窗口 22:00–04:00 → 0（窗内）；
+     * 12:00、窗口 22:00–04:00 → 36000。首页用它显示「还有多久能看电视」。
+     * <p>按秒算是因为首页大字是逐秒刷新的倒计时：只到分钟会出现「5:00」实际只剩
+     * 4 分 30 秒的偏差，家长会以为时间没算对。
+     */
+    public static int secondsUntilWindow(int secondOfDay, int start, int end) {
+        start = clamp(start, 0, 1440);
+        end = clamp(end, 0, 1440);
+        if (start == end || inWindow(secondOfDay / 60, start, end)) return 0;
+        int diff = start * 60 - secondOfDay;
+        return diff <= 0 ? diff + 86400 : diff;
     }
 
     /**

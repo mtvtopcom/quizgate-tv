@@ -41,6 +41,17 @@ public class App extends Application {
     static volatile boolean parentUnlocked;
 
     /**
+     * 家长此刻已经在软件界面里输对过口令。只管首页三颗按钮（停止软件 / 答题方式 / 设置）
+     * 的门禁：输对一次后留在软件里连续操作不再重复问，Activity onPause（离开软件页面）
+     * 立刻清零，下次再点这三颗按钮必须重新输。
+     *
+     * <p>与 {@link #parentUnlocked} 分开：后者是锁屏遮罩上的「临时放行」，带 5 分钟时限、
+     * 服务拿它跳过看电视时间限制；本字段没有时间限制，只按「是否离开过软件页面」失效。
+     * 放在 App 上是因为锁屏遮罩输对口令后由 GateService 拉起首页，那边也要把同一个标记置上。
+     */
+    static volatile boolean uiUnlocked;
+
+    /**
      * 题库上传服务的进程级句柄。
      *
      * <p>不能放在 {@link BankManagerView} 里随页面生死：二维码页一关、或焦点被系统

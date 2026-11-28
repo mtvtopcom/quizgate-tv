@@ -40,7 +40,7 @@ public final class Prefs {
 
     // ---------- 设置 ----------
     /**
-     * 软件总开关。老数据（1.6.0 之前没有这个键）只在「正在计时/锁定/休息/时段外」时
+     * 软件总开关。老数据（1.6.0 之前没有这个键）只在「正在计时/锁定/休息/看电视时间外」时
      * 默认继续守护；停在 IDLE 的按未启动处理。
      * <p>不能按 hasPin() 判：旧版「结束本次会话」后 phase 停在 IDLE 但口令还在，
      * 那样升级后首页会同时显示「停止软件」和「未开始 · 待机」，家长以为在守护，
@@ -53,7 +53,7 @@ public final class Prefs {
     public void setGateOn(boolean v) { sp.edit().putBoolean("gateOn", v).commit(); }
 
     /**
-     * 答题开关。关掉后不弹题、不扣观看时长，但每日时段与强制休息仍然生效。
+     * 答题开关。关掉后不弹题、不扣观看时长，但看电视时间与强制休息仍然生效。
      * 连对/余额/冷却状态保留，重新开启时接着原来的状态。
      */
     public boolean quizOn() { return sp.getBoolean("quizOn", true); }
@@ -90,7 +90,7 @@ public final class Prefs {
     public int minBankMin() { return sp.getInt("minBankMin", 10); }
     public void setMinBankMin(int v) { sp.edit().putInt("minBankMin", clamp(v, 1, 240)).commit(); }
 
-    /** 每日答题时段（本地分钟数）。默认 0..1440 = 全天，避免老用户升级后突然被锁死。 */
+    /** 每天允许看电视的时间窗（本地分钟数，设置页显示为「看电视时间」）。默认 0..1440 = 全天，避免老用户升级后突然被锁死。 */
     public int windowStart() { return clamp(sp.getInt("windowStart", 0), 0, 1440); }
     public int windowEnd() { return clamp(sp.getInt("windowEnd", 1440), 0, 1440); }
     public void setWindow(int start, int end) {
@@ -122,6 +122,14 @@ public final class Prefs {
     public int minuteOfDay() {
         java.util.Calendar c = java.util.Calendar.getInstance();
         return c.get(java.util.Calendar.HOUR_OF_DAY) * 60 + c.get(java.util.Calendar.MINUTE);
+    }
+
+    /** 当日已过秒数 0..86399。首页「几点可以开始答题」的倒计时按秒走，不能只到分钟。 */
+    public int secondOfDay() {
+        java.util.Calendar c = java.util.Calendar.getInstance();
+        return c.get(java.util.Calendar.HOUR_OF_DAY) * 3600
+                + c.get(java.util.Calendar.MINUTE) * 60
+                + c.get(java.util.Calendar.SECOND);
     }
 
     /** [今天 key, 昨天 key]，格式 yyyyMMdd。给 GateRules.logicalDay 用。 */
@@ -225,7 +233,7 @@ public final class Prefs {
 
     /**
      * 家长豁免态有效期。1.6.0 新流程取消了「开始新一局」（原本在那里清除家长态），
-     * 若不设时限，输一次口令后时段/休息豁免会永久有效——全局规则形同虚设。
+     * 若不设时限，输一次口令后看电视时间/休息豁免会永久有效——全局规则形同虚设。
      * 5 分钟够家长改完设置，到点自动失效，不需要额外操作。
      */
     private static final long PARENT_UNLOCK_MS = 5 * 60_000L;
@@ -252,7 +260,10 @@ public final class Prefs {
                 .commit();
     }
 
-    /** 1.6.0：输对口令后 1 分钟内，「停止软件」不再重复要口令（家长刚输完就点停止是常态）。 */
+    /**
+     * 历史遗留：1.6.0 曾用「1 分钟内不重复问口令」，现已改成按「是否离开软件页面」判定
+     * （见 App.uiUnlocked）。保留这组方法只为兼容旧数据/外部调用，门禁不再读它。
+     */
     private static final long AUTH_REUSE_MS = 60_000L;
 
     /** 最近一次输对口令（任何用途）的墙上时间；0 = 从没输过。 */
@@ -650,7 +661,7 @@ public final class Prefs {
         if (p == RUNNING) return "计时中";
         if (p == LOCKED) return "已锁定";
         if (p == REST) return "强制休息";
-        if (p == OUT) return "时段外";
+        if (p == OUT) return "不在看电视时间";
         return "未开始";
     }
 

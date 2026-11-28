@@ -58,6 +58,8 @@ public class MainActivity extends Activity {
     private TextView homeBtnGate, homeBtnMode, homeBtnSet;
     /** 答题积累专属：进软件页面手动答题攒时间，与锁屏遮罩同一套答题界面。 */
     private TextView homeBtnEarn;
+    /** 加时间按钮独占一行：隐藏时整行 GONE，不挤占三颗核心按钮的位置。 */
+    private View homeEarnRow;
     private TextView homeModeLabel;
     /** 首页状态读数左侧的色条：待机灰、计时黄、锁定红。 */
     private View homeBar;
@@ -90,7 +92,6 @@ public class MainActivity extends Activity {
     /** 开始计时前的授权检查面板。null = 没打开。 */
     private AuthView authPanel;
     private boolean showingSettings = false;
-    private boolean settingsUnlocked = false;
     private long lastRestoreAt = 0L;
     /** 卸载留痕判定；warning 只要卸过就一直显示，不是一次性提示。 */
     private Anchor.Report anchorReport;
@@ -181,7 +182,7 @@ public class MainActivity extends Activity {
         valueStepAdd = addRow("之后每次题数", this::openStepAddPanel);
         valuePer = addRow("每题攒分钟", this::openPerAnswerPanel);
         valueMinBank = addRow("最低观看时长", this::openMinBankPanel);
-        valueWindow = addRow("每日答题时段", this::openWindowPanel);
+        valueWindow = addRow("看电视时间", this::openWindowPanel);
         valueWatchLimit = addRow("连续观看上限", this::openWatchLimitPanel);
         valueRest = addRow("强制休息", this::openRestPanel);
         valueReset = addRow("每日重置", this::openResetPanel);
@@ -196,7 +197,7 @@ public class MainActivity extends Activity {
         valueGuard = addRow("守护状态", this::showGuardPanel);
         valueVersion = addRow("当前版本", () -> toast(versionText()));
 
-        // 顶部返回按钮删掉后，进设置页的默认焦点落在「每日答题时段」上
+        // 顶部返回按钮删掉后，进设置页的默认焦点落在「看电视时间」上
         firstRow = (View) valueWindow.getParent();
 
         // 授权自检后面原本是一大段日志文字，直接铺在设置页上又长又像报错。
@@ -275,7 +276,7 @@ public class MainActivity extends Activity {
         content.addView(modeSectionLabel, mlp);
 
         modeOffNote = Ui.label(this,
-                "答题关：不再出题，也不扣观看时长；每日答题时段与强制休息照旧生效。\n"
+                "答题关：不再出题，也不扣观看时长；看电视时间与强制休息照旧生效。\n"
                         + "首页大字改为显示「距强制休息」的倒计时。",
                 19, Ui.TEXT);
         modeOffNote.setBackgroundResource(R.drawable.opt_bg);
@@ -345,7 +346,7 @@ public class MainActivity extends Activity {
                 return "每题攒 " + prefs.perAnswerMin() + " 分钟 · 满 "
                         + prefs.minBankMin() + " 分钟可看";
             case GateRules.MODE_OFF:
-                return "不答题 · 只保留时段与强制休息";
+                return "不答题 · 只保留看电视时间与强制休息";
             default:
                 return "锁屏答 1 题 · 答对 +" + prefs.extendMin() + " 分钟";
         }
@@ -466,50 +467,48 @@ public class MainActivity extends Activity {
         View spacer = new View(this);
         home.addView(spacer, new LinearLayout.LayoutParams(-1, 0, 1f));
 
-        // 两行按钮：
-        //   行1：启动/停止软件 · 答题加时间（只在答题积累且运行中时出现）
-        //   行2：答题方式 · 短名 · 设置
+        // 按钮分两层：
+        //   上排：答题加时间（只有答题积累模式才有，没有就整行不显示）
+        //   下排：三颗等宽核心按钮 —— 启动/停止软件 · 答题方式 · 设置
         // 「答题开/停」不单独占按钮：开/停语义收在「答题方式」里的「答题关」。
-        LinearLayout row1 = Ui.row(this);
-        row1.setGravity(Gravity.CENTER);
-        homeBtnGate = Ui.homeKey(this, "启动软件", true);
-        homeBtnGate.setMinWidth(Ui.dp(this, 320));
-        homeBtnGate.setMinHeight(Ui.dp(this, 58));
-        homeBtnGate.setOnClickListener(v -> toggleGate());
-        row1.addView(homeBtnGate);
-
+        LinearLayout earnRow = Ui.row(this);
+        earnRow.setGravity(Gravity.CENTER);
         homeBtnEarn = Ui.homeKey(this, "答题加时间", false);
-        homeBtnEarn.setMinWidth(Ui.dp(this, 300));
+        homeBtnEarn.setMinWidth(Ui.dp(this, 260));
         homeBtnEarn.setMinHeight(Ui.dp(this, 58));
         homeBtnEarn.setOnClickListener(v -> openEarnQuiz());
-        homeBtnEarn.setVisibility(View.GONE);
-        LinearLayout.LayoutParams belp = new LinearLayout.LayoutParams(-2, -2);
-        belp.leftMargin = Ui.dp(this, 18);
-        row1.addView(homeBtnEarn, belp);
+        earnRow.addView(homeBtnEarn, new LinearLayout.LayoutParams(
+                Ui.dp(this, 260), Ui.dp(this, 58)));
+        earnRow.setVisibility(View.GONE);
+        homeEarnRow = earnRow;
+        LinearLayout.LayoutParams erlp = new LinearLayout.LayoutParams(-1, -2);
+        erlp.topMargin = Ui.dp(this, 12);
+        home.addView(earnRow, erlp);
 
-        LinearLayout.LayoutParams r1lp = new LinearLayout.LayoutParams(-1, -2);
-        r1lp.topMargin = Ui.dp(this, 16);
-        home.addView(row1, r1lp);
+        LinearLayout coreRow = Ui.row(this);
+        coreRow.setGravity(Gravity.CENTER);
+        int coreW = Ui.dp(this, 250);
+        int coreH = Ui.dp(this, 68);
 
-        LinearLayout row2 = Ui.row(this);
-        row2.setGravity(Gravity.CENTER);
+        homeBtnGate = Ui.homeKey(this, "启动软件", true);
+        homeBtnGate.setOnClickListener(v -> toggleGate());
+        coreRow.addView(homeBtnGate, new LinearLayout.LayoutParams(coreW, coreH));
+
         homeBtnMode = Ui.homeKey(this, "答题方式", false);
-        homeBtnMode.setMinWidth(Ui.dp(this, 320));
-        homeBtnMode.setMinHeight(Ui.dp(this, 58));
         homeBtnMode.setOnClickListener(v -> showModeConfig());
-        row2.addView(homeBtnMode);
+        LinearLayout.LayoutParams modeBtnLp = new LinearLayout.LayoutParams(coreW, coreH);
+        modeBtnLp.leftMargin = Ui.dp(this, 14);
+        coreRow.addView(homeBtnMode, modeBtnLp);
 
         homeBtnSet = Ui.homeKey(this, "设置", false);
-        homeBtnSet.setMinWidth(Ui.dp(this, 160));
-        homeBtnSet.setMinHeight(Ui.dp(this, 58));
         homeBtnSet.setOnClickListener(v -> showSettings());
-        LinearLayout.LayoutParams slp = new LinearLayout.LayoutParams(-2, -2);
-        slp.leftMargin = Ui.dp(this, 18);
-        row2.addView(homeBtnSet, slp);
+        LinearLayout.LayoutParams slp = new LinearLayout.LayoutParams(coreW, coreH);
+        slp.leftMargin = Ui.dp(this, 14);
+        coreRow.addView(homeBtnSet, slp);
 
-        LinearLayout.LayoutParams r2lp = new LinearLayout.LayoutParams(-1, -2);
-        r2lp.topMargin = Ui.dp(this, 12);
-        home.addView(row2, r2lp);
+        LinearLayout.LayoutParams rlp = new LinearLayout.LayoutParams(-1, -2);
+        rlp.topMargin = Ui.dp(this, 16);
+        home.addView(coreRow, rlp);
 
         TextView hint = Ui.label(this, "方向键选择 · OK 确认 · 在本页面不计时，回电视继续",
                 16, Ui.DIM);
@@ -532,7 +531,7 @@ public class MainActivity extends Activity {
         maybeInitFocus();
     }
 
-    /** 设置页：软件已启动时受口令保护，未启动免密（见 gate()）；本次会话解锁过就不再反复问。 */
+    /** 设置页：软件已启动时受口令保护，未启动免密（见 gate()）；本次留在软件里验过就不再问。 */
     private void showSettings() {
         showingSettings = true;
         showingModeConfig = false;
@@ -543,7 +542,7 @@ public class MainActivity extends Activity {
         applyRows(false);
         focusInited = false;
         refresh();
-        boolean opened = settingsUnlocked || gate();
+        boolean opened = gate();
         blockFocusBelow();
         if (opened) maybeInitFocus();
     }
@@ -612,7 +611,7 @@ public class MainActivity extends Activity {
         applyRows(true);
         focusInited = false;
         refresh();
-        boolean opened = settingsUnlocked || gate();
+        boolean opened = gate();
         blockFocusBelow();
         if (opened) maybeInitFocus();
     }
@@ -1041,25 +1040,64 @@ public class MainActivity extends Activity {
         return String.format(java.util.Locale.US, "%02d:%02d", min / 60, min % 60);
     }
 
+    /**
+     * 距看电视时间开始的倒计时。&lt; 1 小时沿用 m:ss；含小时补上小时位，
+     * 否则「22:00 才可答题」在上午会显示成 600:00，家长读不出是十分钟还是十小时。
+     */
+    private static String waitText(long ms) {
+        if (ms < 3_600_000L) return Core.fmt(ms);
+        long s = (ms + 999) / 1000;
+        return String.format(java.util.Locale.US, "%d:%02d:%02d",
+                s / 3600, (s % 3600) / 60, s % 60);
+    }
+
+    /**
+     * 设置行里的时间窗文本。开始=结束在规则里等同整天，但显示成「18:00 – 18:00」
+     * 家长只会以为设坏了（实际电视整天都不锁），所以这里把语义标出来。
+     * 正常路径已经不可能设出这种值（结束面板会拒绝），只有 1.6.1-dev 之前的旧数据会带。
+     */
+    private static String windowText(int start, int end) {
+        String t = clockText(start) + " – " + clockText(end);
+        return start == end ? t + "（等同全天）" : t;
+    }
+
+    /** 预设值仍是分钟数，但显示成钟点；「自定义」走 OptionPanel 的 X 点 X 分输入。 */
     private void openWindowPanel() {
         int[] vals = {0, 360, 720, 1080, 1320};
         String[] labels = new String[vals.length];
         for (int i = 0; i < vals.length; i++) labels[i] = clockText(vals[i]);
-        mountOption(new OptionPanel(this, "答题时段 · 开始", labels, vals, prefs.windowStart(),
-                "分钟", 0, 1439, this::openWindowEndPanel, this::hideOptionPanel));
+        mountOption(new OptionPanel(this, "看电视时间 · 开始",
+                "只有这段时间可以看电视，其它时间会全屏锁住\n"
+                        + "当前 " + windowText(prefs.windowStart(), prefs.windowEnd()),
+                labels, vals, prefs.windowStart(),
+                "点分", 0, 1439, true, false,
+                this::openWindowEndPanel, this::hideOptionPanel));
     }
 
     private void openWindowEndPanel(int start) {
         int[] vals = {0, 360, 720, 1080, 1320, 1440};
         String[] labels = new String[vals.length];
         for (int i = 0; i < vals.length; i++) labels[i] = clockText(vals[i]);
-        mountOption(new OptionPanel(this, "答题时段 · 结束（早于开始=跨午夜）",
-                labels, vals, prefs.windowEnd(), "分钟", 0, 1440,
+        mountOption(new OptionPanel(this, "看电视时间 · 结束（早于开始=跨午夜）",
+                "开始 " + clockText(start) + " · 结束要晚于开始，最晚可设 24:00",
+                labels, vals, prefs.windowEnd(), "点分", 0, 1440, true, true,
                 end -> {
+                    if (end == start) {
+                        // 开始=结束在 GateRules 里等于「全天」，家长以为设了个空窗口，
+                        // 实际电视整天不锁；保存了还会在设置页留下「18:00 – 18:00」的怪值。
+                        toast("结束不能等于开始；要全天请设 00:00 – 24:00");
+                        return;
+                    }
                     prefs.setWindow(start, end);
+                    // 看电视时间是天花板：刚设完就撤销「输口令后 5 分钟豁免」，
+                    // 否则家长在软件里改完时间回电视，旧豁免还能把新时间挡住 5 分钟，
+                    // 表现就是「设了 9:50 开始，9:40 还能看电视」。
+                    // 锁屏遮罩上输口令的临时豁免能力保留，不受这里影响。
+                    prefs.setParentUnlocked(false);
+                    App.parentUnlocked = false;
                     hideOptionPanel();
                     refresh();
-                    toast("答题时段：" + clockText(start) + " – " + clockText(end));
+                    toast("看电视时间：" + clockText(start) + " – " + clockText(end));
                 }, this::openWindowPanel));
     }
 
@@ -1205,7 +1243,8 @@ public class MainActivity extends Activity {
      *
      * <p>启动：免密（家长主动要开，没有需要防的人），但必须先有口令、授权齐全。
      * <p>停止：<b>要口令</b>——这是唯一的「彻底关掉」出口，孩子拿到遥控器就能停掉的话，
-     * 整套限制等于没有。刚输过口令 1 分钟内不重复问（家长刚在设置里输完就点停止是常态）。
+     * 整套限制等于没有。本次停留在软件界面里已经验过口令则不重复问；离开软件页面再回来
+     * 就要重新验（见 {@link App#uiUnlocked}）。
      */
     private void toggleGate() {
         if (!prefs.hasPin()) {
@@ -1214,12 +1253,12 @@ public class MainActivity extends Activity {
             return;
         }
         if (prefs.gateOn()) {
-            if (prefs.authFresh()) {
+            if (App.uiUnlocked) {
                 doDisableGate();
                 return;
             }
             promptPinConfirm("停止软件",
-                    "停止后不再锁屏、不再出题，每日时段与强制休息也一并失效，直到重新启动。",
+                    "停止后不再锁屏、不再出题，看电视时间与强制休息也一并失效，直到重新启动。",
                     this::doDisableGate);
             return;
         }
@@ -1233,6 +1272,7 @@ public class MainActivity extends Activity {
     }
 
     private void doDisableGate() {
+        App.uiUnlocked = false;
         startService(new Intent(this, GateService.class).setAction(GateService.ACTION_DISABLE));
         toast("软件已停止，不再锁屏");
         refresh();
@@ -1241,15 +1281,16 @@ public class MainActivity extends Activity {
     /**
      * 「答题加时间」按钮只在「答题积累 + 已启动 + 答题开」时出现：
      * 其他方式答对就直接续时，不存在余额这东西，摆一颗按钮只会让家长误解。
-     * 休息中/时段外也收起来——那两段是天花板，不允许靠答题绕过。
+     * 休息中/看电视时间外也收起来——那两段是天花板，不允许靠答题绕过。
      */
     private void refreshEarnButton() {
-        if (homeBtnEarn == null) return;
+        if (homeEarnRow == null) return;
         int p = prefs.phase();
         boolean show = prefs.gateOn() && prefs.quizOn()
                 && prefs.mode() == GateRules.MODE_BANK
                 && p != Prefs.REST && p != Prefs.OUT && p != Prefs.IDLE;
-        homeBtnEarn.setVisibility(show ? View.VISIBLE : View.GONE);
+        // 整行 GONE：不是把按钮藏起来留一条空白，避免三颗核心按钮被顶偏。
+        homeEarnRow.setVisibility(show ? View.VISIBLE : View.GONE);
     }
 
     /** 打开有偿答题遮罩：答对一题加固定分钟，返回键结束。 */
@@ -1268,7 +1309,7 @@ public class MainActivity extends Activity {
             return;
         }
         if (p == Prefs.OUT) {
-            toast("当前不在答题时段，先看时段设置");
+            toast("当前不在看电视时间，先去设置里改「看电视时间」");
             return;
         }
         startService(new Intent(this, GateService.class).setAction(GateService.ACTION_EARN_QUIZ));
@@ -1308,7 +1349,7 @@ public class MainActivity extends Activity {
         // 新一局开始 = 重新上锁：下次锁屏/进设置还要口令，别让这次解锁一直生效
         App.parentUnlocked = false;
         prefs.setParentUnlocked(false);
-        settingsUnlocked = false;
+        App.uiUnlocked = false;
         Intent i = new Intent(this, GateService.class).setAction(GateService.ACTION_START);
         startForegroundService(i);
         toast("已开始：" + prefs.durationMin() + " 分钟后出题");
@@ -1596,19 +1637,21 @@ public class MainActivity extends Activity {
     // ---------- 口令门禁 ----------
 
     /**
-     * 口令门禁。返回 true 表示已放行（免密或本会话已解锁），false 表示已弹面板等口令。
+     * 首页三颗按钮共用的口令门禁：停止软件 / 答题方式 / 设置。
+     * 返回 true 表示放行（免密或本次留在软件里已验过），false 表示已弹面板等口令。
      *
-     * <p>1.6.0：软件没启动时不管设置还是答题方式都不问口令——此时根本没有限制在生效，
-     * 反复要口令只会让第一次上手的人卡住。一旦启动，两条入口都要口令。
-     * <p>免密分支<b>不</b>把 settingsUnlocked 置 true：否则家长先免密进设置、再回首页点
-     * 启动软件，同一个 Activity 里设置就永久敞开了。
+     * <p>软件没启动时不问口令——此时没有限制在生效。一旦启动，三颗按钮都要验。
+     * 验过一次后只要人还在软件页面里（含子页来回切换）就不再问；Activity onPause
+     * 即离开软件页面，标记清零，再回来点按钮必须重新验。
+     * <p>免密分支<b>不</b>置 {@link App#uiUnlocked}：否则家长先免密进设置、再回首页点
+     * 启动软件，三颗按钮就永久敞开了。
+     * <p>锁屏遮罩上输对口令应急放行（{@link App#parentUnlocked}）走的是另一条规则，
+     * 那是有 5 分钟时限的「看电视豁免」，不能当成这里的在页内解锁。
      */
     private boolean gate() {
         if (!prefs.hasPin()) { promptSetPin(); return false; }
         if (!prefs.gateOn()) return true;
-        // 1.3.0：解锁过一次（比如在锁屏遮罩上输过口令）后，到开始计时为止进设置不再要口令。
-        // 落盘的标记优先，进程被系统回收后重进应用仍然免密；开始计时会重新上锁，见 doStart()。
-        if (App.parentUnlocked || prefs.parentUnlocked()) { settingsUnlocked = true; return true; }
+        if (App.uiUnlocked) return true;
         showUnlockPin();
         return false;
     }
@@ -1631,7 +1674,7 @@ public class MainActivity extends Activity {
     private void showUnlockPin() {
         pinMode = PIN_UNLOCK;
         gateRequired = true;
-        showPinOverlay("家长口令", "输入 6 位数字进入设置");
+        showPinOverlay("家长口令", "输对后本次留在软件里不再重复输入");
     }
 
     private void showPinOverlay(String title, String sub) {
@@ -1645,10 +1688,9 @@ public class MainActivity extends Activity {
                     } else if (firstPin.equals(s)) {
                         if (prefs.setPin(s)) {
                             pinMode = PIN_UNLOCK;
-                            settingsUnlocked = true;
-                            prefs.markAuth();
-                            App.parentUnlocked = true;
-                            prefs.setParentUnlocked(true);
+                            // 只解「在页内操作」这一层，不碰 parentUnlocked：
+                            // 那个是锁屏遮罩上的 5 分钟看电视豁免，跟设口令无关。
+                            App.uiUnlocked = true;
                             hidePinOverlay();
                             toast("口令已设置");
                             // 设完口令立刻出码：这是全流程里最容易「码丢了都不知道」的一刻
@@ -1676,16 +1718,15 @@ public class MainActivity extends Activity {
                 boolean confirm = (pinMode == PIN_CONFIRM);
                 Runnable act = pinConfirm;
                 pinConfirm = null;
-                // 1 分钟内「停止软件」不再重复要口令（家长刚输完就点停止是常态）
-                prefs.markAuth();
                 hidePinOverlay();
                 if (confirm) {
-                    // 结束会话：口令通过才执行，别把「谁能按到遥控器谁就能停」留在首页
+                    // 停止软件：口令通过才执行，别把「谁能按到遥控器谁就能停」留在首页
                     if (act != null) act.run();
                 } else {
-                    settingsUnlocked = true;
-                    App.parentUnlocked = true;
-                    prefs.setParentUnlocked(true);
+                    // 三颗按钮共用这一份解锁态，离开软件页面（onPause）即失效。
+                    // 刻意不置 parentUnlocked：进设置输口令 ≠ 获得「看电视时间外」的 5 分钟豁免，
+                    // 否则家长刚把看电视时间设成 9:50 开始，9:40 回电视还能再看 5 分钟。
+                    App.uiUnlocked = true;
                 }
             }
             @Override public void onPinCancel() {
@@ -1772,10 +1813,8 @@ public class MainActivity extends Activity {
         valueExtend.setText("+ " + prefs.extendMin() + " 分钟");
         if (homeModeLabel != null) homeModeLabel.setText("答题方式：" + modeText());
         if (homeBtnGate != null) homeBtnGate.setText(prefs.gateOn() ? "停止软件" : "启动软件");
-        if (homeBtnMode != null) {
-            homeBtnMode.setText("答题方式 · " + GateRules.shortName(
-                    prefs.quizOn() ? prefs.mode() : GateRules.MODE_OFF));
-        }
+        // 三颗核心按钮等宽，按钮上只写功能名；当前方式在状态卡里单独一行显示
+        if (homeBtnMode != null) homeBtnMode.setText("答题方式");
         refreshEarnButton();
         refreshModePicker();
         valueFixedNeed.setText(prefs.fixedNeed() + " 题");
@@ -1783,7 +1822,7 @@ public class MainActivity extends Activity {
         valueStepAdd.setText("+ " + prefs.stepAdd() + " 题");
         valuePer.setText(prefs.perAnswerMin() + " 分钟/题");
         valueMinBank.setText(prefs.minBankMin() + " 分钟");
-        valueWindow.setText(clockText(prefs.windowStart()) + " – " + clockText(prefs.windowEnd()));
+        valueWindow.setText(windowText(prefs.windowStart(), prefs.windowEnd()));
         valueWatchLimit.setText(prefs.watchLimitMin() + " 分钟");
         valueRest.setText(prefs.restMin() + " 分钟");
         valueReset.setText(prefs.fixedResetMoment()
@@ -1942,6 +1981,9 @@ public class MainActivity extends Activity {
 
     private void tickUi() {
         int p = prefs.phase();
+        // 总开关由服务异步置位，onClick 里那次 refresh 可能读到旧的 gateOn；
+        // 加时间按钮按秒重判，启动/切模式/锁定状态变了都能立刻出现或收起。
+        refreshEarnButton();
         boolean alive = App.gateAlive;
         String phase, big;
         if (!prefs.gateOn()) {
@@ -1969,19 +2011,24 @@ public class MainActivity extends Activity {
             phase = "强制休息中";
             big = Core.fmt(prefs.restLeftMs());
         } else if (p == Prefs.OUT) {
-            phase = "不在答题时段";
-            big = "--:--";
+            // 看电视时间之外：大字显示「还有多久到看电视时间」，
+            // 不再拿冻结的初始余额冒充剩余时间（那种数字永远不动，家长以为坏了）。
+            phase = "不在看电视时间 · " + clockText(prefs.windowStart()) + " 开始";
+            big = waitText(GateRules.secondsUntilWindow(prefs.secondOfDay(),
+                    prefs.windowStart(), prefs.windowEnd()) * 1000L);
+        } else if (!prefs.quizOn()) {
+            // 答题关：不出题、也不扣观看时长，大字改成「距强制休息」的倒计时。
+            // 必须排在下面「在软件里计时暂停」之前：那个分支会显示 remaining，
+            // 而答题关根本不消耗 remaining，家长看到的永远是最初设的 30:00，
+            // 会以为计时坏了（用户报的「一直都是初始时间没变」）。
+            long left = prefs.watchLimitMin() * 60_000L - prefs.watchMs();
+            phase = "答题关 · 距强制休息";
+            big = Core.fmt(Math.max(0L, left));
         } else if (App.uiVisible && p == Prefs.RUNNING) {
             // 在软件自己的页面里不扣时（服务端同步跳过累加），数字不动要说明原因，
             // 否则家长会以为计时坏了。切回电视这一行立刻变回「计时中」。
             phase = "计时暂停 · 正在使用本软件";
             big = Core.fmt(prefs.remainingMs());
-        } else if (!prefs.quizOn()) {
-            // 答题关：不出题、也不扣观看时长，大字改成「距强制休息」的倒计时，
-            // 否则家长看到的是一个永远不动的数字，会以为计时坏了。
-            long left = prefs.watchLimitMin() * 60_000L - prefs.watchMs();
-            phase = "答题关 · 距强制休息";
-            big = Core.fmt(Math.max(0L, left));
         } else {
             phase = "计时中";
             big = Core.fmt(prefs.remainingMs());
@@ -2179,9 +2226,7 @@ public class MainActivity extends Activity {
                     startService(new Intent(this, GateService.class).setAction(GateService.ACTION_EXIT));
                     prefs.resetSession();
                 }
-                settingsUnlocked = true;
-                App.parentUnlocked = true;
-                prefs.setParentUnlocked(true);
+                App.uiUnlocked = true;
                 hidePinOverlay();
                 toast("口令已重设，恢复码已换新，请重新拍照");
             }
@@ -2307,6 +2352,8 @@ public class MainActivity extends Activity {
         // 离开软件（回电视/桌面）＝开始计时。埋在 onPause 里发，服务收到就立刻按 phase 上窗，
         // 孩子按 HOME 切走也拦不住这一下。
         App.uiVisible = false;
+        // 离开软件页面 = 本次家长授权作废；再次进软件点三颗按钮要重新输口令
+        App.uiUnlocked = false;
         notifyUiVisible(false);
     }
 
